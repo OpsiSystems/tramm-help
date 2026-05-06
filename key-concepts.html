@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Concepts — How Tramm Works — Tramm Help</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-700: #b45309;
+      --purple-50: #faf5ff;
+      --purple-100: #f3e8ff;
+      --purple-700: #7e22ce;
+      --teal-50:  #f0fdfa;
+      --teal-100: #ccfbf1;
+      --teal-700: #0f766e;
+      --rose-50:  #fff1f2;
+      --rose-100: #ffe4e6;
+      --rose-700: #be123c;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--slate-100);
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 1.75rem;
+    }
+    .breadcrumb {
+      font-size: 0.78rem;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
+
+    /* ── SECTION NAV ── */
+    .section-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 2px solid var(--slate-200);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      padding: 0 2rem;
+    }
+    .section-nav a {
+      display: block;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .section-nav a:hover {
+      color: var(--blue-600);
+      border-bottom-color: var(--blue-200);
+    }
+
+    /* ── MAIN ── */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    /* ── SECTION HEADINGS ── */
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.5rem;
+      padding-top: 0.5rem;
+    }
+    .section-lead {
+      font-size: 0.95rem;
+      color: var(--slate-500);
+      max-width: 70ch;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── HIERARCHY DIAGRAM ── */
+    .hierarchy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      padding: 2rem 1rem;
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.75rem;
+    }
+    .hierarchy-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .hierarchy-box {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      text-align: center;
+    }
+    .hierarchy-box .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.65;
+      margin-bottom: 0.2rem;
+    }
+    .hierarchy-box .name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 0.2rem;
+    }
+    .hierarchy-box .desc {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+    .hierarchy-arrow {
+      font-size: 1.3rem;
+      color: var(--slate-300);
+      margin: 0.35rem 0;
+      line-height: 1;
+    }
+
+    .box-order    { background: var(--blue-50);   color: var(--blue-900);   border: 1px solid var(--blue-200);   }
+    .box-job      { background: var(--purple-50);  color: var(--purple-700); border: 1px solid var(--purple-100); }
+    .box-trip     { background: var(--teal-50);    color: var(--teal-700);   border: 1px solid var(--teal-100);   }
+    .box-stop     { background: var(--green-50);   color: var(--green-700);  border: 1px solid var(--green-100);  }
+    .box-activity { background: var(--amber-50);   color: var(--amber-700);  border: 1px solid var(--amber-100);  }
+
+    /* ── THREE PRODUCTS ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .product-card {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-top: 4px solid var(--blue-700);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .product-card.mob { border-top-color: var(--teal-700); }
+    .product-card.fv  { border-top-color: var(--amber-700); }
+    .product-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--slate-900);
+    }
+    .product-who {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+    }
+    .product-desc {
+      font-size: 0.87rem;
+      color: var(--slate-600);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .product-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-top: 0.25rem;
+    }
+    .product-card li {
+      font-size: 0.82rem;
+      color: var(--slate-600);
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.45;
+    }
+    .product-card li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+      color: var(--blue-500);
+    }
+    .product-card.mob li::before { color: var(--teal-700); }
+    .product-card.fv  li::before { color: var(--amber-700); }
+
+    .product-flow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.1rem 1.5rem;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+    .pf-step {
+      flex: 1;
+      min-width: 140px;
+      font-size: 0.83rem;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+    .pf-step strong {
+      display: block;
+      color: var(--slate-900);
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+      font-size: 0.85rem;
+    }
+    .pf-arrow {
+      color: var(--slate-300);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* ── CONCEPT CARDS ── */
+    .concept-card {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+    .concept-card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--slate-100);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .concept-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.7rem;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+    .badge-order    { background: var(--blue-100);   color: var(--blue-700);   }
+    .badge-job      { background: var(--purple-100); color: var(--purple-700); }
+    .badge-trip     { background: var(--teal-100);   color: var(--teal-700);   }
+    .badge-stop     { background: var(--green-100);  color: var(--green-700);  }
+    .badge-activity { background: var(--amber-100);  color: var(--amber-700);  }
+    .badge-lineitem { background: var(--rose-100);   color: var(--rose-700);   }
+    .badge-mobile   { background: var(--teal-100);   color: var(--teal-700);   }
+    .badge-fv       { background: var(--amber-100);  color: var(--amber-700);  }
+
+    .concept-card-header h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--slate-900);
+    }
+    .concept-card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .concept-card-body p {
+      font-size: 0.92rem;
+      color: var(--slate-700);
+      line-height: 1.65;
+    }
+
+    /* ── KEY POINTS ── */
+    .key-points {
+      background: var(--slate-50);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+    }
+    .key-points h3 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      margin-bottom: 0.6rem;
+    }
+    .key-points ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .key-points li {
+      font-size: 0.88rem;
+      color: var(--slate-600);
+      padding-left: 1.2rem;
+      position: relative;
+      line-height: 1.5;
+    }
+    .key-points li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      color: var(--blue-500);
+      font-weight: 700;
+    }
+
+    /* ── STATES ── */
+    .states {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    .states-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-right: 0.25rem;
+    }
+    .state-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      background: var(--slate-100);
+      color: var(--slate-600);
+    }
+    .state-arrow {
+      color: var(--slate-300);
+      font-size: 0.8rem;
+    }
+
+    /* ── ACTIVITY TYPE GRID ── */
+    .activity-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 0.65rem;
+    }
+    .at-card {
+      border-radius: 0.4rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--slate-200);
+    }
+    .at-card.at-depot { background: var(--blue-50);  border-color: var(--blue-200);  }
+    .at-card.at-site  { background: var(--teal-50);  border-color: var(--teal-100);  }
+    .at-card.at-other { background: var(--slate-50); border-color: var(--slate-200); }
+    .at-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.25rem;
+    }
+    .at-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 0.25rem;
+      margin-bottom: 0.4rem;
+    }
+    .tag-depot  { background: var(--blue-100);  color: var(--blue-700);  }
+    .tag-site   { background: var(--teal-100);  color: var(--teal-700);  }
+    .tag-other  { background: var(--slate-200); color: var(--slate-600); }
+    .at-desc {
+      font-size: 0.8rem;
+      color: var(--slate-500);
+      line-height: 1.45;
+    }
+
+    /* ── ACTUALS TABLE ── */
+    .actuals-table-wrap {
+      background: #fff;
+      border: 1px solid var(--teal-100);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    .actuals-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .actuals-table th {
+      background: var(--teal-50);
+      color: var(--teal-700);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.6rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--teal-100);
+    }
+    .actuals-table td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--slate-100);
+      vertical-align: top;
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+    .actuals-table tr:last-child td { border-bottom: none; }
+    .actuals-table td:first-child {
+      font-weight: 700;
+      color: var(--slate-900);
+      white-space: nowrap;
+    }
+
+    /* ── WORKFLOW TAGS ── */
+    .workflow-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .wf-tag {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--teal-700);
+      background: var(--teal-50);
+      border: 1px solid var(--teal-100);
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+    }
+
+    /* ── STOP TYPES ── */
+    .stop-type-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .stype-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 0.85rem 1rem;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+    }
+    .stype-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.55rem;
+      border-radius: 0.25rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .stype-depot { background: var(--blue-100);  color: var(--blue-700);  }
+    .stype-adhoc { background: var(--amber-100); color: var(--amber-700); }
+    .stype-desc {
+      font-size: 0.87rem;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+    .stype-desc strong { color: var(--slate-900); }
+
+    /* ── ALERT LIST ── */
+    .alert-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .alert-row {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      padding: 0.85rem 1rem;
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+      border-radius: 0.5rem;
+    }
+    .alert-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--amber-700);
+      flex-shrink: 0;
+      margin-top: 0.45rem;
+    }
+    .alert-content {
+      flex: 1;
+    }
+    .alert-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.15rem;
+    }
+    .alert-desc {
+      font-size: 0.82rem;
+      color: var(--slate-600);
+      line-height: 1.45;
+    }
+
+    /* ── INFO CALLOUT ── */
+    .info-callout {
+      padding: 1.1rem 1.4rem;
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+      border-left: 4px solid var(--blue-500);
+      border-radius: 0.5rem;
+      font-size: 0.88rem;
+      color: var(--slate-600);
+      line-height: 1.65;
+    }
+    .info-callout strong { color: var(--slate-900); }
+
+    /* ── EXAMPLE BLOCK ── */
+    .example-block {
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+      border-left: 4px solid var(--amber-700);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+    }
+    .example-block h3 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--amber-700);
+      margin-bottom: 0.75rem;
+    }
+    .example-block p {
+      font-size: 0.9rem;
+      color: var(--slate-700);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .example-block p:last-child { margin-bottom: 0; }
+    .example-block strong { color: var(--slate-900); }
+    .example-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .example-step {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      font-size: 0.88rem;
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+    .step-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    /* ── TERMINOLOGY TABLE ── */
+    .term-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .term-table th {
+      background: var(--slate-50);
+      color: var(--slate-500);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.6rem 1rem;
+      text-align: left;
+      border-bottom: 2px solid var(--slate-200);
+    }
+    .term-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--slate-100);
+      vertical-align: top;
+      color: var(--slate-700);
+      line-height: 1.55;
+    }
+    .term-table tr:last-child td { border-bottom: none; }
+    .term-table td:first-child {
+      font-weight: 700;
+      color: var(--slate-900);
+      white-space: nowrap;
+    }
+    .term-table-wrap {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      .site-header h1 { font-size: 1.4rem; }
+      .content { padding: 1.5rem 1rem 3rem; }
+      .section-nav a { padding: 0.75rem 0.75rem; font-size: 0.8rem; }
+      .product-grid { grid-template-columns: 1fr; }
+      .activity-types { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="breadcrumb">
+      <a href="../index.html">Tramm Help</a>
+      <span>›</span>
+      <a href="index.html">How Tramm Works</a>
+      <span>›</span>
+      Key Concepts
+    </div>
+    <h1>Key Concepts</h1>
+    <p class="subtitle">Tramm is three products working as one system — from the moment an order is created to the moment it is delivered and confirmed. This page explains how everything fits together.</p>
+  </header>
+
+  <nav class="section-nav" aria-label="Page sections">
+    <a href="#overview">Overview</a>
+    <a href="#three-products">Three Products</a>
+    <a href="#orders">Orders</a>
+    <a href="#jobs">Jobs</a>
+    <a href="#trips">Trips</a>
+    <a href="#stops-activities">Stops &amp; Activities</a>
+    <a href="#line-items">Line Items</a>
+    <a href="#execution">On the Road</a>
+    <a href="#fleetvision">Fleetvision</a>
+    <a href="#example">Full Example</a>
+    <a href="#terminology">Terminology</a>
+  </nav>
+
+  <main class="content">
+
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <h2 class="section-title">The Big Picture</h2>
+      <p class="section-lead">Everything in Tramm flows through a clear data model. A client request becomes an Order. Orders are broken into Jobs. Jobs are grouped into Trips. Trips have Stops. Work happens at Stops through Activities. Understanding this hierarchy makes the rest of the system straightforward.</p>
+
+      <div class="hierarchy">
+        <div class="hierarchy-row">
+          <div class="hierarchy-box box-order">
+            <div class="label">Client request</div>
+            <div class="name">Order</div>
+            <div class="desc">What needs to be delivered, collected or done</div>
+          </div>
+        </div>
+        <div class="hierarchy-arrow">↓</div>
+        <div class="hierarchy-row">
+          <div class="hierarchy-box box-job">
+            <div class="label">Scheduling unit</div>
+            <div class="name">Job</div>
+            <div class="desc">Orders broken down for practical execution</div>
+          </div>
+        </div>
+        <div class="hierarchy-arrow">↓</div>
+        <div class="hierarchy-row">
+          <div class="hierarchy-box box-trip">
+            <div class="label">Vehicle route</div>
+            <div class="name">Trip</div>
+            <div class="desc">A sequence of site visits assigned to a vehicle</div>
+          </div>
+        </div>
+        <div class="hierarchy-arrow">↓</div>
+        <div class="hierarchy-row">
+          <div class="hierarchy-box box-stop">
+            <div class="label">Site visit</div>
+            <div class="name">Stop</div>
+            <div class="desc">A planned visit at a specific site</div>
+          </div>
+        </div>
+        <div class="hierarchy-arrow">↓</div>
+        <div class="hierarchy-row">
+          <div class="hierarchy-box box-activity">
+            <div class="label">Work done</div>
+            <div class="name">Activity</div>
+            <div class="desc">The fulfillment of a job at a stop</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THREE PRODUCTS -->
+    <section id="three-products">
+      <h2 class="section-title">Three Products, One System</h2>
+      <p class="section-lead">Most Tramm customers use all three products together. They share the same data — a trip planned in Tramm TMS automatically appears for the driver in Tramm Mobile and is visible in real time on Fleetvision.</p>
+
+      <div class="product-grid">
+
+        <div class="product-card">
+          <div class="product-who">Core Platform</div>
+          <div class="product-name">Tramm TMS</div>
+          <p class="product-desc">Where logistics work is planned and managed. Used by planners, data managers, and operations managers.</p>
+          <ul>
+            <li>Capture and manage client orders</li>
+            <li>Build and optimise trips</li>
+            <li>Allocate vehicles and operators</li>
+            <li>Configure routes, sites, and vehicles</li>
+          </ul>
+        </div>
+
+        <div class="product-card mob">
+          <div class="product-who">Driver App</div>
+          <div class="product-name">Tramm Mobile</div>
+          <p class="product-desc">The Android and iOS app used by drivers to execute their trips. Works offline and syncs when connectivity returns.</p>
+          <ul>
+            <li>Receive and navigate assigned trips</li>
+            <li>Complete delivery and collection workflows</li>
+            <li>Capture signatures, photos, and barcodes</li>
+            <li>Record actuals and generate ePODs</li>
+          </ul>
+        </div>
+
+        <div class="product-card fv">
+          <div class="product-who">Operations Platform</div>
+          <div class="product-name">Fleetvision</div>
+          <p class="product-desc">Real-time fleet visibility for the operations team. Dispatchers and supervisors monitor live progress and respond to exceptions.</p>
+          <ul>
+            <li>Live vehicle positions and trip progress</li>
+            <li>Alerts for lateness, off-route, and overspeeding</li>
+            <li>ETA predictions and performance tracking</li>
+            <li>Driver communication and trip management</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="product-flow">
+        <div class="pf-step">
+          <strong>Tramm TMS</strong>
+          Trip is planned and allocated to a vehicle
+        </div>
+        <div class="pf-arrow">&#8594;</div>
+        <div class="pf-step">
+          <strong>Tramm Mobile</strong>
+          Driver receives the trip and executes each stop
+        </div>
+        <div class="pf-arrow">&#8594;</div>
+        <div class="pf-step">
+          <strong>Fleetvision</strong>
+          Operations team monitors live progress and performance
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDERS -->
+    <section id="orders">
+      <h2 class="section-title">Orders</h2>
+      <div class="concept-card">
+        <div class="concept-card-header">
+          <span class="concept-badge badge-order">Order</span>
+          <h2>What the client asked for</h2>
+        </div>
+        <div class="concept-card-body">
+          <p>An order is a client's request for a <strong>delivery</strong>, <strong>collection</strong>, or <strong>service</strong> at a specific site. It captures what needs to happen — not how it will be done. An order has no knowledge of vehicles, routes, or scheduling. That comes later when jobs are created.</p>
+
+          <div class="key-points">
+            <h3>Key points</h3>
+            <ul>
+              <li>Every order specifies a site (where), a time window (when), and the service type: <strong>delivery</strong> (goods to a site), <strong>collection</strong> (goods from a site), or <strong>service</strong> (work at a site with no goods movement).</li>
+              <li>For deliveries and collections, an <strong>auxiliary site</strong> is also specified — typically the depot where goods will be loaded onto or returned from the vehicle.</li>
+              <li>Orders can be entered manually in Order Manager, or imported automatically from an external system such as a warehouse management system or customer portal.</li>
+              <li>If an order is too large for a single vehicle, it is split into multiple jobs when the planner reviews it. A large order does not become multiple orders — it stays as one order with multiple jobs.</li>
+              <li>Orders are not sent to the scheduler directly — jobs are. An order drives the process; jobs do the work.</li>
+            </ul>
+          </div>
+
+          <div class="states">
+            <span class="states-label">States</span>
+            <span class="state-pill">New</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">Partially Planned</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">Planned</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">In Progress</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">Completed</span>
+          </div>
+          <p style="font-size:0.8rem; color: var(--slate-400); margin-top: -0.25rem;">Partially Planned means some, but not all, of the order's jobs are on a trip. An order can also be Cancelled at any point before execution.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOBS -->
+    <section id="jobs">
+      <h2 class="section-title">Jobs</h2>
+      <div class="concept-card">
+        <div class="concept-card-header">
+          <span class="concept-badge badge-job">Job</span>
+          <h2>Broken down for scheduling</h2>
+        </div>
+        <div class="concept-card-body">
+          <p>A job takes an order (or part of an order) and turns it into something that can be scheduled. When a planner reviews orders, they create jobs that account for practical constraints — particularly vehicle capacity. Jobs are what the scheduler works with.</p>
+
+          <div class="key-points">
+            <h3>Key points</h3>
+            <ul>
+              <li>One order can produce multiple jobs — for example, if the order requires two vehicles, each vehicle gets its own job. Each job fits within one vehicle's capacity.</li>
+              <li>A job can also combine parts of multiple orders if they share the same delivery site and time window — this consolidates smaller orders for efficiency.</li>
+              <li>A job does not have to be linked to an order — it can exist independently for ad hoc or operational requirements.</li>
+              <li>Jobs carry <strong>requirements</strong> — capacity (size, weight, volume) and any special vehicle or equipment needs. These are used to match the job to a suitable vehicle when the trip is built.</li>
+              <li>Jobs with physical goods have <strong>line items</strong> — the individual products and quantities being delivered or collected. See the <a href="#line-items" style="color: var(--blue-600);">Line Items</a> section below.</li>
+              <li>For crossdock operations, a job can involve an intermediate transfer of goods between two depots before final delivery.</li>
+            </ul>
+          </div>
+
+          <div class="states">
+            <span class="states-label">States</span>
+            <span class="state-pill">New</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">Planned</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">In Progress</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">Completed</span>
+          </div>
+          <p style="font-size:0.8rem; color: var(--slate-400); margin-top: -0.25rem;">A job moves to Planned when it is added to a trip. It can also be Cancelled.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRIPS -->
+    <section id="trips">
+      <h2 class="section-title">Trips</h2>
+      <div class="concept-card">
+        <div class="concept-card-header">
+          <span class="concept-badge badge-trip">Trip</span>
+          <h2>The vehicle's route for the day</h2>
+        </div>
+        <div class="concept-card-body">
+          <p>A trip is a sequence of planned site visits (stops) assigned to a vehicle. It is created when the scheduler groups jobs together and builds a route. A trip has a start site, a planned start time, and a list of stops in order.</p>
+
+          <div class="key-points">
+            <h3>Key points</h3>
+            <ul>
+              <li>Every trip begins with a <strong>home stop</strong> — the vehicle's starting location, typically its home depot. Most trips also end with a return to that same depot.</li>
+              <li>A trip can be allocated to a specific vehicle, a <strong>virtual vehicle</strong> (a placeholder when the exact vehicle is not yet confirmed), or left unallocated if imported from an external system.</li>
+              <li>The planned start time is calculated so the vehicle can reach all stops within their time windows — if any stop is time-constrained, the start time is adjusted accordingly.</li>
+              <li>A trip's combined load requirements — capacity, vehicle class, special equipment — must match the allocated vehicle. The scheduler validates this automatically.</li>
+              <li>Some operations use <strong>master routes</strong> — recurring trip templates that run on a set schedule (e.g., every Monday). A master route generates actual trips each time it runs.</li>
+              <li>Once a trip is underway, a driver can add <strong>unplanned (ad hoc) stops</strong> via Tramm Mobile — for example, if a new delivery is requested while already on the road.</li>
+            </ul>
+          </div>
+
+          <div class="states">
+            <span class="states-label">States</span>
+            <span class="state-pill">Created</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">Allocated</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">Pre-Trip</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">In Progress</span>
+            <span class="state-arrow">→</span>
+            <span class="state-pill">Completed</span>
+          </div>
+          <p style="font-size:0.8rem; color: var(--slate-400); margin-top: -0.25rem;">Pre-Trip is when the driver has started the Start of Day workflow at the depot but has not yet set off. A trip can also be Cancelled.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STOPS & ACTIVITIES -->
+    <section id="stops-activities">
+      <h2 class="section-title">Stops &amp; Activities</h2>
+      <p class="section-lead">Stops and activities are the execution layer of a trip — where the physical work happens.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+
+        <div class="concept-card">
+          <div class="concept-card-header">
+            <span class="concept-badge badge-stop">Stop</span>
+            <h2>A planned site visit</h2>
+          </div>
+          <div class="concept-card-body">
+            <p>A stop is a planned visit to a site as part of a trip. Each stop records the planned arrival time, any wait time if the vehicle arrives before the site opens, travel distance and duration from the previous stop, and the list of activities to be carried out there. A stop can contain multiple activities — for example, a delivery and a collection at the same site.</p>
+
+            <div class="key-points">
+              <h3>Key points</h3>
+              <ul>
+                <li>Stops have a <strong>time window</strong> — the period within which the vehicle must arrive. Arriving too early may mean waiting; arriving too late is a service failure.</li>
+                <li>Sites can also have <strong>operating hours</strong> — a recurring weekly schedule (e.g., Monday–Friday 07:00–17:00). The system will never schedule a stop outside a site's operating hours.</li>
+                <li>Stops can be added or removed from a trip by the planner. The system recalculates arrival times automatically after any change.</li>
+                <li>Adjacent stops at the same site can be merged into one stop with multiple activities.</li>
+              </ul>
+            </div>
+
+            <div class="states">
+              <span class="states-label">Driver states</span>
+              <span class="state-pill">Planned</span>
+              <span class="state-arrow">→</span>
+              <span class="state-pill">On the Way</span>
+              <span class="state-arrow">→</span>
+              <span class="state-pill">Arrived</span>
+              <span class="state-arrow">→</span>
+              <span class="state-pill">In Progress</span>
+              <span class="state-arrow">→</span>
+              <span class="state-pill">Completed</span>
+            </div>
+            <p style="font-size:0.8rem; color: var(--slate-400); margin-top: -0.25rem;">These states are driven by the driver's actions in Tramm Mobile. Each transition records an actual timestamp.</p>
+          </div>
+        </div>
+
+        <div class="concept-card">
+          <div class="concept-card-header">
+            <span class="concept-badge badge-activity">Activity</span>
+            <h2>The work done at a stop</h2>
+          </div>
+          <div class="concept-card-body">
+            <p>An activity is the fulfillment of a job at a stop. It is where the actual loading, offloading, or service takes place. Every delivery or collection job produces two activities — one at each end of the journey.</p>
+
+            <div class="key-points">
+              <h3>Activity pairing</h3>
+              <ul>
+                <li>A <strong>delivery job</strong> produces a <strong>Load</strong> activity at the depot (goods onto the vehicle) and a <strong>Delivery</strong> activity at the client site (goods off the vehicle).</li>
+                <li>A <strong>collection job</strong> produces a <strong>Collection</strong> activity at the client site (goods onto the vehicle) and an <strong>Offload</strong> activity at the depot (goods off the vehicle).</li>
+                <li>A <strong>service job</strong> produces one <strong>Service</strong> activity at the site — no goods movement.</li>
+                <li>A <strong>Break</strong> activity represents a scheduled driver rest stop. No goods are moved; it is time-allocated only.</li>
+              </ul>
+            </div>
+
+            <h3 style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400); margin-top: 0.25rem;">Activity types</h3>
+            <div class="activity-types">
+              <div class="at-card at-depot">
+                <div class="at-tag tag-depot">At depot</div>
+                <div class="at-name">Load</div>
+                <div class="at-desc">Goods are loaded onto the vehicle at the depot before the route begins.</div>
+              </div>
+              <div class="at-card at-site">
+                <div class="at-tag tag-site">At client site</div>
+                <div class="at-name">Delivery</div>
+                <div class="at-desc">Goods are offloaded from the vehicle at the delivery site.</div>
+              </div>
+              <div class="at-card at-site">
+                <div class="at-tag tag-site">At client site</div>
+                <div class="at-name">Collection</div>
+                <div class="at-desc">Goods are collected from the site and loaded onto the vehicle.</div>
+              </div>
+              <div class="at-card at-depot">
+                <div class="at-tag tag-depot">At depot</div>
+                <div class="at-name">Offload</div>
+                <div class="at-desc">Collected goods are offloaded from the vehicle at the depot.</div>
+              </div>
+              <div class="at-card at-other">
+                <div class="at-tag tag-other">At site</div>
+                <div class="at-name">Service</div>
+                <div class="at-desc">Work is performed at a site — no goods movement involved.</div>
+              </div>
+              <div class="at-card at-other">
+                <div class="at-tag tag-other">En route</div>
+                <div class="at-name">Break</div>
+                <div class="at-desc">A scheduled driver rest stop. Time-allocated; no loading or offloading.</div>
+              </div>
+            </div>
+
+            <div class="states">
+              <span class="states-label">States</span>
+              <span class="state-pill">Planned</span>
+              <span class="state-arrow">→</span>
+              <span class="state-pill">In Progress</span>
+              <span class="state-arrow">→</span>
+              <span class="state-pill">Completed</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LINE ITEMS -->
+    <section id="line-items">
+      <h2 class="section-title">Line Items</h2>
+      <div class="concept-card">
+        <div class="concept-card-header">
+          <span class="concept-badge badge-lineitem">Line Item</span>
+          <h2>The individual goods within a job</h2>
+        </div>
+        <div class="concept-card-body">
+          <p>Line items are the individual products within a delivery or collection job. Where a job says "deliver goods to Site X," the line items say exactly <em>what</em> those goods are and in what quantities. Line items enable item-level tracking from the moment goods are loaded onto the vehicle to the moment they are confirmed at the delivery site.</p>
+
+          <div class="key-points">
+            <h3>What a line item tracks</h3>
+            <ul>
+              <li><strong>Product</strong> — What the item is (e.g., "Long-Life Milk 2L").</li>
+              <li><strong>Ordered quantity</strong> — What the client requested.</li>
+              <li><strong>Loaded quantity</strong> — What was actually put on the vehicle, confirmed by the driver during Start of Day.</li>
+              <li><strong>Delivered quantity</strong> — What the driver actually handed over, recorded at the delivery stop.</li>
+              <li><strong>Returned quantity</strong> — Items that came back — refused deliveries, damaged goods, or short deliveries.</li>
+            </ul>
+          </div>
+
+          <div class="key-points">
+            <h3>Why line items matter</h3>
+            <ul>
+              <li>They provide <strong>item-level proof of delivery</strong> — not just "delivery done" but "exactly X units delivered of Y product."</li>
+              <li>Discrepancies between ordered, loaded, and delivered quantities are captured automatically and can trigger a claim or exception.</li>
+              <li>Barcodes can be configured on line items, allowing the driver to scan each item rather than enter quantities manually — which reduces errors.</li>
+              <li>Service jobs and break activities have no line items — line items only apply where physical goods are being moved.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXECUTION: ON THE ROAD -->
+    <section id="execution">
+      <h2 class="section-title">On the Road — Tramm Mobile</h2>
+      <p class="section-lead">Once a trip is allocated, it moves from the planning world into the execution world. The driver receives the trip on Tramm Mobile and follows it from the first stop to the last.</p>
+
+      <div class="concept-card">
+        <div class="concept-card-header">
+          <span class="concept-badge badge-mobile">Tramm Mobile</span>
+          <h2>What happens during execution</h2>
+        </div>
+        <div class="concept-card-body">
+
+          <p>Tramm Mobile guides the driver through each stop in sequence. At every stop, the driver marks their status (on the way, arrived, started, done), carries out the configured workflow steps, and records actual times and quantities. This data syncs back to the system in real time — or queues locally if there is no connectivity, and syncs as soon as a connection is restored.</p>
+
+          <h3 style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400);">Actuals — what the driver records at each stop</h3>
+          <div class="actuals-table-wrap">
+            <table class="actuals-table">
+              <thead>
+                <tr>
+                  <th>Actual</th>
+                  <th>What it records</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Travel Start Time</td>
+                  <td>When the driver marks "on my way" — the vehicle has left the previous stop and is heading to this one.</td>
+                </tr>
+                <tr>
+                  <td>Arrival Time</td>
+                  <td>When the driver marks they have arrived at the stop.</td>
+                </tr>
+                <tr>
+                  <td>Start Time</td>
+                  <td>When the driver starts work at the stop (begins the delivery or service activities).</td>
+                </tr>
+                <tr>
+                  <td>End Time</td>
+                  <td>When all activities at the stop are complete.</td>
+                </tr>
+                <tr>
+                  <td>Departure Time</td>
+                  <td>When the driver leaves the stop and sets off to the next one.</td>
+                </tr>
+                <tr>
+                  <td>Odometer</td>
+                  <td>The vehicle's odometer reading at the stop — recorded when configured per stop type.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:0.8rem; color: var(--slate-400);">These actuals are compared against planned times by Fleetvision to measure on-time performance.</p>
+
+          <h3 style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400);">Workflows and ePOD</h3>
+          <p>At each stop, the driver follows a <strong>configured workflow</strong> — a sequence of steps that must be completed before moving to the next stop. Workflows are defined per stop type and can include any combination of the following:</p>
+          <div class="workflow-tags">
+            <span class="wf-tag">Customer signature</span>
+            <span class="wf-tag">Photos</span>
+            <span class="wf-tag">Barcode scanning</span>
+            <span class="wf-tag">Quantity entry</span>
+            <span class="wf-tag">Text notes</span>
+            <span class="wf-tag">Checklist items</span>
+            <span class="wf-tag">Odometer reading</span>
+            <span class="wf-tag">NFC scan</span>
+            <span class="wf-tag">Driver's licence scan</span>
+          </div>
+          <p>The completed workflow becomes the <strong>electronic Proof of Delivery (ePOD)</strong> — a digital record that replaces the paper delivery note. The ePOD is linked to the activity and stored against the job.</p>
+
+          <h3 style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400);">Depot stops and ad hoc stops</h3>
+          <p>Beyond the planned delivery and collection stops, Tramm Mobile also manages the start and end of the driver's day, as well as any unplanned stops that arise.</p>
+          <div class="stop-type-list">
+            <div class="stype-row">
+              <span class="stype-badge stype-depot">Start of Day</span>
+              <span class="stype-desc"><strong>SOD</strong> — The workflow at the depot before the driver sets off. Typically includes a vehicle inspection checklist and confirmation that goods have been loaded. Line item quantities are captured here — what is actually on the vehicle matches what is planned.</span>
+            </div>
+            <div class="stype-row">
+              <span class="stype-badge stype-depot">End of Day</span>
+              <span class="stype-desc"><strong>EOD</strong> — The workflow when the driver returns to the depot at the end of the route. Typically includes a final odometer reading and confirmation of any returned goods.</span>
+            </div>
+            <div class="stype-row">
+              <span class="stype-badge stype-adhoc">Ad Hoc Stop</span>
+              <span class="stype-desc"><strong>Unplanned stop</strong> — A stop added to the trip while the driver is already on the road. The driver adds it in Tramm Mobile; it is sent to the system and becomes visible in both Tramm TMS and Fleetvision immediately.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FLEETVISION -->
+    <section id="fleetvision">
+      <h2 class="section-title">Live Fleet Visibility — Fleetvision</h2>
+      <p class="section-lead">While the driver executes the trip on Tramm Mobile, the operations team monitors everything in real time on Fleetvision.</p>
+
+      <div class="concept-card">
+        <div class="concept-card-header">
+          <span class="concept-badge badge-fv">Fleetvision</span>
+          <h2>What the operations team sees</h2>
+        </div>
+        <div class="concept-card-body">
+
+          <p>Fleetvision receives a continuous stream of GPS positions from Tramm Mobile and — where fitted — from vehicle telematics units. It uses this data to track each vehicle's position and progress, compare actual performance against the plan, and generate alerts when something goes wrong.</p>
+
+          <div class="key-points">
+            <h3>What Fleetvision tracks</h3>
+            <ul>
+              <li><strong>Live vehicle positions</strong> — Every active vehicle on a map, updated in real time with movement status (moving, stationary, stopped).</li>
+              <li><strong>Trip progress</strong> — Which stops have been completed, which are next, and whether the vehicle is running on time, early, or late.</li>
+              <li><strong>Stop matching</strong> — Fleetvision automatically detects when a vehicle arrives at a planned stop, even if the driver has not yet marked it in Tramm Mobile. It compares GPS position against the site's location.</li>
+              <li><strong>Planned vs. actual</strong> — Scheduled arrival times vs. when the vehicle actually arrived. Lateness is calculated automatically and escalated if unacknowledged.</li>
+              <li><strong>ETAs</strong> — Predicted arrival times for upcoming stops, updated as the trip progresses.</li>
+            </ul>
+          </div>
+
+          <h3 style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400);">Alerts</h3>
+          <p style="font-size: 0.88rem; color: var(--slate-600); margin-bottom: 0.75rem;">Fleetvision generates alerts automatically when it detects a deviation from the plan. Unacknowledged alerts escalate to supervisors.</p>
+          <div class="alert-list">
+            <div class="alert-row">
+              <div class="alert-dot"></div>
+              <div class="alert-content">
+                <div class="alert-name">Late Arrival</div>
+                <div class="alert-desc">The vehicle has not arrived at a planned stop within the scheduled time window.</div>
+              </div>
+            </div>
+            <div class="alert-row">
+              <div class="alert-dot"></div>
+              <div class="alert-content">
+                <div class="alert-name">Off-Route</div>
+                <div class="alert-desc">The vehicle has deviated significantly from the planned route between stops.</div>
+              </div>
+            </div>
+            <div class="alert-row">
+              <div class="alert-dot"></div>
+              <div class="alert-content">
+                <div class="alert-name">Unplanned Stop</div>
+                <div class="alert-desc">The vehicle has stopped at a location not included in the trip plan, for longer than the configured threshold.</div>
+              </div>
+            </div>
+            <div class="alert-row">
+              <div class="alert-dot"></div>
+              <div class="alert-content">
+                <div class="alert-name">Overspeeding</div>
+                <div class="alert-desc">The vehicle is travelling above the configured speed limit for the route or zone.</div>
+              </div>
+            </div>
+            <div class="alert-row">
+              <div class="alert-dot"></div>
+              <div class="alert-content">
+                <div class="alert-name">Harsh Driving</div>
+                <div class="alert-desc">Sudden braking, sharp acceleration, or a panic button event, detected via the vehicle's telematics unit.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="key-points">
+            <h3>What the operations team can do</h3>
+            <ul>
+              <li>Acknowledge and escalate alerts; add comments for record-keeping.</li>
+              <li>Communicate with drivers directly via WhatsApp integration.</li>
+              <li>Allocate or reallocate a vehicle to a trip — including drag-and-drop bulk allocation.</li>
+              <li>Perform a <strong>vehicle swap</strong> if a vehicle breaks down — reassign the trip to a replacement vehicle mid-route.</li>
+              <li>Force-complete a stop or trip when needed, with a reason captured for the audit log.</li>
+              <li>Review historical trip performance — actual vs. planned timings, stop dwell times, route deviations.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FULL EXAMPLE -->
+    <section id="example">
+      <h2 class="section-title">Putting It All Together</h2>
+      <p class="section-lead">A practical example showing how a single order flows from request all the way through to confirmed delivery — across all three products.</p>
+
+      <div class="example-block">
+        <h3>Scenario</h3>
+        <p>Pick n Pay Rosebank orders 500 boxes of long-life milk to be delivered from JHB Depot on Tuesday morning between 08:00 and 12:00. The driver is Bob. The operations supervisor is on Fleetvision.</p>
+
+        <div class="example-steps">
+
+          <div class="example-step">
+            <span class="step-badge badge-order">Order</span>
+            <span>An order is created: deliver 500 boxes of long-life milk to <strong>PnP Rosebank</strong> from <strong>JHB Depot</strong>, time window <strong>Tuesday 08:00–12:00</strong>. The auxiliary site is JHB Depot — where goods will be loaded. The order's state moves to <em>New</em>.</span>
+          </div>
+
+          <div class="example-step">
+            <span class="step-badge badge-job">Job</span>
+            <span>The planner reviews the order. 500 boxes fit in one 4-ton vehicle, so <strong>one job</strong> is created. The job has two line items: 300 × Long-Life Milk 1L, and 200 × Long-Life Milk 2L. Job requirements: 4-ton vehicle, refrigerated.</span>
+          </div>
+
+          <div class="example-step">
+            <span class="step-badge badge-trip">Trip</span>
+            <span>The scheduler creates a trip for vehicle <strong>BC12DF GP</strong>: start at <strong>JHB Depot</strong> at 07:30, visit <strong>PnP Rosebank</strong>, return to depot. Bob is allocated as the driver. The trip is sent to Tramm Mobile.</span>
+          </div>
+
+          <div class="example-step">
+            <span class="step-badge badge-stop">Stops</span>
+            <span>The trip has three stops: <strong>JHB Depot</strong> (Start of Day + loading), <strong>PnP Rosebank</strong> (delivery), and <strong>JHB Depot</strong> again (return + End of Day).</span>
+          </div>
+
+          <div class="example-step">
+            <span class="step-badge badge-activity">Activities</span>
+            <span>Two delivery activities: a <strong>Load</strong> activity at JHB Depot (500 boxes onto BC12DF GP) and a <strong>Delivery</strong> activity at PnP Rosebank (500 boxes offloaded and confirmed).</span>
+          </div>
+
+          <div class="example-step">
+            <span class="step-badge badge-mobile">Mobile</span>
+            <span>Bob opens Tramm Mobile at 07:15, selects his trip, and starts the <strong>Start of Day</strong> workflow — vehicle check, then confirms both line items are loaded. At 07:30 he sets off. Tramm Mobile records <em>Travel Start Time</em> for the first stop.</span>
+          </div>
+
+          <div class="example-step">
+            <span class="step-badge badge-mobile">Mobile</span>
+            <span>Bob arrives at PnP Rosebank at 08:45. He marks "Arrived" — <em>Arrival Time</em> is recorded. He starts the delivery workflow: scans the barcode on the delivery note, enters 300 × Milk 1L and 200 × Milk 2L as delivered, and collects the store manager's signature. The <strong>ePOD</strong> is generated and synced.</span>
+          </div>
+
+          <div class="example-step">
+            <span class="step-badge badge-fv">Fleetvision</span>
+            <span>Throughout the trip, the supervisor on Fleetvision can see BC12DF GP moving on the live map. When Bob marked "Arrived" at PnP Rosebank at 08:45, Fleetvision showed the stop as <em>On Time</em> (window closes at 12:00). No alerts were triggered. The stop completion syncs and Fleetvision marks it <em>Completed</em>.</span>
+          </div>
+
+          <div class="example-step">
+            <span class="step-badge badge-order">Completed</span>
+            <span>Bob completes the End of Day workflow at JHB Depot. All activities are done. The job moves to <em>Completed</em>. The order moves to <em>Completed</em>. The ePOD — with signature, quantities, and timestamps — is stored against the job.</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TERMINOLOGY -->
+    <section id="terminology">
+      <h2 class="section-title">Terminology</h2>
+      <p class="section-lead">Tramm uses specific terms consistently throughout all three products. These definitions apply everywhere.</p>
+
+      <div class="term-table-wrap">
+        <table class="term-table">
+          <thead>
+            <tr>
+              <th>Term</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Entity</td>
+              <td>A data record stored in the system with a unique identifier. Examples: Order, Job, Trip, Vehicle, Site.</td>
+            </tr>
+            <tr>
+              <td>Entity Class</td>
+              <td>A template for an entity. If a class field is updated, all instances inherit the new value unless they have overridden it. Example: Vehicle Class defines defaults that individual vehicles can inherit or override.</td>
+            </tr>
+            <tr>
+              <td>Auxiliary Site</td>
+              <td>The secondary site on a delivery or collection order — typically the depot. For a delivery, it is where goods are loaded; for a collection, it is where goods are returned.</td>
+            </tr>
+            <tr>
+              <td>Time Window</td>
+              <td>A specific period with a From and To date/time. Used to specify when an order must be serviced, when a site can be visited, etc. Violating a time window is a service failure.</td>
+            </tr>
+            <tr>
+              <td>Operating Hours</td>
+              <td>A recurring weekly availability schedule. For example, a site that is open Monday–Friday 07:00–17:00. The system never schedules stops outside a site's operating hours.</td>
+            </tr>
+            <tr>
+              <td>Line Item</td>
+              <td>An individual product within a job, with quantities tracked from loading (at depot) through to delivery or collection (at the client site).</td>
+            </tr>
+            <tr>
+              <td>Actuals</td>
+              <td>The real timestamps recorded by a driver at each stop — travel start, arrival, start of work, end of work, and departure. Compared against planned times to measure performance.</td>
+            </tr>
+            <tr>
+              <td>ePOD</td>
+              <td>Electronic Proof of Delivery. The digital record generated when a driver completes the configured workflow at a delivery stop — typically including a signature, photos, and confirmed quantities.</td>
+            </tr>
+            <tr>
+              <td>Workflow</td>
+              <td>The sequence of steps a driver must complete at a stop — signature, photos, barcode scanning, quantity entry, etc. Configured per stop type by the operations team.</td>
+            </tr>
+            <tr>
+              <td>SOD / EOD</td>
+              <td>Start of Day / End of Day. The depot workflows at the beginning and end of a driver's shift. SOD typically confirms loaded goods; EOD confirms returns and records final odometer.</td>
+            </tr>
+            <tr>
+              <td>Ad Hoc Stop</td>
+              <td>An unplanned stop added to a trip while it is already in progress. Added by the driver in Tramm Mobile and immediately visible in Tramm TMS and Fleetvision.</td>
+            </tr>
+            <tr>
+              <td>Master Route</td>
+              <td>A recurring trip template that runs on a set schedule — for example, every Monday morning. Each run generates a new actual trip from the template.</td>
+            </tr>
+            <tr>
+              <td>Virtual Vehicle</td>
+              <td>A placeholder vehicle used during planning when the exact vehicle has not yet been confirmed. The trip can be planned and optimised before the actual vehicle is known.</td>
+            </tr>
+            <tr>
+              <td>GPS Breadcrumb</td>
+              <td>A GPS position recorded by Tramm Mobile or a vehicle telematics unit at regular intervals. Fleetvision uses these to track real-time vehicle movement and reconstruct routes.</td>
+            </tr>
+            <tr>
+              <td>Alert</td>
+              <td>A notification generated by Fleetvision when something deviates from the plan — late arrival, off-route, unplanned stop, overspeeding, or harsh driving. Alerts escalate if not acknowledged.</td>
+            </tr>
+            <tr>
+              <td>Crossdock</td>
+              <td>A logistics process where goods are transferred from one vehicle to another at an intermediate point (rather than going directly from origin to destination). Tramm supports crossdock operations with a dedicated workflow.</td>
+            </tr>
+            <tr>
+              <td>Partition</td>
+              <td>An isolated data container within the system. Data in one partition is not visible in another. Used to separate different customers or business units operating on the same Tramm instance.</td>
+            </tr>
+            <tr>
+              <td>Complex Type</td>
+              <td>A structured field with sub-fields, similar to an entity, but without its own unique identifier. It exists as part of another entity. Example: a Stop is a complex type within a Trip.</td>
+            </tr>
+            <tr>
+              <td>Field *</td>
+              <td>An asterisk next to a field name means it is required — a value must be given when the record is created.</td>
+            </tr>
+            <tr>
+              <td>Field ^</td>
+              <td>A caret means the field is overridable. If left blank, it inherits its value from the entity class.</td>
+            </tr>
+            <tr>
+              <td>Field +</td>
+              <td>A plus means the field is augmentative. Its value is combined with the class value (by union or concatenation) rather than replacing it.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+  </footer>
+
+</body>
+</html>
