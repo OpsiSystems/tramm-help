@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tramm Overview — Tramm Help</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --teal-100:  #ccfbf1;
+      --teal-700:  #0f766e;
+      --amber-100: #fef3c7;
+      --amber-700: #b45309;
+      --purple-100: #f3e8ff;
+      --purple-700: #7e22ce;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--slate-100);
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 1.75rem;
+    }
+    .breadcrumb {
+      font-size: 0.78rem;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
+
+    /* ── SECTION NAV ── */
+    .section-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 2px solid var(--slate-200);
+      display: flex;
+      overflow-x: auto;
+      padding: 0 2rem;
+    }
+    .section-nav a {
+      display: block;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .section-nav a:hover {
+      color: var(--blue-600);
+      border-bottom-color: var(--blue-200);
+    }
+
+    /* ── MAIN ── */
+    .content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3.5rem;
+    }
+
+    .intro-text {
+      font-size: 1rem;
+      color: var(--slate-600);
+      max-width: 72ch;
+      line-height: 1.7;
+    }
+
+    /* ── PHASE SECTIONS ── */
+    .phase {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .phase-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+    .phase-badge-1 { background: var(--blue-100); color: var(--blue-700); }
+    .phase-badge-2 { background: var(--green-100); color: var(--green-700); }
+    .phase h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--slate-900);
+    }
+    .phase-desc {
+      font-size: 0.92rem;
+      color: var(--slate-500);
+      max-width: 72ch;
+    }
+
+    /* ── IMAGE MAP CONTAINER ── */
+    .map-container {
+      position: relative;
+      display: block;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      background: #e0eaf8;
+      line-height: 0;
+    }
+    .map-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── CLICKABLE ZONES ── */
+    .zone {
+      position: absolute;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, border 0.2s;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 8px;
+    }
+    .zone:hover {
+      background: rgba(30, 58, 138, 0.18);
+      outline: 2px solid rgba(37, 99, 235, 0.6);
+      outline-offset: -2px;
+    }
+    .zone-label {
+      background: rgba(15, 23, 42, 0.88);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+    }
+    .zone:hover .zone-label {
+      opacity: 1;
+    }
+
+    /* ── ZONE POSITIONS: PAGE 4 ── */
+    .z4-order    { left: 2%;  top: 44%; width: 27%; height: 37%; }
+    .z4-loads    { left: 26%; top: 47%; width: 30%; height: 36%; }
+    .z4-trips    { left: 33%; top: 7%;  width: 54%; height: 53%; }
+    .z4-delivery { left: 65%; top: 54%; width: 20%; height: 26%; }
+
+    /* ── ZONE POSITIONS: PAGE 5 ── */
+    .z5-delivery    { left: 5%;  top: 5%;  width: 38%; height: 57%; }
+    .z5-mobile      { left: 18%; top: 42%; width: 32%; height: 48%; }
+    .z5-fleetvision { left: 42%; top: 8%;  width: 54%; height: 65%; }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.82rem;
+      text-decoration: none;
+      color: var(--slate-700);
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .legend-item:hover {
+      border-color: var(--blue-300, #93c5fd);
+      box-shadow: 0 2px 8px rgba(30,58,138,0.1);
+      color: var(--blue-700);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-pink    { background: #f4a58a; }
+    .dot-teal    { background: #5eead4; }
+    .dot-yellow  { background: #fbbf24; }
+    .dot-blue    { background: #60a5fa; }
+    .dot-green   { background: #86efac; }
+    .legend-arrow {
+      color: var(--slate-400);
+      font-size: 0.75rem;
+    }
+
+    /* ── CONNECTOR ── */
+    .connector {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-left: 4px solid var(--blue-500);
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--slate-600);
+    }
+    .connector svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: var(--blue-500);
+      flex-shrink: 0;
+    }
+
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      .site-header h1 { font-size: 1.4rem; }
+      .content { padding: 1.5rem 1rem 3rem; }
+      .zone-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="breadcrumb">
+      <a href="index.html">Tramm Help</a>
+      <span>›</span>
+      Tramm Overview
+    </div>
+    <h1>The TMS Universe is Tramm's Universe</h1>
+    <p class="subtitle">Tramm covers the full logistics operation — from the moment an order is created to the moment it is delivered. Click on any area in the diagrams below to explore that part of the system.</p>
+  </header>
+
+  <nav class="section-nav">
+    <a href="#planning">Planning Phase</a>
+    <a href="#execution">Execution Phase</a>
+  </nav>
+
+  <main class="content">
+
+    <p class="intro-text">Tramm is made up of three interconnected products: the core <strong>Tramm TMS</strong> platform, the <strong>Tramm Mobile</strong> app used by drivers and field operators, and <strong>Fleetvision</strong> for real-time fleet visibility. Together they cover every stage of the logistics operation.</p>
+
+    <!-- PHASE 1: PLANNING -->
+    <section id="planning" class="phase">
+      <div class="phase-header">
+        <span class="phase-badge phase-badge-1">Phase 1</span>
+        <h2>From Order to Trip</h2>
+      </div>
+      <p class="phase-desc">Orders come in from clients, get broken down into jobs, loads are built, and trips are planned and allocated to vehicles. This is where the work is organised before it hits the road.</p>
+
+      <div class="map-container">
+        <img src="images/overview-planning.png" alt="Tramm planning overview — order creation, load building, trip allocation and delivery execution" />
+
+        <a class="zone z4-order" href="index.html#apps" title="Order Manager">
+          <span class="zone-label">Order Manager →</span>
+        </a>
+        <a class="zone z4-loads" href="index.html#apps" title="Planner">
+          <span class="zone-label">Planner →</span>
+        </a>
+        <a class="zone z4-trips" href="planner/index.html" title="Planner">
+          <span class="zone-label">Planner →</span>
+        </a>
+        <a class="zone z4-delivery" href="execution-manager/index.html" title="Execution Manager">
+          <span class="zone-label">Execution Manager →</span>
+        </a>
+      </div>
+
+      <div class="legend">
+        <a class="legend-item" href="index.html#apps">
+          <span class="legend-dot dot-pink"></span>
+          <span>Order Creation</span>
+          <span class="legend-arrow">→</span>
+          <span style="color: var(--blue-600); font-weight: 600;">Order Manager</span>
+        </a>
+        <a class="legend-item" href="index.html#apps">
+          <span class="legend-dot dot-teal"></span>
+          <span>Build Loads</span>
+          <span class="legend-arrow">→</span>
+          <span style="color: var(--blue-600); font-weight: 600;">Planner</span>
+        </a>
+        <a class="legend-item" href="planner/index.html">
+          <span class="legend-dot dot-yellow"></span>
+          <span>Trip Allocation</span>
+          <span class="legend-arrow">→</span>
+          <span style="color: var(--blue-600); font-weight: 600;">Planner</span>
+        </a>
+        <a class="legend-item" href="execution-manager/index.html">
+          <span class="legend-dot dot-blue"></span>
+          <span>Delivery Execution</span>
+          <span class="legend-arrow">→</span>
+          <span style="color: var(--blue-600); font-weight: 600;">Execution Manager</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- CONNECTOR -->
+    <div class="connector">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+      </svg>
+      <span>Once trips are planned and allocated, they move into the execution phase — drivers receive their routes on Tramm Mobile, and the operations team monitors live progress through Fleetvision.</span>
+    </div>
+
+    <!-- PHASE 2: EXECUTION -->
+    <section id="execution" class="phase">
+      <div class="phase-header">
+        <span class="phase-badge phase-badge-2">Phase 2</span>
+        <h2>From Allocation to Delivery</h2>
+      </div>
+      <p class="phase-desc">Drivers execute their trips via the Tramm Mobile app — capturing ePODs, managing delivery workflows, and communicating in real time. The operations team monitors everything live through Fleetvision.</p>
+
+      <div class="map-container">
+        <img src="images/overview-execution.png" alt="Tramm execution overview — delivery execution, Tramm Mobile and Fleetvision" />
+
+        <a class="zone z5-delivery" href="execution-manager/index.html" title="Execution Manager">
+          <span class="zone-label">Execution Manager →</span>
+        </a>
+        <a class="zone z5-mobile" href="tramm-mobile/index.html" title="Tramm Mobile">
+          <span class="zone-label">Tramm Mobile →</span>
+        </a>
+        <a class="zone z5-fleetvision" href="fleetvision/index.html" title="Fleetvision">
+          <span class="zone-label">Fleetvision →</span>
+        </a>
+      </div>
+
+      <div class="legend">
+        <a class="legend-item" href="execution-manager/index.html">
+          <span class="legend-dot dot-blue"></span>
+          <span>Delivery Execution</span>
+          <span class="legend-arrow">→</span>
+          <span style="color: var(--blue-600); font-weight: 600;">Execution Manager</span>
+        </a>
+        <a class="legend-item" href="tramm-mobile/index.html">
+          <span class="legend-dot dot-yellow"></span>
+          <span>Tramm Mobile</span>
+          <span class="legend-arrow">→</span>
+          <span style="color: var(--blue-600); font-weight: 600;">Tramm Mobile</span>
+        </a>
+        <a class="legend-item" href="fleetvision/index.html">
+          <span class="legend-dot dot-green"></span>
+          <span>Fleetvision</span>
+          <span class="legend-arrow">→</span>
+          <span style="color: var(--blue-600); font-weight: 600;">Fleetvision</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+  </footer>
+
+</body>
+</html>
