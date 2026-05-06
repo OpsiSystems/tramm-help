@@ -162,11 +162,12 @@
       align-items: flex-start;
       justify-content: flex-start;
       padding: 8px;
+      /* DEBUG: always visible */
+      outline: 3px dashed rgba(0,0,0,0.5);
     }
     .zone:hover {
       background: rgba(30, 58, 138, 0.18);
-      outline: 2px solid rgba(37, 99, 235, 0.6);
-      outline-offset: -2px;
+      outline: 3px solid rgba(37, 99, 235, 0.9);
     }
     .zone-label {
       background: rgba(15, 23, 42, 0.88);
@@ -175,15 +176,20 @@
       font-weight: 700;
       padding: 4px 9px;
       border-radius: 4px;
-      opacity: 0;
-      transition: opacity 0.15s;
+      /* DEBUG: always visible */
+      opacity: 1;
       white-space: nowrap;
       pointer-events: none;
       letter-spacing: 0.02em;
     }
-    .zone:hover .zone-label {
-      opacity: 1;
-    }
+    /* DEBUG: each zone a different colour */
+    .z4-order    { outline-color: #f97316; background: rgba(249,115,22,0.15); }
+    .z4-loads    { outline-color: #14b8a6; background: rgba(20,184,166,0.15); }
+    .z4-trips    { outline-color: #eab308; background: rgba(234,179,8,0.15);  }
+    .z4-delivery { outline-color: #3b82f6; background: rgba(59,130,246,0.15); }
+    .z5-delivery { outline-color: #3b82f6; background: rgba(59,130,246,0.15); }
+    .z5-mobile   { outline-color: #eab308; background: rgba(234,179,8,0.15);  }
+    .z5-fleetvision { outline-color: #22c55e; background: rgba(34,197,94,0.15); }
 
     /* ── ZONE POSITIONS: PAGE 4 ── */
     .z4-order    { left: 2%;  top: 44%; width: 27%; height: 37%; }
