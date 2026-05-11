@@ -308,19 +308,18 @@
       gap: 0.4rem 1rem;
     }
     .used-in-row {
-      flex-basis: 100%;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      margin-top: 0.1rem;
     }
     .used-in-label {
-      font-size: 0.68rem;
-      font-weight: 600;
+      font-size: 0.7rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.08em;
       color: var(--slate-400);
       white-space: nowrap;
+      margin-right: 0.1rem;
     }
     .concept-badge {
       font-size: 0.7rem;
@@ -682,6 +681,16 @@
       color: var(--slate-900);
       white-space: nowrap;
     }
+    .term-group-header td {
+      background: var(--slate-100);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-500);
+      padding: 0.55rem 1rem;
+      border-bottom: 1px solid var(--slate-200);
+    }
     .term-table-wrap {
       background: #fff;
       border: 1px solid var(--slate-200);
@@ -694,8 +703,6 @@
       display: flex;
       gap: 0.3rem;
       align-items: center;
-      margin-left: auto;
-      flex-shrink: 0;
     }
     .app-pill {
       font-size: 0.68rem;
@@ -940,9 +947,9 @@
         <div class="concept-card-header">
           <span class="concept-badge badge-order">Order</span>
           <h2>What the client asked for</h2>
-          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Order Manager</span></div></div>
         </div>
         <div class="concept-card-body">
+          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Order Manager</span></div></div>
           <p>An order is a client's request for a <strong>delivery</strong>, <strong>collection</strong>, or <strong>service</strong> at a specific site. It captures what needs to happen — not how it will be done. An order has no knowledge of vehicles, routes, or scheduling. That comes later when jobs are created.</p>
           <div class="info-callout">
             <strong>Orders are optional in Tramm.</strong> Some operations work entirely with jobs and never create orders — for example, when trips are built directly without a formal order intake process. Where orders are used, they are the entry point that drives job creation.
@@ -983,9 +990,9 @@
         <div class="concept-card-header">
           <span class="concept-badge badge-job">Job</span>
           <h2>The core unit of work</h2>
-          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span></div></div>
         </div>
         <div class="concept-card-body">
+          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span></div></div>
           <p>If an order answers <strong>what</strong>, <strong>where</strong>, and <strong>when</strong> — a job answers <strong>how</strong>. A job takes an order (or part of an order) and turns it into something that can be scheduled, accounting for practical constraints like vehicle capacity. Jobs are the core unit of work in Tramm — they must exist regardless of whether orders were used. In operations that do not use orders, jobs are created directly without an order driving them.</p>
 
           <div class="key-points">
@@ -1022,9 +1029,9 @@
         <div class="concept-card-header">
           <span class="concept-badge badge-trip">Trip</span>
           <h2>The vehicle's route for the day</h2>
-          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span><span class="app-pill app-mobile">Tramm Mobile</span><span class="app-pill app-fv">Fleetvision</span></div></div>
         </div>
         <div class="concept-card-body">
+          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span><span class="app-pill app-mobile">Tramm Mobile</span><span class="app-pill app-fv">Fleetvision</span></div></div>
           <p>A trip is a sequence of planned site visits (stops) assigned to a vehicle. It is created when the scheduler groups jobs together and builds a route. A trip has a start site, a planned start time, and a list of stops in order.</p>
 
           <div class="key-points">
@@ -1180,9 +1187,9 @@
           <div class="concept-card-header">
             <span class="concept-badge badge-stop">Stop</span>
             <h2>Where the work happens</h2>
-            <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span><span class="app-pill app-mobile">Tramm Mobile</span></div></div>
           </div>
           <div class="concept-card-body">
+            <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span><span class="app-pill app-mobile">Tramm Mobile</span></div></div>
             <p>A stop is a planned visit to a site as part of a trip. Each stop records the planned arrival time, any wait time if the vehicle arrives before the site opens, travel distance and duration from the previous stop, and the list of activities to be carried out there. A stop can contain multiple activities — for example, a delivery and a collection at the same site.</p>
 
             <div class="key-points">
@@ -1275,9 +1282,9 @@
           <div class="concept-card-header">
             <span class="concept-badge badge-activity">Activity</span>
             <h2>The work done at a stop</h2>
-            <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill app-mobile">Tramm Mobile</span><span class="app-pill app-em">Execution Manager</span></div></div>
           </div>
           <div class="concept-card-body">
+            <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill app-mobile">Tramm Mobile</span><span class="app-pill app-em">Execution Manager</span></div></div>
             <p>An activity is the fulfillment of a job at a stop. It is where the actual loading, offloading, or service takes place. Every delivery or collection job produces two activities — one at each end of the journey.</p>
 
             <div class="key-points">
@@ -1345,9 +1352,9 @@
         <div class="concept-card-header">
           <span class="concept-badge badge-lineitem">Line Item</span>
           <h2>The individual goods within a job</h2>
-          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Order Manager</span><span class="app-pill app-mobile">Tramm Mobile</span></div></div>
         </div>
         <div class="concept-card-body">
+          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Order Manager</span><span class="app-pill app-mobile">Tramm Mobile</span></div></div>
           <p>Line items are the individual products within a delivery or collection job. Where a job says "deliver goods to Site X," the line items say exactly <em>what</em> those goods are and in what quantities. Line items enable item-level tracking from the moment goods are loaded onto the vehicle to the moment they are confirmed at the delivery site.</p>
 
           <div class="key-points">
@@ -1688,6 +1695,16 @@
             </tr>
           </thead>
           <tbody>
+            <!-- TRAMM TMS -->
+            <tr class="term-group-header"><td colspan="2">Tramm TMS</td></tr>
+            <tr>
+              <td>Auxiliary Site</td>
+              <td>The secondary site on a delivery or collection order — typically the depot. For a delivery, it is where goods are loaded; for a collection, it is where goods are returned.</td>
+            </tr>
+            <tr>
+              <td>Crossdock</td>
+              <td>A logistics process where goods are transferred from one vehicle to another at an intermediate point (rather than going directly from origin to destination). Tramm supports crossdock operations with a dedicated workflow.</td>
+            </tr>
             <tr>
               <td>Entity</td>
               <td>A data record stored in the system with a unique identifier. Examples: Order, Job, Trip, Vehicle, Site.</td>
@@ -1697,60 +1714,56 @@
               <td>A template for an entity. If a class field is updated, all instances inherit the new value unless they have overridden it. Example: Vehicle Class defines defaults that individual vehicles can inherit or override.</td>
             </tr>
             <tr>
-              <td>Auxiliary Site</td>
-              <td>The secondary site on a delivery or collection order — typically the depot. For a delivery, it is where goods are loaded; for a collection, it is where goods are returned.</td>
-            </tr>
-            <tr>
-              <td>Time Window</td>
-              <td>A specific period with a From and To date/time. Used to specify when an order must be serviced, when a site can be visited, etc. Violating a time window is a service failure.</td>
-            </tr>
-            <tr>
-              <td>Operating Hours</td>
-              <td>A recurring weekly availability schedule. For example, a site that is open Monday–Friday 07:00–17:00. The system never schedules stops outside a site's operating hours.</td>
-            </tr>
-            <tr>
               <td>Line Item</td>
               <td>An individual product within a job, with quantities tracked from loading (at depot) through to delivery or collection (at the client site).</td>
-            </tr>
-            <tr>
-              <td>Actuals</td>
-              <td>The real timestamps recorded by a driver at each stop — travel start, arrival, start of work, end of work, and departure. Compared against planned times to measure performance.</td>
-            </tr>
-            <tr>
-              <td>ePOD</td>
-              <td>Electronic Proof of Delivery. The digital record generated when a driver completes the configured workflow at a delivery stop — typically including a signature, photos, and confirmed quantities.</td>
-            </tr>
-            <tr>
-              <td>Workflow</td>
-              <td>The sequence of steps a driver must complete at a stop — signature, photos, barcode scanning, quantity entry, etc. Configured per stop type by the operations team.</td>
-            </tr>
-            <tr>
-              <td>SOD / EOD</td>
-              <td>Start of Day / End of Day. The depot workflows at the beginning and end of a driver's shift. SOD typically includes a vehicle inspection and an opening odometer reading; EOD confirms returned goods and records the closing odometer reading.</td>
-            </tr>
-            <tr>
-              <td>Ad Hoc Stop</td>
-              <td>An unplanned stop added to a trip while it is already in progress. Added by the driver in Tramm Mobile and immediately visible in Tramm TMS and Fleetvision.</td>
             </tr>
             <tr>
               <td>Master Route</td>
               <td>A recurring trip template that runs on a set schedule — for example, every Monday morning. Each run generates a new actual trip from the template.</td>
             </tr>
             <tr>
+              <td>Operating Hours</td>
+              <td>A recurring weekly availability schedule. For example, a site that is open Monday–Friday 07:00–17:00. The system never schedules stops outside a site's operating hours.</td>
+            </tr>
+            <tr>
+              <td>Time Window</td>
+              <td>A specific period with a From and To date/time. Used to specify when an order must be serviced, when a site can be visited, etc. Violating a time window is a service failure.</td>
+            </tr>
+            <tr>
               <td>Virtual Vehicle</td>
               <td>A placeholder vehicle used during planning when the exact vehicle has not yet been confirmed. The trip can be planned and optimised before the actual vehicle is known.</td>
             </tr>
+            <!-- TRAMM MOBILE -->
+            <tr class="term-group-header"><td colspan="2">Tramm Mobile</td></tr>
             <tr>
-              <td>GPS Breadcrumb</td>
-              <td>A GPS position recorded by Tramm Mobile or a vehicle telematics unit at regular intervals. Fleetvision uses these to track real-time vehicle movement and reconstruct routes.</td>
+              <td>Actuals</td>
+              <td>The real timestamps recorded by a driver at each stop — travel start, arrival, start of work, end of work, and departure. Compared against planned times to measure performance.</td>
             </tr>
+            <tr>
+              <td>Ad Hoc Stop</td>
+              <td>An unplanned stop added to a trip while it is already in progress. Added by the driver in Tramm Mobile and immediately visible in Tramm TMS and Fleetvision.</td>
+            </tr>
+            <tr>
+              <td>ePOD</td>
+              <td>Electronic Proof of Delivery. The digital record generated when a driver completes the configured workflow at a delivery stop — typically including a signature, photos, and confirmed quantities.</td>
+            </tr>
+            <tr>
+              <td>SOD / EOD</td>
+              <td>Start of Day / End of Day. The depot workflows at the beginning and end of a driver's shift. SOD typically includes a vehicle inspection and an opening odometer reading; EOD confirms returned goods and records the closing odometer reading.</td>
+            </tr>
+            <tr>
+              <td>Workflow</td>
+              <td>The sequence of steps a driver must complete at a stop — signature, photos, barcode scanning, quantity entry, etc. Configured per stop type by the operations team.</td>
+            </tr>
+            <!-- FLEETVISION -->
+            <tr class="term-group-header"><td colspan="2">Fleetvision</td></tr>
             <tr>
               <td>Alert</td>
               <td>A notification generated by Fleetvision when something deviates from the plan — late arrival, off-route, unplanned stop, overspeeding, or harsh driving. Alerts escalate if not acknowledged.</td>
             </tr>
             <tr>
-              <td>Crossdock</td>
-              <td>A logistics process where goods are transferred from one vehicle to another at an intermediate point (rather than going directly from origin to destination). Tramm supports crossdock operations with a dedicated workflow.</td>
+              <td>GPS Breadcrumb</td>
+              <td>A GPS position recorded by Tramm Mobile or a vehicle telematics unit at regular intervals. Fleetvision uses these to track real-time vehicle movement and reconstruct routes.</td>
             </tr>
           </tbody>
         </table>
