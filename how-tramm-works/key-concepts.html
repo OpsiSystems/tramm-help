@@ -115,7 +115,6 @@
     .section-lead {
       font-size: 0.95rem;
       color: var(--slate-500);
-      max-width: 70ch;
       margin-bottom: 1.5rem;
     }
 
@@ -275,8 +274,24 @@
       padding: 1.25rem 1.5rem;
       border-bottom: 1px solid var(--slate-100);
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 1rem;
+      gap: 0.4rem 1rem;
+    }
+    .used-in-row {
+      flex-basis: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.1rem;
+    }
+    .used-in-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--slate-400);
+      white-space: nowrap;
     }
     .concept-badge {
       font-size: 0.7rem;
@@ -370,10 +385,14 @@
       border-radius: 9999px;
       background: var(--slate-100);
       color: var(--slate-600);
+      border: 1px solid var(--slate-300);
     }
+    .state-pill.s-active { background: var(--blue-100);  color: var(--blue-700);  border-color: var(--blue-200);  }
+    .state-pill.s-done   { background: var(--green-100); color: var(--green-700); border-color: var(--green-100); }
     .state-arrow {
-      color: var(--slate-300);
-      font-size: 0.8rem;
+      color: var(--slate-400);
+      font-size: 1rem;
+      font-weight: 700;
     }
 
     /* ── ACTIVITY TYPE GRID ── */
@@ -389,7 +408,7 @@
     }
     .at-card.at-depot { background: var(--blue-50);  border-color: var(--blue-200);  }
     .at-card.at-site  { background: var(--teal-50);  border-color: var(--teal-100);  }
-    .at-card.at-other { background: var(--slate-50); border-color: var(--slate-200); }
+    .at-card.at-other { background: var(--slate-50); border-color: var(--slate-300); }
     .at-name {
       font-size: 0.88rem;
       font-weight: 700;
@@ -436,11 +455,11 @@
       letter-spacing: 0.08em;
       padding: 0.6rem 1rem;
       text-align: left;
-      border-bottom: 1px solid var(--teal-100);
+      border-bottom: 2px solid var(--teal-100);
     }
     .actuals-table td {
       padding: 0.7rem 1rem;
-      border-bottom: 1px solid var(--slate-100);
+      border-bottom: 1px solid var(--slate-200);
       vertical-align: top;
       color: var(--slate-700);
       line-height: 1.5;
@@ -463,7 +482,7 @@
       font-weight: 600;
       color: var(--teal-700);
       background: var(--teal-50);
-      border: 1px solid var(--teal-100);
+      border: 1.5px solid var(--teal-100);
       padding: 0.3rem 0.75rem;
       border-radius: 9999px;
     }
@@ -493,8 +512,9 @@
       white-space: nowrap;
       flex-shrink: 0;
     }
-    .stype-depot { background: var(--blue-100);  color: var(--blue-700);  }
-    .stype-adhoc { background: var(--amber-100); color: var(--amber-700); }
+    .stype-sod   { background: var(--blue-100);   color: var(--blue-700);   }
+    .stype-eod   { background: var(--purple-100); color: var(--purple-700); }
+    .stype-adhoc { background: var(--green-100);  color: var(--green-700);  }
     .stype-desc {
       font-size: 0.87rem;
       color: var(--slate-600);
@@ -640,6 +660,54 @@
       overflow: hidden;
     }
 
+    /* ── APP CONTEXT PILLS ── */
+    .app-context {
+      display: flex;
+      gap: 0.3rem;
+      align-items: center;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .app-pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.18rem 0.55rem;
+      border-radius: 0.25rem;
+      background: var(--blue-100);
+      color: var(--blue-700);
+      white-space: nowrap;
+    }
+    .app-pill.app-mobile { background: var(--teal-100);   color: var(--teal-700);   }
+    .app-pill.app-fv     { background: var(--amber-100);  color: var(--amber-700);  }
+    .app-pill.app-em     { background: var(--purple-100); color: var(--purple-700); }
+    @media (max-width: 700px) { .app-context { display: none; } }
+
+    /* ── TRIP DIAGRAMS ── */
+    .trip-diagrams {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .trip-diagram-card {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.75rem;
+      padding: 1.25rem 1rem 1rem;
+    }
+    .trip-diagram-card h4 {
+      font-size: 0.83rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.2rem;
+    }
+    .trip-diagram-card .diagram-desc {
+      font-size: 0.75rem;
+      color: var(--slate-500);
+      line-height: 1.4;
+      margin-bottom: 0.75rem;
+    }
+
     footer {
       background: var(--slate-900);
       color: var(--slate-400);
@@ -654,6 +722,7 @@
       .section-nav a { padding: 0.75rem 0.75rem; font-size: 0.8rem; }
       .product-grid { grid-template-columns: 1fr; }
       .activity-types { grid-template-columns: 1fr 1fr; }
+      .trip-diagrams { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -682,6 +751,7 @@
     <a href="#execution">On the Road</a>
     <a href="#fleetvision">Fleetvision</a>
     <a href="#example">Full Example</a>
+    <a href="#sites-locations">Sites &amp; Locations</a>
     <a href="#terminology">Terminology</a>
   </nav>
 
@@ -805,15 +875,19 @@
         <div class="concept-card-header">
           <span class="concept-badge badge-order">Order</span>
           <h2>What the client asked for</h2>
+          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Order Manager</span></div></div>
         </div>
         <div class="concept-card-body">
           <p>An order is a client's request for a <strong>delivery</strong>, <strong>collection</strong>, or <strong>service</strong> at a specific site. It captures what needs to happen — not how it will be done. An order has no knowledge of vehicles, routes, or scheduling. That comes later when jobs are created.</p>
+          <div class="info-callout">
+            <strong>Orders are optional in Tramm.</strong> Some operations work entirely with jobs and never create orders — for example, when trips are built directly without a formal order intake process. Where orders are used, they are the entry point that drives job creation.
+          </div>
 
           <div class="key-points">
             <h3>Key points</h3>
             <ul>
               <li>Every order specifies a site (where), a time window (when), and the service type: <strong>delivery</strong> (goods to a site), <strong>collection</strong> (goods from a site), or <strong>service</strong> (work at a site with no goods movement).</li>
-              <li>For deliveries and collections, an <strong>auxiliary site</strong> is also specified — typically the depot where goods will be loaded onto or returned from the vehicle.</li>
+              <li>For deliveries and collections, an <strong>auxiliary site</strong> is also specified — typically the depot where goods will be loaded onto or returned from the vehicle. The two sites are labelled differently depending on job type: for a delivery, the labels are typically <em>Loading site</em> (depot) and <em>Delivery site</em> (client); for a collection, <em>Collection site</em> (client) and <em>Offload site</em> (depot).</li>
               <li>Orders can be entered manually in Order Manager, or imported automatically from an external system such as a warehouse management system or customer portal.</li>
               <li>If an order is too large for a single vehicle, it is split into multiple jobs when the planner reviews it. A large order does not become multiple orders — it stays as one order with multiple jobs.</li>
               <li>Orders are not sent to the scheduler directly — jobs are. An order drives the process; jobs do the work.</li>
@@ -824,15 +898,15 @@
             <span class="states-label">States</span>
             <span class="state-pill">New</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">Partially Planned</span>
+            <span class="state-pill s-active">Partially Planned</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">Planned</span>
+            <span class="state-pill s-active">Planned</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">In Progress</span>
+            <span class="state-pill s-active">In Progress</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">Completed</span>
+            <span class="state-pill s-done">Completed</span>
           </div>
-          <p style="font-size:0.8rem; color: var(--slate-400); margin-top: -0.25rem;">Partially Planned means some, but not all, of the order's jobs are on a trip. An order can also be Cancelled at any point before execution.</p>
+          <p style="font-size:0.8rem; color: var(--slate-400); margin-top: -0.25rem;">Partially Planned means some portions of the order have been scheduled onto a trip, but not all. An order can also be Cancelled at any point before execution.</p>
         </div>
       </div>
     </section>
@@ -843,10 +917,11 @@
       <div class="concept-card">
         <div class="concept-card-header">
           <span class="concept-badge badge-job">Job</span>
-          <h2>Broken down for scheduling</h2>
+          <h2>The core unit of work</h2>
+          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span></div></div>
         </div>
         <div class="concept-card-body">
-          <p>A job takes an order (or part of an order) and turns it into something that can be scheduled. When a planner reviews orders, they create jobs that account for practical constraints — particularly vehicle capacity. Jobs are what the scheduler works with.</p>
+          <p>If an order answers <strong>what</strong>, <strong>where</strong>, and <strong>when</strong> — a job answers <strong>how</strong>. A job takes an order (or part of an order) and turns it into something that can be scheduled, accounting for practical constraints like vehicle capacity. Jobs are the core unit of work in Tramm — they must exist regardless of whether orders were used. In operations that do not use orders, jobs are created directly without an order driving them.</p>
 
           <div class="key-points">
             <h3>Key points</h3>
@@ -864,11 +939,11 @@
             <span class="states-label">States</span>
             <span class="state-pill">New</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">Planned</span>
+            <span class="state-pill s-active">Planned</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">In Progress</span>
+            <span class="state-pill s-active">In Progress</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">Completed</span>
+            <span class="state-pill s-done">Completed</span>
           </div>
           <p style="font-size:0.8rem; color: var(--slate-400); margin-top: -0.25rem;">A job moves to Planned when it is added to a trip. It can also be Cancelled.</p>
         </div>
@@ -882,6 +957,7 @@
         <div class="concept-card-header">
           <span class="concept-badge badge-trip">Trip</span>
           <h2>The vehicle's route for the day</h2>
+          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span><span class="app-pill app-mobile">Tramm Mobile</span><span class="app-pill app-fv">Fleetvision</span></div></div>
         </div>
         <div class="concept-card-body">
           <p>A trip is a sequence of planned site visits (stops) assigned to a vehicle. It is created when the scheduler groups jobs together and builds a route. A trip has a start site, a planned start time, and a list of stops in order.</p>
@@ -889,12 +965,12 @@
           <div class="key-points">
             <h3>Key points</h3>
             <ul>
-              <li>Every trip begins with a <strong>home stop</strong> — the vehicle's starting location, typically its home depot. Most trips also end with a return to that same depot.</li>
+              <li>Every trip begins from a <strong>start site</strong> — the site the vehicle departs from, typically where goods are loaded onto the vehicle. Returning to the start site at the end of the route is optional and is configured on the master route.</li>
               <li>A trip can be allocated to a specific vehicle, a <strong>virtual vehicle</strong> (a placeholder when the exact vehicle is not yet confirmed), or left unallocated if imported from an external system.</li>
-              <li>The planned start time is calculated so the vehicle can reach all stops within their time windows — if any stop is time-constrained, the start time is adjusted accordingly.</li>
+              <li>The planned start time is usually set upfront — either from a master route schedule or entered manually by the planner. It is then adjusted if stop time windows require an earlier departure.</li>
               <li>A trip's combined load requirements — capacity, vehicle class, special equipment — must match the allocated vehicle. The scheduler validates this automatically.</li>
               <li>Some operations use <strong>master routes</strong> — recurring trip templates that run on a set schedule (e.g., every Monday). A master route generates actual trips each time it runs.</li>
-              <li>Once a trip is underway, a driver can add <strong>unplanned (ad hoc) stops</strong> via Tramm Mobile — for example, if a new delivery is requested while already on the road.</li>
+              <li>Once a trip is underway, a driver can add <strong>unplanned stops</strong> via Tramm Mobile — for example, if a new delivery is requested while already on the road.</li>
             </ul>
           </div>
 
@@ -902,16 +978,129 @@
             <span class="states-label">States</span>
             <span class="state-pill">Created</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">Allocated</span>
+            <span class="state-pill s-active">Allocated</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">Pre-Trip</span>
+            <span class="state-pill s-active">Pre-Trip</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">In Progress</span>
+            <span class="state-pill s-active">In Progress</span>
             <span class="state-arrow">→</span>
-            <span class="state-pill">Completed</span>
+            <span class="state-pill s-done">Completed</span>
           </div>
           <p style="font-size:0.8rem; color: var(--slate-400); margin-top: -0.25rem;">Pre-Trip is when the driver has started the Start of Day workflow at the depot but has not yet set off. A trip can also be Cancelled.</p>
         </div>
+      </div>
+
+      <div class="trip-diagrams">
+
+        <!-- Simple Trip -->
+        <div class="trip-diagram-card">
+          <h4>Simple Trip</h4>
+          <p class="diagram-desc">One vehicle, one client stop, one job.</p>
+          <svg viewBox="0 0 260 90" width="100%" xmlns="http://www.w3.org/2000/svg" aria-label="Simple trip route diagram">
+            <defs>
+              <marker id="arr-simple" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/>
+              </marker>
+            </defs>
+            <circle cx="28" cy="50" r="20" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+            <text x="28" y="47" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" font-weight="700" fill="#0f766e">START</text>
+            <text x="28" y="57" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" fill="#0f766e">DEPOT</text>
+            <rect x="56" y="36" width="28" height="14" rx="7" fill="#f3e8ff"/>
+            <text x="70" y="46" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" font-weight="700" fill="#7e22ce">Job 1</text>
+            <line x1="48" y1="50" x2="100" y2="50" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-simple)"/>
+            <rect x="102" y="34" width="56" height="32" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+            <text x="130" y="47" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9.5" font-weight="700" fill="#15803d">Stop</text>
+            <rect x="110" y="51" width="40" height="11" rx="5" fill="#fef3c7"/>
+            <text x="130" y="59" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" font-weight="700" fill="#b45309">DELIVERY</text>
+            <line x1="158" y1="50" x2="210" y2="50" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-simple)"/>
+            <circle cx="232" cy="50" r="20" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+            <text x="232" y="47" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" font-weight="700" fill="#0f766e">END</text>
+            <text x="232" y="57" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" fill="#0f766e">DEPOT</text>
+            <text x="28" y="83" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" fill="#64748b">Depot</text>
+            <text x="130" y="83" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" fill="#64748b">Client site</text>
+            <text x="232" y="83" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" fill="#64748b">Depot</text>
+          </svg>
+        </div>
+
+        <!-- Multi-Stop Trip -->
+        <div class="trip-diagram-card">
+          <h4>Multi-Stop Trip</h4>
+          <p class="diagram-desc">One vehicle, multiple jobs on one route.</p>
+          <svg viewBox="0 0 300 90" width="100%" xmlns="http://www.w3.org/2000/svg" aria-label="Multi-stop trip route diagram">
+            <defs>
+              <marker id="arr-multi" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/>
+              </marker>
+            </defs>
+            <circle cx="22" cy="50" r="17" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+            <text x="22" y="47" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" font-weight="700" fill="#0f766e">START</text>
+            <text x="22" y="56" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" fill="#0f766e">DEPOT</text>
+            <rect x="44" y="36" width="26" height="13" rx="6" fill="#f3e8ff"/>
+            <text x="57" y="45" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" font-weight="700" fill="#7e22ce">Job 1</text>
+            <line x1="39" y1="50" x2="80" y2="50" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-multi)"/>
+            <rect x="82" y="36" width="48" height="28" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+            <text x="106" y="48" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9" font-weight="700" fill="#15803d">Stop 1</text>
+            <rect x="89" y="53" width="34" height="9" rx="4" fill="#fef3c7"/>
+            <text x="106" y="60" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7" font-weight="700" fill="#b45309">DELIVERY</text>
+            <rect x="134" y="36" width="26" height="13" rx="6" fill="#f3e8ff"/>
+            <text x="147" y="45" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" font-weight="700" fill="#7e22ce">Job 2</text>
+            <line x1="130" y1="50" x2="168" y2="50" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-multi)"/>
+            <rect x="170" y="36" width="48" height="28" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+            <text x="194" y="48" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9" font-weight="700" fill="#15803d">Stop 2</text>
+            <rect x="177" y="53" width="34" height="9" rx="4" fill="#fef3c7"/>
+            <text x="194" y="60" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7" font-weight="700" fill="#b45309">DELIVERY</text>
+            <line x1="218" y1="50" x2="256" y2="50" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-multi)"/>
+            <circle cx="275" cy="50" r="17" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+            <text x="275" y="47" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" font-weight="700" fill="#0f766e">END</text>
+            <text x="275" y="56" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" fill="#0f766e">DEPOT</text>
+            <text x="22" y="80" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" fill="#64748b">Depot</text>
+            <text x="106" y="80" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" fill="#64748b">Site A</text>
+            <text x="194" y="80" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" fill="#64748b">Site B</text>
+            <text x="275" y="80" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" fill="#64748b">Depot</text>
+          </svg>
+        </div>
+
+        <!-- Split Order Trip -->
+        <div class="trip-diagram-card">
+          <h4>Split Order</h4>
+          <p class="diagram-desc">One order fulfilled by two vehicles running concurrently.</p>
+          <svg viewBox="0 0 260 154" width="100%" xmlns="http://www.w3.org/2000/svg" aria-label="Split order trip diagram">
+            <defs>
+              <marker id="arr-split" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/>
+              </marker>
+            </defs>
+            <rect x="2" y="2" width="256" height="148" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+            <text x="12" y="18" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" font-weight="700" fill="#1e3a8a" opacity="0.75">ORDER 1 — split across two vehicles</text>
+            <text x="12" y="37" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" font-weight="700" fill="#0f766e">Trip 1</text>
+            <circle cx="26" cy="55" r="15" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+            <text x="26" y="59" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" font-weight="700" fill="#0f766e">DEPOT</text>
+            <rect x="46" y="45" width="24" height="12" rx="6" fill="#f3e8ff"/>
+            <text x="58" y="54" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" font-weight="700" fill="#7e22ce">Job 1</text>
+            <line x1="41" y1="55" x2="79" y2="55" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-split)"/>
+            <rect x="81" y="43" width="50" height="24" rx="5" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+            <text x="106" y="53" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" font-weight="700" fill="#15803d">Stop</text>
+            <rect x="87" y="57" width="38" height="9" rx="4" fill="#fef3c7"/>
+            <text x="106" y="64" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="6.5" font-weight="700" fill="#b45309">DELIVERY</text>
+            <line x1="131" y1="55" x2="204" y2="55" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-split)"/>
+            <circle cx="222" cy="55" r="15" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+            <text x="222" y="59" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" font-weight="700" fill="#0f766e">DEPOT</text>
+            <text x="12" y="103" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8" font-weight="700" fill="#0f766e">Trip 2</text>
+            <circle cx="26" cy="121" r="15" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+            <text x="26" y="125" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" font-weight="700" fill="#0f766e">DEPOT</text>
+            <rect x="46" y="111" width="24" height="12" rx="6" fill="#f3e8ff"/>
+            <text x="58" y="120" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" font-weight="700" fill="#7e22ce">Job 2</text>
+            <line x1="41" y1="121" x2="79" y2="121" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-split)"/>
+            <rect x="81" y="109" width="50" height="24" rx="5" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+            <text x="106" y="119" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" font-weight="700" fill="#15803d">Stop</text>
+            <rect x="87" y="123" width="38" height="9" rx="4" fill="#fef3c7"/>
+            <text x="106" y="130" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="6.5" font-weight="700" fill="#b45309">DELIVERY</text>
+            <line x1="131" y1="121" x2="204" y2="121" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr-split)"/>
+            <circle cx="222" cy="121" r="15" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+            <text x="222" y="125" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" font-weight="700" fill="#0f766e">DEPOT</text>
+          </svg>
+        </div>
+
       </div>
     </section>
 
@@ -925,7 +1114,8 @@
         <div class="concept-card">
           <div class="concept-card-header">
             <span class="concept-badge badge-stop">Stop</span>
-            <h2>A planned site visit</h2>
+            <h2>Where the work happens</h2>
+            <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span><span class="app-pill app-mobile">Tramm Mobile</span></div></div>
           </div>
           <div class="concept-card-body">
             <p>A stop is a planned visit to a site as part of a trip. Each stop records the planned arrival time, any wait time if the vehicle arrives before the site opens, travel distance and duration from the previous stop, and the list of activities to be carried out there. A stop can contain multiple activities — for example, a delivery and a collection at the same site.</p>
@@ -940,17 +1130,77 @@
               </ul>
             </div>
 
+            <h3 style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400); margin-top: 0.25rem;">How stop duration is made up</h3>
+            <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 0.5rem; padding: 1.25rem 1rem 0.75rem; overflow: hidden;">
+              <svg viewBox="0 0 450 108" width="100%" xmlns="http://www.w3.org/2000/svg" aria-label="Stop duration breakdown showing wait, entry, activity, and exit segments">
+                <defs>
+                  <clipPath id="stop-clip">
+                    <rect x="30" y="26" width="370" height="26" rx="4"/>
+                  </clipPath>
+                </defs>
+                <!-- Bracket -->
+                <text x="215" y="13" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" font-weight="700" fill="#475569" letter-spacing="1.5">STOP DURATION</text>
+                <line x1="30" y1="19" x2="400" y2="19" stroke="#cbd5e1" stroke-width="1"/>
+                <line x1="30" y1="19" x2="30" y2="26" stroke="#cbd5e1" stroke-width="1"/>
+                <line x1="400" y1="19" x2="400" y2="26" stroke="#cbd5e1" stroke-width="1"/>
+                <!-- Segment fills -->
+                <g clip-path="url(#stop-clip)">
+                  <rect x="30" y="26" width="55" height="26" fill="#f1f5f9"/>
+                  <rect x="85" y="26" width="65" height="26" fill="#dbeafe"/>
+                  <rect x="150" y="26" width="185" height="26" fill="#fef3c7"/>
+                  <rect x="335" y="26" width="65" height="26" fill="#dbeafe"/>
+                </g>
+                <!-- Outer border + dividers -->
+                <rect x="30" y="26" width="370" height="26" rx="4" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+                <line x1="85" y1="26" x2="85" y2="52" stroke="#e2e8f0" stroke-width="1"/>
+                <line x1="150" y1="26" x2="150" y2="52" stroke="#e2e8f0" stroke-width="1"/>
+                <line x1="335" y1="26" x2="335" y2="52" stroke="#e2e8f0" stroke-width="1"/>
+                <!-- Segment labels -->
+                <text x="57" y="43" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9" font-weight="700" fill="#64748b">Wait</text>
+                <text x="117" y="43" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9" font-weight="700" fill="#1d4ed8">Entry</text>
+                <text x="242" y="43" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9" font-weight="700" fill="#b45309">Activity</text>
+                <text x="367" y="43" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9" font-weight="700" fill="#1d4ed8">Exit</text>
+                <!-- Tick marks -->
+                <line x1="30" y1="52" x2="30" y2="60" stroke="#94a3b8" stroke-width="1.5"/>
+                <line x1="150" y1="52" x2="150" y2="60" stroke="#94a3b8" stroke-width="1.5"/>
+                <line x1="335" y1="52" x2="335" y2="60" stroke="#94a3b8" stroke-width="1.5"/>
+                <line x1="400" y1="52" x2="400" y2="60" stroke="#94a3b8" stroke-width="1.5"/>
+                <!-- Timestamp labels -->
+                <text x="30" y="72" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" font-weight="600" fill="#475569">Arrival</text>
+                <text x="150" y="72" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" font-weight="600" fill="#475569">Work starts</text>
+                <text x="335" y="72" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" font-weight="600" fill="#475569">Work ends</text>
+                <text x="400" y="72" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" font-weight="600" fill="#475569">Departure</text>
+                <!-- Notes -->
+                <text x="57" y="90" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" fill="#94a3b8">If arrived early</text>
+                <text x="117" y="90" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" fill="#94a3b8">Enter site</text>
+                <text x="242" y="90" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" fill="#94a3b8">Loading, delivery, or service</text>
+                <text x="367" y="90" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="7.5" fill="#94a3b8">Leave site</text>
+              </svg>
+            </div>
+
+            <div class="key-points">
+              <h3>What each segment means</h3>
+              <ul>
+                <li><strong>Arrival Time</strong> is when the vehicle reaches the geographic area of the site — not when work starts. If the vehicle arrives before the site opens, it waits. The Wait segment covers that gap.</li>
+                <li><strong>Entry duration</strong> is the time it takes to physically enter the site after it opens — gate checks, parking, reaching the loading bay. It is configured on the site in Data Manager. Exit duration works the same way on departure.</li>
+                <li>A stop can have <strong>no activities, one activity, or multiple activities</strong>. Entry and exit duration pad the total stop time regardless of how many activities there are.</li>
+                <li>If a stop has no activities, it can still have a <strong>fixed duration</strong> — for example, a driver rest stop with a defined break length.</li>
+                <li><strong>Activity duration</strong> is normally calculated from loading rates configured on the job and the site. If the job has an explicit duration set, that value is used instead.</li>
+                <li><strong>Stop duration takes precedence</strong> over the sum of its activities. The trip clock advances by the stop's planned duration, not by the total of individual activity times. If activities would take longer than the planned stop duration, they can overflow beyond it — but this is not tracked as a separate status in the system.</li>
+              </ul>
+            </div>
+
             <div class="states">
               <span class="states-label">Driver states</span>
               <span class="state-pill">Planned</span>
               <span class="state-arrow">→</span>
-              <span class="state-pill">On the Way</span>
+              <span class="state-pill s-active">On the Way</span>
               <span class="state-arrow">→</span>
-              <span class="state-pill">Arrived</span>
+              <span class="state-pill s-active">Arrived</span>
               <span class="state-arrow">→</span>
-              <span class="state-pill">In Progress</span>
+              <span class="state-pill s-active">In Progress</span>
               <span class="state-arrow">→</span>
-              <span class="state-pill">Completed</span>
+              <span class="state-pill s-done">Completed</span>
             </div>
             <p style="font-size:0.8rem; color: var(--slate-400); margin-top: -0.25rem;">These states are driven by the driver's actions in Tramm Mobile. Each transition records an actual timestamp.</p>
           </div>
@@ -960,6 +1210,7 @@
           <div class="concept-card-header">
             <span class="concept-badge badge-activity">Activity</span>
             <h2>The work done at a stop</h2>
+            <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill app-mobile">Tramm Mobile</span><span class="app-pill app-em">Execution Manager</span></div></div>
           </div>
           <div class="concept-card-body">
             <p>An activity is the fulfillment of a job at a stop. It is where the actual loading, offloading, or service takes place. Every delivery or collection job produces two activities — one at each end of the journey.</p>
@@ -1012,9 +1263,9 @@
               <span class="states-label">States</span>
               <span class="state-pill">Planned</span>
               <span class="state-arrow">→</span>
-              <span class="state-pill">In Progress</span>
+              <span class="state-pill s-active">In Progress</span>
               <span class="state-arrow">→</span>
-              <span class="state-pill">Completed</span>
+              <span class="state-pill s-done">Completed</span>
             </div>
           </div>
         </div>
@@ -1029,6 +1280,7 @@
         <div class="concept-card-header">
           <span class="concept-badge badge-lineitem">Line Item</span>
           <h2>The individual goods within a job</h2>
+          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Order Manager</span><span class="app-pill app-mobile">Tramm Mobile</span></div></div>
         </div>
         <div class="concept-card-body">
           <p>Line items are the individual products within a delivery or collection job. Where a job says "deliver goods to Site X," the line items say exactly <em>what</em> those goods are and in what quantities. Line items enable item-level tracking from the moment goods are loaded onto the vehicle to the moment they are confirmed at the delivery site.</p>
@@ -1036,7 +1288,7 @@
           <div class="key-points">
             <h3>What a line item tracks</h3>
             <ul>
-              <li><strong>Product</strong> — What the item is (e.g., "Long-Life Milk 2L").</li>
+              <li><strong>Product</strong> — What the item is (e.g., "Long-Life Milk 1L").</li>
               <li><strong>Ordered quantity</strong> — What the client requested.</li>
               <li><strong>Loaded quantity</strong> — What was actually put on the vehicle, confirmed by the driver during Start of Day.</li>
               <li><strong>Delivered quantity</strong> — What the driver actually handed over, recorded at the delivery stop.</li>
@@ -1045,11 +1297,20 @@
           </div>
 
           <div class="key-points">
+            <h3>Transport Units</h3>
+            <ul>
+              <li>Some operations group line items into <strong>Transport Units</strong> — physical containers such as boxes, crates, pallets, buckets, kegs, or drums. A Transport Unit is a named container that holds one or more products.</li>
+              <li>When Transport Units are in use, line items can have <strong>sub-line-items</strong> — each unit tracks its own product quantities separately from the top-level job quantities.</li>
+              <li>Transport Units are optional. Many operations work with simple line items and no containers. The choice depends on how granularly goods need to be tracked during loading and delivery.</li>
+            </ul>
+          </div>
+
+          <div class="key-points">
             <h3>Why line items matter</h3>
             <ul>
               <li>They provide <strong>item-level proof of delivery</strong> — not just "delivery done" but "exactly X units delivered of Y product."</li>
               <li>Discrepancies between ordered, loaded, and delivered quantities are captured automatically and can trigger a claim or exception.</li>
-              <li>Barcodes can be configured on line items, allowing the driver to scan each item rather than enter quantities manually — which reduces errors.</li>
+              <li>Barcodes can be configured on line items, allowing the driver to scan each item using their phone's camera rather than entering quantities manually — no dedicated scanning hardware required.</li>
               <li>Service jobs and break activities have no line items — line items only apply where physical goods are being moved.</li>
             </ul>
           </div>
@@ -1069,7 +1330,7 @@
         </div>
         <div class="concept-card-body">
 
-          <p>Tramm Mobile guides the driver through each stop in sequence. At every stop, the driver marks their status (on the way, arrived, started, done), carries out the configured workflow steps, and records actual times and quantities. This data syncs back to the system in real time — or queues locally if there is no connectivity, and syncs as soon as a connection is restored.</p>
+          <p>Tramm Mobile guides the driver through each stop in sequence. At every stop, the driver marks their status (on the way, arrived, started, done), carries out the configured workflow steps, and records actual times and quantities. This data syncs back to the system in real time — or queues locally if there is no internet or mobile signal, and syncs as soon as a connection is restored.</p>
 
           <h3 style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-400);">Actuals — what the driver records at each stop</h3>
           <div class="actuals-table-wrap">
@@ -1129,15 +1390,15 @@
           <p>Beyond the planned delivery and collection stops, Tramm Mobile also manages the start and end of the driver's day, as well as any unplanned stops that arise.</p>
           <div class="stop-type-list">
             <div class="stype-row">
-              <span class="stype-badge stype-depot">Start of Day</span>
-              <span class="stype-desc"><strong>SOD</strong> — The workflow at the depot before the driver sets off. Typically includes a vehicle inspection checklist and confirmation that goods have been loaded. Line item quantities are captured here — what is actually on the vehicle matches what is planned.</span>
+              <span class="stype-badge stype-sod">Start of Day</span>
+              <span class="stype-desc"><strong>SOD</strong> — The workflow at the depot before the driver sets off. Typically includes a vehicle inspection checklist, an opening odometer reading, and confirmation that goods have been loaded onto the vehicle. Actual delivered quantities are confirmed later, at each delivery stop.</span>
             </div>
             <div class="stype-row">
-              <span class="stype-badge stype-depot">End of Day</span>
+              <span class="stype-badge stype-eod">End of Day</span>
               <span class="stype-desc"><strong>EOD</strong> — The workflow when the driver returns to the depot at the end of the route. Typically includes a final odometer reading and confirmation of any returned goods.</span>
             </div>
             <div class="stype-row">
-              <span class="stype-badge stype-adhoc">Ad Hoc Stop</span>
+              <span class="stype-badge stype-adhoc">Unplanned Stop</span>
               <span class="stype-desc"><strong>Unplanned stop</strong> — A stop added to the trip while the driver is already on the road. The driver adds it in Tramm Mobile; it is sent to the system and becomes visible in both Tramm TMS and Fleetvision immediately.</span>
             </div>
           </div>
@@ -1240,52 +1501,113 @@
 
           <div class="example-step">
             <span class="step-badge badge-order">Order</span>
-            <span>An order is created: deliver 500 boxes of long-life milk to <strong>PnP Rosebank</strong> from <strong>JHB Depot</strong>, time window <strong>Tuesday 08:00–12:00</strong>. The auxiliary site is JHB Depot — where goods will be loaded. The order's state moves to <em>New</em>.</span>
+            <span>An order is created in Order Manager: deliver 500 boxes of long-life milk to <strong>PnP Rosebank</strong> from <strong>JHB Depot</strong>, time window <strong>Tuesday 08:00–12:00</strong>. The auxiliary site is JHB Depot — where goods will be loaded. <em>Order → New</em></span>
           </div>
 
           <div class="example-step">
             <span class="step-badge badge-job">Job</span>
-            <span>The planner reviews the order. 500 boxes fit in one 4-ton vehicle, so <strong>one job</strong> is created. The job has two line items: 300 × Long-Life Milk 1L, and 200 × Long-Life Milk 2L. Job requirements: 4-ton vehicle, refrigerated.</span>
+            <span>The planner (the person using the Planner app) reviews the order. 500 boxes fit in one 4-ton vehicle, so <strong>one job</strong> is created with two line items: 300 × Long-Life Milk 1L and 200 × Long-Life Milk 2L. Job requirements: 4-ton vehicle, refrigerated. <em>Job → New</em></span>
           </div>
 
           <div class="example-step">
             <span class="step-badge badge-trip">Trip</span>
-            <span>The scheduler creates a trip for vehicle <strong>BC12DF GP</strong>: start at <strong>JHB Depot</strong> at 07:30, visit <strong>PnP Rosebank</strong>, return to depot. Bob is allocated as the driver. The trip is sent to Tramm Mobile.</span>
+            <span>The planner creates a trip for vehicle <strong>BC12DF GP</strong>: start at <strong>JHB Depot</strong> at 07:30, visit <strong>PnP Rosebank</strong>, return to depot. Bob is allocated as the driver. The trip is sent to Tramm Mobile. <em>Trip → Allocated · Job → Planned · Order → Planned</em></span>
           </div>
 
           <div class="example-step">
             <span class="step-badge badge-stop">Stops</span>
-            <span>The trip has three stops: <strong>JHB Depot</strong> (Start of Day + loading), <strong>PnP Rosebank</strong> (delivery), and <strong>JHB Depot</strong> again (return + End of Day).</span>
+            <span>The trip has three stops: <strong>JHB Depot</strong> (Start of Day + loading), <strong>PnP Rosebank</strong> (delivery), and <strong>JHB Depot</strong> again (return + End of Day). Each stop sits in <em>Pending</em> until Bob starts working through them.</span>
           </div>
 
           <div class="example-step">
             <span class="step-badge badge-activity">Activities</span>
-            <span>Two delivery activities: a <strong>Load</strong> activity at JHB Depot (500 boxes onto BC12DF GP) and a <strong>Delivery</strong> activity at PnP Rosebank (500 boxes offloaded and confirmed).</span>
+            <span>Two activities are planned: a <strong>Load</strong> at JHB Depot (500 boxes onto BC12DF GP) and a <strong>Delivery</strong> at PnP Rosebank (500 boxes to be confirmed on arrival).</span>
           </div>
 
           <div class="example-step">
-            <span class="step-badge badge-mobile">Mobile</span>
-            <span>Bob opens Tramm Mobile at 07:15, selects his trip, and starts the <strong>Start of Day</strong> workflow — vehicle check, then confirms both line items are loaded. At 07:30 he sets off. Tramm Mobile records <em>Travel Start Time</em> for the first stop.</span>
+            <span class="step-badge badge-mobile">Mobile — SOD</span>
+            <span>Bob opens Tramm Mobile at 07:15 and taps <em>Start Trip</em>. He completes the Start of Day workflow — vehicle inspection checklist and confirmation that goods are loaded. At 07:30 he taps <em>Depart</em>. <em>Trip → Pre-Trip then In Progress · Stop (JHB Depot) → Completed</em></span>
           </div>
 
           <div class="example-step">
-            <span class="step-badge badge-mobile">Mobile</span>
-            <span>Bob arrives at PnP Rosebank at 08:45. He marks "Arrived" — <em>Arrival Time</em> is recorded. He starts the delivery workflow: scans the barcode on the delivery note, enters 300 × Milk 1L and 200 × Milk 2L as delivered, and collects the store manager's signature. The <strong>ePOD</strong> is generated and synced.</span>
+            <span class="step-badge badge-mobile">Mobile — Delivery</span>
+            <span>Bob arrives at PnP Rosebank at 08:45 and taps <em>Arrived</em> — Arrival Time is recorded. He taps <em>Start Work</em> and completes the delivery workflow: scans each product barcode using his phone, enters 300 × Milk 1L and 200 × Milk 2L as delivered, and collects the store manager's signature. He taps <em>Done</em>. <em>Stop → Completed · Activity → Completed · ePOD generated</em></span>
           </div>
 
           <div class="example-step">
             <span class="step-badge badge-fv">Fleetvision</span>
-            <span>Throughout the trip, the supervisor on Fleetvision can see BC12DF GP moving on the live map. When Bob marked "Arrived" at PnP Rosebank at 08:45, Fleetvision showed the stop as <em>On Time</em> (window closes at 12:00). No alerts were triggered. The stop completion syncs and Fleetvision marks it <em>Completed</em>.</span>
+            <span>Throughout the trip the supervisor on Fleetvision can see BC12DF GP moving on the live map. When Bob tapped "Arrived" at PnP Rosebank at 08:45, Fleetvision showed the stop as <em>On Time</em> (window closes at 12:00). No alerts were triggered.</span>
           </div>
 
           <div class="example-step">
             <span class="step-badge badge-order">Completed</span>
-            <span>Bob completes the End of Day workflow at JHB Depot. All activities are done. The job moves to <em>Completed</em>. The order moves to <em>Completed</em>. The ePOD — with signature, quantities, and timestamps — is stored against the job.</span>
+            <span>Bob returns to JHB Depot and completes the End of Day workflow — records the closing odometer and confirms any returned goods. All stops are done. <em>Trip → Completed · Job → Completed · Order → Completed</em>. The ePOD — with signature, quantities, and timestamps — is stored against the job.</span>
           </div>
 
         </div>
       </div>
     </section>
+
+    <!-- SITES & LOCATIONS -->
+    <section id="sites-locations">
+      <h2 class="section-title">Sites &amp; Locations</h2>
+      <p class="section-lead">Tramm uses two related but distinct concepts — Location and Site — that are easy to confuse. Understanding the difference helps explain how travel times, entry durations, and operating hours are configured.</p>
+
+      <div class="concept-card">
+        <div class="concept-card-header">
+          <span class="concept-badge badge-trip" style="background:var(--slate-100);color:var(--slate-600);">Data Manager</span>
+          <h2>Location vs Site</h2>
+        </div>
+        <div class="concept-card-body">
+
+          <svg viewBox="0 0 580 170" width="100%" xmlns="http://www.w3.org/2000/svg" aria-label="Diagram comparing Site and Location entities">
+            <!-- Site box (left) -->
+            <rect x="10" y="8" width="228" height="122" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+            <rect x="10" y="8" width="228" height="46" rx="6" fill="#dbeafe"/>
+            <rect x="10" y="38" width="228" height="16" fill="#dbeafe"/>
+            <text x="24" y="31" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="800" fill="#1e3a8a">Site</text>
+            <text x="24" y="46" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" fill="#1d4ed8">Tramm entity with operational settings</text>
+            <text x="24" y="70" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9.5" fill="#1e3a8a">›  References a Location</text>
+            <text x="24" y="86" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9.5" fill="#1e3a8a">›  Entry &amp; exit duration</text>
+            <text x="24" y="102" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9.5" fill="#1e3a8a">›  Loading rate &amp; operating hours</text>
+            <text x="24" y="122" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9" fill="#2563eb" font-style="italic">"Where work is done in Tramm"</text>
+            <!-- Location box (right) -->
+            <rect x="342" y="8" width="228" height="122" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+            <rect x="342" y="8" width="228" height="46" rx="6" fill="#f1f5f9"/>
+            <rect x="342" y="38" width="228" height="16" fill="#f1f5f9"/>
+            <text x="356" y="31" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="800" fill="#0f172a">Location</text>
+            <text x="356" y="46" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" fill="#64748b">Geographic point — coordinates and address only</text>
+            <text x="356" y="70" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9.5" fill="#475569">›  Latitude / longitude on a map</text>
+            <text x="356" y="86" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9.5" fill="#475569">›  Physical address</text>
+            <text x="356" y="102" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9.5" fill="#475569">›  No operational settings attached</text>
+            <text x="356" y="122" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="9" fill="#94a3b8" font-style="italic">"Where on the map"</text>
+            <!-- Arrow: Site references Location (pointing right) -->
+            <line x1="240" y1="69" x2="340" y2="69" stroke="#cbd5e1" stroke-width="1.5"/>
+            <polygon points="340,65 350,69 340,73" fill="#94a3b8"/>
+            <text x="291" y="62" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" fill="#64748b">references</text>
+            <!-- Bottom note -->
+            <text x="290" y="150" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" fill="#64748b">Multiple Sites can reference the same Location —</text>
+            <text x="290" y="163" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" fill="#64748b">for example, two separate clients at the same physical address.</text>
+          </svg>
+
+          <div class="key-points">
+            <h3>What this means in practice</h3>
+            <ul>
+              <li>When you create a Site in Data Manager, you link it to a Location (or create the Location at the same time). The Location stores the address; the Site stores the operational details.</li>
+              <li>Travel time calculations use the Location's coordinates. Entry and exit duration calculations use the Site's settings. Both play a role in planning.</li>
+              <li>Users work with Sites — you assign jobs to sites, plan trips to sites, and configure time windows on sites. The underlying Location is managed in the background.</li>
+              <li>Fleetvision uses Location coordinates to detect when a vehicle has physically arrived at an address, even before the driver marks arrival in Tramm Mobile.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA MANAGER CALLOUT -->
+    <div class="info-callout" style="margin-bottom: 0;">
+      <strong>Where is all this configured?</strong> Sites, vehicles, products, routes, loading rates, operating hours, and other reference data are set up and maintained in the <strong>Data Manager</strong> app within Tramm TMS. Whenever this guide refers to configuring a site's entry duration, a vehicle's capacity, or a product's loading rate, that work is done in Data Manager.
+    </div>
 
     <!-- TERMINOLOGY -->
     <section id="terminology">
@@ -1339,7 +1661,7 @@
             </tr>
             <tr>
               <td>SOD / EOD</td>
-              <td>Start of Day / End of Day. The depot workflows at the beginning and end of a driver's shift. SOD typically confirms loaded goods; EOD confirms returns and records final odometer.</td>
+              <td>Start of Day / End of Day. The depot workflows at the beginning and end of a driver's shift. SOD typically includes a vehicle inspection and an opening odometer reading; EOD confirms returned goods and records the closing odometer reading.</td>
             </tr>
             <tr>
               <td>Ad Hoc Stop</td>
@@ -1364,26 +1686,6 @@
             <tr>
               <td>Crossdock</td>
               <td>A logistics process where goods are transferred from one vehicle to another at an intermediate point (rather than going directly from origin to destination). Tramm supports crossdock operations with a dedicated workflow.</td>
-            </tr>
-            <tr>
-              <td>Partition</td>
-              <td>An isolated data container within the system. Data in one partition is not visible in another. Used to separate different customers or business units operating on the same Tramm instance.</td>
-            </tr>
-            <tr>
-              <td>Complex Type</td>
-              <td>A structured field with sub-fields, similar to an entity, but without its own unique identifier. It exists as part of another entity. Example: a Stop is a complex type within a Trip.</td>
-            </tr>
-            <tr>
-              <td>Field *</td>
-              <td>An asterisk next to a field name means it is required — a value must be given when the record is created.</td>
-            </tr>
-            <tr>
-              <td>Field ^</td>
-              <td>A caret means the field is overridable. If left blank, it inherits its value from the entity class.</td>
-            </tr>
-            <tr>
-              <td>Field +</td>
-              <td>A plus means the field is augmentative. Its value is combined with the class value (by union or concatenation) rather than replacing it.</td>
             </tr>
           </tbody>
         </table>
