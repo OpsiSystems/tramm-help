@@ -6,6 +6,7 @@
   <title>Key Concepts — How Tramm Works — Tramm Help</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-padding-top: 56px; }
 
     :root {
       --blue-50:  #eff6ff;
@@ -32,8 +33,9 @@
       --amber-100: #fef3c7;
       --amber-500: #f59e0b;
       --amber-700: #b45309;
-      --purple-50: #faf5ff;
+      --purple-50:  #faf5ff;
       --purple-100: #f3e8ff;
+      --purple-200: #e9d5ff;
       --purple-500: #8b5cf6;
       --purple-700: #7e22ce;
       --teal-50:  #f0fdfa;
@@ -310,7 +312,7 @@
       white-space: nowrap;
     }
     .badge-order    { background: var(--blue-100);   color: var(--blue-700);   }
-    .badge-job      { background: var(--purple-100); color: var(--purple-700); }
+    .badge-job      { background: var(--purple-200); color: var(--purple-700); }
     .badge-trip     { background: var(--teal-100);   color: var(--teal-700);   }
     .badge-stop     { background: var(--green-100);  color: var(--green-700);  }
     .badge-activity { background: var(--amber-100);  color: var(--amber-700);  }
@@ -520,8 +522,8 @@
       flex-shrink: 0;
     }
     .stype-sod   { background: var(--blue-100);   color: var(--blue-700);   }
-    .stype-eod   { background: var(--purple-100); color: var(--purple-700); }
-    .stype-adhoc { background: var(--green-100);  color: var(--green-700);  }
+    .stype-eod   { background: var(--purple-200); color: var(--purple-700); }
+    .stype-adhoc { background: var(--rose-100);   color: var(--rose-700);   }
     .stype-desc {
       font-size: 0.87rem;
       color: var(--slate-600);
@@ -686,7 +688,7 @@
     }
     .app-pill.app-mobile { background: var(--teal-100);   color: var(--teal-700);   }
     .app-pill.app-fv     { background: var(--amber-100);  color: var(--amber-700);  }
-    .app-pill.app-em     { background: var(--purple-100); color: var(--purple-700); }
+    .app-pill.app-em     { background: var(--purple-200); color: var(--purple-700); }
     @media (max-width: 700px) { .app-context { display: none; } }
 
     /* ── TRIP DIAGRAMS ── */
