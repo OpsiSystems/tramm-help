@@ -1038,7 +1038,7 @@
           <h2>What the client asked for</h2>
         </div>
         <div class="concept-card-body">
-          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Order Manager</span></div></div>
+          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Order Manager</span><span class="app-pill">Planner</span></div></div>
           <p>An order is a client's request for a <strong>delivery</strong>, <strong>collection</strong>, or <strong>service</strong> at a specific site. It captures what needs to happen — not how it will be done. An order has no knowledge of vehicles, routes, or scheduling. That comes later when jobs are created.</p>
           <div class="info-callout">
             <strong>Orders are optional in Tramm.</strong> Some operations work entirely with jobs and never create orders — for example, when trips are built directly without a formal order intake process. Where orders are used, they are the entry point that drives job creation.
@@ -1120,17 +1120,17 @@
           <h2>The vehicle's route for the day</h2>
         </div>
         <div class="concept-card-body">
-          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span><span class="app-pill app-mobile">Tramm Mobile</span><span class="app-pill app-fv">Fleetvision</span></div></div>
+          <div class="used-in-row"><span class="used-in-label">Used in</span><div class="app-context"><span class="app-pill">Planner</span><span class="app-pill app-mobile">Tramm Mobile</span><span class="app-pill app-fv">Fleetvision</span><span class="app-pill">Master Route Manager</span></div></div>
           <p>A trip is a sequence of planned site visits (stops) assigned to a vehicle. It is created when the scheduler groups jobs together and builds a route. A trip has a start site, a planned start time, and a list of stops in order.</p>
 
           <div class="key-points">
             <h3>Key points</h3>
             <ul>
-              <li>Every trip begins from a <strong>start site</strong> — the site the vehicle departs from, typically where goods are loaded onto the vehicle. Returning to the start site at the end of the route is optional and is configured on the master route.</li>
+              <li>Every trip begins from a <strong>start site</strong> — the site the vehicle departs from, typically where goods are loaded onto the vehicle. Whether the trip returns to that site or to the vehicle's home site at the end of the route is optional; the vehicle's home site is configured in Data Manager, and the master route controls which option applies.</li>
               <li>A trip can be allocated to a specific vehicle, a <strong>virtual vehicle</strong> (a placeholder when the exact vehicle is not yet confirmed), or left unallocated if imported from an external system.</li>
-              <li>The planned start time is usually set upfront — either from a master route schedule or entered manually by the planner. It is then adjusted if stop time windows require an earlier departure.</li>
+              <li>The planned start time is usually set upfront — either entered manually by the planner or derived from a master route schedule. It is then adjusted if stop time windows require an earlier departure.</li>
               <li>A trip's combined load requirements — capacity, vehicle class, special equipment — must match the allocated vehicle. The scheduler validates this automatically.</li>
-              <li>Some operations use <strong>master routes</strong> — recurring trip templates that run on a set schedule (e.g., every Monday). A master route generates actual trips each time it runs.</li>
+              <li><strong>Advanced:</strong> Some operations use <strong>master routes</strong> — recurring trip templates that run on a set schedule (e.g. every Monday). A master route generates actual trips each time it runs and is configured separately in the Master Route Manager app.</li>
               <li>Once a trip is underway, a driver can add <strong>unplanned stops</strong> via Tramm Mobile — for example, if a new delivery is requested while already on the road.</li>
             </ul>
           </div>
