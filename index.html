@@ -29,6 +29,8 @@
       --green-700: #15803d;
       --amber-100: #fef3c7;
       --amber-700: #b45309;
+      --teal-100:  #ccfbf1;
+      --teal-700:  #0f766e;
     }
 
     body {
@@ -137,60 +139,70 @@
       color: var(--slate-500);
     }
 
-    /* ── APP CARDS ── */
+    /* ── PRODUCT CARDS ── */
     .app-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1rem;
     }
-    .app-card {
+    .product-card {
       background: #fff;
       border: 1px solid var(--slate-200);
       border-radius: 0.75rem;
       padding: 1.5rem;
-      text-decoration: none;
-      color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
-      cursor: pointer;
+      gap: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
-    .app-card:hover {
-      box-shadow: 0 4px 16px rgba(30,58,138,0.1);
-      border-color: var(--blue-300, #93c5fd);
-      transform: translateY(-2px);
+    .product-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
     }
-    .app-card-icon {
+    .product-icon {
       width: 2.5rem;
       height: 2.5rem;
-      background: var(--blue-50);
       border-radius: 0.5rem;
+      background: var(--blue-50);
+      color: var(--blue-700);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--blue-700);
       flex-shrink: 0;
     }
-    .app-card-icon svg {
-      width: 1.25rem;
-      height: 1.25rem;
-    }
-    .app-card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--slate-900);
-    }
-    .app-card p {
-      font-size: 0.85rem;
-      color: var(--slate-500);
-      line-height: 1.5;
-      flex: 1;
-    }
-    .app-card-tags {
+    .product-icon svg { width: 1.25rem; height: 1.25rem; }
+    .product-icon.icon-mobile { background: var(--teal-100); color: var(--teal-700); }
+    .product-icon.icon-fv     { background: var(--amber-100); color: var(--amber-700); }
+    .product-card h3 { font-size: 1rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.15rem; }
+    .product-desc { font-size: 0.82rem; color: var(--slate-500); line-height: 1.4; }
+    .product-app-list {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
+      flex-direction: column;
+      gap: 0.25rem;
+      border-top: 1px solid var(--slate-100);
+      padding-top: 0.75rem;
+    }
+    .product-app-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.45rem 0.6rem;
+      border-radius: 0.4rem;
+      font-size: 0.855rem;
+      font-weight: 500;
+      color: var(--slate-700);
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    a.product-app-link:hover { background: var(--blue-50); color: var(--blue-700); }
+    .product-app-link.disabled { color: var(--slate-400); }
+    .product-coming {
+      font-size: 0.82rem;
+      color: var(--slate-400);
+      border-top: 1px solid var(--slate-100);
+      padding-top: 0.75rem;
+      font-style: italic;
     }
     .tag {
       font-size: 0.7rem;
@@ -421,7 +433,7 @@
   <nav class="sidebar-nav" aria-label="Page sections">
     <p class="sidebar-heading">On this page</p>
     <a href="#overview">New to Tramm?</a>
-    <a href="#apps">Apps</a>
+    <a href="#apps">Products</a>
     <a href="#how-tramm-works">How Tramm Works</a>
     <a href="#whats-new">What's New</a>
   </nav>
@@ -446,76 +458,81 @@
       </div>
     </section>
 
-    <!-- APPS -->
+    <!-- PRODUCTS -->
     <section id="apps">
       <div class="section-header">
-        <h2>Apps</h2>
-        <p>Select an app to find quick reference guides, how-to content, and tips.</p>
+        <h2>Products</h2>
+        <p>Select a product to find quick reference guides, how-to content, and tips.</p>
       </div>
       <div class="app-grid">
 
-        <!-- Data Manager -->
-        <a class="app-card" href="data-manager/index.html">
-          <div class="app-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <ellipse cx="12" cy="5" rx="9" ry="3"/>
-              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
-              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-            </svg>
+        <!-- Tramm -->
+        <div class="product-card">
+          <div class="product-card-header">
+            <div class="product-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Tramm</h3>
+              <p class="product-desc">The core platform — planning, execution, and reference data management.</p>
+            </div>
           </div>
-          <h3>Data Manager</h3>
-          <p>Configure and manage your Tramm data — master data, settings, and reference information.</p>
-          <div class="app-card-tags">
-            <span class="tag tag-coming">Coming soon</span>
+          <div class="product-app-list">
+            <a class="product-app-link" href="planner/quick-reference.html">
+              <span>Planner</span>
+              <span class="tag tag-available">Quick Reference</span>
+            </a>
+            <div class="product-app-link disabled">
+              <span>Data Manager</span>
+              <span class="tag tag-coming">Coming soon</span>
+            </div>
+            <div class="product-app-link disabled">
+              <span>Execution Manager</span>
+              <span class="tag tag-coming">Coming soon</span>
+            </div>
+            <div class="product-app-link disabled">
+              <span>Event Viewer</span>
+              <span class="tag tag-coming">Coming soon</span>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <!-- Planner -->
-        <a class="app-card" href="planner/quick-reference.html">
-          <div class="app-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 11l19-9-9 19-2-8-8-2z"/>
-            </svg>
+        <!-- Tramm Mobile -->
+        <div class="product-card">
+          <div class="product-card-header">
+            <div class="product-icon icon-mobile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                <line x1="12" y1="18" x2="12.01" y2="18"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Tramm Mobile</h3>
+              <p class="product-desc">The driver app — start of day, stop-by-stop execution, and end of day.</p>
+            </div>
           </div>
-          <h3>Planner</h3>
-          <p>Plan and manage trips, routes, and jobs. Assign resources and optimise your transport plan.</p>
-          <div class="app-card-tags">
-            <span class="tag tag-available">Quick Reference</span>
-          </div>
-        </a>
+          <p class="product-coming">Content coming soon</p>
+        </div>
 
-        <!-- Execution Manager -->
-        <a class="app-card" href="execution-manager/index.html">
-          <div class="app-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
-            </svg>
+        <!-- FleetVision -->
+        <div class="product-card">
+          <div class="product-card-header">
+            <div class="product-icon icon-fv">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <h3>FleetVision</h3>
+              <p class="product-desc">Real-time fleet visibility — live map, alerts, and trip monitoring.</p>
+            </div>
           </div>
-          <h3>Execution Manager</h3>
-          <p>Monitor and manage live operations — track trips in progress and respond to events as they happen.</p>
-          <div class="app-card-tags">
-            <span class="tag tag-coming">Coming soon</span>
-          </div>
-        </a>
-
-        <!-- Event Viewer -->
-        <a class="app-card" href="event-viewer/index.html">
-          <div class="app-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
-              <line x1="16" y1="13" x2="8" y2="13"/>
-              <line x1="16" y1="17" x2="8" y2="17"/>
-              <polyline points="10 9 9 9 8 9"/>
-            </svg>
-          </div>
-          <h3>Event Viewer</h3>
-          <p>View and investigate system events, activity logs, and audit trails across Tramm.</p>
-          <div class="app-card-tags">
-            <span class="tag tag-coming">Coming soon</span>
-          </div>
-        </a>
+          <p class="product-coming">Content coming soon</p>
+        </div>
 
       </div>
     </section>
