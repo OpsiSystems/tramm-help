@@ -691,19 +691,22 @@
       color: var(--slate-900);
       white-space: nowrap;
     }
-    .term-group-header td {
-      background: var(--slate-200);
+    .term-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .term-group-heading {
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--slate-600);
+      background: var(--slate-200);
       padding: 0.6rem 1rem;
-      border-bottom: 1px solid var(--slate-300);
-      border-top: 2px solid var(--slate-300);
-    }
-    .term-group-header:first-child td {
-      border-top: none;
+      border: 1px solid var(--slate-300);
+      border-radius: 0.5rem 0.5rem 0 0;
+      border-bottom: none;
     }
     .term-table-wrap {
       background: #fff;
@@ -1702,87 +1705,53 @@
       <h2 class="section-title">Terminology</h2>
       <p class="section-lead">Tramm uses specific terms consistently throughout all three products. These definitions apply everywhere.</p>
 
-      <div class="term-table-wrap">
-        <table class="term-table">
-          <thead>
-            <tr>
-              <th>Term</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- TRAMM TMS -->
-            <tr id="term-tramm" class="term-group-header"><td colspan="2">Tramm TMS</td></tr>
-            <tr>
-              <td>Auxiliary Site</td>
-              <td>The secondary site on a delivery or collection order — typically the depot. For a delivery, it is where goods are loaded; for a collection, it is where goods are returned.</td>
-            </tr>
-            <tr>
-              <td>Crossdock</td>
-              <td>A logistics process where goods are transferred from one vehicle to another at an intermediate point (rather than going directly from origin to destination). Tramm supports crossdock operations with a dedicated workflow.</td>
-            </tr>
-            <tr>
-              <td>Entity</td>
-              <td>A data record stored in the system with a unique identifier. Examples: Order, Job, Trip, Vehicle, Site.</td>
-            </tr>
-            <tr>
-              <td>Entity Class</td>
-              <td>A template for an entity. If a class field is updated, all instances inherit the new value unless they have overridden it. Example: Vehicle Class defines defaults that individual vehicles can inherit or override.</td>
-            </tr>
-            <tr>
-              <td>Line Item</td>
-              <td>An individual product within a job, with quantities tracked from loading (at depot) through to delivery or collection (at the client site).</td>
-            </tr>
-            <tr>
-              <td>Master Route</td>
-              <td>A recurring trip template that runs on a set schedule — for example, every Monday morning. Each run generates a new actual trip from the template.</td>
-            </tr>
-            <tr>
-              <td>Operating Hours</td>
-              <td>A recurring weekly availability schedule. For example, a site that is open Monday–Friday 07:00–17:00. The system never schedules stops outside a site's operating hours.</td>
-            </tr>
-            <tr>
-              <td>Time Window</td>
-              <td>A specific period with a From and To date/time. Used to specify when an order must be serviced, when a site can be visited, etc. Violating a time window is a service failure.</td>
-            </tr>
-            <tr>
-              <td>Virtual Vehicle</td>
-              <td>A placeholder vehicle used during planning when the exact vehicle has not yet been confirmed. The trip can be planned and optimised before the actual vehicle is known.</td>
-            </tr>
-            <!-- TRAMM MOBILE -->
-            <tr id="term-mobile" class="term-group-header"><td colspan="2">Tramm Mobile</td></tr>
-            <tr>
-              <td>Actuals</td>
-              <td>The real timestamps recorded by a driver at each stop — travel start, arrival, start of work, end of work, and departure. Compared against planned times to measure performance.</td>
-            </tr>
-            <tr>
-              <td>Ad Hoc Stop</td>
-              <td>An unplanned stop added to a trip while it is already in progress. Added by the driver in Tramm Mobile and immediately visible in Tramm TMS and Fleetvision.</td>
-            </tr>
-            <tr>
-              <td>ePOD</td>
-              <td>Electronic Proof of Delivery. The digital record generated when a driver completes the configured workflow at a delivery stop — typically including a signature, photos, and confirmed quantities.</td>
-            </tr>
-            <tr>
-              <td>SOD / EOD</td>
-              <td>Start of Day / End of Day. The depot workflows at the beginning and end of a driver's shift. SOD typically includes a vehicle inspection and an opening odometer reading; EOD confirms returned goods and records the closing odometer reading.</td>
-            </tr>
-            <tr>
-              <td>Workflow</td>
-              <td>The sequence of steps a driver must complete at a stop — signature, photos, barcode scanning, quantity entry, etc. Configured per stop type by the operations team.</td>
-            </tr>
-            <!-- FLEETVISION -->
-            <tr id="term-fv" class="term-group-header"><td colspan="2">Fleetvision</td></tr>
-            <tr>
-              <td>Alert</td>
-              <td>A notification generated by Fleetvision when something deviates from the plan — late arrival, off-route, unplanned stop, overspeeding, or harsh driving. Alerts escalate if not acknowledged.</td>
-            </tr>
-            <tr>
-              <td>GPS Breadcrumb</td>
-              <td>A GPS position recorded by Tramm Mobile or a vehicle telematics unit at regular intervals. Fleetvision uses these to track real-time vehicle movement and reconstruct routes.</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="term-group">
+        <h3 id="term-tramm" class="term-group-heading">Tramm TMS</h3>
+        <div class="term-table-wrap" style="border-radius: 0 0 0.5rem 0.5rem;">
+          <table class="term-table">
+            <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>Auxiliary Site</td><td>The secondary site on a delivery or collection order — typically the depot. For a delivery, it is where goods are loaded; for a collection, it is where goods are returned.</td></tr>
+              <tr><td>Crossdock</td><td>A logistics process where goods are transferred from one vehicle to another at an intermediate point (rather than going directly from origin to destination). Tramm supports crossdock operations with a dedicated workflow.</td></tr>
+              <tr><td>Entity</td><td>A data record stored in the system with a unique identifier. Examples: Order, Job, Trip, Vehicle, Site.</td></tr>
+              <tr><td>Entity Class</td><td>A template for an entity. If a class field is updated, all instances inherit the new value unless they have overridden it. Example: Vehicle Class defines defaults that individual vehicles can inherit or override.</td></tr>
+              <tr><td>Line Item</td><td>An individual product within a job, with quantities tracked from loading (at depot) through to delivery or collection (at the client site).</td></tr>
+              <tr><td>Master Route</td><td>A recurring trip template that runs on a set schedule — for example, every Monday morning. Each run generates a new actual trip from the template.</td></tr>
+              <tr><td>Operating Hours</td><td>A recurring weekly availability schedule. For example, a site that is open Monday–Friday 07:00–17:00. The system never schedules stops outside a site's operating hours.</td></tr>
+              <tr><td>Time Window</td><td>A specific period with a From and To date/time. Used to specify when an order must be serviced, when a site can be visited, etc. Violating a time window is a service failure.</td></tr>
+              <tr><td>Virtual Vehicle</td><td>A placeholder vehicle used during planning when the exact vehicle has not yet been confirmed. The trip can be planned and optimised before the actual vehicle is known.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="term-group">
+        <h3 id="term-mobile" class="term-group-heading">Tramm Mobile</h3>
+        <div class="term-table-wrap" style="border-radius: 0 0 0.5rem 0.5rem;">
+          <table class="term-table">
+            <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>Actuals</td><td>The real timestamps recorded by a driver at each stop — travel start, arrival, start of work, end of work, and departure. Compared against planned times to measure performance.</td></tr>
+              <tr><td>Ad Hoc Stop</td><td>An unplanned stop added to a trip while it is already in progress. Added by the driver in Tramm Mobile and immediately visible in Tramm TMS and Fleetvision.</td></tr>
+              <tr><td>ePOD</td><td>Electronic Proof of Delivery. The digital record generated when a driver completes the configured workflow at a delivery stop — typically including a signature, photos, and confirmed quantities.</td></tr>
+              <tr><td>SOD / EOD</td><td>Start of Day / End of Day. The depot workflows at the beginning and end of a driver's shift. SOD typically includes a vehicle inspection and an opening odometer reading; EOD confirms returned goods and records the closing odometer reading.</td></tr>
+              <tr><td>Workflow</td><td>The sequence of steps a driver must complete at a stop — signature, photos, barcode scanning, quantity entry, etc. Configured per stop type by the operations team.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="term-group">
+        <h3 id="term-fv" class="term-group-heading">Fleetvision</h3>
+        <div class="term-table-wrap" style="border-radius: 0 0 0.5rem 0.5rem;">
+          <table class="term-table">
+            <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>Alert</td><td>A notification generated by Fleetvision when something deviates from the plan — late arrival, off-route, unplanned stop, overspeeding, or harsh driving. Alerts escalate if not acknowledged.</td></tr>
+              <tr><td>GPS Breadcrumb</td><td>A GPS position recorded by Tramm Mobile or a vehicle telematics unit at regular intervals. Fleetvision uses these to track real-time vehicle movement and reconstruct routes.</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
