@@ -6,7 +6,6 @@
   <title>Tramm Help</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-padding-top: 20px; }
 
     :root {
       --blue-50:  #eff6ff;
@@ -16,7 +15,6 @@
       --blue-600: #2563eb;
       --blue-700: #1d4ed8;
       --blue-900: #1e3a8a;
-      --slate-50:  #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
       --slate-300: #cbd5e1;
@@ -35,101 +33,102 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--slate-100);
+      background: #fff;
       color: var(--slate-700);
       line-height: 1.5;
     }
 
-    /* ── HEADER ── */
-    .site-header {
+    /* ── HERO ── */
+    .hero {
       background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      padding: 4rem 2rem 5.5rem;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
       color: #fff;
-      padding: 2.5rem 2rem 2rem;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
     }
-    .site-header .eyebrow {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 0.5rem;
-    }
-    .site-header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .site-header .subtitle {
-      font-size: 1rem;
-      opacity: 0.85;
-      max-width: 60ch;
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 52ch;
+      margin: 0 auto 2.25rem;
     }
 
-    /* ── PAGE LAYOUT ── */
-    .page-layout {
-      display: flex;
-      align-items: flex-start;
+    /* ── SEARCH ── */
+    .search-wrap {
+      max-width: 580px;
+      margin: 0 auto;
+      position: relative;
     }
-
-    /* ── SIDEBAR NAV ── */
-    .sidebar-nav {
-      width: 220px;
-      flex-shrink: 0;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      background: #fff;
-      border-right: 1px solid var(--slate-200);
-      padding: 1.75rem 0 2rem;
-    }
-    .sidebar-heading {
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+    .search-icon {
+      position: absolute;
+      left: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
       color: var(--slate-400);
-      padding: 0 1.25rem;
-      margin-bottom: 0.4rem;
+      pointer-events: none;
+      width: 1.1rem;
+      height: 1.1rem;
     }
-    .sidebar-nav a {
-      display: block;
-      padding: 0.42rem 1.25rem;
-      font-size: 0.855rem;
-      font-weight: 500;
-      color: var(--slate-600);
-      text-decoration: none;
-      border-left: 3px solid transparent;
-      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    .search-input {
+      width: 100%;
+      padding: 1rem 1.25rem 1rem 3rem;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--slate-900);
+      background: #fff;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+      outline: none;
+      transition: box-shadow 0.2s;
     }
-    .sidebar-nav a:hover {
-      color: var(--blue-700);
-      background: var(--blue-50);
-      border-left-color: var(--blue-200);
+    .search-input:focus {
+      box-shadow: 0 8px 40px rgba(0,0,0,0.22), 0 0 0 3px rgba(255,255,255,0.3);
     }
-    .sidebar-nav a.active {
-      color: var(--blue-700);
-      background: var(--blue-50);
-      border-left-color: var(--blue-600);
-      font-weight: 600;
-    }
+    .search-input::placeholder { color: var(--slate-400); }
 
-    /* ── MAIN CONTENT ── */
-    .content {
-      flex: 1;
-      min-width: 0;
-      padding: 2.5rem 2.5rem 4rem;
+    /* ── MAIN ── */
+    .page-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
       display: flex;
       flex-direction: column;
-      gap: 3rem;
+      gap: 3.5rem;
     }
 
-    /* ── SECTION HEADINGS ── */
-    .section-header {
-      margin-bottom: 1.25rem;
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--slate-400);
+      font-size: 0.95rem;
     }
+
+    /* ── SECTIONS ── */
+    .content-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .content-section.hidden { display: none; }
+
     .section-header h2 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--slate-900);
       margin-bottom: 0.3rem;
@@ -139,11 +138,57 @@
       color: var(--slate-500);
     }
 
+    /* ── START HERE ── */
+    .start-card {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background: var(--blue-50);
+      border: 1px solid var(--blue-200);
+      border-radius: 0.75rem;
+      padding: 1.5rem 2rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .start-card:hover {
+      border-color: var(--blue-500);
+      box-shadow: 0 6px 24px rgba(30,58,138,0.12);
+      transform: translateY(-2px);
+    }
+    .start-card-icon {
+      width: 3rem;
+      height: 3rem;
+      background: var(--blue-700);
+      border-radius: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .start-card-icon svg { width: 1.4rem; height: 1.4rem; }
+    .start-card-body h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-900);
+      margin-bottom: 0.25rem;
+    }
+    .start-card-body p {
+      font-size: 0.88rem;
+      color: var(--blue-600);
+    }
+    .start-card-arrow {
+      margin-left: auto;
+      color: var(--blue-400, #60a5fa);
+      flex-shrink: 0;
+    }
+
     /* ── PRODUCT CARDS ── */
     .app-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.1rem;
     }
     .product-card {
       background: #fff;
@@ -153,7 +198,13 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(30,58,138,0.1);
+      border-color: var(--blue-200);
     }
     .product-card-header {
       display: flex;
@@ -210,20 +261,14 @@
       padding: 0.2rem 0.5rem;
       border-radius: 9999px;
     }
-    .tag-available {
-      background: var(--green-100);
-      color: var(--green-700);
-    }
-    .tag-coming {
-      background: var(--slate-100);
-      color: var(--slate-500);
-    }
+    .tag-available { background: var(--green-100); color: var(--green-700); }
+    .tag-coming    { background: var(--slate-100); color: var(--slate-500); }
 
     /* ── HOW TRAMM WORKS ── */
     .works-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.1rem;
     }
     .works-card {
       background: #fff;
@@ -233,11 +278,11 @@
       padding: 1.25rem;
       text-decoration: none;
       color: inherit;
-      transition: box-shadow 0.15s, transform 0.15s;
+      transition: box-shadow 0.2s, transform 0.2s;
     }
     .works-card:hover {
-      box-shadow: 0 4px 16px rgba(30,58,138,0.08);
-      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30,58,138,0.1);
+      transform: translateY(-3px);
     }
     .works-card h3 {
       font-size: 0.95rem;
@@ -260,112 +305,58 @@
       letter-spacing: 0.08em;
     }
 
-    /* ── START HERE BANNER ── */
-    .start-here {
-      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
-      border-radius: 0.75rem;
-      padding: 2rem;
-      color: #fff;
+    /* ── WHAT'S NEW ── */
+    .whats-new-card {
       display: flex;
       align-items: center;
       gap: 1.5rem;
-    }
-    .start-here-icon {
-      width: 3.5rem;
-      height: 3.5rem;
-      background: rgba(255,255,255,0.15);
-      border-radius: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .start-here-icon svg { width: 1.75rem; height: 1.75rem; }
-    .start-here-body h2 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.35rem;
-    }
-    .start-here-body p {
-      font-size: 0.9rem;
-      opacity: 0.85;
-      max-width: 55ch;
-      margin-bottom: 1rem;
-    }
-    .start-here-link {
-      display: inline-block;
       background: #fff;
-      color: var(--blue-700);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 700;
-      padding: 0.5rem 1.25rem;
-      border-radius: 0.375rem;
-      transition: background 0.15s, transform 0.15s;
-    }
-    .start-here-link:hover {
-      background: var(--blue-50);
-      transform: translateY(-1px);
-    }
-
-    /* ── WHAT'S NEW BANNER ── */
-    .whats-new-banner {
-      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      border: 1px solid var(--slate-200);
       border-radius: 0.75rem;
-      padding: 2rem;
-      color: #fff;
-      display: flex;
-      align-items: flex-start;
-      gap: 1.5rem;
+      padding: 1.75rem 2rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .whats-new-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30,58,138,0.08);
+      border-color: var(--blue-200);
     }
     .whats-new-icon {
       width: 3rem;
       height: 3rem;
-      background: rgba(255,255,255,0.15);
-      border-radius: 0.5rem;
+      background: var(--blue-50);
+      border-radius: 0.6rem;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      color: var(--blue-700);
     }
-    .whats-new-icon svg {
-      width: 1.5rem;
-      height: 1.5rem;
-      color: #fff;
-    }
-    .whats-new-body h3 {
-      font-size: 1rem;
+    .whats-new-icon svg { width: 1.4rem; height: 1.4rem; }
+    .whats-new-label {
+      font-size: 0.7rem;
       font-weight: 700;
-      opacity: 0.7;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.75rem;
+      color: var(--slate-400);
       margin-bottom: 0.3rem;
     }
-    .whats-new-body .release-title {
-      font-size: 1.2rem;
+    .whats-new-title {
+      font-size: 1rem;
       font-weight: 700;
-      margin-bottom: 0.4rem;
+      color: var(--slate-900);
+      margin-bottom: 0.3rem;
     }
-    .whats-new-body p {
-      font-size: 0.9rem;
-      opacity: 0.85;
-      max-width: 55ch;
-      margin-bottom: 1rem;
+    .whats-new-desc {
+      font-size: 0.88rem;
+      color: var(--slate-500);
     }
-    .whats-new-link {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      border-radius: 0.375rem;
-      transition: background 0.15s;
-    }
-    .whats-new-link:hover {
-      background: rgba(255,255,255,0.3);
+    .whats-new-arrow {
+      margin-left: auto;
+      color: var(--slate-300);
+      flex-shrink: 0;
     }
 
     /* ── FOOTER ── */
@@ -379,95 +370,64 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
-      html { scroll-padding-top: 50px; }
-      .site-header h1 { font-size: 1.5rem; }
-      .page-layout { flex-direction: column; }
-      .sidebar-nav {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 2px solid var(--slate-200);
-        padding: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: stretch;
-        overflow-x: auto;
-        overflow-y: hidden;
-      }
-      .sidebar-heading { display: none; }
-      .sidebar-nav a {
-        white-space: nowrap;
-        border-left: none;
-        border-bottom: 3px solid transparent;
-        margin-bottom: -2px;
-        padding: 0.75rem 1rem;
-        font-size: 0.85rem;
-        border-radius: 0;
-      }
-      .sidebar-nav a:hover,
-      .sidebar-nav a.active {
-        background: transparent;
-        border-left-color: transparent;
-        border-bottom-color: var(--blue-600);
-        color: var(--blue-700);
-      }
-      .content { padding: 1.5rem 1rem 3rem; }
-      .whats-new-banner { flex-direction: column; gap: 1rem; }
+      .hero { padding: 3rem 1.5rem 4rem; }
+      .hero h1 { font-size: 2rem; }
+      .page-content { padding: 2rem 1rem 3rem; gap: 2.5rem; }
+      .start-card-arrow { display: none; }
+      .whats-new-card { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .whats-new-arrow { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="eyebrow">Tramm Help</div>
+  <!-- HERO -->
+  <header class="hero">
+    <p class="hero-eyebrow">Tramm Help</p>
     <h1>How can we help?</h1>
-    <p class="subtitle">Find quick reference guides, how-to content, and system information for Tramm.</p>
+    <p class="hero-subtitle">Find guides, quick references, and system documentation for Tramm, Tramm Mobile, and FleetVision.</p>
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input class="search-input" id="search-input" type="search" placeholder="Search articles, guides, and more…" autocomplete="off" />
+    </div>
   </header>
 
-  <div class="page-layout">
+  <!-- MAIN -->
+  <main class="page-content">
 
-  <nav class="sidebar-nav" aria-label="Page sections">
-    <p class="sidebar-heading">On this page</p>
-    <a href="#overview">New to Tramm?</a>
-    <a href="#apps">Products</a>
-    <a href="#how-tramm-works">How Tramm Works</a>
-    <a href="#whats-new">What's New</a>
-  </nav>
+    <div class="no-results" id="no-results">No results found. Try a different search term.</div>
 
-  <!-- MAIN CONTENT -->
-  <main class="content">
-
-    <!-- START HERE -->
-    <section id="overview">
-      <div class="start-here">
-        <div class="start-here-icon">
+    <!-- NEW TO TRAMM -->
+    <section class="content-section" data-section>
+      <a class="start-card" href="overview.html"
+         data-search="new tramm overview introduction start logistics platform">
+        <div class="start-card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
           </svg>
         </div>
-        <div class="start-here-body">
+        <div class="start-card-body">
           <h2>New to Tramm? Start here.</h2>
-          <p>See how Tramm covers the full logistics operation — from order creation to delivery — and explore how the different apps fit together.</p>
-          <a class="start-here-link" href="overview.html">See the Tramm Overview &rarr;</a>
+          <p>See how Tramm covers the full logistics operation — from order creation to delivery.</p>
         </div>
-      </div>
+        <svg class="start-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </a>
     </section>
 
     <!-- PRODUCTS -->
-    <section id="apps">
+    <section class="content-section" data-section>
       <div class="section-header">
         <h2>Products</h2>
-        <p>Select a product to find quick reference guides, how-to content, and tips.</p>
+        <p>Select a product to browse guides and quick references.</p>
       </div>
       <div class="app-grid">
 
-        <!-- Tramm -->
-        <div class="product-card">
+        <div class="product-card" data-search="tramm planner data manager execution manager event viewer planning core platform">
           <div class="product-card-header">
             <div class="product-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -500,8 +460,7 @@
           </div>
         </div>
 
-        <!-- Tramm Mobile -->
-        <div class="product-card">
+        <div class="product-card" data-search="tramm mobile driver app trips stop delivery epod start end day execution">
           <div class="product-card-header">
             <div class="product-icon icon-mobile">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -517,8 +476,7 @@
           <p class="product-coming">Content coming soon</p>
         </div>
 
-        <!-- FleetVision -->
-        <div class="product-card">
+        <div class="product-card" data-search="fleetvision fleet visibility live map alerts trip monitoring tracking real time">
           <div class="product-card-header">
             <div class="product-icon icon-fv">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -538,34 +496,38 @@
     </section>
 
     <!-- HOW TRAMM WORKS -->
-    <section id="how-tramm-works">
+    <section class="content-section" data-section>
       <div class="section-header">
         <h2>How Tramm Works</h2>
-        <p>Understand the system — business rules, key concepts, and how different parts of Tramm interact.</p>
+        <p>Understand the system — business rules, key concepts, and how everything fits together.</p>
       </div>
       <div class="works-grid">
 
-        <a class="works-card" href="how-tramm-works/key-concepts.html">
+        <a class="works-card" href="how-tramm-works/key-concepts.html"
+           data-search="key concepts orders jobs trips stops activities logistics terminology">
           <h3>Key Concepts</h3>
           <p>Orders, Jobs, Trips — what they mean and how they relate to each other.</p>
           <span class="tag tag-available" style="margin-top:0.5rem;">Available</span>
         </a>
 
-        <a class="works-card" href="how-tramm-works/processes.html">
+        <a class="works-card" href="how-tramm-works/processes.html"
+           data-search="processes workflows end to end order execution planning walkthrough">
           <h3>Processes &amp; Workflows</h3>
           <p>End-to-end walkthroughs of core Tramm processes, from order to execution.</p>
           <span class="coming-label">Coming soon</span>
         </a>
 
-        <a class="works-card" href="how-tramm-works/business-rules.html">
+        <a class="works-card" href="how-tramm-works/business-rules.html"
+           data-search="business rules system behaviour state changes decisions logic">
           <h3>Business Rules</h3>
           <p>How Tramm makes decisions — rules that govern system behaviour and state changes.</p>
           <span class="coming-label">Coming soon</span>
         </a>
 
-        <a class="works-card" href="how-tramm-works/scenarios.html">
+        <a class="works-card" href="how-tramm-works/scenarios.html"
+           data-search="scenarios common questions what happens edge cases troubleshoot">
           <h3>Common Scenarios</h3>
-          <p>Answers to common "what happens if..." questions about system behaviour.</p>
+          <p>Answers to common "what happens if…" questions about system behaviour.</p>
           <span class="coming-label">Coming soon</span>
         </a>
 
@@ -573,29 +535,30 @@
     </section>
 
     <!-- WHAT'S NEW -->
-    <section id="whats-new">
+    <section class="content-section" data-section>
       <div class="section-header">
         <h2>What's New</h2>
         <p>Latest release notes, feature videos, and updates from the Tramm Product Team.</p>
       </div>
-      <div class="whats-new-banner">
+      <a class="whats-new-card" href="whats-new/index.html"
+         data-search="whats new release notes updates features videos quarterly">
         <div class="whats-new-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
           </svg>
         </div>
-        <div class="whats-new-body">
-          <h3>Latest Release</h3>
-          <div class="release-title">Release notes coming soon</div>
-          <p>This section will feature quarterly release videos, feature summaries, and PowerPoint overviews from the Product Team.</p>
-          <a class="whats-new-link" href="whats-new/index.html">View all releases</a>
+        <div>
+          <p class="whats-new-label">Latest Release</p>
+          <p class="whats-new-title">Release notes coming soon</p>
+          <p class="whats-new-desc">Quarterly release videos, feature summaries, and overviews from the Product Team.</p>
         </div>
-      </div>
+        <svg class="whats-new-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </a>
     </section>
 
   </main>
-
-  </div><!-- /page-layout -->
 
   <!-- FOOTER -->
   <footer>
@@ -603,22 +566,37 @@
   </footer>
 
   <script>
-    const navLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
-    const sections = Array.from(navLinks)
-      .map(a => document.querySelector(a.getAttribute('href')))
-      .filter(Boolean);
+    const searchInput = document.getElementById('search-input');
+    const noResults   = document.getElementById('no-results');
+    const sections    = document.querySelectorAll('[data-section]');
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(a => a.classList.remove('active'));
-          const link = document.querySelector(`.sidebar-nav a[href="#${entry.target.id}"]`);
-          if (link) link.classList.add('active');
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      let anyVisible = false;
+
+      sections.forEach(section => {
+        const items = section.querySelectorAll('[data-search]');
+
+        if (!items.length) {
+          section.classList.remove('hidden');
+          anyVisible = true;
+          return;
         }
-      });
-    }, { rootMargin: '-5% 0px -88% 0px' });
 
-    sections.forEach(s => observer.observe(s));
+        let sectionHasMatch = false;
+        items.forEach(item => {
+          const haystack = (item.dataset.search + ' ' + item.textContent).toLowerCase();
+          const match = !q || haystack.includes(q);
+          item.style.display = match ? '' : 'none';
+          if (match) sectionHasMatch = true;
+        });
+
+        section.classList.toggle('hidden', !sectionHasMatch);
+        if (sectionHasMatch) anyVisible = true;
+      });
+
+      noResults.style.display = (q && !anyVisible) ? 'block' : 'none';
+    });
   </script>
 
 </body>
