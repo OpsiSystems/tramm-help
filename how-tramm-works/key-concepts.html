@@ -661,6 +661,71 @@
       margin-top: 0.1rem;
     }
 
+    /* ── EXAMPLE TABLE ── */
+    .example-sub-heading {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--amber-800);
+      margin-top: 1.5rem;
+      margin-bottom: 0.4rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--amber-200);
+    }
+    .example-table-desc {
+      font-size: 0.84rem;
+      color: var(--slate-600);
+      margin-bottom: 0.75rem;
+    }
+    .example-table-wrap {
+      background: #fff;
+      border: 1px solid var(--amber-200);
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
+    .example-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.855rem;
+    }
+    .example-table th {
+      background: var(--amber-50);
+      color: var(--amber-800);
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.65rem 1rem;
+      text-align: left;
+      border-bottom: 2px solid var(--amber-200);
+    }
+    .example-table td {
+      padding: 0.72rem 1rem;
+      border-bottom: 1px solid var(--slate-100);
+      vertical-align: top;
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+    .example-table tr:last-child td { border-bottom: none; }
+    .example-table td:first-child {
+      font-weight: 600;
+      color: var(--slate-800);
+      font-size: 0.82rem;
+      width: 22%;
+      white-space: nowrap;
+    }
+    .tap-pill {
+      display: inline-block;
+      background: var(--teal-50);
+      border: 1px solid var(--teal-300);
+      border-radius: 0.3rem;
+      padding: 0.12rem 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--teal-700);
+      white-space: nowrap;
+      margin: 0 0.1rem;
+    }
+
     /* ── TERMINOLOGY TABLE ── */
     .term-table {
       width: 100%;
@@ -1640,6 +1705,57 @@
             <span>Bob returns to JHB Depot and completes the End of Day workflow — records the closing odometer and confirms any returned goods. All stops are done. <em>Trip → Completed · Job → Completed · Order → Completed</em>. The ePOD — with signature, quantities, and timestamps — is stored against the job.</span>
           </div>
 
+        </div>
+
+        <h3 class="example-sub-heading">Driver actions &amp; system responses</h3>
+        <p class="example-table-desc">A step-by-step view of what Bob does in Tramm Mobile and what the system records at each point. The planning steps above happen in Tramm TMS office apps before Bob's day begins.</p>
+        <div class="example-table-wrap">
+          <table class="example-table">
+            <thead>
+              <tr>
+                <th>Step</th>
+                <th>Bob does in Tramm Mobile</th>
+                <th>System records / state changes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>07:15 — Open Tramm Mobile</td>
+                <td><span class="tap-pill">Start Trip</span></td>
+                <td><em>Trip → Pre-Trip</em></td>
+              </tr>
+              <tr>
+                <td>07:30 — Depart JHB Depot</td>
+                <td>Completes vehicle inspection checklist · <span class="tap-pill">Depart</span></td>
+                <td><em>Trip → In Progress · JHB Depot stop → Completed</em></td>
+              </tr>
+              <tr>
+                <td>08:45 — Arrive at PnP Rosebank</td>
+                <td><span class="tap-pill">Arrived</span></td>
+                <td>Arrival time stamped on stop · Fleetvision shows stop as <em>On Time</em> (window closes 12:00)</td>
+              </tr>
+              <tr>
+                <td>Begin delivery</td>
+                <td><span class="tap-pill">Start Work</span></td>
+                <td>Start time stamped on stop</td>
+              </tr>
+              <tr>
+                <td>Complete delivery workflow</td>
+                <td>Scans 300 × Long-Life Milk 1L · Scans 200 × Long-Life Milk 2L · Collects store manager's signature</td>
+                <td>Quantities and signature captured against delivery activity</td>
+              </tr>
+              <tr>
+                <td>Confirm delivery</td>
+                <td><span class="tap-pill">Done</span></td>
+                <td><em>Activity → Completed · Stop → Completed</em> · ePOD generated</td>
+              </tr>
+              <tr>
+                <td>Back at JHB Depot — EOD</td>
+                <td>Records closing odometer · Confirms returned goods · Completes EOD workflow</td>
+                <td><em>Trip → Completed · Job → Completed · Order → Completed</em></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
