@@ -29,6 +29,9 @@
       --amber-700: #b45309;
       --teal-100:  #ccfbf1;
       --teal-700:  #0f766e;
+      --orange-50:  #fff7ed;
+      --orange-100: #ffedd5;
+      --orange-600: #ea580c;
     }
 
     body {
@@ -110,7 +113,6 @@
       flex-direction: column;
       gap: 3.5rem;
     }
-
     .no-results {
       display: none;
       text-align: center;
@@ -120,23 +122,15 @@
     }
 
     /* ── SECTIONS ── */
-    .content-section {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
+    .content-section { display: flex; flex-direction: column; gap: 1.25rem; }
     .content-section.hidden { display: none; }
-
     .section-header h2 {
       font-size: 1.2rem;
       font-weight: 700;
       color: var(--slate-900);
       margin-bottom: 0.3rem;
     }
-    .section-header p {
-      font-size: 0.9rem;
-      color: var(--slate-500);
-    }
+    .section-header p { font-size: 0.9rem; color: var(--slate-500); }
 
     /* ── START HERE ── */
     .start-card {
@@ -157,35 +151,19 @@
       transform: translateY(-2px);
     }
     .start-card-icon {
-      width: 3rem;
-      height: 3rem;
+      width: 3rem; height: 3rem;
       background: var(--blue-700);
       border-radius: 0.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: #fff;
     }
     .start-card-icon svg { width: 1.4rem; height: 1.4rem; }
-    .start-card-body h2 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--blue-900);
-      margin-bottom: 0.25rem;
-    }
-    .start-card-body p {
-      font-size: 0.88rem;
-      color: var(--blue-600);
-    }
-    .start-card-arrow {
-      margin-left: auto;
-      color: var(--blue-400, #60a5fa);
-      flex-shrink: 0;
-    }
+    .start-card-body h2 { font-size: 1rem; font-weight: 700; color: var(--blue-900); margin-bottom: 0.25rem; }
+    .start-card-body p  { font-size: 0.88rem; color: var(--blue-600); }
+    .start-card-arrow   { margin-left: auto; color: var(--blue-400, #60a5fa); flex-shrink: 0; }
 
     /* ── PRODUCT CARDS ── */
-    .app-grid {
+    .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       gap: 1.1rem;
@@ -196,73 +174,84 @@
       border-radius: 0.75rem;
       padding: 1.5rem;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       gap: 1rem;
       box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    a.product-card {
+      text-decoration: none;
+      color: inherit;
       transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
-    .product-card:hover {
+    a.product-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 28px rgba(30,58,138,0.1);
       border-color: var(--blue-200);
     }
-    .product-card-header {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-    }
+    .product-card-soon { opacity: 0.6; }
     .product-icon {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 0.5rem;
+      width: 2.75rem; height: 2.75rem;
+      border-radius: 0.6rem;
       background: var(--blue-50);
       color: var(--blue-700);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .product-icon svg { width: 1.25rem; height: 1.25rem; }
-    .product-icon.icon-mobile { background: var(--teal-100); color: var(--teal-700); }
+    .product-icon svg { width: 1.3rem; height: 1.3rem; }
+    .product-icon.icon-mobile { background: var(--teal-100);  color: var(--teal-700); }
     .product-icon.icon-fv     { background: var(--amber-100); color: var(--amber-700); }
-    .product-card h3 { font-size: 1rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.15rem; }
-    .product-desc { font-size: 0.82rem; color: var(--slate-500); line-height: 1.4; }
-    .product-app-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      border-top: 1px solid var(--slate-100);
-      padding-top: 0.75rem;
-    }
-    .product-app-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.45rem 0.6rem;
-      border-radius: 0.4rem;
-      font-size: 0.855rem;
-      font-weight: 500;
-      color: var(--slate-700);
-      text-decoration: none;
-      transition: background 0.15s, color 0.15s;
-    }
-    a.product-app-link:hover { background: var(--blue-50); color: var(--blue-700); }
-    .product-app-link.disabled { color: var(--slate-400); }
-    .product-coming {
-      font-size: 0.82rem;
-      color: var(--slate-400);
-      border-top: 1px solid var(--slate-100);
-      padding-top: 0.75rem;
-      font-style: italic;
-    }
-    .tag {
-      font-size: 0.7rem;
+    .product-card-body { flex: 1; min-width: 0; }
+    .product-card-body h3 { font-size: 1rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.2rem; }
+    .product-card-body p  { font-size: 0.82rem; color: var(--slate-500); line-height: 1.4; }
+    .product-card-arrow { color: var(--slate-300); flex-shrink: 0; }
+    .product-soon-label {
+      font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.2rem 0.5rem;
-      border-radius: 9999px;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.25rem;
     }
-    .tag-available { background: var(--green-100); color: var(--green-700); }
-    .tag-coming    { background: var(--slate-100); color: var(--slate-500); }
+
+    /* ── QRC CARDS ── */
+    .qrc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.1rem;
+    }
+    .qrc-card {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-left: 4px solid var(--orange-600);
+      border-radius: 0.5rem;
+      padding: 1.25rem;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .qrc-card:hover {
+      box-shadow: 0 6px 20px rgba(234,88,12,0.1);
+      transform: translateY(-3px);
+    }
+    .qrc-card-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange-600);
+      margin-bottom: 0.35rem;
+    }
+    .qrc-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.3rem;
+    }
+    .qrc-card p {
+      font-size: 0.82rem;
+      color: var(--slate-500);
+      line-height: 1.5;
+    }
 
     /* ── HOW TRAMM WORKS ── */
     .works-grid {
@@ -284,17 +273,8 @@
       box-shadow: 0 6px 20px rgba(30,58,138,0.1);
       transform: translateY(-3px);
     }
-    .works-card h3 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--slate-900);
-      margin-bottom: 0.35rem;
-    }
-    .works-card p {
-      font-size: 0.82rem;
-      color: var(--slate-500);
-      line-height: 1.5;
-    }
+    .works-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.35rem; }
+    .works-card p  { font-size: 0.82rem; color: var(--slate-500); line-height: 1.5; }
     .works-card .coming-label {
       display: inline-block;
       margin-top: 0.5rem;
@@ -324,40 +304,17 @@
       border-color: var(--blue-200);
     }
     .whats-new-icon {
-      width: 3rem;
-      height: 3rem;
+      width: 3rem; height: 3rem;
       background: var(--blue-50);
       border-radius: 0.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: var(--blue-700);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--blue-700);
     }
     .whats-new-icon svg { width: 1.4rem; height: 1.4rem; }
-    .whats-new-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--slate-400);
-      margin-bottom: 0.3rem;
-    }
-    .whats-new-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--slate-900);
-      margin-bottom: 0.3rem;
-    }
-    .whats-new-desc {
-      font-size: 0.88rem;
-      color: var(--slate-500);
-    }
-    .whats-new-arrow {
-      margin-left: auto;
-      color: var(--slate-300);
-      flex-shrink: 0;
-    }
+    .whats-new-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate-400); margin-bottom: 0.3rem; }
+    .whats-new-title { font-size: 1rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.3rem; }
+    .whats-new-desc  { font-size: 0.88rem; color: var(--slate-500); }
+    .whats-new-arrow { margin-left: auto; color: var(--slate-300); flex-shrink: 0; }
 
     /* ── FOOTER ── */
     footer {
@@ -394,7 +351,6 @@
     </div>
   </header>
 
-  <!-- MAIN -->
   <main class="page-content">
 
     <div class="no-results" id="no-results">No results found. Try a different search term.</div>
@@ -423,74 +379,74 @@
     <section class="content-section" data-section>
       <div class="section-header">
         <h2>Products</h2>
-        <p>Select a product to browse guides and quick references.</p>
+        <p>Select a product to browse its apps, guides, and resources.</p>
       </div>
-      <div class="app-grid">
+      <div class="product-grid">
 
-        <div class="product-card" data-search="tramm planner data manager execution manager event viewer planning core platform">
-          <div class="product-card-header">
-            <div class="product-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Tramm</h3>
-              <p class="product-desc">The core platform — planning, execution, and reference data management.</p>
-            </div>
+        <a class="product-card" href="tramm/index.html"
+           data-search="tramm platform planning execution data management apps">
+          <div class="product-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+            </svg>
           </div>
-          <div class="product-app-list">
-            <a class="product-app-link" href="planner/quick-reference.html">
-              <span>Planner</span>
-              <span class="tag tag-available">Quick Reference</span>
-            </a>
-            <div class="product-app-link disabled">
-              <span>Data Manager</span>
-              <span class="tag tag-coming">Coming soon</span>
-            </div>
-            <div class="product-app-link disabled">
-              <span>Execution Manager</span>
-              <span class="tag tag-coming">Coming soon</span>
-            </div>
-            <div class="product-app-link disabled">
-              <span>Event Viewer</span>
-              <span class="tag tag-coming">Coming soon</span>
-            </div>
+          <div class="product-card-body">
+            <h3>Tramm</h3>
+            <p>The core platform — planning, execution, and data management.</p>
+          </div>
+          <svg class="product-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </a>
+
+        <div class="product-card product-card-soon"
+             data-search="tramm mobile driver app trips stop delivery epod start end day">
+          <div class="product-icon icon-mobile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+              <line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
+          </div>
+          <div class="product-card-body">
+            <h3>Tramm Mobile</h3>
+            <p>The driver app — start of day, stop-by-stop execution, and end of day.</p>
+            <p class="product-soon-label">Coming soon</p>
           </div>
         </div>
 
-        <div class="product-card" data-search="tramm mobile driver app trips stop delivery epod start end day execution">
-          <div class="product-card-header">
-            <div class="product-icon icon-mobile">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-                <line x1="12" y1="18" x2="12.01" y2="18"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Tramm Mobile</h3>
-              <p class="product-desc">The driver app — start of day, stop-by-stop execution, and end of day.</p>
-            </div>
+        <div class="product-card product-card-soon"
+             data-search="fleetvision fleet visibility live map alerts trip monitoring tracking">
+          <div class="product-icon icon-fv">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
           </div>
-          <p class="product-coming">Content coming soon</p>
+          <div class="product-card-body">
+            <h3>FleetVision</h3>
+            <p>Real-time fleet visibility — live map, alerts, and trip monitoring.</p>
+            <p class="product-soon-label">Coming soon</p>
+          </div>
         </div>
 
-        <div class="product-card" data-search="fleetvision fleet visibility live map alerts trip monitoring tracking real time">
-          <div class="product-card-header">
-            <div class="product-icon icon-fv">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-            </div>
-            <div>
-              <h3>FleetVision</h3>
-              <p class="product-desc">Real-time fleet visibility — live map, alerts, and trip monitoring.</p>
-            </div>
-          </div>
-          <p class="product-coming">Content coming soon</p>
-        </div>
+      </div>
+    </section>
+
+    <!-- QUICK REFERENCE CARDS -->
+    <section class="content-section" data-section>
+      <div class="section-header">
+        <h2>Quick Reference Cards</h2>
+        <p>At-a-glance guides for when you need a fast answer.</p>
+      </div>
+      <div class="qrc-grid">
+
+        <a class="qrc-card" href="planner/quick-reference.html"
+           data-search="planner buttons quick reference toolbar icons actions">
+          <p class="qrc-card-label">Planner</p>
+          <h3>Button Reference</h3>
+          <p>What every button does in the Planner toolbar and panels.</p>
+        </a>
 
       </div>
     </section>
@@ -499,15 +455,14 @@
     <section class="content-section" data-section>
       <div class="section-header">
         <h2>How Tramm Works</h2>
-        <p>Understand the system — business rules, key concepts, and how everything fits together.</p>
+        <p>Understand the system — key concepts, business rules, and how everything fits together.</p>
       </div>
       <div class="works-grid">
 
         <a class="works-card" href="how-tramm-works/key-concepts.html"
-           data-search="key concepts orders jobs trips stops activities logistics terminology">
+           data-search="key concepts orders jobs trips stops activities terminology logistics">
           <h3>Key Concepts</h3>
           <p>Orders, Jobs, Trips — what they mean and how they relate to each other.</p>
-          <span class="tag tag-available" style="margin-top:0.5rem;">Available</span>
         </a>
 
         <a class="works-card" href="how-tramm-works/processes.html"
@@ -560,7 +515,6 @@
 
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
   </footer>
@@ -576,12 +530,7 @@
 
       sections.forEach(section => {
         const items = section.querySelectorAll('[data-search]');
-
-        if (!items.length) {
-          section.classList.remove('hidden');
-          anyVisible = true;
-          return;
-        }
+        if (!items.length) { section.classList.remove('hidden'); anyVisible = true; return; }
 
         let sectionHasMatch = false;
         items.forEach(item => {
