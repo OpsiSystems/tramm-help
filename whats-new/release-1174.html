@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release 1174 — January 2026 — Tramm Help</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-200: #bfdbfe;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --green-100: #dcfce7;
+      --green-600: #16a34a;
+      --green-700: #15803d;
+      --orange-50:  #fff7ed;
+      --orange-100: #ffedd5;
+      --orange-600: #ea580c;
+      --orange-700: #c2410c;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 2rem;
+    }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .release-badge-lg {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: 0.4rem;
+      white-space: nowrap;
+    }
+    .header-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      margin-top: 0.6rem;
+    }
+    .header-subtitle {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      max-width: 60ch;
+    }
+    .header-stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .header-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .header-stat svg { width: 1rem; height: 1rem; opacity: 0.8; }
+
+    /* ── PAGE CONTENT ── */
+    .page-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── VIDEO SECTION ── */
+    .video-section { margin-bottom: 3rem; }
+    .video-intro {
+      font-size: 0.95rem;
+      color: var(--slate-600);
+      margin-bottom: 1.25rem;
+      max-width: 65ch;
+    }
+    .video-wrap {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.12);
+      border: 1px solid var(--slate-200);
+    }
+    .video-wrap-inner {
+      padding: 56.25% 0 0 0;
+      position: relative;
+    }
+    .video-wrap-inner iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── PDF GRID ── */
+    .pdf-section { margin-bottom: 3rem; }
+    .pdf-intro {
+      font-size: 0.95rem;
+      color: var(--slate-600);
+      margin-bottom: 1.25rem;
+      max-width: 65ch;
+    }
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+    }
+    .pdf-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.6rem;
+      padding: 1rem 1.1rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    }
+    .pdf-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(30,58,138,0.09);
+      border-color: var(--blue-200);
+    }
+    .pdf-icon {
+      flex-shrink: 0;
+      width: 2.25rem;
+      height: 2.25rem;
+      background: var(--orange-50);
+      border: 1px solid var(--orange-100);
+      border-radius: 0.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--orange-600);
+    }
+    .pdf-icon svg { width: 1.1rem; height: 1.1rem; }
+    .pdf-body { flex: 1; min-width: 0; }
+    .pdf-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--slate-900);
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+    }
+    .pdf-desc {
+      font-size: 0.775rem;
+      color: var(--slate-500);
+      line-height: 1.4;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      .header-title { font-size: 1.4rem; }
+      .page-content { padding: 1.5rem 1rem 3rem; }
+      .pdf-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="../index.html">Tramm Help</a>
+        <span>›</span>
+        <a href="index.html">What's New</a>
+        <span>›</span>
+        January 2026
+      </div>
+      <div class="header-meta">
+        <span class="release-badge-lg">Release 1174</span>
+      </div>
+      <h1 class="header-title">January 2026</h1>
+      <p class="header-subtitle">New features and enhancements across planning, tariffs, execution, and data management.</p>
+      <div class="header-stats">
+        <span class="header-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
+          16 videos
+        </span>
+        <span class="header-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+          </svg>
+          15 feature guides
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- VIDEOS -->
+    <section class="video-section">
+      <p class="section-label">Release Videos</p>
+      <p class="video-intro">Watch the full January 2026 release playlist. Use the playlist menu (top right of the player) to jump to a specific feature.</p>
+      <div class="video-wrap">
+        <div class="video-wrap-inner">
+          <iframe
+            src="https://vimeo.com/showcase/12077847/embed2"
+            allow="autoplay; fullscreen; picture-in-picture; gyroscope; accelerometer; clipboard-write; encrypted-media; web-share"
+            frameborder="0">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURE GUIDES -->
+    <section class="pdf-section">
+      <p class="section-label">Feature Guides</p>
+      <p class="pdf-intro">Download a feature guide for a detailed walkthrough of each new capability, including configuration steps and examples.</p>
+      <div class="pdf-grid">
+
+        <a class="pdf-card" href="pdfs/Jan_2026_Enhancements.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">January 2026 Enhancements</p>
+            <p class="pdf-desc">System-wide improvements included in this release.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Licence and Permit Validation.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Licence and Permit Validation</p>
+            <p class="pdf-desc">Validate licences and permits before trip allocation.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Tariff Validation.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Tariff Validation</p>
+            <p class="pdf-desc">Check tariff validity during order and job processing.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Partial Redirects.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Partial Redirects</p>
+            <p class="pdf-desc">Redirect partial jobs to alternative destinations mid-execution.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Transporter State Machine.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Transporter State Machine</p>
+            <p class="pdf-desc">Improved workflow states for transporter allocation.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Solver settings.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Solver Settings</p>
+            <p class="pdf-desc">Configure time windows and parameters for the route optimisation solver.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Dimension Configurations.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Dimension Configurations</p>
+            <p class="pdf-desc">Configure dimension types and units for capacity management.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Quantity Conversion.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Quantity Conversion</p>
+            <p class="pdf-desc">Convert order quantities between different units of measure.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Dynamic Trailers.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Dynamic Trailers</p>
+            <p class="pdf-desc">Dynamically assign trailers based on load requirements.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/LOB Trailers.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">LOB Trailers</p>
+            <p class="pdf-desc">Track quantities left on board trailers between trips.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Trip Locking.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Trip Locking</p>
+            <p class="pdf-desc">Lock confirmed trips to prevent unintended changes.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Charge expressions.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Charge Expressions</p>
+            <p class="pdf-desc">Configure charge calculations using expressions in the tariff engine.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Configurable Trip Validations.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Configurable Trip Validations</p>
+            <p class="pdf-desc">Define custom validation rules applied when trips are confirmed.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Custom Distance Matrix.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Custom Distance Matrix</p>
+            <p class="pdf-desc">Define custom site-to-site distances, overriding calculated values.</p>
+          </div>
+        </a>
+
+        <a class="pdf-card" href="pdfs/Email History.pdf" target="_blank">
+          <span class="pdf-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </span>
+          <div class="pdf-body">
+            <p class="pdf-title">Email History</p>
+            <p class="pdf-desc">View a history of all system-generated emails.</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+  </footer>
+
+</body>
+</html>

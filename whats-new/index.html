@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What's New — Tramm Help</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-200: #bfdbfe;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 1.75rem;
+    }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.5rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 60ch; }
+
+    .page-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .release-card {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.75rem;
+      padding: 1.5rem 2rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .release-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(30,58,138,0.1);
+      border-color: var(--blue-200);
+    }
+    .release-badge {
+      background: var(--blue-50);
+      border: 1px solid var(--blue-200);
+      color: var(--blue-700);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.4rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .release-body { flex: 1; min-width: 0; }
+    .release-title { font-size: 1rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.25rem; }
+    .release-desc  { font-size: 0.85rem; color: var(--slate-500); }
+    .release-meta  {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .release-meta-item {
+      font-size: 0.75rem;
+      color: var(--slate-400);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .release-meta-item svg { width: 0.85rem; height: 0.85rem; }
+    .release-arrow { color: var(--slate-300); flex-shrink: 0; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 0.25rem;
+    }
+
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      .site-header h1 { font-size: 1.4rem; }
+      .page-content { padding: 1.5rem 1rem 3rem; }
+      .release-arrow { display: none; }
+      .release-card { gap: 1rem; padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="breadcrumb">
+      <a href="../index.html">Tramm Help</a>
+      <span>›</span>
+      What's New
+    </div>
+    <h1>What's New</h1>
+    <p class="subtitle">Release videos, feature guides, and system enhancements from the Tramm Product Team.</p>
+  </header>
+
+  <main class="page-content">
+
+    <p class="section-label">Tramm Releases</p>
+
+    <a class="release-card" href="release-1174.html">
+      <span class="release-badge">Release 1174</span>
+      <div class="release-body">
+        <p class="release-title">January 2026</p>
+        <p class="release-desc">New features and enhancements across planning, tariffs, execution, and data management.</p>
+        <div class="release-meta">
+          <span class="release-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </svg>
+            16 videos
+          </span>
+          <span class="release-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+            15 feature guides
+          </span>
+        </div>
+      </div>
+      <svg class="release-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </a>
+
+  </main>
+
+  <footer>
+    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+  </footer>
+
+</body>
+</html>
