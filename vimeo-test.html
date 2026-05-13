@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vimeo Embed Test</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f1f5f9; }
+    .video-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .video-wrap iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      border: none;
+    }
+    p { max-width: 800px; margin: 1rem auto 0; color: #64748b; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="video-wrap">
+    <iframe
+      src="https://player.vimeo.com/video/1161723758?badge=0&autopause=0&player_id=0"
+      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+      title="Dynamic Trailers">
+    </iframe>
+  </div>
+  <p>If the video plays above without asking for a password, the embed is working correctly.</p>
+</body>
+</html>
