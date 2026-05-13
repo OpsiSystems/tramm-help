@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chora — Route Optimisation Engine — Tramm Help</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-200: #bfdbfe;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 2.25rem;
+    }
+    .header-inner { max-width: 900px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+
+    .header-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.3rem 0.75rem;
+      border-radius: 2rem;
+      margin-bottom: 0.85rem;
+    }
+    .header-eyebrow svg { width: 0.85rem; height: 0.85rem; }
+
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 60ch; }
+
+    /* ── PAGE CONTENT ── */
+    .page-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    /* ── VIDEO ── */
+    .video-wrap {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(30,58,138,0.12);
+      border: 1px solid var(--slate-200);
+    }
+    .video-wrap-inner {
+      padding: 42.86% 0 0 0;
+      position: relative;
+    }
+    .video-wrap-inner iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── ABOUT SECTION ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .about-card {
+      background: var(--slate-100);
+      border-radius: 0.6rem;
+      padding: 1.25rem 1.5rem;
+    }
+    .about-card-icon {
+      width: 2rem; height: 2rem;
+      background: var(--blue-50);
+      border: 1px solid var(--blue-200);
+      border-radius: 0.4rem;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--blue-700);
+      margin-bottom: 0.75rem;
+    }
+    .about-card-icon svg { width: 1rem; height: 1rem; }
+    .about-card h3 { font-size: 0.875rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.3rem; }
+    .about-card p  { font-size: 0.825rem; color: var(--slate-600); }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      .site-header h1 { font-size: 1.4rem; }
+      .page-content { padding: 1.5rem 1rem 3rem; }
+      .about-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="index.html">Tramm Help</a>
+        <span>›</span>
+        Chora
+      </div>
+      <div class="header-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        Route Optimisation Engine
+      </div>
+      <h1>Chora</h1>
+      <p class="subtitle">Opsi's purpose-built route optimisation solver — designed for the complexity of real-world logistics.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- VIDEO -->
+    <section>
+      <p class="section-label">Demo</p>
+      <div class="video-wrap">
+        <div class="video-wrap-inner">
+          <iframe
+            src="https://vimeo.com/showcase/12243559/embed2"
+            allow="autoplay; fullscreen; picture-in-picture; gyroscope; accelerometer; clipboard-write; encrypted-media; web-share"
+            frameborder="0">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section>
+      <p class="section-label">About Chora</p>
+      <div class="about-grid">
+
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <h3>GPU-Accelerated</h3>
+          <p>Chora uses GPU processing to evaluate large numbers of route combinations simultaneously, far faster than traditional CPU-based solvers.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3>Built for Real-World Complexity</h3>
+          <p>Handles the constraints that make real logistics hard — time windows, capacities, vehicle types, and multi-stop routes.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <h3>Developed by Opsi</h3>
+          <p>Chora is developed entirely in-house by the Opsi engineering team, giving Tramm full control over solver behaviour and future enhancements.</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+  </footer>
+
+</body>
+</html>
