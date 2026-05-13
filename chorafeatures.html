@@ -9,24 +9,35 @@
 
     :root {
       --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
       --blue-200: #bfdbfe;
       --blue-600: #2563eb;
       --blue-700: #1d4ed8;
       --blue-900: #1e3a8a;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
       --slate-400: #94a3b8;
       --slate-500: #64748b;
       --slate-600: #475569;
       --slate-700: #334155;
       --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-700: #b45309;
+      --red-50:   #fef2f2;
+      --red-100:  #fee2e2;
+      --red-700:  #b91c1c;
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #fff;
       color: var(--slate-700);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     /* ── HEADER ── */
@@ -35,39 +46,34 @@
       color: #fff;
       padding: 2rem 2rem 2.25rem;
     }
-    .header-inner { max-width: 900px; margin: 0 auto; }
+    .header-inner { max-width: 960px; margin: 0 auto; }
     .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
     .breadcrumb a { color: #fff; text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
     .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
-
-    .header-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      padding: 0.3rem 0.75rem;
-      border-radius: 2rem;
-      margin-bottom: 0.85rem;
-    }
-    .header-eyebrow svg { width: 0.85rem; height: 0.85rem; }
-
     .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 60ch; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
 
-    /* ── PAGE CONTENT ── */
+    /* ── LAYOUT ── */
     .page-content {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 2.5rem 2rem 5rem;
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
+      gap: 3rem;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 1.5rem;
     }
 
     /* ── VIDEO ── */
@@ -77,51 +83,107 @@
       box-shadow: 0 4px 24px rgba(30,58,138,0.12);
       border: 1px solid var(--slate-200);
     }
-    .video-wrap-inner {
-      padding: 42.86% 0 0 0;
-      position: relative;
-    }
+    .video-wrap-inner { padding: 42.86% 0 0 0; position: relative; }
     .video-wrap-inner iframe {
-      position: absolute;
-      top: 0; left: 0;
+      position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
-      border: none;
-      display: block;
+      border: none; display: block;
     }
 
-    /* ── ABOUT SECTION ── */
-    .about-grid {
+    /* ── INTRO ── */
+    .intro-text {
+      font-size: 0.975rem;
+      color: var(--slate-600);
+      max-width: 70ch;
+      line-height: 1.7;
+    }
+
+    /* ── CARD GRIDS ── */
+    .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1rem;
     }
-    .about-card {
+    .card-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
+    }
+    .info-card {
       background: var(--slate-100);
       border-radius: 0.6rem;
       padding: 1.25rem 1.5rem;
     }
-    .about-card-icon {
-      width: 2rem; height: 2rem;
-      background: var(--blue-50);
-      border: 1px solid var(--blue-200);
-      border-radius: 0.4rem;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--blue-700);
-      margin-bottom: 0.75rem;
+    .info-card h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.5rem;
     }
-    .about-card-icon svg { width: 1rem; height: 1rem; }
-    .about-card h3 { font-size: 0.875rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.3rem; }
-    .about-card p  { font-size: 0.825rem; color: var(--slate-600); }
+    .info-card p, .info-card li {
+      font-size: 0.825rem;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+    .info-card ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.3rem; }
 
-    .section-label {
-      font-size: 0.75rem;
+    /* ── CONSTRAINT TABLE ── */
+    .constraint-group { margin-bottom: 1.75rem; }
+    .constraint-group:last-child { margin-bottom: 0; }
+    .constraint-group-title {
+      font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--slate-400);
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--slate-200);
-      margin-bottom: 1.25rem;
+      letter-spacing: 0.08em;
+      color: var(--slate-500);
+      margin-bottom: 0.6rem;
+    }
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .pill {
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+      color: var(--blue-700);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2rem;
+    }
+
+    /* ── LIMITATIONS ── */
+    .limitation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .limitation-item {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+    }
+    .limitation-icon {
+      flex-shrink: 0;
+      color: var(--amber-700);
+      margin-top: 0.1rem;
+    }
+    .limitation-icon svg { width: 1rem; height: 1rem; }
+    .limitation-body { flex: 1; }
+    .limitation-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.2rem;
+    }
+    .limitation-desc {
+      font-size: 0.825rem;
+      color: var(--slate-600);
     }
 
     /* ── FOOTER ── */
@@ -135,8 +197,7 @@
 
     @media (max-width: 700px) {
       .site-header h1 { font-size: 1.4rem; }
-      .page-content { padding: 1.5rem 1rem 3rem; }
-      .about-grid { grid-template-columns: 1fr; }
+      .page-content { padding: 1.5rem 1rem 3rem; gap: 2rem; }
     }
   </style>
 </head>
@@ -147,22 +208,18 @@
       <div class="breadcrumb">
         <a href="index.html">Tramm Help</a>
         <span>›</span>
+        <a href="how-tramm-works/index.html">How Tramm Works</a>
+        <span>›</span>
         Chora
       </div>
-      <div class="header-eyebrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-        </svg>
-        Route Optimisation Engine
-      </div>
       <h1>Chora</h1>
-      <p class="subtitle">Opsi's purpose-built route optimisation solver — designed for the complexity of real-world logistics.</p>
+      <p class="subtitle">The route optimisation engine built by Opsi Systems that powers Tramm's planning solver.</p>
     </div>
   </header>
 
   <main class="page-content">
 
-    <!-- VIDEO -->
+    <!-- DEMO VIDEO -->
     <section>
       <p class="section-label">Demo</p>
       <div class="video-wrap">
@@ -176,39 +233,168 @@
       </div>
     </section>
 
-    <!-- ABOUT -->
+    <!-- OVERVIEW -->
     <section>
-      <p class="section-label">About Chora</p>
-      <div class="about-grid">
+      <p class="section-label">Overview</p>
+      <p class="intro-text">Chora is Opsi's purpose-built route optimisation solver. It replaces general-purpose solvers and is designed specifically for the complexity of real-world logistics — multiple vehicle types, time windows, capacity constraints, fatigue rules, and loading bay management. Chora runs as the engine behind the Tramm Planner whenever a solver run is triggered.</p>
+    </section>
 
-        <div class="about-card">
-          <div class="about-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-            </svg>
-          </div>
-          <h3>GPU-Accelerated</h3>
-          <p>Chora uses GPU processing to evaluate large numbers of route combinations simultaneously, far faster than traditional CPU-based solvers.</p>
+    <!-- JOB TYPES -->
+    <section>
+      <p class="section-label">Supported Job Types</p>
+      <div class="card-grid">
+
+        <div class="info-card">
+          <h3>Delivery</h3>
+          <p>Goods are loaded at a depot and delivered to one or more customer sites.</p>
         </div>
 
-        <div class="about-card">
-          <div class="about-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
-          </div>
-          <h3>Built for Real-World Complexity</h3>
-          <p>Handles the constraints that make real logistics hard — time windows, capacities, vehicle types, and multi-stop routes.</p>
+        <div class="info-card">
+          <h3>Collection</h3>
+          <p>Goods are picked up from sites and transported to a common offloading site.</p>
         </div>
 
-        <div class="about-card">
-          <div class="about-card-icon">
+        <div class="info-card">
+          <h3>Service</h3>
+          <p>A site visit where a service is performed — no goods transfer takes place.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONSTRAINTS -->
+    <section>
+      <p class="section-label">Supported Constraints</p>
+
+      <div class="constraint-group">
+        <p class="constraint-group-title">Time Windows</p>
+        <div class="pill-list">
+          <span class="pill">Job time windows</span>
+          <span class="pill">Site operating hours</span>
+          <span class="pill">Driver shift windows</span>
+          <span class="pill">Overnight &amp; multi-day windows</span>
+          <span class="pill">Hard time windows</span>
+          <span class="pill">Soft time windows (with penalty)</span>
+        </div>
+      </div>
+
+      <div class="constraint-group">
+        <p class="constraint-group-title">Capacity</p>
+        <div class="pill-list">
+          <span class="pill">Multiple dimensions (mass, volume, pallets, litres…)</span>
+          <span class="pill">Sum aggregation</span>
+          <span class="pill">Max aggregation</span>
+          <span class="pill">Horse &amp; trailer (articulated)</span>
+          <span class="pill">Rigid vehicles</span>
+          <span class="pill">Bulk compartments</span>
+          <span class="pill">Mixed compartments</span>
+        </div>
+      </div>
+
+      <div class="constraint-group">
+        <p class="constraint-group-title">Restrictions</p>
+        <div class="pill-list">
+          <span class="pill">Job / site to vehicle</span>
+          <span class="pill">Product to compartment</span>
+          <span class="pill">Vehicle to loading dock</span>
+          <span class="pill">Custom attributes for resource matching</span>
+        </div>
+      </div>
+
+      <div class="constraint-group">
+        <p class="constraint-group-title">Fatigue &amp; Breaks</p>
+        <div class="pill-list">
+          <span class="pill">Working breaks (max working time)</span>
+          <span class="pill">Driving breaks (max continuous driving)</span>
+          <span class="pill">Timed breaks (fixed time or windowed)</span>
+        </div>
+      </div>
+
+      <div class="constraint-group">
+        <p class="constraint-group-title">Loading Bays</p>
+        <div class="pill-list">
+          <span class="pill">Time-slotted dock capacity</span>
+          <span class="pill">Simultaneous vehicle limit per bay</span>
+          <span class="pill">Outbound loading &amp; inbound offloading</span>
+        </div>
+      </div>
+
+      <div class="constraint-group">
+        <p class="constraint-group-title">Traffic</p>
+        <div class="pill-list">
+          <span class="pill">Time-dependent travel times (HERE Maps)</span>
+          <span class="pill">Matrix caching for faster subsequent solves</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- JOB CONTROLS -->
+    <section>
+      <p class="section-label">Job Controls</p>
+      <div class="card-grid-2">
+
+        <div class="info-card">
+          <h3>Placement Controls</h3>
+          <ul>
+            <li>Force exclusive trip — job gets its own route</li>
+            <li>High / low priority</li>
+            <li>Force first stop</li>
+            <li>Force last stop</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>Grouping Controls</h3>
+          <ul>
+            <li>Force same trip — multiple jobs on the same route</li>
+            <li>Force different trips — keeps jobs on separate routes (useful for regional planning)</li>
+            <li>Job splitting — oversized jobs automatically split across vehicles</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CURRENT LIMITATIONS -->
+    <section>
+      <p class="section-label">Current Limitations (v1.0)</p>
+      <div class="limitation-list">
+
+        <div class="limitation-item">
+          <span class="limitation-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
+          </span>
+          <div class="limitation-body">
+            <p class="limitation-title">Single loading site per solve</p>
+            <p class="limitation-desc">Each solver run handles one loading site. Use the <strong>Solve per Depot</strong> option to run independent solves across multiple depots.</p>
           </div>
-          <h3>Developed by Opsi</h3>
-          <p>Chora is developed entirely in-house by the Opsi engineering team, giving Tramm full control over solver behaviour and future enhancements.</p>
+        </div>
+
+        <div class="limitation-item">
+          <span class="limitation-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </span>
+          <div class="limitation-body">
+            <p class="limitation-title">No Pickup-and-Delivery (P&amp;D) support</p>
+            <p class="limitation-desc">All collections must route to a single common depot. Mixed pickup-and-delivery on the same route is not yet supported.</p>
+          </div>
+        </div>
+
+        <div class="limitation-item">
+          <span class="limitation-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </span>
+          <div class="limitation-body">
+            <p class="limitation-title">Manual trailer assignment required</p>
+            <p class="limitation-desc">Trailers must be pre-assigned to horses before the solve runs. Automatic trailer assignment is not yet available.</p>
+          </div>
         </div>
 
       </div>
