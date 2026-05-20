@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Manager — Tramm Help</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-600: #16a34a;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+      --amber-700: #b45309;
+      --teal-50:  #f0fdfa;
+      --teal-100: #ccfbf1;
+      --teal-600: #0d9488;
+      --teal-700: #0f766e;
+      --purple-50:  #faf5ff;
+      --purple-100: #f3e8ff;
+      --purple-600: #9333ea;
+      --purple-700: #7e22ce;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 2.25rem;
+    }
+    .header-inner { max-width: 960px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
+
+    /* ── LAYOUT ── */
+    .page-content {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 1.5rem;
+    }
+    .section-intro {
+      font-size: 0.925rem;
+      color: var(--slate-600);
+      margin-bottom: 1.25rem;
+      max-width: 72ch;
+    }
+
+    /* ── THREE SECTIONS OVERVIEW ── */
+    .sections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .section-card {
+      border-radius: 0.6rem;
+      padding: 1.25rem 1.5rem;
+      border: 1px solid var(--slate-200);
+    }
+    .section-card-icon {
+      width: 2.25rem; height: 2.25rem;
+      border-radius: 0.4rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+    .section-card-icon svg { width: 1.1rem; height: 1.1rem; }
+    .section-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.35rem; }
+    .section-card p  { font-size: 0.825rem; color: var(--slate-600); line-height: 1.5; }
+
+    .card-blue  .section-card-icon { background: var(--blue-50);   border: 1px solid var(--blue-100);   color: var(--blue-700); }
+    .card-teal  .section-card-icon { background: var(--teal-50);   border: 1px solid var(--teal-100);   color: var(--teal-700); }
+    .card-purple .section-card-icon { background: var(--purple-50); border: 1px solid var(--purple-100); color: var(--purple-700); }
+
+    /* ── SCREEN ORIENTATION ── */
+    .orientation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .orientation-item {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+    }
+    .orientation-bullet {
+      flex-shrink: 0;
+      width: 1.4rem; height: 1.4rem;
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--blue-700);
+      margin-top: 0.1rem;
+    }
+
+    /* ── BEFORE YOU START ── */
+    .settings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .settings-table thead th {
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--slate-400);
+      padding: 0 1rem 0.6rem;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .settings-table tbody tr {
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .settings-table tbody tr:last-child { border-bottom: none; }
+    .settings-table tbody td {
+      padding: 0.65rem 1rem;
+      vertical-align: top;
+    }
+    .settings-table .col-setting { font-weight: 600; color: var(--slate-900); white-space: nowrap; }
+    .settings-table .col-path { color: var(--slate-400); font-size: 0.775rem; }
+    .settings-table .col-used { color: var(--slate-600); }
+
+    /* ── SETUP SEQUENCE ── */
+    .sequence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .sequence-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.6rem;
+      padding: 1.1rem 1.25rem;
+    }
+    .sequence-step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem; height: 1.5rem;
+      background: var(--blue-700);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .sequence-card h4 { font-size: 0.825rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.5rem; }
+    .sequence-card ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+    .sequence-card li { font-size: 0.8rem; color: var(--slate-600); padding-left: 0.9rem; position: relative; }
+    .sequence-card li::before { content: '·'; position: absolute; left: 0; color: var(--slate-400); }
+
+    /* ── ENTITY GROUPS ── */
+    .entity-group { margin-bottom: 2rem; }
+    .entity-group:last-child { margin-bottom: 0; }
+    .entity-group-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-500);
+      margin-bottom: 0.75rem;
+    }
+    .entity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.6rem;
+    }
+    .entity-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+      padding: 0.85rem 1.1rem;
+    }
+    .entity-card h4 { font-size: 0.85rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.2rem; }
+    .entity-card p  { font-size: 0.8rem; color: var(--slate-500); line-height: 1.45; }
+    .entity-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 0.25rem;
+      margin-bottom: 0.35rem;
+    }
+    .badge-class { background: var(--amber-50); color: var(--amber-700); border: 1px solid var(--amber-100); }
+
+    /* ── CALLOUT ── */
+    .callout {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+    }
+    .callout svg { flex-shrink: 0; width: 1rem; height: 1rem; color: var(--blue-600); margin-top: 0.15rem; }
+    .callout a { color: var(--blue-700); }
+
+    .callout-teal {
+      background: var(--teal-50);
+      border-color: var(--teal-100);
+    }
+    .callout-teal svg { color: var(--teal-600); }
+
+    /* ── TRANSACT ENTITIES ── */
+    .transact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+    .transact-card {
+      background: var(--purple-50);
+      border: 1px solid var(--purple-100);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+    }
+    .transact-card h4 { font-size: 0.875rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.25rem; }
+    .transact-card p  { font-size: 0.8rem; color: var(--slate-600); line-height: 1.45; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      .site-header h1 { font-size: 1.4rem; }
+      .page-content { padding: 1.5rem 1rem 3rem; gap: 2rem; }
+      .settings-table { font-size: 0.8rem; }
+      .settings-table .col-setting { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="../../index.html">Tramm Help</a>
+        <span>›</span>
+        <a href="../index.html">Tramm</a>
+        <span>›</span>
+        Data Manager
+      </div>
+      <h1>Data Manager</h1>
+      <p class="subtitle">The heart of the system — all reference data, transactional data, and financial configuration lives here.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- OVERVIEW -->
+    <section>
+      <p class="section-label">Overview</p>
+      <p class="section-intro">Data Manager is the central app for managing all of Tramm's data. Every other app — planning, execution, tariffing — depends on the data set up here. Data Manager is divided into three sections, accessible from the left panel.</p>
+      <div class="sections-grid">
+
+        <div class="section-card card-blue">
+          <div class="section-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <h3>Master Data</h3>
+          <p>Reference data — vehicles, sites, products, operators, clients, and more. This is the foundation everything else is built on.</p>
+        </div>
+
+        <div class="section-card card-teal">
+          <div class="section-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <h3>Transactional Data</h3>
+          <p>Operational records — Orders, Jobs, Trips, Movements. These are the live records created and processed as freight moves.</p>
+        </div>
+
+        <div class="section-card card-purple">
+          <div class="section-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h3>Transact Extension</h3>
+          <p>Financial configuration — Contracts, Transport Services, Master Charges, and Tariffs for cost and revenue calculations.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SCREEN ORIENTATION -->
+    <section>
+      <p class="section-label">What You See on Screen</p>
+      <div class="orientation-list">
+        <div class="orientation-item">
+          <span class="orientation-bullet">1</span>
+          <span><strong>Left panel</strong> — navigation divided into Master Data, Transactional Data, and Transact Extension. Select any entity type to load its records in the main area.</span>
+        </div>
+        <div class="orientation-item">
+          <span class="orientation-bullet">2</span>
+          <span><strong>Main grid</strong> — a list of all records for the selected entity type. Click any row to open the record for viewing or editing.</span>
+        </div>
+        <div class="orientation-item">
+          <span class="orientation-bullet">3</span>
+          <span><strong>Toolbar</strong> — add, edit, delete, and transition records. Import and export buttons (where available) allow bulk data management via spreadsheet.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEFORE YOU START IN SETTINGS -->
+    <section>
+      <p class="section-label">Before You Start — Settings to Configure First</p>
+      <p class="section-intro">Several Settings must be configured before Data Manager entities will have all their fields and options available. Set these up before loading master data.</p>
+
+      <table class="settings-table">
+        <thead>
+          <tr>
+            <th>Setting</th>
+            <th>Where in Settings</th>
+            <th>Used by</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-setting">Dimensions</td>
+            <td class="col-path">Settings › Definitions › Dimensions</td>
+            <td class="col-used">Vehicle Classes and Products — defines the capacity units (mass, volume, pallets, etc.) available on these entities.</td>
+          </tr>
+          <tr>
+            <td class="col-setting">Routing Classes</td>
+            <td class="col-path">Settings › Routing Definitions › Routing Classes</td>
+            <td class="col-used">Vehicle Classes — each vehicle class references a routing class that controls how travel distances and times are calculated.</td>
+          </tr>
+          <tr>
+            <td class="col-setting">Attributes</td>
+            <td class="col-path">Settings › Definitions › Attributes</td>
+            <td class="col-used">Vehicles, Trailers, Sites, Operators, Products — custom attributes used for resource matching and restrictions.</td>
+          </tr>
+          <tr>
+            <td class="col-setting">Operating Days</td>
+            <td class="col-path">Settings › Definitions › Operating Days</td>
+            <td class="col-used">Site Classes and Sites — defines operating hour templates that can be applied to sites.</td>
+          </tr>
+          <tr>
+            <td class="col-setting">Fatigue Rules</td>
+            <td class="col-path">Settings › Definitions › Fatigue Rules</td>
+            <td class="col-used">Routing Classes (and therefore Vehicle Classes) — controls driver break requirements in the solver.</td>
+          </tr>
+          <tr>
+            <td class="col-setting">Driving Restrictions</td>
+            <td class="col-path">Settings › Definitions › Driving Restrictions</td>
+            <td class="col-used">Vehicles — restrictions on where a vehicle may travel.</td>
+          </tr>
+          <tr>
+            <td class="col-setting">Entity Types</td>
+            <td class="col-path">Settings › Definitions › Entity Types</td>
+            <td class="col-used">Sites, Vehicles, Operators — classifies entities into user-defined types for filtering and reporting.</td>
+          </tr>
+          <tr>
+            <td class="col-setting">Currencies</td>
+            <td class="col-path">Settings › Definitions › Currencies</td>
+            <td class="col-used">Transact Extension — required before setting up Contracts, Tariffs, and Charges.</td>
+          </tr>
+          <tr>
+            <td class="col-setting">System — Set site address as required</td>
+            <td class="col-path">Settings › General › System</td>
+            <td class="col-used">Sites — controls whether address is a required field when creating a site.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- RECOMMENDED SETUP SEQUENCE -->
+    <section>
+      <p class="section-label">Recommended Setup Sequence</p>
+      <p class="section-intro">Master data entities have dependencies on each other. Setting them up in this order avoids having to revisit records after the fact.</p>
+      <div class="sequence-grid">
+
+        <div class="sequence-card">
+          <div class="sequence-step">1</div>
+          <h4>Configure in Settings first</h4>
+          <ul>
+            <li>Dimensions</li>
+            <li>Routing Classes</li>
+            <li>Attributes</li>
+            <li>Operating Days</li>
+            <li>Fatigue Rules</li>
+            <li>Entity Types</li>
+            <li>Currencies (for Transact)</li>
+          </ul>
+        </div>
+
+        <div class="sequence-card">
+          <div class="sequence-step">2</div>
+          <h4>Fleet &amp; Vehicle setup</h4>
+          <ul>
+            <li>Vehicle Classes (uses Dimensions, Routing Classes)</li>
+            <li>Vehicles (requires Vehicle Class)</li>
+            <li>Trailers (requires Vehicle Class)</li>
+            <li>Operator Classes</li>
+            <li>Operators (requires Operator Class)</li>
+          </ul>
+        </div>
+
+        <div class="sequence-card">
+          <div class="sequence-step">3</div>
+          <h4>Location setup</h4>
+          <ul>
+            <li>Site Classes (uses Operating Days)</li>
+            <li>Sites (requires Site Class)</li>
+            <li>Regions</li>
+            <li>Lanes (requires Regions)</li>
+            <li>Locations (standalone geo-entities)</li>
+            <li>Transport Segments (requires Sites)</li>
+          </ul>
+        </div>
+
+        <div class="sequence-card">
+          <div class="sequence-step">4</div>
+          <h4>Goods &amp; partners</h4>
+          <ul>
+            <li>Product Groups</li>
+            <li>Products (requires Product Group)</li>
+            <li>Transport Units</li>
+            <li>Clients (optional link to Sites)</li>
+            <li>Transporters</li>
+            <li>Fleets (requires Sites, Vehicles)</li>
+          </ul>
+        </div>
+
+        <div class="sequence-card">
+          <div class="sequence-step">5</div>
+          <h4>Routes (if using master routes)</h4>
+          <ul>
+            <li>Master Routes (requires Sites)</li>
+            <li>Master Route Sets (requires Master Routes)</li>
+          </ul>
+        </div>
+
+        <div class="sequence-card">
+          <div class="sequence-step">6</div>
+          <h4>Transact Extension (financial)</h4>
+          <ul>
+            <li>Contracts (requires Clients, Transporters, Fleets)</li>
+            <li>Transport Services (requires Vehicle Classes)</li>
+            <li>Master Charges</li>
+            <li>Tariffs</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MASTER DATA -->
+    <section>
+      <p class="section-label">Master Data</p>
+      <p class="section-intro">Master data is reference data — the stable, reusable records that the system draws on for planning and execution. All master data supports import and export via spreadsheet.</p>
+
+      <div class="entity-group">
+        <p class="entity-group-title">Fleet &amp; Vehicles</p>
+        <div class="entity-grid">
+
+          <div class="entity-card">
+            <span class="entity-badge badge-class">Class</span>
+            <h4>Vehicle Classes</h4>
+            <p>A vehicle type specification — dimensions, capacity, compartments, routing class, and costing. Individual vehicles inherit values from their class.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Vehicles</h4>
+            <p>A specific, identifiable transport unit — licence plate, home site, operating hours, and default operator and trailer assignments.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Trailers</h4>
+            <p>A passive transport resource attached to a vehicle. Has its own capacity, compartments, and regulatory permits.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Fleets</h4>
+            <p>A collection of vehicles and trailers sharing a home site. Used for transporter allocation and fleet availability tracking.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="entity-group">
+        <p class="entity-group-title">Operators</p>
+        <div class="entity-grid">
+
+          <div class="entity-card">
+            <span class="entity-badge badge-class">Class</span>
+            <h4>Operator Classes</h4>
+            <p>A driver or service agent type, defining skill attributes (e.g., crane operator, hazardous goods driver).</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Operators</h4>
+            <p>A specific individual — operating hours, contact info, regulatory permits, and an optional link to a system user account.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="entity-group">
+        <p class="entity-group-title">Locations</p>
+        <div class="entity-grid">
+
+          <div class="entity-card">
+            <span class="entity-badge badge-class">Class</span>
+            <h4>Site Classes</h4>
+            <p>A location type specification — operating hours, entry/exit durations, and restrictions that sites can inherit.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Sites</h4>
+            <p>Any location a vehicle can visit — depot, delivery point, client site, warehouse. Has operating hours, GPS coordinates, and optional loading docks.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Regions</h4>
+            <p>A geographic area defined by a polygon, postal codes, or coordinates. Used for tariff lane calculations and site grouping.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Lanes</h4>
+            <p>A transportation route between two regions, used primarily for tariff calculations. Can be bidirectional.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Locations</h4>
+            <p>Reusable standalone geographic places with loading docks. Sites can reference a Location entity rather than embedding coordinates directly, allowing multiple sites to share a location.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Transport Segments</h4>
+            <p>A predefined transport leg between two sites — specifies mode, distance, duration, and eligible vehicle classes. Used in crossdock and multi-modal pipelines.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="entity-group">
+        <p class="entity-group-title">Routes</p>
+        <div class="entity-grid">
+
+          <div class="entity-card">
+            <h4>Master Routes</h4>
+            <p>A route template with ordered stop legs. Controls the sequence of stops on a trip. Used for recurring routes and automated trip generation.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Master Route Sets</h4>
+            <p>A collection of master routes with schedules. When a schedule fires, the system automatically generates trips from the associated routes.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="entity-group">
+        <p class="entity-group-title">Goods</p>
+        <div class="entity-grid">
+
+          <div class="entity-card">
+            <h4>Product Groups</h4>
+            <p>A goods category type with transport restrictions — specifies what kind of vehicle or compartment the product requires.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Products</h4>
+            <p>A transportable goods item with defined size dimensions, loading rate, and stackability rules. Belongs to one or more product groups.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Transport Units</h4>
+            <p>A container for goods (e.g., pallet, crate, IBC). Has size, capacity, and a product group association.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="entity-group">
+        <p class="entity-group-title">Partners</p>
+        <div class="entity-grid">
+
+          <div class="entity-card">
+            <h4>Clients</h4>
+            <p>A customer who receives goods or services. Can make orders and hold contracts. Has contact info, location, and order cutoff time schedules.</p>
+          </div>
+
+          <div class="entity-card">
+            <h4>Transporters</h4>
+            <p>An external transport service provider (carrier or haulier) that delivers on behalf of the organisation. Associated with one or more fleets.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TRANSACTIONAL DATA -->
+    <section>
+      <p class="section-label">Transactional Data</p>
+      <div class="callout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span>Transactional data — Orders, Jobs, Trips, and Movements — can be viewed and edited in Data Manager, but these records are primarily created and managed through the operational apps (Order Manager, Planner, Execution Manager). For a full explanation of what these records mean and how they relate to each other, see <a href="../../how-tramm-works/key-concepts.html">Key Concepts</a>.</span>
+      </div>
+    </section>
+
+    <!-- TRANSACT EXTENSION -->
+    <section>
+      <p class="section-label">Transact Extension</p>
+      <p class="section-intro">The Transact Extension covers all financial configuration. These records define how costs and revenues are calculated for every trip. The Transact Extension is only visible to users with the appropriate permissions.</p>
+      <div class="transact-grid">
+
+        <div class="transact-card">
+          <h4>Contracts</h4>
+          <p>Links a client or transporter to a tariff structure. Defines the pricing agreement for a fleet or service type.</p>
+        </div>
+
+        <div class="transact-card">
+          <h4>Transport Services</h4>
+          <p>Defines a billable service — links vehicle classes and transport units to a service type used in tariff calculations.</p>
+        </div>
+
+        <div class="transact-card">
+          <h4>Master Charges</h4>
+          <p>Charge definitions — specifies the charge type, schedule, conditions, and values used when calculating costs and revenues.</p>
+        </div>
+
+        <div class="transact-card">
+          <h4>Tariffs</h4>
+          <p>Pricing structures associated with transporters or clients. Brings together services and charges into a complete tariff for cost and revenue calculations.</p>
+        </div>
+
+      </div>
+
+      <div class="callout callout-teal" style="margin-top: 1rem;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span>Before setting up Transact entities, configure <strong>Tariff Engine</strong> and <strong>Financial Management</strong> settings under Settings › Transact.</span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+  </footer>
+
+</body>
+</html>
