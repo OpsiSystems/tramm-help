@@ -17,6 +17,24 @@
 
 ---
 
+## 2026-05-27 (Wednesday)
+
+- Rebuilt `tramm/data-manager/index.html` with full redesign:
+  - Added sticky left-side navigation
+  - Fixed paragraph alignment throughout
+  - Corrected Movements description (multi-modal/crossdock records, distinct from Trips)
+  - Improved Entity Types description (controls type dropdowns AND scopes attribute rules)
+  - Moved Routing Classes to optional in the settings table (system uses Default fallback)
+  - Moved Operators to their own group with optional callout
+  - Added "Advanced & Optional" section (Regions, Lanes, Locations entity, Transport Segments, Transport Units)
+  - Master Routes and Route Sets moved to optional Routes group
+  - Simplified Setup Sequence to 6 steps
+- Built `tramm/toolbar-reference.html` — Standard Toolbar Actions reference (Add, Duplicate, Edit, Admin Edit, Delete, Import, Export, Transition)
+- Added Standard Toolbar Actions as a QRC card on the homepage
+- Discussed system-wide button reference strategy: each app page references this page for standard buttons, then documents only its own additional actions
+
+---
+
 ## Previous sessions (dates not recorded)
 
 - Edited `how-tramm-works/key-concepts.html` — Orders Used In, Trips Used In, Master Routes reframing (marked Advanced, noted separate app)
