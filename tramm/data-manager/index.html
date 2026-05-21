@@ -330,7 +330,6 @@
             <li><a href="#locations">Locations</a></li>
             <li><a href="#goods">Goods</a></li>
             <li><a href="#partners">Partners</a></li>
-            <li><a href="#routes">Routes</a></li>
             <li><a href="#advanced">Advanced &amp; Optional</a></li>
           </ul>
         </li>
@@ -391,7 +390,7 @@
           </div>
           <div class="orientation-item">
             <span class="orientation-bullet">2</span>
-            <span><strong>Main grid</strong> — a list of all records for the selected entity type. Click any row to open the record for viewing or editing.</span>
+            <span><strong>Main grid</strong> — a list of all records for the selected entity type. Each row has a <strong>···</strong> button on the left — click it to open the full record in a detail panel without leaving the grid. Inside the detail panel, reference fields (such as Product Group or Vehicle Class) also show a <strong>···</strong> button — click that to open the detail of the referenced record. To edit a record, select it in the grid first, then click the <strong>Edit</strong> button in the toolbar.</span>
           </div>
           <div class="orientation-item">
             <span class="orientation-bullet">3</span>
@@ -442,7 +441,7 @@
             <tr>
               <td class="col-setting">Routing Classes</td>
               <td class="col-path">Settings › Routing Definitions › Routing Classes</td>
-              <td class="col-used">Vehicle Classes — specifies how travel distances and times are calculated per vehicle type. Optional: if not set, the system uses a Default routing class. Configure before go-live for accurate route calculations.</td>
+              <td class="col-used">Vehicle Classes (assigned here) — used by the Planner and routing engine to calculate travel distances, times, and routes per vehicle type. Optional: the system falls back to a Default routing class if not set.</td>
             </tr>
             <tr>
               <td class="col-setting">Currencies</td>
@@ -452,7 +451,7 @@
             <tr>
               <td class="col-setting">System — Set site address as required</td>
               <td class="col-path">Settings › General › System</td>
-              <td class="col-used">Sites — controls whether an address is a required field when creating a site.</td>
+              <td class="col-used">Sites — each user can set their own preference. When on, the address fields become required when adding or editing a site.</td>
             </tr>
           </tbody>
         </table>
@@ -498,30 +497,31 @@
 
           <div class="sequence-card">
             <div class="sequence-step">4</div>
-            <h4>Goods &amp; Partners</h4>
+            <h4>Goods</h4>
             <ul>
               <li>Product Groups</li>
               <li>Products (requires Product Group)</li>
-              <li>Clients</li>
-              <li>Transporters</li>
-              <li>Fleets (requires Sites, Vehicles)</li>
             </ul>
           </div>
 
           <div class="sequence-card">
             <div class="sequence-step">5</div>
-            <h4>Optional — as needed</h4>
+            <h4>Optional — add as needed</h4>
             <ul>
+              <li>Clients</li>
+              <li>Transporters</li>
+              <li>Fleets (requires Sites, Vehicles)</li>
               <li>Operators (if tracking drivers)</li>
-              <li>Regions &amp; Lanes (for tariff lanes)</li>
+              <li>Regions &amp; Lanes (for lane-based tariffs)</li>
               <li>Transport Units (if tracking containers)</li>
-              <li>Master Routes (for recurring routes)</li>
+              <li>Master Routes &amp; Route Sets (for recurring routes)</li>
             </ul>
           </div>
 
           <div class="sequence-card">
             <div class="sequence-step">6</div>
-            <h4>Transact Extension (financial)</h4>
+            <h4>Financial setup — Transact Extension only</h4>
+            <p style="font-size:0.8rem;color:var(--slate-500);margin-bottom:0.5rem;">Only needed if using Tramm for costing, billing, or tariff management.</p>
             <ul>
               <li>Contracts</li>
               <li>Transport Services</li>
@@ -648,26 +648,6 @@
           </div>
         </div>
 
-        <!-- Routes -->
-        <div class="entity-group" id="routes">
-          <p class="entity-group-title">Routes <span style="font-weight:400; text-transform:none; letter-spacing:0; font-size:0.75rem; color:var(--slate-400);">— optional</span></p>
-          <div class="entity-grid">
-
-            <div class="entity-card">
-              <div class="badge-row"><span class="entity-badge badge-optional">Optional</span></div>
-              <h4>Master Routes</h4>
-              <p>A route template with ordered stop legs. Controls the stop sequence on recurring trips. Only required if using recurring fixed routes.</p>
-            </div>
-
-            <div class="entity-card">
-              <div class="badge-row"><span class="entity-badge badge-optional">Optional</span></div>
-              <h4>Master Route Sets</h4>
-              <p>A collection of master routes with schedules. When a schedule fires, trips are automatically generated from the associated routes.</p>
-            </div>
-
-          </div>
-        </div>
-
         <!-- Advanced & Optional -->
         <div class="entity-group" id="advanced">
           <p class="entity-group-title">Advanced &amp; Optional</p>
@@ -677,7 +657,7 @@
             <div class="entity-card">
               <div class="badge-row"><span class="entity-badge badge-optional">Optional</span></div>
               <h4>Regions</h4>
-              <p>A geographic area defined by a polygon, postal codes, or coordinates. Used for tariff lane calculations and geographic grouping of sites.</p>
+              <p>A geographic area defined by a polygon, postal codes, or coordinates. Regions are used in two places: <strong>Lanes</strong> (each lane connects two regions for tariff pricing) and <strong>Site allocation</strong> (sites are automatically assigned to regions based on their location). Only needed if using lane-based tariffs in the Transact Extension, or if your reporting groups sites by geographic area.</p>
             </div>
 
             <div class="entity-card">
@@ -706,6 +686,18 @@
               <p>A container for goods (e.g., pallet, crate, IBC) with size, capacity, and product group association. Only needed if tracking container types on orders.</p>
             </div>
 
+            <div class="entity-card">
+              <div class="badge-row"><span class="entity-badge badge-optional">Optional</span></div>
+              <h4>Master Routes</h4>
+              <p>A route template that defines an ordered sequence of stop legs for a recurring trip. Set up once and re-used each time a trip follows the same fixed route. Not required for most operations — only needed if running predictable recurring routes.</p>
+            </div>
+
+            <div class="entity-card">
+              <div class="badge-row"><span class="entity-badge badge-optional">Optional</span></div>
+              <h4>Master Route Sets</h4>
+              <p>A collection of Master Routes with schedules. When a schedule fires, Tramm automatically generates the trips from the associated routes. Useful for operations that run a fixed daily or weekly route pattern.</p>
+            </div>
+
           </div>
         </div>
 
@@ -720,7 +712,7 @@
 
           <div class="entity-card">
             <h4>Orders</h4>
-            <p>A client's request for a delivery, collection, or service at a site. Created in Order Manager.</p>
+            <p>A request to move goods — a delivery, collection, or service at a site. Most clients integrate orders automatically from an external system (e.g., a WMS or ERP), but orders can also be created manually in Order Manager or imported via spreadsheet.</p>
           </div>
 
           <div class="entity-card">
@@ -766,7 +758,7 @@
 
           <div class="transact-card">
             <h4>Master Charges</h4>
-            <p>Charge definitions — specifies the charge type, schedule, conditions, and values used when calculating costs and revenues.</p>
+            <p>Predefined charge rules that are automatically applied on top of base trip costs — for example, fuel levies, surcharges, or toll supplements. Each charge has conditions (e.g., applies when distance exceeds a threshold) and validity periods. They are not manually added per trip — they fire automatically when the conditions are met.</p>
           </div>
 
           <div class="transact-card">
