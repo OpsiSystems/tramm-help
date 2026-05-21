@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Standard Toolbar Actions — Tramm Help</title>
+  <title>What the Buttons in Tramm Do — Tramm Help</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -14,8 +14,10 @@
       --blue-600: #2563eb;
       --blue-700: #1d4ed8;
       --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
       --slate-400: #94a3b8;
       --slate-500: #64748b;
       --slate-600: #475569;
@@ -27,6 +29,9 @@
       --amber-50:  #fffbeb;
       --amber-100: #fef3c7;
       --amber-700: #b45309;
+      --red-50:    #fff1f2;
+      --red-100:   #ffe4e6;
+      --red-700:   #b91c1c;
       --orange-50:  #fff7ed;
       --orange-100: #ffedd5;
       --orange-600: #ea580c;
@@ -44,7 +49,7 @@
       color: #fff;
       padding: 2rem 2rem 2.25rem;
     }
-    .header-inner { max-width: 860px; margin: 0 auto; }
+    .header-inner { max-width: 1060px; margin: 0 auto; }
     .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
     .breadcrumb a { color: #fff; text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
@@ -52,13 +57,52 @@
     .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
     .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
 
-    .page-content {
-      max-width: 860px;
+    /* ── TWO-COLUMN LAYOUT ── */
+    .page-body {
+      max-width: 1060px;
       margin: 0 auto;
       padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── LEFT NAV ── */
+    .side-nav {
+      position: sticky;
+      top: 1.5rem;
+    }
+    .side-nav ul { list-style: none; }
+    .side-nav > ul > li { margin-bottom: 0.15rem; }
+    .side-nav a {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--slate-500);
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.25rem;
+      line-height: 1.35;
+    }
+    .side-nav a:hover { background: var(--slate-100); color: var(--slate-900); }
+    .side-nav .nav-section {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      padding: 0.9rem 0.6rem 0.3rem;
+    }
+    .side-nav .nav-section:first-child { padding-top: 0; }
+    .side-nav ul ul { padding-left: 0.75rem; }
+    .side-nav ul ul a { font-size: 0.775rem; }
+
+    /* ── CONTENT ── */
+    .page-content {
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
+      gap: 2.75rem;
+      min-width: 0;
     }
 
     .section-label {
@@ -75,6 +119,18 @@
       font-size: 0.925rem;
       color: var(--slate-600);
       margin-bottom: 1.25rem;
+    }
+    .section-intro a { color: var(--blue-700); }
+
+    .subsection-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-500);
+      margin: 1.75rem 0 0.6rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--slate-100);
     }
 
     /* ── ACTION TABLE ── */
@@ -106,8 +162,13 @@
       font-size: 0.85rem;
       color: var(--slate-600);
     }
+    .action-caution {
+      font-size: 0.8rem;
+      color: var(--red-700);
+      margin-top: 0.4rem;
+    }
 
-    /* ── NOTE ── */
+    /* ── CALLOUTS ── */
     .callout {
       display: flex; gap: 0.75rem; align-items: flex-start;
       background: var(--blue-50); border: 1px solid var(--blue-100);
@@ -123,14 +184,27 @@
     }
     .callout-orange svg { color: var(--orange-600); }
 
+    /* ── COMING SOON STUB ── */
+    .stub-section {
+      background: var(--slate-100);
+      border: 1px dashed var(--slate-300);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--slate-400);
+      text-align: center;
+    }
+
     footer {
       background: var(--slate-900); color: var(--slate-400);
       text-align: center; padding: 1.5rem 2rem; font-size: 0.8rem;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
+      .page-body { grid-template-columns: 1fr; gap: 0; }
+      .side-nav { display: none; }
       .site-header h1 { font-size: 1.4rem; }
-      .page-content { padding: 1.5rem 1rem 3rem; }
+      .page-body { padding: 1.5rem 1rem 3rem; }
       .action-table thead { display: none; }
       .action-table td { display: block; padding: 0.4rem 0.75rem; }
       .action-table tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
@@ -142,119 +216,353 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="breadcrumb">
-        <a href="../index.html">Tramm Help</a>
+        <a href="../../index.html">Tramm Help</a>
         <span>›</span>
         <a href="index.html">Tramm</a>
         <span>›</span>
-        Standard Toolbar Actions
+        What the Buttons in Tramm Do
       </div>
-      <h1>Standard Toolbar Actions</h1>
-      <p class="subtitle">These action buttons appear throughout Tramm — in Data Manager, the Planner, Execution Manager, and other apps.</p>
+      <h1>What the Buttons in Tramm Do</h1>
+      <p class="subtitle">Standard buttons that appear in every app, plus the action buttons specific to each app — all in one place.</p>
     </div>
   </header>
 
-  <main class="page-content">
+  <div class="page-body">
 
-    <section>
-      <p class="section-label">How the toolbar works</p>
-      <p class="section-intro">Every entity grid in Tramm has a toolbar above the list. The toolbar contains a set of standard actions that work the same way everywhere, plus additional actions specific to that app or entity type. This page covers the standard ones.</p>
-      <div class="callout">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-        <span>Most actions only become active once you select one or more records. Buttons that require a selection are greyed out until a row is selected in the grid.</span>
-      </div>
-    </section>
+    <!-- LEFT NAV -->
+    <nav class="side-nav">
+      <ul>
+        <li><p class="nav-section">Everywhere</p></li>
+        <li><a href="#open-details">Open Details ···</a></li>
+        <li><a href="#standard-actions">Standard toolbar buttons</a></li>
 
-    <section>
-      <p class="section-label">Standard Actions</p>
-      <table class="action-table">
-        <thead>
-          <tr>
-            <th style="width:20%">Action</th>
-            <th>What it does</th>
-          </tr>
-        </thead>
-        <tbody>
+        <li><p class="nav-section">App Buttons</p></li>
+        <li><a href="#planner">Planner</a></li>
+        <li><a href="#execution-manager">Execution Manager</a></li>
+        <li><a href="#data-manager">Data Manager</a></li>
+      </ul>
+    </nav>
 
-          <tr>
-            <td>
-              <p class="action-name">Add</p>
-              <p class="action-when">No selection needed</p>
-            </td>
-            <td class="action-desc">Opens a blank form to create a new record. Available on all entity types.</td>
-          </tr>
+    <!-- CONTENT -->
+    <main class="page-content">
 
-          <tr>
-            <td>
-              <p class="action-name">Duplicate</p>
-              <p class="action-when">One record selected</p>
-            </td>
-            <td class="action-desc">Creates a copy of the selected record, pre-filled with the same values. Useful for creating similar records without starting from scratch — for example, a new vehicle of the same class.</td>
-          </tr>
+      <!-- HOW IT WORKS (inline with first section) -->
+      <section id="open-details">
+        <p class="section-label">Open Details — · · ·</p>
+        <p class="section-intro">Every row in every grid has a <strong>···</strong> button on the left. This is separate from the toolbar but works the same way everywhere in Tramm.</p>
+        <table class="action-table">
+          <thead>
+            <tr>
+              <th style="width:28%">Where</th>
+              <th>What it does</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <p class="action-name">··· on a grid row</p>
+              </td>
+              <td class="action-desc">Opens the full detail panel for that record — all fields, history, and chat — without leaving the grid. No selection or toolbar click needed; just click the dots on any row.</td>
+            </tr>
+            <tr>
+              <td>
+                <p class="action-name">··· on a field inside a detail panel</p>
+              </td>
+              <td class="action-desc">Reference fields (such as Vehicle Class, Product Group, or Site) show their own <strong>···</strong> button. Clicking it opens the detail panel for that referenced record — letting you drill into related data without navigating away.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-          <tr>
-            <td>
-              <p class="action-name">Edit</p>
-              <p class="action-when">One record selected</p>
-            </td>
-            <td class="action-desc">Opens the selected record for editing. Only fields the current user has permission to change will be editable.</td>
-          </tr>
+      <section id="standard-actions">
+        <p class="section-label">Standard Toolbar Buttons</p>
+        <p class="section-intro">These buttons appear in the toolbar of every app that has a grid. They always do the same thing, regardless of which app you are in.</p>
+        <div class="callout" style="margin-bottom:1.25rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>Most actions only become active once you select one or more records. Buttons that require a selection are greyed out until a row is selected in the grid.</span>
+        </div>
+        <table class="action-table">
+          <thead>
+            <tr>
+              <th style="width:28%">Button</th>
+              <th>What it does</th>
+            </tr>
+          </thead>
+          <tbody>
 
-          <tr>
-            <td>
-              <p class="action-name">Admin Edit</p>
-              <p class="action-when">One record selected</p>
-            </td>
-            <td class="action-desc">Opens the record with elevated editing access, making additional fields available that are normally locked. Restricted to system administrators.</td>
-          </tr>
+            <tr>
+              <td>
+                <p class="action-name">Add</p>
+                <p class="action-when">No selection needed</p>
+              </td>
+              <td class="action-desc">Opens a blank form to create a new record. Available on all entity types.</td>
+            </tr>
 
-          <tr>
-            <td>
-              <p class="action-name">Delete</p>
-              <p class="action-when">One or more records selected</p>
-            </td>
-            <td class="action-desc">Deletes the selected record(s). Tramm will warn if a record is referenced by other data — for example, a site that is still used on active trips cannot be deleted.</td>
-          </tr>
+            <tr>
+              <td>
+                <p class="action-name">Duplicate</p>
+                <p class="action-when">One record selected</p>
+              </td>
+              <td class="action-desc">Creates a copy of the selected record, pre-filled with the same values. Useful for creating similar records without starting from scratch — for example, a new vehicle of the same class.</td>
+            </tr>
 
-          <tr>
-            <td>
-              <p class="action-name">Import</p>
-              <p class="action-when">No selection needed</p>
-            </td>
-            <td class="action-desc">Imports records from an Excel file. A template can usually be downloaded first to ensure the correct column structure. Available on most master data entity types.</td>
-          </tr>
+            <tr>
+              <td>
+                <p class="action-name">Edit</p>
+                <p class="action-when">One record selected</p>
+              </td>
+              <td class="action-desc">Opens the selected record for editing. Only fields the current user has permission to change will be editable.</td>
+            </tr>
 
-          <tr>
-            <td>
-              <p class="action-name">Export</p>
-              <p class="action-when">No selection needed</p>
-            </td>
-            <td class="action-desc">Exports all records (or the current filtered set) to an Excel file. Useful for bulk review, reporting, or preparing data for re-import.</td>
-          </tr>
+            <tr>
+              <td>
+                <p class="action-name">Delete</p>
+                <p class="action-when">One or more records selected</p>
+              </td>
+              <td class="action-desc">Deletes the selected record(s). Tramm will warn if a record is referenced by other data — for example, a site that is still used on active trips cannot be deleted.</td>
+            </tr>
 
-          <tr>
-            <td>
-              <p class="action-name">Transition</p>
-              <p class="action-when">One or more records selected</p>
-            </td>
-            <td class="action-desc">Changes the state of the selected record(s). The available transitions depend on the entity type and its current state — for example, a Trip can be Confirmed, Cancelled, or set back to Planned. See the relevant app guide for the state flow of each entity.</td>
-          </tr>
+            <tr>
+              <td>
+                <p class="action-name">Import</p>
+                <p class="action-when">No selection needed</p>
+              </td>
+              <td class="action-desc">Imports records from an Excel file. A template can usually be downloaded first to ensure the correct column structure. Available on most master data entity types.</td>
+            </tr>
 
-        </tbody>
-      </table>
-    </section>
+            <tr>
+              <td>
+                <p class="action-name">Export</p>
+                <p class="action-when">No selection needed</p>
+              </td>
+              <td class="action-desc">Exports all records (or the current filtered set) to an Excel file. Useful for bulk review, reporting, or preparing data for re-import.</td>
+            </tr>
 
-    <section>
-      <div class="callout callout-orange">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-        </svg>
-        <span>Each app also has its own additional buttons beyond these standard ones. See the <a href="data-manager/index.html">Data Manager</a> guide, the <a href="../planner/quick-reference.html">Planner Button Reference</a>, and other app guides for app-specific actions.</span>
-      </div>
-    </section>
+            <tr>
+              <td>
+                <p class="action-name">Transition</p>
+                <p class="action-when">One or more records selected</p>
+              </td>
+              <td class="action-desc">Changes the state of the selected record(s). The available transitions depend on the entity type and its current state — for example, a Trip can be Confirmed, Cancelled, or set back to Planned. See the relevant app guide for the state flow of each entity.</td>
+            </tr>
 
-  </main>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── PLANNER ── -->
+      <section id="planner">
+        <p class="section-label">Planner</p>
+        <p class="section-intro">The Planner has its own set of action buttons for building and managing trip plans. These are in addition to the <a href="#standard-actions">standard toolbar buttons</a> above. For a visual guide with button screenshots, see the <a href="../planner/quick-reference.html">Planner Quick Reference Card</a>.</p>
+
+        <p class="subsection-label">Gantt view controls</p>
+        <table class="action-table">
+          <thead><tr><th style="width:28%">Button</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><p class="action-name">Zoom In</p></td>
+              <td class="action-desc">Zooms in on the Gantt timeline to show more detail — useful when trips or stops are close together.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Zoom Out</p></td>
+              <td class="action-desc">Widens the time window so you can see more trips at once — useful for a bird's-eye view of the day.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Show Selected Stop</p></td>
+              <td class="action-desc">When turned on, the Gantt automatically scrolls to show the selected trip whenever you click a row. Click again to turn off.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Show Loading Date</p></td>
+              <td class="action-desc">Scrolls the Gantt to the date when the selected job or order is scheduled to load.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Recalculate Trip</p><p class="action-when">One trip selected</p></td>
+              <td class="action-desc">Triggers a manual recalculation of travel times and estimated arrival times for the selected trip. Use after changing stops or time windows.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Remove Stop</p></td>
+              <td class="action-desc">Removes the selected stop from its trip directly from the Gantt. The job returns to the unplanned list.
+                <p class="action-caution">Only use on regular stops — not the first or last stop on a trip.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Publish Trip</p></td>
+              <td class="action-desc">Pushes the latest trip updates to the driver's mobile app. Only relevant for trips that are already confirmed and being executed by a driver.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="subsection-label">Orders</p>
+        <table class="action-table">
+          <thead><tr><th style="width:28%">Button</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><p class="action-name">Set Time Windows</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Sets pickup and delivery time constraints on the selected orders. Once set, the planner will respect these windows when scheduling.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Toggle Plannable</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Switches the selected orders between Plannable and Not Plannable. Only plannable orders can be converted to jobs and scheduled.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Convert to Jobs</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Transforms the selected orders into jobs — the units the planner works with when building trips. Select multiple orders to convert them all at once.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Remove Jobs</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Removes the jobs linked to the selected orders and returns the orders to an unconverted state. Use if an order was converted by mistake or if you need to restart planning.
+                <p class="action-caution">If the jobs are already on a trip, unplan them from the trip first.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="subsection-label">Jobs</p>
+        <table class="action-table">
+          <thead><tr><th style="width:28%">Button</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><p class="action-name">Set Time Windows</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Sets pickup and delivery time constraints directly on jobs. The planner will respect these when building and recalculating trips.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Toggle Plannable</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Marks the selected jobs as Plannable (ready to be added to a trip) or Not Plannable (held back). Only Plannable jobs can be placed on a trip.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Toggle On-Hold</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Places jobs on hold — even if they are marked as Plannable, on-hold jobs are excluded from planning until the hold is lifted.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Build Trip</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Opens the Trip Builder so you can create a new trip from the selected jobs. Select multiple jobs to combine them into a single trip.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Build Trip from Master Route</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Creates a trip using a pre-saved route template. The trip is pre-populated with the standard stops from the template.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Build Trips from Master Route Set</p><p class="action-when">No selection needed</p></td>
+              <td class="action-desc">Creates multiple trips at once from a saved route set — useful when daily operations follow a fixed pattern saved as a template.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Unplan</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Removes the selected jobs from their trips and returns them to the unplanned list — useful if a job has been placed on the wrong trip.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Cancel</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Cancels the selected jobs. Cancelled jobs are removed from any trips they are on.
+                <p class="action-caution">This is difficult to reverse — check with your team leader before cancelling.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="subsection-label">Trips</p>
+        <table class="action-table">
+          <thead><tr><th style="width:28%">Button</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><p class="action-name">Edit Trip</p><p class="action-when">One trip selected</p></td>
+              <td class="action-desc">Opens the Trip Builder for the selected trip so you can change stops, sequence, timing, vehicle, or driver.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Recalculate Trip</p><p class="action-when">One trip selected</p></td>
+              <td class="action-desc">Updates the estimated travel times and arrival times for the selected trip. Run this after editing stops or their sequence.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Update Trip Allocation</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Changes the vehicle, driver, or transporter assigned to the selected trip(s) — for example, when the original vehicle becomes unavailable.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Add Manual Stop</p><p class="action-when">One trip selected</p></td>
+              <td class="action-desc">Adds an extra stop to a trip that is not linked to a job — for example, a fuel stop or weigh bridge.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Merge Trips</p><p class="action-when">Two or more selected</p></td>
+              <td class="action-desc">Combines the selected trips into a single trip.
+                <p class="action-caution">Check that the vehicle can handle the combined load and that all time windows can still be met after merging.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Toggle Locks</p><p class="action-when">One trip selected</p></td>
+              <td class="action-desc">Locks or unlocks the stops on a trip. Locked stops are protected from accidental changes — lock a trip when you are happy with the plan.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Confirm Plan</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Moves the selected trips from Planned to Confirmed. Once confirmed, the trip becomes visible to the driver and is automatically picked up by Tramm Mobile.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Move Trip</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Moves the selected trips to a different date — for example, if a trip needs to be rescheduled due to a public holiday or vehicle availability.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Update Actuals</p><p class="action-when">One trip selected</p></td>
+              <td class="action-desc">Enters the real-world execution data for a trip — actual arrival and departure times — once the trip has started or completed.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Cancel Trip</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Cancels the selected trips. The jobs on the trip are returned to the unplanned list.
+                <p class="action-caution">This cannot be reversed — only cancel a trip if it genuinely cannot go ahead.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Abort Trip</p><p class="action-when">One trip selected</p></td>
+              <td class="action-desc">Stops a trip that is already in progress — for example, due to a breakdown or road closure.
+                <p class="action-caution">Only use for trips that have already started. For trips that have not yet departed, use Cancel Trip instead.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Export Planned Jobs</p><p class="action-when">One or more selected</p></td>
+              <td class="action-desc">Downloads the jobs on the selected trips to a CSV or Excel file — useful for sharing with someone who does not have access to Tramm.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="subsection-label">Trip Builder</p>
+        <table class="action-table">
+          <thead><tr><th style="width:28%">Button</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><p class="action-name">Optimize Trip</p></td>
+              <td class="action-desc">Automatically reorders the stops on the trip to find the most efficient sequence. You can still adjust the order manually after optimising.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Apply Master Route</p></td>
+              <td class="action-desc">Applies a saved route template to the trip, pre-populating it with the standard stops for that route.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Commit</p></td>
+              <td class="action-desc">Saves the trip and all its details. The trip is created in Planned state — it will not be visible to the driver until it is confirmed.</td>
+            </tr>
+            <tr>
+              <td><p class="action-name">Close</p></td>
+              <td class="action-desc">Closes the Trip Builder without saving. The selected jobs remain unplanned.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── EXECUTION MANAGER ── -->
+      <section id="execution-manager">
+        <p class="section-label">Execution Manager</p>
+        <p class="section-intro">In addition to the standard toolbar buttons above, Execution Manager has action buttons for managing live trip execution.</p>
+        <div class="stub-section">
+          Content for Execution Manager-specific buttons coming soon.
+        </div>
+      </section>
+
+      <!-- ── DATA MANAGER ── -->
+      <section id="data-manager">
+        <p class="section-label">Data Manager</p>
+        <p class="section-intro">Data Manager uses the standard toolbar buttons only — there are no additional app-specific toolbar buttons. See the <a href="data-manager/index.html">Data Manager guide</a> for a full overview of the app.</p>
+      </section>
+
+    </main>
+
+  </div>
 
   <footer>
     <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>

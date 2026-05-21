@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tramm — Tramm Help</title>
+  <title>Tramm — OPSI Docs</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -202,6 +202,79 @@
       font-size: 0.95rem;
     }
 
+    /* ── HUB SECTIONS ── */
+    .hub-section { max-width: 960px; margin: 0 auto; padding: 2.5rem 2rem 0; }
+    .hub-section + .hub-section { padding-top: 2rem; }
+    .section-header { margin-bottom: 1.25rem; }
+    .section-header h2 { font-size: 1.1rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.2rem; }
+    .section-header p  { font-size: 0.875rem; color: var(--slate-500); }
+
+    .app-guide-group { margin-bottom: 1.25rem; }
+    .app-guide-group-label {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--slate-400); margin-bottom: 0.5rem;
+    }
+    .app-guide-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.65rem;
+    }
+    a.app-guide-card, div.app-guide-card {
+      display: flex; flex-direction: column; gap: 0.25rem;
+      background: #fff; border: 1px solid var(--slate-200);
+      border-radius: 0.6rem; padding: 0.9rem 1rem;
+      text-decoration: none; color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    a.app-guide-card:hover { box-shadow: 0 4px 12px rgba(37,99,235,0.1); border-color: var(--blue-200); }
+    div.app-guide-card { opacity: 0.5; }
+    .app-guide-card h3 { font-size: 0.875rem; font-weight: 700; color: var(--slate-900); }
+    .app-guide-card p  { font-size: 0.78rem; color: var(--slate-500); line-height: 1.4; }
+    .app-guide-status {
+      display: inline-block; margin-top: 0.3rem;
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 0.12rem 0.45rem; border-radius: 9999px;
+    }
+    .status-progress { background: var(--amber-100); color: var(--amber-700); }
+    .status-soon     { background: var(--slate-100); color: var(--slate-400); }
+
+    .qrc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; }
+    .qrc-card {
+      display: flex; flex-direction: column; gap: 0.3rem;
+      background: var(--blue-50); border: 1px solid var(--blue-100);
+      border-radius: 0.6rem; padding: 1rem 1.1rem;
+      text-decoration: none; color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .qrc-card:hover { box-shadow: 0 4px 12px rgba(37,99,235,0.12); border-color: var(--blue-200); }
+    .qrc-card-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue-700); }
+    .qrc-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--slate-900); }
+    .qrc-card p  { font-size: 0.8rem; color: var(--slate-600); line-height: 1.4; }
+
+    .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.65rem; }
+    .works-card {
+      display: flex; flex-direction: column; gap: 0.25rem;
+      background: #fff; border: 1px solid var(--slate-200);
+      border-radius: 0.6rem; padding: 0.9rem 1rem;
+      text-decoration: none; color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s;
+      position: relative;
+    }
+    .works-card:hover { box-shadow: 0 4px 12px rgba(37,99,235,0.08); border-color: var(--blue-200); }
+    .works-card h3 { font-size: 0.875rem; font-weight: 700; color: var(--slate-900); }
+    .works-card p  { font-size: 0.78rem; color: var(--slate-500); line-height: 1.4; }
+    .coming-label {
+      display: inline-block; margin-top: 0.3rem;
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 0.12rem 0.45rem; border-radius: 9999px;
+      background: var(--slate-100); color: var(--slate-400);
+    }
+
+    .browse-divider {
+      max-width: 960px; margin: 2.5rem auto 0; padding: 2rem 2rem 0;
+      border-top: 1px solid var(--slate-200);
+    }
+    .browse-divider h2 { font-size: 1.1rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.2rem; }
+    .browse-divider p  { font-size: 0.875rem; color: var(--slate-500); margin-bottom: 1.25rem; }
+
     /* ── FOOTER ── */
     footer {
       background: var(--slate-900);
@@ -223,15 +296,131 @@
 
   <header class="site-header">
     <div class="breadcrumb">
-      <a href="../index.html">Tramm Help</a>
+      <a href="../index.html">OPSI Docs</a>
       <span>›</span>
       Tramm
     </div>
     <h1>Tramm</h1>
-    <p class="subtitle">The core platform — 24 apps covering planning, execution, data management, and customer &amp; transporter operations.</p>
+    <p class="subtitle">Documentation, guides, and reference for the Tramm platform.</p>
   </header>
 
   <main class="page-content">
+
+    <!-- USER GUIDES -->
+    <section class="hub-section">
+      <div class="section-header">
+        <h2>User Guides</h2>
+        <p>Step-by-step documentation for each Tramm app.</p>
+      </div>
+
+      <div class="app-guide-group">
+        <p class="app-guide-group-label">Planning</p>
+        <div class="app-guide-grid">
+          <a class="app-guide-card" href="data-manager/index.html"
+             data-search="data manager master data vehicles sites products clients setup entities">
+            <h3>Data Manager</h3>
+            <p>All master data, transactional records, and financial configuration.</p>
+            <span class="app-guide-status status-progress">In progress</span>
+          </a>
+          <div class="app-guide-card">
+            <h3>Planner</h3>
+            <p>Build and manage trip plans — orders to jobs to trips.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+          <div class="app-guide-card">
+            <h3>Order Manager</h3>
+            <p>Create and manage customer orders before they enter the planning process.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-guide-group">
+        <p class="app-guide-group-label">Execution</p>
+        <div class="app-guide-grid">
+          <div class="app-guide-card">
+            <h3>Execution Manager</h3>
+            <p>Monitor and manage trips in real time — from confirmation to completion.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+          <div class="app-guide-card">
+            <h3>Tramm Mobile</h3>
+            <p>The driver app — start of day, stop-by-stop execution, ePOD, and end of day.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-guide-group">
+        <p class="app-guide-group-label">Configuration</p>
+        <div class="app-guide-grid">
+          <div class="app-guide-card">
+            <h3>Settings</h3>
+            <p>System-wide configuration — definitions, routing, fatigue rules, and more.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+          <div class="app-guide-card">
+            <h3>Transact Extension</h3>
+            <p>Financial configuration — contracts, tariffs, charges, and billing setup.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK REFERENCE -->
+    <section class="hub-section">
+      <div class="section-header">
+        <h2>Quick Reference</h2>
+        <p>At-a-glance guides for when you need a fast answer.</p>
+      </div>
+      <div class="qrc-grid">
+        <a class="qrc-card" href="toolbar-reference.html">
+          <p class="qrc-card-label">System-wide</p>
+          <h3>What the Buttons in Tramm Do</h3>
+          <p>Standard buttons that appear in every app, plus action buttons specific to each app.</p>
+        </a>
+        <a class="qrc-card" href="../planner/quick-reference.html">
+          <p class="qrc-card-label">Planner</p>
+          <h3>Planner Button Reference</h3>
+          <p>What every button does in the Planner toolbar and panels.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- UNDERSTANDING TRAMM -->
+    <section class="hub-section">
+      <div class="section-header">
+        <h2>Understanding Tramm</h2>
+        <p>Key concepts, business rules, and how everything fits together.</p>
+      </div>
+      <div class="works-grid">
+        <a class="works-card" href="../how-tramm-works/key-concepts.html">
+          <h3>Key Concepts</h3>
+          <p>Orders, Jobs, Trips — what they mean and how they relate to each other.</p>
+        </a>
+        <a class="works-card" href="../chorafeatures.html">
+          <h3>Chora</h3>
+          <p>The GPU-accelerated route optimisation engine that powers Tramm's planning solver.</p>
+        </a>
+        <a class="works-card" href="../how-tramm-works/processes.html">
+          <h3>Processes &amp; Workflows</h3>
+          <p>End-to-end walkthroughs of core Tramm processes, from order to execution.</p>
+          <span class="coming-label">Coming soon</span>
+        </a>
+        <a class="works-card" href="../how-tramm-works/scenarios.html">
+          <h3>Common Scenarios</h3>
+          <p>Answers to common "what happens if…" questions.</p>
+          <span class="coming-label">Coming soon</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- BROWSE ALL APPS -->
+    <div class="browse-divider">
+      <h2>Browse all apps</h2>
+      <p>All 24 Tramm apps — filter by name or category.</p>
+    </div>
 
     <div class="filter-wrap">
       <svg class="filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -508,7 +697,7 @@
   </main>
 
   <footer>
-    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+    <p>OPSI Docs &mdash; for support, contact your Tramm implementation team.</p>
   </footer>
 
   <script>
