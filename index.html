@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tramm Help</title>
+  <title>OPSI Docs</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -316,6 +316,38 @@
     .whats-new-desc  { font-size: 0.88rem; color: var(--slate-500); }
     .whats-new-arrow { margin-left: auto; color: var(--slate-300); flex-shrink: 0; }
 
+    /* ── APP GUIDE CARDS ── */
+    .app-guide-group { margin-bottom: 1.5rem; }
+    .app-guide-group:last-child { margin-bottom: 0; }
+    .app-guide-group-label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--slate-400);
+      margin-bottom: 0.6rem;
+    }
+    .app-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.75rem;
+    }
+    a.app-guide-card, div.app-guide-card {
+      display: flex; flex-direction: column; gap: 0.3rem;
+      background: #fff; border: 1px solid var(--slate-200);
+      border-radius: 0.6rem; padding: 1rem 1.1rem;
+      text-decoration: none; color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    a.app-guide-card:hover { box-shadow: 0 4px 12px rgba(37,99,235,0.1); border-color: var(--blue-200); }
+    div.app-guide-card { opacity: 0.55; }
+    .app-guide-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--slate-900); }
+    .app-guide-card p  { font-size: 0.8rem; color: var(--slate-500); line-height: 1.4; }
+    .app-guide-status {
+      display: inline-block; margin-top: 0.35rem;
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 0.15rem 0.5rem; border-radius: 9999px;
+    }
+    .status-progress  { background: var(--amber-100); color: var(--amber-700); }
+    .status-soon      { background: var(--slate-100); color: var(--slate-400); }
+
     /* ── FOOTER ── */
     footer {
       background: var(--slate-900);
@@ -340,9 +372,9 @@
 
   <!-- HERO -->
   <header class="hero">
-    <p class="hero-eyebrow">Tramm Help</p>
-    <h1>How can we help?</h1>
-    <p class="hero-subtitle">Find guides, quick references, and system documentation for Tramm, Tramm Mobile, and FleetVision.</p>
+    <p class="hero-eyebrow">OPSI Docs</p>
+    <h1>Help &amp; Documentation</h1>
+    <p class="hero-subtitle">Guides, references, and documentation for Tramm, Tramm Mobile, and FleetVision.</p>
     <div class="search-wrap">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -433,19 +465,85 @@
       </div>
     </section>
 
+    <!-- APP DOCUMENTATION -->
+    <section class="content-section" data-section>
+      <div class="section-header">
+        <h2>App Documentation</h2>
+        <p>Guides for each Tramm app — what it does, how to use it, and what to do when things go wrong.</p>
+      </div>
+
+      <div class="app-guide-group">
+        <p class="app-guide-group-label">Planning</p>
+        <div class="app-guide-grid">
+          <a class="app-guide-card" href="tramm/data-manager/index.html"
+             data-search="data manager master data vehicles sites products clients setup entities">
+            <h3>Data Manager</h3>
+            <p>All master data, transactional records, and financial configuration.</p>
+            <span class="app-guide-status status-progress">In progress</span>
+          </a>
+          <div class="app-guide-card" data-search="planner trips planning gantt orders jobs schedule">
+            <h3>Planner</h3>
+            <p>Build and manage trip plans — orders to jobs to trips.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+          <div class="app-guide-card" data-search="order manager orders create customer request">
+            <h3>Order Manager</h3>
+            <p>Create and manage customer orders before they enter the planning process.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-guide-group">
+        <p class="app-guide-group-label">Execution</p>
+        <div class="app-guide-grid">
+          <div class="app-guide-card" data-search="execution manager live trips dispatch tracking actuals">
+            <h3>Execution Manager</h3>
+            <p>Monitor and manage trips in real time — from confirmation to completion.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+          <div class="app-guide-card" data-search="tramm mobile driver app start of day stop delivery">
+            <h3>Tramm Mobile</h3>
+            <p>The driver app — start of day, stop-by-stop execution, ePOD, and end of day.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-guide-group">
+        <p class="app-guide-group-label">Configuration</p>
+        <div class="app-guide-grid">
+          <div class="app-guide-card" data-search="settings system configuration dimensions entity types attributes">
+            <h3>Settings</h3>
+            <p>System-wide configuration — definitions, routing, fatigue rules, and more.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+          <div class="app-guide-card" data-search="transact financial tariffs contracts charges billing">
+            <h3>Transact Extension</h3>
+            <p>Financial configuration — contracts, tariffs, charges, and billing setup.</p>
+            <span class="app-guide-status status-soon">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:0.8rem; color:var(--slate-400); margin-top:1rem;">
+        Looking for a specific app? <a href="tramm/index.html" style="color:var(--blue-700);">View all 24 Tramm apps →</a>
+      </p>
+    </section>
+
     <!-- QUICK REFERENCE CARDS -->
     <section class="content-section" data-section>
       <div class="section-header">
-        <h2>Quick Reference Cards</h2>
+        <h2>Quick Reference</h2>
         <p>At-a-glance guides for when you need a fast answer.</p>
       </div>
       <div class="qrc-grid">
 
         <a class="qrc-card" href="tramm/toolbar-reference.html"
-           data-search="toolbar buttons standard actions add edit delete import export transition system-wide">
+           data-search="toolbar buttons standard actions add edit delete import export transition planner execution manager app-specific system-wide">
           <p class="qrc-card-label">System-wide</p>
-          <h3>Standard Toolbar Actions</h3>
-          <p>Add, Edit, Duplicate, Delete, Import, Export — buttons that work the same way in every app.</p>
+          <h3>What the Buttons in Tramm Do</h3>
+          <p>Standard buttons that work the same in every app, plus action buttons specific to each app.</p>
         </a>
 
         <a class="qrc-card" href="planner/quick-reference.html"
@@ -458,11 +556,11 @@
       </div>
     </section>
 
-    <!-- HOW TRAMM WORKS -->
+    <!-- UNDERSTANDING TRAMM -->
     <section class="content-section" data-section>
       <div class="section-header">
-        <h2>How Tramm Works</h2>
-        <p>Understand the system — key concepts, business rules, and how everything fits together.</p>
+        <h2>Understanding Tramm</h2>
+        <p>Key concepts, business rules, and how everything fits together.</p>
       </div>
       <div class="works-grid">
 
@@ -529,7 +627,7 @@
   </main>
 
   <footer>
-    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+    <p>OPSI Docs &mdash; for support, contact your Tramm implementation team.</p>
   </footer>
 
   <script>
