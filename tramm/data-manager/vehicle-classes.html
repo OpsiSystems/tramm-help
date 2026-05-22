@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vehicle Classes &amp; Vehicles — Data Manager — OPSI Docs</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-300: #93c5fd;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+      --amber-700: #b45309;
+      --teal-50:  #f0fdfa;
+      --teal-100: #ccfbf1;
+      --teal-600: #0d9488;
+      --teal-700: #0f766e;
+      --purple-50:  #faf5ff;
+      --purple-100: #f3e8ff;
+      --purple-600: #9333ea;
+      --purple-700: #7e22ce;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 2.25rem;
+    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── LEFT NAV ── */
+    .side-nav {
+      position: sticky;
+      top: 2rem;
+    }
+    .side-nav-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--slate-400);
+      margin-bottom: 0.6rem;
+    }
+    .side-nav ul { list-style: none; }
+    .side-nav > ul > li { margin-bottom: 0.1rem; }
+    .side-nav a {
+      display: block;
+      font-size: 0.825rem;
+      color: var(--slate-600);
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.3rem;
+      transition: background 0.15s, color 0.15s;
+      border-left: 2px solid transparent;
+    }
+    .side-nav a:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+    }
+    .side-nav .nav-divider {
+      border: none;
+      border-top: 1px solid var(--slate-200);
+      margin: 0.6rem 0;
+    }
+
+    /* ── CONTENT ── */
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2.75rem;
+      min-width: 0;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 1.25rem;
+    }
+    .section-intro {
+      font-size: 0.925rem;
+      color: var(--slate-600);
+      margin-bottom: 1.25rem;
+      line-height: 1.65;
+    }
+    .section-intro a { color: var(--blue-700); }
+    .section-intro a:hover { text-decoration: underline; }
+
+    /* ── BODY TEXT ── */
+    .body-text {
+      font-size: 0.9rem;
+      color: var(--slate-700);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .body-text a { color: var(--blue-700); }
+    .body-text a:hover { text-decoration: underline; }
+    .body-text + .body-text { margin-top: 0; }
+
+    /* ── SECTION HEADING (h2 within content) ── */
+    .content-h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── FIELD TABLE ── */
+    .field-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.855rem;
+    }
+    .field-table thead th {
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--slate-400);
+      padding: 0 0.9rem 0.6rem;
+      border-bottom: 2px solid var(--slate-200);
+    }
+    .field-table tbody tr {
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .field-table tbody tr:last-child { border-bottom: none; }
+    .field-table tbody tr:hover { background: var(--slate-50); }
+    .field-table td {
+      padding: 0.7rem 0.9rem;
+      vertical-align: top;
+    }
+    .field-name {
+      font-weight: 700;
+      color: var(--slate-900);
+      font-size: 0.875rem;
+      white-space: nowrap;
+    }
+    .field-desc {
+      font-size: 0.845rem;
+      color: var(--slate-600);
+      line-height: 1.55;
+    }
+    .field-note {
+      font-size: 0.8rem;
+      color: var(--slate-400);
+      margin-top: 0.3rem;
+      font-style: italic;
+    }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 0.25rem;
+      white-space: nowrap;
+    }
+    .badge-required {
+      background: var(--blue-50);
+      color: var(--blue-700);
+      border: 1px solid var(--blue-100);
+    }
+    .badge-optional {
+      background: var(--slate-100);
+      color: var(--slate-500);
+      border: 1px solid var(--slate-200);
+    }
+    .badge-overridable {
+      background: var(--amber-50);
+      color: var(--amber-700);
+      border: 1px solid var(--amber-100);
+    }
+
+    /* ── GROUP HEADER ROW ── */
+    .field-table .group-header td {
+      background: var(--slate-50);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-500);
+      padding: 0.4rem 0.9rem;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+      margin-bottom: 1.25rem;
+    }
+    .callout svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+    }
+    .callout p { line-height: 1.55; }
+    .callout a { color: var(--blue-700); }
+    .callout a:hover { text-decoration: underline; }
+    .callout-blue {
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+    }
+    .callout-blue svg { color: var(--blue-600); }
+    .callout-green {
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+    }
+    .callout-green svg { color: var(--green-700); }
+    .callout-amber {
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+    }
+    .callout-amber svg { color: var(--amber-600); }
+
+    /* ── TASK STEPS ── */
+    .task-steps {
+      list-style: none;
+      counter-reset: step-counter;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .task-steps li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .task-steps li:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 1.6rem;
+      height: 1.6rem;
+      background: var(--blue-700);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15rem;
+    }
+    .step-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .step-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.25rem;
+    }
+    .step-detail {
+      font-size: 0.845rem;
+      color: var(--slate-600);
+      line-height: 1.55;
+    }
+    .step-detail a { color: var(--blue-700); }
+    .step-detail strong { color: var(--slate-800); }
+
+    /* ── SCREENSHOT PLACEHOLDER ── */
+    .screenshot-placeholder {
+      background: var(--slate-50);
+      border: 1.5px dashed var(--slate-300);
+      border-radius: 0.5rem;
+      padding: 1.5rem 1.25rem;
+      font-size: 0.82rem;
+      color: var(--slate-400);
+      text-align: center;
+      margin: 1rem 0 0.25rem;
+      line-height: 1.5;
+    }
+
+    /* ── TIPS LIST ── */
+    .tips-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .tips-list li {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+      line-height: 1.55;
+      padding: 0.8rem 1rem;
+      border-radius: 0.45rem;
+    }
+    .tips-list li.tip {
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+    }
+    .tips-list li.mistake {
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+    }
+    .tips-list li svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+    }
+    .tips-list li.tip svg { color: var(--green-700); }
+    .tips-list li.mistake svg { color: var(--amber-600); }
+    .tips-list li strong { color: var(--slate-900); }
+
+    /* ── TWO-PANEL CONCEPT BLOCK ── */
+    .concept-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .concept-panel {
+      border: 1px solid var(--slate-200);
+      border-radius: 0.55rem;
+      overflow: hidden;
+    }
+    .concept-panel-header {
+      background: var(--slate-100);
+      padding: 0.6rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-500);
+    }
+    .concept-panel-body {
+      padding: 0.85rem 1rem;
+      font-size: 0.84rem;
+      color: var(--slate-600);
+      line-height: 1.55;
+    }
+    .concept-panel-body ul {
+      padding-left: 1.1rem;
+      margin-top: 0.35rem;
+    }
+    .concept-panel-body li { margin-bottom: 0.2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .side-nav { position: static; border-bottom: 1px solid var(--slate-200); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+      .site-header h1 { font-size: 1.4rem; }
+      .concept-panels { grid-template-columns: 1fr; }
+      .field-table thead { display: none; }
+      .field-table td { display: block; padding: 0.4rem 0.75rem; }
+      .field-table tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
+      .field-table .group-header { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="../../index.html">OPSI Docs</a>
+        <span>&rsaquo;</span>
+        <a href="../index.html">Tramm</a>
+        <span>&rsaquo;</span>
+        <a href="index.html">Data Manager</a>
+        <span>&rsaquo;</span>
+        Vehicle Classes &amp; Vehicles
+      </div>
+      <h1>Vehicle Classes &amp; Vehicles</h1>
+      <p class="subtitle">A two-layer system — Vehicle Classes define the template, individual Vehicles reference it. The Planner works with classes directly, so named vehicles are optional.</p>
+    </div>
+  </header>
+
+  <div class="page-layout">
+
+    <!-- LEFT NAVIGATION -->
+    <nav class="side-nav">
+      <p class="side-nav-label">On this page</p>
+      <ul>
+        <li><a href="#vehicle-class-concept">What is a Vehicle Class?</a></li>
+        <li><a href="#vehicle-class-fields">Vehicle Class Fields</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#vehicles">What is a Vehicle?</a></li>
+        <li><a href="#vehicle-fields">Vehicle Fields</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#adding-vehicle-class">Adding a Vehicle Class</a></li>
+        <li><a href="#adding-vehicle">Adding a Vehicle</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#tips">Tips &amp; Common Mistakes</a></li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="page-content">
+
+      <!-- ── INTRO ── -->
+      <section>
+        <p class="body-text">Tramm uses a two-layer model for fleet setup. A <strong>Vehicle Class</strong> is a template that defines the properties shared by a group of vehicles — their capacity, dimensions, costing structure, and routing profile. An individual <strong>Vehicle</strong> is a named unit (a specific truck or van) that references a Vehicle Class and inherits all of its properties.</p>
+        <p class="body-text">This split means you can plan trips and check capacity without registering every vehicle individually. The Planner works directly against Vehicle Classes, so a Vehicle Class alone is enough for most planning work.</p>
+
+        <div class="concept-panels" style="margin-top:1.25rem;">
+          <div class="concept-panel">
+            <div class="concept-panel-header">Vehicle Class — the template</div>
+            <div class="concept-panel-body">
+              Defines shared properties for a group of vehicles.
+              <ul>
+                <li>Capacity (weight, volume, units)</li>
+                <li>Physical dimensions</li>
+                <li>Costing structure</li>
+                <li>Routing class</li>
+                <li>Operating hours (default)</li>
+                <li>Compartments, attributes, and more</li>
+              </ul>
+            </div>
+          </div>
+          <div class="concept-panel">
+            <div class="concept-panel-header">Vehicle — the individual unit</div>
+            <div class="concept-panel-body">
+              References a Vehicle Class and adds identity-level detail.
+              <ul>
+                <li>Registration or identifier</li>
+                <li>Home site (depot)</li>
+                <li>Default operators and trailers</li>
+                <li>Regulatory permits</li>
+                <li>Optional overrides: operating hours, efficiency</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── WHAT IS A VEHICLE CLASS ── -->
+      <section id="vehicle-class-concept">
+        <p class="section-label">What is a Vehicle Class?</p>
+        <p class="section-intro">A Vehicle Class is a reusable template that defines the operational properties of a type of vehicle in your fleet. Every vehicle in Tramm must belong to a Vehicle Class, and it inherits that class's capacity, physical dimensions, costing structure, and routing profile.</p>
+
+        <p class="body-text">Think of a Vehicle Class the way you would think of a vehicle model — for example, "10-tonne rigid truck" or "refrigerated van". All the trucks of that model have the same load capacity and the same cost structure. You define those properties once on the class, and every vehicle of that type automatically has them.</p>
+
+        <p class="body-text">The properties set on a Vehicle Class are fixed. Most cannot be changed on individual vehicles — the ones that can be overridden (operating hours and fuel efficiency) are noted in the fields sections below.</p>
+
+        <div class="callout callout-green" style="margin-top:1rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <p><strong>Vehicle Classes are enough for trip planning.</strong> For basic route planning in the Planner — calculating routes, checking capacity, and building trips — only a Vehicle Class is required. Individual vehicles are optional. You only need individual vehicle records if you want to allocate named vehicles to specific trips, track a particular vehicle, or assign operators by vehicle.</p>
+        </div>
+
+        <div class="callout callout-blue" style="margin-top:0.75rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p>Vehicle Classes are an example of the Classes concept used throughout Data Manager. See the <a href="getting-started.html#classes">Getting Started guide</a> for a full explanation of how the Classes pattern works.</p>
+        </div>
+      </section>
+
+      <!-- ── VEHICLE CLASS FIELDS ── -->
+      <section id="vehicle-class-fields">
+        <p class="section-label">Vehicle Class Fields</p>
+        <p class="section-intro">Fields are grouped by function below. Fields marked <span class="badge badge-required">Required</span> must be filled in before saving. All others are optional but recommended for accurate planning and costing.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr>
+              <th style="width:22%">Field</th>
+              <th style="width:12%">Status</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- Identity -->
+            <tr class="group-header">
+              <td colspan="3">Identity</td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Name</p></td>
+              <td><span class="badge badge-required">Required</span></td>
+              <td>
+                <p class="field-desc">A descriptive name for this class, such as "10T Rigid" or "Refrigerated Van". This name appears in the Planner when selecting a vehicle type for a trip.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Type</p></td>
+              <td><span class="badge badge-required">Required</span></td>
+              <td>
+                <p class="field-desc">The vehicle category — for example, Truck, Van, or Motorbike. This is selected from a fixed list (EVehicleType) and affects how the Planner handles the vehicle.</p>
+              </td>
+            </tr>
+
+            <!-- Capacity -->
+            <tr class="group-header">
+              <td colspan="3">Capacity</td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Capacity</p></td>
+              <td><span class="badge badge-required">Required</span></td>
+              <td>
+                <p class="field-desc">How much this vehicle can carry, expressed as weight, volume, and/or units. This is the value the Planner checks when loading orders onto a trip — if an order's size exceeds the remaining capacity, the Planner will not add it to that trip.</p>
+                <p class="field-note">Set all three measures that are relevant to your operation. If you only use weight-based planning, set weight only. If you use both weight and volume, set both — the Planner enforces whichever limits are set.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Compartments</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">Sub-sections within the vehicle that have separate capacity limits — for example, a chilled compartment and an ambient compartment on a refrigerated truck. Each compartment has its own capacity settings.</p>
+                <p class="field-note">Only needed if the vehicle carries loads that must be physically separated or have different temperature requirements.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Max Trailer Count</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">The maximum number of trailers this class of vehicle can pull. Used for planning multi-trailer operations.</p>
+              </td>
+            </tr>
+
+            <!-- Physical Dimensions -->
+            <tr class="group-header">
+              <td colspan="3">Physical Dimensions</td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Length</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">The overall length of the vehicle. Required if the 3D Visualiser is enabled — the visualiser uses these measurements to render an accurate representation of the vehicle and its load.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Width</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">The overall width of the vehicle. Required for 3D Visualiser rendering.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Height</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">The overall height of the vehicle. Required for 3D Visualiser rendering.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Mass</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">The unladen (tare) mass of the vehicle. Used in conjunction with the load capacity for gross vehicle mass calculations.</p>
+                <p class="field-note">Physical dimensions are set on the Vehicle Class only. Individual vehicles do not have their own dimension fields — they inherit these values from their class.</p>
+              </td>
+            </tr>
+
+            <!-- Planning & Routing -->
+            <tr class="group-header">
+              <td colspan="3">Planning &amp; Routing</td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Routing Class</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">The routing profile the Planner uses when calculating travel times and distances for vehicles of this class. Different vehicle types may have different speed profiles, restricted roads, or legal requirements — these are encoded in Routing Classes.</p>
+                <p class="field-note">If left blank, the system uses the Default routing profile, which may not accurately reflect the real travel behaviour of specialised vehicles such as heavy trucks or hazmat carriers.</p>
+              </td>
+            </tr>
+
+            <!-- Time & Availability -->
+            <tr class="group-header">
+              <td colspan="3">Time &amp; Availability</td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Operating Hours</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">The default hours that vehicles of this class are available to be planned. For example, a day-shift fleet might be available 06:00–18:00. The Planner uses these hours to constrain when trips can start and end.</p>
+                <p class="field-note">Can be overridden on individual vehicles if a specific vehicle has different availability from the rest of its class.</p>
+              </td>
+            </tr>
+
+            <!-- Costing -->
+            <tr class="group-header">
+              <td colspan="3">Costing</td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Fixed Cost</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">A flat cost applied per trip for vehicles of this class, regardless of distance or duration — for example, a daily hire fee or a fixed trip charge.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Distance-Based Cost</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">A cost rate applied per kilometre (or per unit of distance). Used to calculate the variable distance component of trip cost.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Time-Based Cost</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">A cost rate applied per unit of time — for example, per hour of trip duration. Used when driver time or vehicle utilisation by the hour forms part of the costing model.</p>
+              </td>
+            </tr>
+
+            <!-- Other -->
+            <tr class="group-header">
+              <td colspan="3">Other</td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Efficiency</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">Fuel efficiency metrics for vehicles of this class — for example, litres per 100 km. Used in fuel cost calculations and FleetVision reporting.</p>
+                <p class="field-note">Can be overridden on individual vehicles if a specific vehicle's measured efficiency differs from the class default.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Attributes</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">Custom key-value attributes that apply to all vehicles of this class. Attributes are inherited by every vehicle in the class and can be used for filtering, reporting, or custom business logic.</p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── WHAT IS A VEHICLE ── -->
+      <section id="vehicles">
+        <p class="section-label">What is a Vehicle?</p>
+        <p class="section-intro">A Vehicle is an individual record for a specific unit in your fleet — a particular truck, van, or other transport asset. Every Vehicle must reference a Vehicle Class, which determines its capacity, dimensions, costing, and routing profile.</p>
+
+        <p class="body-text">While the Vehicle Class provides the operational blueprint, the individual Vehicle record adds the details that are unique to that specific unit: its registration number, which depot it is based at, which drivers are usually assigned to it, and any regulatory permits it holds.</p>
+
+        <p class="body-text">Two class-level properties can be overridden at the vehicle level if a specific vehicle differs from the rest of its class: operating hours (if this vehicle has different availability) and fuel efficiency (if this vehicle's measured consumption is different from the class default). All other properties — capacity, dimensions, costing, routing class, compartments, and attributes — are fixed at the class level and apply uniformly to every vehicle in the class.</p>
+
+        <div class="callout callout-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p>Adding individual vehicles is optional. If your operation plans at the fleet class level — without allocating trips to named vehicles — you do not need to create individual vehicle records. You will still need at least one Vehicle Class per vehicle type you want to plan with.</p>
+        </div>
+      </section>
+
+      <!-- ── VEHICLE FIELDS ── -->
+      <section id="vehicle-fields">
+        <p class="section-label">Vehicle Fields</p>
+        <p class="section-intro">Fields marked <span class="badge badge-overridable">Overridable</span> can override the value set on the Vehicle Class for this specific vehicle. Leave them blank to inherit the class value.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr>
+              <th style="width:22%">Field</th>
+              <th style="width:12%">Status</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td><p class="field-name">Vehicle Class</p></td>
+              <td><span class="badge badge-required">Required</span></td>
+              <td>
+                <p class="field-desc">The Vehicle Class this vehicle belongs to. This is the only required field on a vehicle record. It determines the vehicle's capacity, physical dimensions, costing structure, routing profile, and default operating hours.</p>
+                <p class="field-note">Once saved, changing the Vehicle Class on a vehicle record will change its capacity and costing. Do this carefully.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Registration / Name</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">The registration plate or internal identifier for this vehicle. This is the label that appears when selecting or allocating a specific vehicle in the Planner or Execution Manager.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Home Site</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">The depot or site this vehicle is based at. The Planner can use the home site as the vehicle's start and end point when building trips.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Default Operators</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">The driver or drivers usually assigned to this vehicle. Setting default operators saves time when allocating a trip — the usual driver is pre-filled rather than requiring manual selection each time.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Default Trailers</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">Trailers that are usually attached to this vehicle. Like default operators, these are pre-filled when the vehicle is allocated to a trip.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Operating Hours</p></td>
+              <td><span class="badge badge-overridable">Overridable</span></td>
+              <td>
+                <p class="field-desc">If this vehicle has different availability from the rest of its class — for example, a vehicle reserved for night-shift work — set its specific operating hours here. If left blank, the vehicle uses the operating hours defined on its Vehicle Class.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Efficiency</p></td>
+              <td><span class="badge badge-overridable">Overridable</span></td>
+              <td>
+                <p class="field-desc">If this vehicle's actual fuel consumption is measurably different from the class default — for example, an older vehicle with higher fuel use — set a vehicle-specific efficiency here. If left blank, the vehicle uses the efficiency defined on its Vehicle Class.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><p class="field-name">Regulatory Permits</p></td>
+              <td><span class="badge badge-optional">Optional</span></td>
+              <td>
+                <p class="field-desc">Vehicle-specific permits — for example, a hazardous materials transport permit, an oversize load permit, or a border crossing permit. These are recorded at the individual vehicle level because they apply to the specific unit, not to the whole class.</p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── ADDING A VEHICLE CLASS ── -->
+      <section id="adding-vehicle-class">
+        <p class="section-label">Adding a Vehicle Class</p>
+        <p class="section-intro">Follow these steps to create a new Vehicle Class in Data Manager. Set up all your Vehicle Classes before adding individual vehicles.</p>
+
+        <ol class="task-steps">
+          <li>
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <p class="step-title">Open Data Manager and go to Vehicle Classes</p>
+              <p class="step-detail">From the main navigation, open <strong>Data Manager</strong>. Select <strong>Vehicle Classes</strong> from the entity list on the left.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <p class="step-title">Click Add</p>
+              <p class="step-detail">Click the <strong>Add</strong> button in the toolbar. The new Vehicle Class form will open.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="screenshot-placeholder">[Screenshot: Add Vehicle Class form showing Name, Type, and Capacity fields]</div>
+
+        <ol class="task-steps" style="margin-top:0.5rem;" start="3">
+          <li>
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <p class="step-title">Enter a name and select the vehicle type</p>
+              <p class="step-detail">Give the class a clear, descriptive name — for example, <strong>10T Rigid</strong> or <strong>Refrigerated Van</strong>. Select the appropriate <strong>Type</strong> from the dropdown (for example, Truck, Van, or Motorbike).</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <p class="step-title">Set the capacity</p>
+              <p class="step-detail">Enter the vehicle's carrying capacity. You can set <strong>weight</strong>, <strong>volume</strong>, and <strong>units</strong> independently — set whichever measures your operation uses. The Planner enforces every limit you set, so if you set both weight and volume, a load is rejected if it exceeds either limit. If you only plan by weight, leave volume and units blank.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <p class="step-title">Set physical dimensions (if using the 3D Visualiser)</p>
+              <p class="step-detail">If your Tramm environment uses the 3D load visualiser, enter the vehicle's <strong>Length</strong>, <strong>Width</strong>, and <strong>Height</strong>. These are required for the visualiser to render the vehicle correctly. Mass is optional but useful for gross vehicle mass calculations. If you are not using the 3D Visualiser, you can skip this step.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <p class="step-title">Assign a Routing Class</p>
+              <p class="step-detail">Select the <strong>Routing Class</strong> that best matches this vehicle type. The Routing Class controls how the Planner calculates travel times and routes — for example, heavy vehicles may be restricted from certain roads or have lower average speeds. If your fleet is standard and no specialist routing is needed, you may leave this blank and the system will use the Default routing profile.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">7</div>
+            <div class="step-body">
+              <p class="step-title">Set operating hours (if different from company defaults)</p>
+              <p class="step-detail">If vehicles of this class have specific availability windows — for example, they only operate 06:00–14:00 — enter those hours here. If the class follows the same hours as the rest of your operation, you can leave this blank and configure operating hours at the company or site level instead.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">8</div>
+            <div class="step-body">
+              <p class="step-title">Save</p>
+              <p class="step-detail">Click <strong>Save</strong> (or <strong>Commit</strong> depending on your form layout). The Vehicle Class is now available in the Planner and can be referenced when adding individual vehicles.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ── ADDING A VEHICLE ── -->
+      <section id="adding-vehicle">
+        <p class="section-label">Adding a Vehicle</p>
+        <p class="section-intro">Follow these steps to add an individual vehicle record. Remember — individual vehicles are optional. You only need them if you want to allocate named vehicles to trips, track specific units, or assign operators by vehicle.</p>
+
+        <ol class="task-steps">
+          <li>
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <p class="step-title">Open Data Manager and go to Vehicles</p>
+              <p class="step-detail">From the main navigation, open <strong>Data Manager</strong>. Select <strong>Vehicles</strong> from the entity list.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <p class="step-title">Click Add</p>
+              <p class="step-detail">Click the <strong>Add</strong> button in the toolbar to open the new Vehicle form.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <p class="step-title">Select a Vehicle Class</p>
+              <p class="step-detail">This is the only required field. Select the <strong>Vehicle Class</strong> this vehicle belongs to. This determines the vehicle's capacity, physical dimensions, costing, and routing profile. Make sure the correct Vehicle Classes are set up before adding vehicles.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="screenshot-placeholder">[Screenshot: Add Vehicle form with Vehicle Class field highlighted]</div>
+
+        <ol class="task-steps" style="margin-top:0.5rem;" start="4">
+          <li>
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <p class="step-title">Enter the registration or identifier</p>
+              <p class="step-detail">Enter the vehicle's registration plate or an internal code. This is the label used to identify this vehicle in the Planner and Execution Manager.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <p class="step-title">Set the home site (if applicable)</p>
+              <p class="step-detail">Select the depot or warehouse this vehicle is based at. If the vehicle operates from a single site, setting the home site lets the Planner use it as the vehicle's default start and end location.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <p class="step-title">Assign default operators or trailers (if applicable)</p>
+              <p class="step-detail">If a specific driver is normally assigned to this vehicle, add them as a <strong>Default Operator</strong>. If a trailer is normally attached, add it as a <strong>Default Trailer</strong>. These defaults speed up trip allocation but can always be changed when building a trip.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">7</div>
+            <div class="step-body">
+              <p class="step-title">Override operating hours only if needed</p>
+              <p class="step-detail">Leave this blank unless this specific vehicle has different availability from the rest of its class. If you set operating hours here, they will override the class-level hours for this vehicle only. In most cases, operating hours should be set at the class level rather than on individual vehicles.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">8</div>
+            <div class="step-body">
+              <p class="step-title">Save</p>
+              <p class="step-detail">Click <strong>Save</strong>. The vehicle is now available for allocation in the Planner and Execution Manager.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ── TIPS ── -->
+      <section id="tips">
+        <p class="section-label">Tips &amp; Common Mistakes</p>
+        <p class="section-intro">A few things to keep in mind when setting up Vehicle Classes and Vehicles for the first time.</p>
+
+        <ul class="tips-list">
+
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span><strong>Set up Vehicle Classes before adding individual vehicles.</strong> Every vehicle must reference a Vehicle Class. If you try to add vehicles first, you will have nothing to reference. Create all your classes first, then add vehicles.</span>
+          </li>
+
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span><strong>If you plan at the class level, you still need at least one Vehicle Class per vehicle type.</strong> Even if you do not register individual vehicles, the Planner needs Vehicle Classes to know the capacity and routing profile for each type of vehicle in your operation.</span>
+          </li>
+
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span><strong>Setting capacity too low.</strong> The Planner will reject any load that exceeds the vehicle's capacity. If orders are consistently failing to plan, check that the capacity set on the Vehicle Class matches the vehicle's actual carrying capacity. A common setup error is entering the tare mass instead of the payload.</span>
+          </li>
+
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span><strong>Not setting physical dimensions when the 3D Visualiser is enabled.</strong> If your Tramm environment includes the 3D load visualiser, it requires Length, Width, and Height on the Vehicle Class to render correctly. If these are missing, the visualiser will not display the vehicle. Dimensions are set on the class — individual vehicles do not have their own size fields.</span>
+          </li>
+
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span><strong>Forgetting to assign a Routing Class for specialised vehicles.</strong> If no Routing Class is set, the Planner uses the Default routing profile, which is calibrated for standard road vehicles. For heavy trucks, vehicles with road restrictions, or specialist transport types, the Default profile may produce inaccurate travel times and distances. Assign the appropriate Routing Class when setting up each Vehicle Class.</span>
+          </li>
+
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>OPSI Docs</p>
+  </footer>
+
+</body>
+</html>

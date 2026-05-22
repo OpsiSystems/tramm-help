@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sites — Data Manager — OPSI Docs</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+      --amber-700: #b45309;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 2.25rem;
+    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── LEFT NAV ── */
+    .side-nav {
+      position: sticky;
+      top: 2rem;
+    }
+    .side-nav-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--slate-400);
+      margin-bottom: 0.6rem;
+    }
+    .side-nav ul { list-style: none; }
+    .side-nav > ul > li { margin-bottom: 0.1rem; }
+    .side-nav a {
+      display: block;
+      font-size: 0.825rem;
+      color: var(--slate-600);
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.3rem;
+      transition: background 0.15s, color 0.15s;
+      border-left: 2px solid transparent;
+    }
+    .side-nav a:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+    }
+    .side-nav .nav-divider {
+      border: none;
+      border-top: 1px solid var(--slate-200);
+      margin: 0.6rem 0;
+    }
+
+    /* ── CONTENT ── */
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2.75rem;
+      min-width: 0;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 1.25rem;
+    }
+    .section-intro {
+      font-size: 0.925rem;
+      color: var(--slate-600);
+      margin-bottom: 1.25rem;
+    }
+    .section-intro a { color: var(--blue-700); }
+
+    /* ── BODY TEXT ── */
+    .body-text {
+      font-size: 0.9rem;
+      color: var(--slate-700);
+      margin-bottom: 1rem;
+    }
+    .body-text a { color: var(--blue-700); }
+    .body-text strong { color: var(--slate-900); }
+
+    /* ── FIELD TABLE ── */
+    .field-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+    }
+    .field-table thead th {
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--slate-400);
+      padding: 0 1rem 0.6rem;
+      border-bottom: 2px solid var(--slate-200);
+    }
+    .field-table tbody tr { border-bottom: 1px solid var(--slate-100); }
+    .field-table tbody tr:last-child { border-bottom: none; }
+    .field-table tbody tr:hover { background: var(--slate-50); }
+    .field-table td {
+      padding: 0.75rem 1rem;
+      vertical-align: top;
+      font-size: 0.875rem;
+    }
+    .field-name {
+      font-weight: 700;
+      color: var(--slate-900);
+      white-space: nowrap;
+    }
+    .field-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 0.25rem;
+      margin-top: 0.25rem;
+    }
+    .badge-required {
+      background: var(--blue-50);
+      color: var(--blue-700);
+      border: 1px solid var(--blue-100);
+    }
+    .badge-optional {
+      background: var(--slate-100);
+      color: var(--slate-500);
+      border: 1px solid var(--slate-200);
+    }
+    .badge-override {
+      background: var(--amber-50);
+      color: var(--amber-700);
+      border: 1px solid var(--amber-100);
+    }
+    .field-desc { color: var(--slate-600); }
+    .field-note {
+      font-size: 0.8rem;
+      color: var(--slate-400);
+      margin-top: 0.3rem;
+    }
+
+    /* ── STEPS LIST ── */
+    .steps-list {
+      list-style: none;
+      counter-reset: steps;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+    .steps-list li {
+      counter-increment: steps;
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--slate-700);
+    }
+    .steps-list li::before {
+      content: counter(steps);
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      background: var(--blue-600);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.1rem;
+    }
+
+    /* ── CALLOUT ── */
+    .callout {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+      margin-bottom: 1.25rem;
+    }
+    .callout svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      color: var(--blue-600);
+      margin-top: 0.15rem;
+    }
+    .callout a { color: var(--blue-700); }
+
+    .callout-amber {
+      background: var(--amber-50);
+      border-color: var(--amber-100);
+    }
+    .callout-amber svg { color: var(--amber-600); }
+
+    .callout-green {
+      background: var(--green-50);
+      border-color: var(--green-100);
+    }
+    .callout-green svg { color: var(--green-700); }
+
+    /* ── TIPS LIST ── */
+    .tips-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .tip-item {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      padding: 0.85rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+    }
+    .tip-item svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.1rem;
+    }
+    .tip-item strong {
+      display: block;
+      margin-bottom: 0.15rem;
+      font-size: 0.875rem;
+    }
+    .tip-item p {
+      font-size: 0.875rem;
+      color: var(--slate-600);
+    }
+    .tip-positive {
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+    }
+    .tip-positive svg { color: var(--green-700); }
+    .tip-positive strong { color: var(--green-700); }
+    .tip-warning {
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+    }
+    .tip-warning svg { color: var(--amber-600); }
+    .tip-warning strong { color: var(--amber-700); }
+
+    /* ── SCREENSHOT PLACEHOLDER ── */
+    .screenshot-placeholder {
+      background: var(--slate-50);
+      border: 1.5px dashed var(--slate-300);
+      border-radius: 0.5rem;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      font-size: 0.825rem;
+      color: var(--slate-400);
+      margin-top: 1.25rem;
+    }
+
+    /* ── OVERRIDE EXAMPLE BOX ── */
+    .logic-box {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+      margin: 1rem 0;
+    }
+    .logic-box .logic-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .logic-box .logic-row:last-child { border-bottom: none; }
+    .logic-label {
+      flex-shrink: 0;
+      width: 9rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--slate-500);
+      padding-top: 0.05rem;
+    }
+    .logic-value { color: var(--slate-700); font-size: 0.875rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .side-nav {
+        position: static;
+        border-bottom: 1px solid var(--slate-200);
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .site-header h1 { font-size: 1.4rem; }
+      .field-table thead { display: none; }
+      .field-table td { display: block; padding: 0.4rem 0.75rem; }
+      .field-table tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="../../index.html">OPSI Docs</a>
+        <span>›</span>
+        <a href="../index.html">Tramm</a>
+        <span>›</span>
+        <a href="index.html">Data Manager</a>
+        <span>›</span>
+        Sites
+      </div>
+      <h1>Sites</h1>
+      <p class="subtitle">Site Classes and Sites — the locations in your logistics network, from depots and warehouses to crossdocks and delivery points.</p>
+    </div>
+  </header>
+
+  <div class="page-layout">
+
+    <!-- LEFT NAVIGATION -->
+    <nav class="side-nav">
+      <p class="side-nav-label">On this page</p>
+      <ul>
+        <li><a href="#what-is-a-site-class">What is a Site Class?</a></li>
+        <li><a href="#site-class-fields">Site Class Fields</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#what-is-a-site">What is a Site?</a></li>
+        <li><a href="#site-fields">Site Fields</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#override-logic">Override Logic</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#adding-a-site-class">Adding a Site Class</a></li>
+        <li><a href="#adding-a-site">Adding a Site</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#tips">Tips &amp; Common Mistakes</a></li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="page-content">
+
+      <!-- INTRO -->
+      <section>
+        <p class="body-text">
+          Sites are the locations in your logistics network — depots, warehouses, crossdocks, and delivery points. Tramm uses a two-layer system: a <strong>Site Class</strong> acts as a template that defines shared defaults such as operating hours and dwell times, and individual <strong>Sites</strong> inherit those defaults while being able to override any value that differs for that specific location. This keeps your data consistent without forcing you to repeat the same settings on every site.
+        </p>
+      </section>
+
+      <!-- WHAT IS A SITE CLASS -->
+      <section id="what-is-a-site-class">
+        <p class="section-label">What is a Site Class?</p>
+        <p class="section-intro">
+          A Site Class is a template that defines shared operating hours, dwell times, and attribute rules for a group of similar sites. Rather than configuring each site individually, you set the defaults once on the class and every site in that class inherits them automatically.
+        </p>
+
+        <p class="body-text">
+          For example, a <strong>Retail Delivery</strong> class might define short entry and exit durations and daytime operating hours — reflecting the reality of dropping off at a shop during trading hours. A <strong>Distribution Centre</strong> class might define longer operating hours and a higher loading rate, reflecting the heavier handling at a depot.
+        </p>
+
+        <p class="body-text">
+          Any individual site can override the class defaults if that specific location differs from the norm. For instance, one particular retail outlet might have extended trading hours — you can set those hours on the site without touching the class.
+        </p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>
+            The Classes concept applies across several entities in Tramm — not just Sites. See the
+            <a href="getting-started.html#classes">Getting Started guide</a> for a full explanation of how the Class and instance pattern works.
+          </span>
+        </div>
+      </section>
+
+      <!-- SITE CLASS FIELDS -->
+      <section id="site-class-fields">
+        <p class="section-label">Site Class Fields</p>
+        <p class="section-intro">Fields available when adding or editing a Site Class.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Field</th>
+              <th style="width: 10%;">Required</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td>
+                <span class="field-name">Name</span>
+              </td>
+              <td><span class="field-badge badge-required">Required</span></td>
+              <td class="field-desc">
+                A descriptive label for this class of sites. Choose a name that reflects the type of location — for example, <em>Retail Delivery</em>, <em>Distribution Centre</em>, or <em>Crossdock</em>.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Operating Hours</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                The default working hours for sites in this class — for example, 08:00–17:00 Monday to Friday. These hours tell the Planner when sites of this type are accessible for deliveries and collections.
+                <p class="field-note">Individual sites can override this value if their hours differ from the class default.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Entry Duration</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                The default time required to arrive and set up at a site of this class — also called arrival dwell time. This value is added to the start of each stop in trip time calculations.
+                <p class="field-note">Used by the Planner's trip calculation engine. Individual sites can override this with a non-zero value.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Exit Duration</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                The default time required to depart and close off at a site of this class — also called departure dwell time. This value is added to the end of each stop in trip time calculations.
+                <p class="field-note">Used by the Planner's trip calculation engine. Individual sites can override this with a non-zero value.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Attributes</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                Custom attributes that are inherited by all sites in this class. Attributes can be used for filtering, reporting, or attribute-based rules.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Restrictions</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                Attribute rules (also called AttributeRules) that constrain which vehicles or products can use sites in this class. For example, you can restrict a Site Class to vehicles with a certain attribute such as <em>Refrigerated</em>, or to products tagged with a specific attribute.
+                <p class="field-note">Restrictions defined on the class apply to all sites in that class. Additional restrictions can also be added at the individual site level.</p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </section>
+
+      <!-- WHAT IS A SITE -->
+      <section id="what-is-a-site">
+        <p class="section-label" id="sites">What is a Site?</p>
+        <p class="section-intro">
+          A Site is an individual location in your network — a depot, warehouse, crossdock, or delivery point. Each site references a Site Class to inherit its defaults, and can override any of those defaults if the specific location requires different values.
+        </p>
+
+        <p class="body-text">
+          Every site has a physical address and GPS coordinates — coordinates are used for route distance and time calculations, and for automatically assigning the site to the correct Region. Sites can also carry contact information, operational instructions for drivers, and a link to a specific client if the site is client-specific.
+        </p>
+      </section>
+
+      <!-- SITE FIELDS -->
+      <section id="site-fields">
+        <p class="section-label">Site Fields</p>
+        <p class="section-intro">Fields available when adding or editing a Site.</p>
+
+        <table class="field-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Field</th>
+              <th style="width: 10%;">Required</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td>
+                <span class="field-name">Name</span>
+              </td>
+              <td><span class="field-badge badge-required">Required</span></td>
+              <td class="field-desc">
+                The full name of the site as it will appear in Tramm — for example, <em>Cape Town Distribution Centre</em> or <em>Pick n Pay Rondebosch</em>.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Code</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                A short identifier for the site. Useful when importing data or referencing sites in reports.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Site Class</span>
+              </td>
+              <td><span class="field-badge badge-optional">Recommended</span></td>
+              <td class="field-desc">
+                The Site Class this site belongs to. Selecting a class gives the site its default operating hours, entry duration, and exit duration. While not strictly required, assigning a Site Class is strongly recommended — without one, all time and duration values must be set manually on every site.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Type</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                A type label for the site — for example, <em>Depot</em>, <em>Warehouse</em>, or <em>Delivery Point</em>. Site types are configured in <strong>Entity Types</strong> in Data Manager, which controls the available options here.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Location</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                The physical address and GPS coordinates of the site. GPS coordinates are used for route distance and travel time calculations. They are also used when auto-assigning the site to a Region based on geographic boundaries.
+                <p class="field-note">Enter coordinates as accurately as possible — the Planner calculates road distance and estimated travel times from this position.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Operating Hours</span>
+              </td>
+              <td>
+                <span class="field-badge badge-override">Override</span>
+              </td>
+              <td class="field-desc">
+                The operating hours for this specific site. If set, these hours override the Site Class operating hours. If left blank, the system falls back to the class default.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Entry Duration</span>
+              </td>
+              <td>
+                <span class="field-badge badge-override">Override</span>
+              </td>
+              <td class="field-desc">
+                Arrival dwell time for this specific site. If set to a non-zero value, this overrides the Site Class Entry Duration. If left at zero, the system uses the class value.
+                <p class="field-note">Only set this if the site differs from its class default. See <a href="#override-logic">Override Logic</a> for details.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Exit Duration</span>
+              </td>
+              <td>
+                <span class="field-badge badge-override">Override</span>
+              </td>
+              <td class="field-desc">
+                Departure dwell time for this specific site. If set to a non-zero value, this overrides the Site Class Exit Duration. If left at zero, the system uses the class value.
+                <p class="field-note">Only set this if the site differs from its class default. See <a href="#override-logic">Override Logic</a> for details.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Loading Rate</span>
+              </td>
+              <td>
+                <span class="field-badge badge-override">Override</span>
+              </td>
+              <td class="field-desc">
+                The loading and unloading speed at this specific site — for example, units per hour. If set, this overrides the class-level loading rate and is used by the Planner when calculating stop durations based on load quantity.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Region(s)</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                The Regions this site belongs to. Regions are used in Lanes for tariff pricing and for geographic reporting. A site can belong to more than one Region.
+                <p class="field-note">If GPS coordinates are set, the system can auto-assign the site to the correct Region. If you manage Lanes and tariffs, make sure each site has a Region assigned.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Client</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                If this site belongs to a specific client — for example, a retail chain's own delivery point — link the client here. Client-specific sites can be filtered and reported on by client.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Contact Info</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                Phone number, email address, and physical address for the site. Useful for planners and drivers who need to contact the site directly.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Instructions</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                Free-text operational notes for this site — for example, access gate codes, security procedures, or special delivery instructions. These notes are visible to planners and can be made available to drivers.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Attributes</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                Site-specific attributes, in addition to any attributes inherited from the Site Class. Used for filtering, reporting, and attribute-based restriction rules.
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <span class="field-name">Restrictions</span>
+              </td>
+              <td><span class="field-badge badge-optional">Optional</span></td>
+              <td class="field-desc">
+                Site-specific attribute rules that constrain which vehicles or products can use this site — in addition to any restrictions defined on the Site Class.
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </section>
+
+      <!-- OVERRIDE LOGIC -->
+      <section id="override-logic">
+        <p class="section-label">How Override Logic Works</p>
+        <p class="section-intro">
+          The Site Class defines defaults. Individual sites only need values set if they differ from those defaults. The Planner follows a simple fallback rule for Entry Duration, Exit Duration, and Operating Hours.
+        </p>
+
+        <p class="body-text">
+          If a site's <strong>Entry Duration</strong> is set to a non-zero value, the Planner uses that value for trip calculations. If it is left at zero, the system falls back to the Site Class Entry Duration. The same pattern applies to Exit Duration and Operating Hours — if the site has a value, it takes precedence; otherwise, the class default applies.
+        </p>
+
+        <p class="body-text">
+          This means you only need to set values on the site if they differ from the class defaults. A site that behaves exactly like its class requires no duration or hours overrides at all.
+        </p>
+
+        <div class="logic-box">
+          <div class="logic-row">
+            <span class="logic-label">Scenario</span>
+            <span class="logic-value">Retail Delivery class has Entry Duration = 15 min. One site — <em>Woolworths Claremont</em> — requires 30 min to enter due to a parking bay queue.</span>
+          </div>
+          <div class="logic-row">
+            <span class="logic-label">What to do</span>
+            <span class="logic-value">Set Entry Duration = 30 min on the Woolworths Claremont site only. Leave all other retail sites at zero — they will inherit the 15 min class default.</span>
+          </div>
+          <div class="logic-row">
+            <span class="logic-label">Result</span>
+            <span class="logic-value">The Planner uses 30 min for Woolworths Claremont and 15 min for every other site in the Retail Delivery class.</span>
+          </div>
+        </div>
+
+        <div class="screenshot-placeholder">
+          [Screenshot: Site form showing Entry Duration field with a note that leaving it blank inherits from the Site Class]
+        </div>
+      </section>
+
+      <!-- ADDING A SITE CLASS -->
+      <section id="adding-a-site-class">
+        <p class="section-label">Adding a Site Class</p>
+        <p class="section-intro">Create Site Classes before adding sites. Even if you start with only one class, the class concept makes it easy to update shared settings across many sites later.</p>
+
+        <ol class="steps-list">
+          <li>Open <strong>Data Manager</strong> and select <strong>Site Classes</strong> from the navigation.</li>
+          <li>Click <strong>Add</strong> in the toolbar.</li>
+          <li>Enter a name that describes the type of site — for example, <em>Retail Delivery</em>, <em>Distribution Centre</em>, or <em>Crossdock</em>.</li>
+          <li>Set <strong>Operating Hours</strong> for this class — the default hours during which sites of this type are accessible.</li>
+          <li>Set <strong>Entry Duration</strong> and <strong>Exit Duration</strong> — the time it typically takes to arrive at and depart from sites in this class.</li>
+          <li>Add any shared <strong>Attributes</strong> or <strong>Restrictions</strong> if applicable to all sites in this class.</li>
+          <li>Click <strong>Save</strong>.</li>
+        </ol>
+
+        <div class="screenshot-placeholder">
+          [Screenshot: Add Site Class form]
+        </div>
+      </section>
+
+      <!-- ADDING A SITE -->
+      <section id="adding-a-site">
+        <p class="section-label">Adding a Site</p>
+        <p class="section-intro">Before adding sites, make sure your Site Classes are already set up. The Site Class selection is one of the first fields in the form and sets several defaults for the rest of the form.</p>
+
+        <ol class="steps-list">
+          <li>Open <strong>Data Manager</strong> and select <strong>Sites</strong> from the navigation.</li>
+          <li>Click <strong>Add</strong> in the toolbar.</li>
+          <li>Enter the <strong>site name</strong> and, if used, a short <strong>code</strong>.</li>
+          <li>Select the <strong>Site Class</strong>. This sets the default operating hours, entry duration, and exit duration for the site.</li>
+          <li>Select the <strong>site type</strong> if applicable.</li>
+          <li>Enter the <strong>Location</strong> — address and GPS coordinates. Coordinates are used for route calculations and for automatically assigning the site to the correct Region.</li>
+          <li>Override <strong>Operating Hours</strong>, <strong>Entry Duration</strong>, or <strong>Exit Duration</strong> only if this site differs from its class defaults. Leave these at zero or blank to inherit from the class.</li>
+          <li>Assign <strong>Region(s)</strong> if not using automatic region assignment from GPS coordinates.</li>
+          <li>Link a <strong>Client</strong> if this is a client-specific site.</li>
+          <li>Add <strong>Contact Info</strong> and any operational <strong>Instructions</strong> for drivers or planners.</li>
+          <li>Click <strong>Save</strong>.</li>
+        </ol>
+
+        <div class="screenshot-placeholder">
+          [Screenshot: Add Site form with Site Class and Location fields highlighted]
+        </div>
+      </section>
+
+      <!-- TIPS AND COMMON MISTAKES -->
+      <section id="tips">
+        <p class="section-label">Tips &amp; Common Setup Mistakes</p>
+
+        <div class="tips-list">
+
+          <div class="tip-item tip-positive">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+            <div>
+              <strong>Create Site Classes before adding sites</strong>
+              <p>Even if you start with a single class, the class concept makes it easy to update shared settings across many sites later without editing each one individually.</p>
+            </div>
+          </div>
+
+          <div class="tip-item tip-positive">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+            <div>
+              <strong>Enter GPS coordinates accurately</strong>
+              <p>Coordinates are used for route distance and travel time calculations, and for automatically assigning sites to Regions. An inaccurate coordinate can result in incorrect distances or a site ending up in the wrong Region.</p>
+            </div>
+          </div>
+
+          <div class="tip-item tip-positive">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10 10 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+            <div>
+              <strong>Set meaningful Entry and Exit Durations</strong>
+              <p>These values directly affect trip timing in the Planner. An incorrect dwell time leads to unrealistic schedules — trips will appear faster or slower than they are in practice.</p>
+            </div>
+          </div>
+
+          <div class="tip-item tip-warning">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <div>
+              <strong>Common mistake: Entry and Exit Duration left at zero on both the site and its class</strong>
+              <p>If neither the site nor its class has a duration set, the Planner will calculate zero dwell time at that stop. Planned trips will appear faster than they are in practice, and driver schedules will be unrealistic from day one.</p>
+            </div>
+          </div>
+
+          <div class="tip-item tip-warning">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <div>
+              <strong>Common mistake: Not assigning a Region</strong>
+              <p>If you use Lanes for tariff pricing, sites must be assigned to a Region for the Lane pricing to apply correctly. A site with no Region will not match any Lane, and trip costs may be calculated incorrectly or not at all.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>OPSI Docs</p>
+  </footer>
+
+</body>
+</html>

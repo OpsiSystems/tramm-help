@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Started — Data Manager — OPSI Docs</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+      --amber-700: #b45309;
+      --teal-50:  #f0fdfa;
+      --teal-100: #ccfbf1;
+      --teal-600: #0d9488;
+      --teal-700: #0f766e;
+      --purple-50:  #faf5ff;
+      --purple-100: #f3e8ff;
+      --purple-600: #9333ea;
+      --purple-700: #7e22ce;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 2.25rem;
+    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── LEFT NAV ── */
+    .side-nav {
+      position: sticky;
+      top: 2rem;
+    }
+    .side-nav-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--slate-400);
+      margin-bottom: 0.6rem;
+    }
+    .side-nav ul { list-style: none; }
+    .side-nav > ul > li { margin-bottom: 0.1rem; }
+    .side-nav a {
+      display: block;
+      font-size: 0.825rem;
+      color: var(--slate-600);
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.3rem;
+      transition: background 0.15s, color 0.15s;
+      border-left: 2px solid transparent;
+    }
+    .side-nav a:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+    }
+    .side-nav .nav-sub {
+      padding-left: 1rem;
+      margin-top: 0.1rem;
+    }
+    .side-nav .nav-sub a {
+      font-size: 0.775rem;
+      color: var(--slate-400);
+      padding: 0.2rem 0.5rem;
+    }
+    .side-nav .nav-sub a:hover {
+      color: var(--slate-700);
+      background: var(--slate-50);
+    }
+
+    /* ── CONTENT ── */
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      min-width: 0;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--slate-200);
+      margin-bottom: 1.5rem;
+    }
+    .section-intro {
+      font-size: 0.925rem;
+      color: var(--slate-600);
+      margin-bottom: 1.25rem;
+    }
+    .section-intro a { color: var(--blue-700); }
+
+    /* ── BODY TEXT ── */
+    .body-text {
+      font-size: 0.9rem;
+      color: var(--slate-700);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .body-text:last-child { margin-bottom: 0; }
+    .body-text a { color: var(--blue-700); }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      background: var(--blue-50); border: 1px solid var(--blue-100);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem; color: var(--slate-700);
+    }
+    .callout svg { flex-shrink: 0; width: 1rem; height: 1rem; color: var(--blue-600); margin-top: 0.15rem; }
+    .callout a { color: var(--blue-700); }
+    .callout-teal { background: var(--teal-50); border-color: var(--teal-100); }
+    .callout-teal svg { color: var(--teal-600); }
+    .callout-amber { background: var(--amber-50); border-color: var(--amber-100); }
+    .callout-amber svg { color: var(--amber-600); }
+
+    /* ── SCREENSHOT PLACEHOLDER ── */
+    .screenshot-placeholder {
+      background: var(--slate-50);
+      border: 2px dashed var(--slate-300);
+      border-radius: 0.5rem;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+      font-size: 0.825rem;
+      color: var(--slate-400);
+      font-style: italic;
+      margin: 1.25rem 0;
+    }
+
+    /* ── TWO-COLUMN EXPLAINER ── */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .concept-card {
+      border-radius: 0.6rem;
+      padding: 1.25rem 1.5rem;
+      border: 1px solid var(--slate-200);
+    }
+    .concept-card h4 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.5rem;
+    }
+    .concept-card p {
+      font-size: 0.825rem;
+      color: var(--slate-600);
+      line-height: 1.55;
+    }
+    .concept-card ul {
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-top: 0.5rem;
+    }
+    .concept-card li {
+      font-size: 0.8rem;
+      color: var(--slate-600);
+      padding-left: 1rem;
+      position: relative;
+    }
+    .concept-card li::before { content: '·'; position: absolute; left: 0; color: var(--slate-400); }
+    .card-class { background: var(--amber-50); border-color: var(--amber-100); }
+    .card-class h4 { color: var(--amber-700); }
+    .card-entity { background: var(--blue-50); border-color: var(--blue-100); }
+    .card-entity h4 { color: var(--blue-700); }
+
+    /* ── INHERIT TABLE ── */
+    .inherit-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 1.25rem; }
+    .inherit-table thead th {
+      text-align: left;
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+      color: var(--slate-400);
+      padding: 0 1rem 0.6rem;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .inherit-table tbody tr { border-bottom: 1px solid var(--slate-100); }
+    .inherit-table tbody tr:last-child { border-bottom: none; }
+    .inherit-table tbody td { padding: 0.65rem 1rem; vertical-align: top; }
+    .inherit-table .col-entity { font-weight: 600; color: var(--slate-900); }
+    .inherit-table .col-fixed { color: var(--slate-600); font-size: 0.825rem; }
+    .inherit-table .col-override { color: var(--slate-600); font-size: 0.825rem; }
+    .tag-fixed {
+      display: inline-block;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.12rem 0.45rem; border-radius: 0.25rem;
+      background: var(--slate-100); color: var(--slate-500); border: 1px solid var(--slate-200);
+      margin-right: 0.25rem; white-space: nowrap;
+    }
+    .tag-override {
+      display: inline-block;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.12rem 0.45rem; border-radius: 0.25rem;
+      background: var(--teal-50); color: var(--teal-700); border: 1px solid var(--teal-100);
+      margin-right: 0.25rem; white-space: nowrap;
+    }
+
+    /* ── SETUP SEQUENCE ── */
+    .sequence-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .sequence-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.6rem;
+      padding: 1rem 1.25rem;
+    }
+    .sequence-step {
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      width: 1.75rem; height: 1.75rem;
+      background: var(--blue-700); color: #fff;
+      border-radius: 50%;
+      font-size: 0.75rem; font-weight: 700;
+      margin-top: 0.1rem;
+    }
+    .sequence-body { flex: 1; min-width: 0; }
+    .sequence-body h4 {
+      font-size: 0.875rem; font-weight: 700; color: var(--slate-900);
+      margin-bottom: 0.3rem;
+    }
+    .sequence-body p {
+      font-size: 0.825rem; color: var(--slate-600); line-height: 1.55;
+    }
+    .sequence-item-optional {
+      background: var(--purple-50);
+      border-color: var(--purple-100);
+    }
+    .sequence-item-optional .sequence-step {
+      background: var(--purple-700);
+    }
+    .sequence-item-transact {
+      background: var(--teal-50);
+      border-color: var(--teal-100);
+    }
+    .sequence-item-transact .sequence-step {
+      background: var(--teal-700);
+    }
+    .sequence-badge {
+      display: inline-block;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.12rem 0.45rem; border-radius: 0.25rem;
+      margin-left: 0.4rem; vertical-align: middle;
+    }
+    .badge-optional { background: var(--slate-100); color: var(--slate-500); border: 1px solid var(--slate-200); }
+    .badge-transact { background: var(--teal-100); color: var(--teal-700); border: 1px solid var(--teal-100); }
+
+    /* ── WHERE TO NEXT CARDS ── */
+    .next-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.85rem;
+    }
+    .next-card {
+      border: 1px solid var(--slate-200);
+      border-radius: 0.6rem;
+      padding: 1.1rem 1.25rem;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .next-card:hover {
+      border-color: var(--blue-200);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+    }
+    .next-card h4 {
+      font-size: 0.875rem; font-weight: 700; color: var(--blue-700);
+      margin-bottom: 0.3rem;
+    }
+    .next-card p {
+      font-size: 0.8rem; color: var(--slate-500); line-height: 1.45;
+    }
+    .next-card-stub {
+      background: var(--slate-50);
+      border-style: dashed;
+      cursor: default;
+    }
+    .next-card-stub:hover {
+      border-color: var(--slate-200);
+      box-shadow: none;
+    }
+    .next-card-stub h4 { color: var(--slate-400); }
+    .coming-soon-badge {
+      display: inline-block;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 0.1rem 0.4rem; border-radius: 0.2rem;
+      background: var(--slate-200); color: var(--slate-500);
+      margin-left: 0.4rem; vertical-align: middle;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate-900); color: var(--slate-400);
+      text-align: center; padding: 1.5rem 2rem; font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .side-nav { position: static; border-bottom: 1px solid var(--slate-200); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+      .site-header h1 { font-size: 1.4rem; }
+      .concept-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="../../index.html">OPSI Docs</a>
+        <span>›</span>
+        <a href="../index.html">Tramm</a>
+        <span>›</span>
+        <a href="index.html">Data Manager</a>
+        <span>›</span>
+        Getting Started
+      </div>
+      <h1>Getting Started with Data Manager</h1>
+      <p class="subtitle">Learn the Classes and Groups concept, then follow the recommended setup sequence to get your reference data in place.</p>
+    </div>
+  </header>
+
+  <div class="page-layout">
+
+    <!-- LEFT NAVIGATION -->
+    <nav class="side-nav">
+      <p class="side-nav-label">On this page</p>
+      <ul>
+        <li><a href="#classes-groups">Classes &amp; Groups</a></li>
+        <li><a href="#visualiser">3D Visualiser</a></li>
+        <li><a href="#sequence">Setup Sequence</a></li>
+        <li><a href="#where-next">Where to Next</a></li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="page-content">
+
+      <!-- INTRO -->
+      <section id="intro">
+        <p class="body-text">Data Manager is where you set up all the reference data that the rest of Tramm relies on — vehicles, sites, products, clients, and more. Before you start adding data, there are two things worth understanding: the Classes and Groups concept, and the recommended setup order.</p>
+      </section>
+
+      <!-- CLASSES AND GROUPS -->
+      <section id="classes-groups">
+        <p class="section-label">Classes and Groups — the Template Concept</p>
+        <p class="section-intro">This is the most important concept in Data Manager. Several entity types in Tramm follow a two-layer pattern: a <strong>Class</strong> (or <strong>Group</strong>) acts as a template, and individual entities are based on that template.</p>
+
+        <div class="concept-grid">
+          <div class="concept-card card-class">
+            <h4>The Class or Group (template)</h4>
+            <p>Defines shared properties once — type, capacity, dimensions, operating hours, restrictions, and more.</p>
+            <ul>
+              <li>Vehicle Class — capacity, dimensions, costing</li>
+              <li>Site Class — operating hours, entry/exit durations</li>
+              <li>Product Group — shared attributes and restrictions</li>
+            </ul>
+          </div>
+          <div class="concept-card card-entity">
+            <h4>The individual entity (inherits from the template)</h4>
+            <p>References its Class or Group and automatically inherits all its shared properties. You only need to enter the details that are unique to this specific entity.</p>
+            <ul>
+              <li>Vehicle — registration, home site, operator</li>
+              <li>Site — address, coordinates, client link</li>
+              <li>Product — name, code, loading rate</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="body-text">The benefit is that you define shared properties once on the Class or Group, and all entities in that class inherit them automatically. You do not need to re-enter the same capacity, dimensions, or operating hours for each individual vehicle or site.</p>
+
+        <div class="screenshot-placeholder">[Screenshot: Vehicle Classes list in Data Manager showing multiple classes with their type, capacity, and dimensions columns]</div>
+
+        <p class="section-label" style="margin-top:0.5rem;">Overrides — when an individual entity differs from its class</p>
+        <p class="body-text">Some properties can be overridden at the individual entity level. For example, a specific vehicle may have different operating hours from its Vehicle Class, or a specific site may have a different entry duration from its Site Class. When the system needs a value, it uses the entity's own value if one is set — otherwise it falls back to the Class or Group value.</p>
+
+        <div class="screenshot-placeholder">[Screenshot: A Vehicle record showing the Operating Hours field set at the vehicle level, overriding the value inherited from the Vehicle Class]</div>
+
+        <p class="body-text">The table below summarises what is fixed at Class level versus what can be overridden on individual entities.</p>
+
+        <table class="inherit-table">
+          <thead>
+            <tr>
+              <th style="width:20%">Entity</th>
+              <th style="width:40%">Fixed at Class level — cannot be overridden</th>
+              <th style="width:40%">Can be overridden on individual entities</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-entity">Vehicle</td>
+              <td class="col-fixed">
+                <span class="tag-fixed">Inherited</span> Type, Capacity (weight / volume / units), Physical Size (length / width / height), Compartments, Costing
+              </td>
+              <td class="col-override">
+                <span class="tag-override">Overridable</span> Operating Hours, Fuel Efficiency
+              </td>
+            </tr>
+            <tr>
+              <td class="col-entity">Site</td>
+              <td class="col-fixed">
+                <span class="tag-fixed">Inherited</span> Type, Attribute restrictions
+              </td>
+              <td class="col-override">
+                <span class="tag-override">Overridable</span> Operating Hours, Entry Duration, Exit Duration, Loading Rate
+              </td>
+            </tr>
+            <tr>
+              <td class="col-entity">Product</td>
+              <td class="col-fixed">
+                <span class="tag-fixed">Inherited</span> Transport restrictions (vehicle / compartment requirements)
+              </td>
+              <td class="col-override">
+                <span class="tag-override">Overridable</span> Size (weight / volume / units), Loading Rate, Stackability
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>A Vehicle Class on its own is enough for basic trip planning in the Planner. Individual vehicles are optional — you only need to add them if you want to track specific vehicles, assign operators, or allocate named vehicles to trips.</span>
+        </div>
+      </section>
+
+      <!-- 3D VISUALISER -->
+      <section id="visualiser">
+        <p class="section-label">3D Visualiser — When Dimensions Matter</p>
+        <p class="section-intro">If your organisation uses the 3D Visualiser in the Planner — which shows how cargo is loaded into a vehicle — you need to make sure dimensions are set up correctly. Physical dimensions (length, width, height) must be set on the <strong>Vehicle Class</strong>, not on individual vehicles. Product dimensions (size — weight, volume, units) must be set on the <strong>Product</strong> record. Without these values, the 3D Visualiser cannot render the load correctly.</p>
+      </section>
+
+      <!-- SETUP SEQUENCE -->
+      <section id="sequence">
+        <p class="section-label">Recommended Setup Sequence</p>
+        <p class="section-intro">The steps below represent the recommended order for setting up Data Manager. It is not a strict requirement — you can revisit any step later — but following this sequence means you will have the right dependencies in place before you need them.</p>
+
+        <div class="sequence-list">
+
+          <div class="sequence-item">
+            <div class="sequence-step">1</div>
+            <div class="sequence-body">
+              <h4>Settings</h4>
+              <p>Set up your site address preference and other system options. Each user can configure their own preferences. For a full list of settings that affect Data Manager, see the <a href="index.html#settings">Data Manager overview</a>.</p>
+            </div>
+          </div>
+
+          <div class="sequence-item">
+            <div class="sequence-step">2</div>
+            <div class="sequence-body">
+              <h4>Vehicle Classes</h4>
+              <p>Define the templates for your vehicles: type, capacity, physical dimensions, compartments, costing, and routing class. If you are using the 3D Visualiser, set physical dimensions (length, width, height) here. All vehicles will inherit these values from their class.</p>
+            </div>
+          </div>
+
+          <div class="sequence-item">
+            <div class="sequence-step">3</div>
+            <div class="sequence-body">
+              <h4>Vehicles <span class="sequence-badge badge-optional">Optional</span></h4>
+              <p>Add individual vehicles if you need to track or assign specific vehicles by name or registration. Each vehicle must reference a Vehicle Class. If you only need to plan trips by vehicle type, Vehicle Classes are sufficient — individual vehicle records are not required.</p>
+            </div>
+          </div>
+
+          <div class="sequence-item">
+            <div class="sequence-step">4</div>
+            <div class="sequence-body">
+              <h4>Site Classes</h4>
+              <p>Define templates for your locations — standard operating hours, entry and exit durations, and any attribute restrictions shared across similar sites. Every site must reference a Site Class.</p>
+            </div>
+          </div>
+
+          <div class="sequence-item">
+            <div class="sequence-step">5</div>
+            <div class="sequence-body">
+              <h4>Sites</h4>
+              <p>Add your depots, warehouses, distribution centres, and delivery points. Each site references a Site Class and inherits its operating hours and durations. Override operating hours or durations on individual sites where needed.</p>
+            </div>
+          </div>
+
+          <div class="sequence-item">
+            <div class="sequence-step">6</div>
+            <div class="sequence-body">
+              <h4>Product Groups</h4>
+              <p>Create groupings for your products that share transport restrictions — for example, refrigerated goods, hazardous materials, or standard dry cargo. Every product must reference a Product Group.</p>
+            </div>
+          </div>
+
+          <div class="sequence-item">
+            <div class="sequence-step">7</div>
+            <div class="sequence-body">
+              <h4>Products</h4>
+              <p>Add your transportable goods with their sizes (weight, volume, units), loading rates, and stackability rules. Each product references a Product Group. If using the 3D Visualiser, ensure size values are set here.</p>
+            </div>
+          </div>
+
+          <div class="sequence-item sequence-item-optional">
+            <div class="sequence-step">8</div>
+            <div class="sequence-body">
+              <h4>Optional setup <span class="sequence-badge badge-optional">As needed</span></h4>
+              <p>Add these entities when your operation requires them: <strong>Clients</strong> (for customer relationship tracking and order cutoff schedules), <strong>Transporters</strong> (for external carriers), <strong>Fleets</strong> (for grouping vehicles by home site), <strong>Operators</strong> (for individual driver tracking), <strong>Regions &amp; Lanes</strong> (for geographic groupings or lane-based tariffs), and <strong>Transport Units</strong> (for container type tracking).</p>
+            </div>
+          </div>
+
+          <div class="sequence-item sequence-item-transact">
+            <div class="sequence-step">9</div>
+            <div class="sequence-body">
+              <h4>Financial setup <span class="sequence-badge badge-transact">Transact Extension only</span></h4>
+              <p>Set up <strong>Master Charges</strong>, <strong>Charge Categories</strong>, and <strong>Tax Types</strong> only if you are using Tramm for costing, billing, or tariff management. These are part of the Transact Extension and are not visible to all users.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- WHERE TO NEXT -->
+      <section id="where-next">
+        <p class="section-label">Where to Go from Here</p>
+        <p class="section-intro">Detailed guides for each entity type in Data Manager.</p>
+
+        <div class="next-grid">
+
+          <a class="next-card" href="vehicle-classes.html">
+            <h4>Vehicle Classes &amp; Vehicles</h4>
+            <p>Set up vehicle type templates, capacity, dimensions, and individual vehicle records.</p>
+          </a>
+
+          <a class="next-card" href="sites.html">
+            <h4>Sites</h4>
+            <p>Add depots, warehouses, and delivery points with their operating hours and site class.</p>
+          </a>
+
+          <a class="next-card" href="products.html">
+            <h4>Product Groups &amp; Products</h4>
+            <p>Define product categories and add goods with their sizes and loading rules.</p>
+          </a>
+
+          <div class="next-card next-card-stub">
+            <h4>Clients <span class="coming-soon-badge">Coming soon</span></h4>
+            <p>Customer records for order management and Transact contracts.</p>
+          </div>
+
+          <div class="next-card next-card-stub">
+            <h4>Transporters <span class="coming-soon-badge">Coming soon</span></h4>
+            <p>External carrier records and fleet associations.</p>
+          </div>
+
+          <div class="next-card next-card-stub">
+            <h4>Fleets <span class="coming-soon-badge">Coming soon</span></h4>
+            <p>Grouping vehicles and trailers by home site and transporter.</p>
+          </div>
+
+          <div class="next-card next-card-stub">
+            <h4>Operators <span class="coming-soon-badge">Coming soon</span></h4>
+            <p>Individual driver records, permits, and user account links.</p>
+          </div>
+
+          <div class="next-card next-card-stub">
+            <h4>Regions &amp; Lanes <span class="coming-soon-badge">Coming soon</span></h4>
+            <p>Geographic areas and transport lanes for tariff and reporting purposes.</p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>OPSI Docs &mdash; for support, contact your Tramm implementation team.</p>
+  </footer>
+
+</body>
+</html>
