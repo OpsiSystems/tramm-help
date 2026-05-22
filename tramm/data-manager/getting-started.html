@@ -22,6 +22,7 @@
       --slate-500: #64748b;
       --slate-600: #475569;
       --slate-700: #334155;
+      --slate-800: #1e293b;
       --slate-900: #0f172a;
       --green-50:  #f0fdf4;
       --green-100: #dcfce7;
@@ -125,14 +126,15 @@
 
     /* ── SECTION LABELS ── */
     .section-label {
-      font-size: 0.75rem;
+      font-size: 1rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--slate-400);
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--slate-200);
-      margin-bottom: 1.5rem;
+      letter-spacing: 0.06em;
+      color: var(--slate-800);
+      border-left: 4px solid var(--blue-600);
+      padding-left: 0.75rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.25rem;
     }
     .section-intro {
       font-size: 0.925rem;
@@ -165,19 +167,6 @@
     .callout-teal svg { color: var(--teal-600); }
     .callout-amber { background: var(--amber-50); border-color: var(--amber-100); }
     .callout-amber svg { color: var(--amber-600); }
-
-    /* ── SCREENSHOT PLACEHOLDER ── */
-    .screenshot-placeholder {
-      background: var(--slate-50);
-      border: 2px dashed var(--slate-300);
-      border-radius: 0.5rem;
-      padding: 1.75rem 1.5rem;
-      text-align: center;
-      font-size: 0.825rem;
-      color: var(--slate-400);
-      font-style: italic;
-      margin: 1.25rem 0;
-    }
 
     /* ── TWO-COLUMN EXPLAINER ── */
     .concept-grid {
@@ -363,6 +352,199 @@
       .site-header h1 { font-size: 1.4rem; }
       .concept-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── INHERITANCE DIAGRAM ── */
+    .inherit-diagram {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .inherit-card {
+      flex: 1;
+      min-width: 200px;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .inherit-card-header {
+      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .inherit-class .inherit-card-header {
+      background: var(--blue-900);
+      color: #fff;
+    }
+    .inherit-entity .inherit-card-header {
+      background: var(--slate-200);
+      color: var(--slate-700);
+    }
+    .inherit-card-body {
+      padding: 0.75rem 1rem;
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-top: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .inherit-field {
+      font-size: 0.82rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .inherit-field.fixed {
+      background: var(--blue-50);
+      color: var(--blue-700);
+      border-left: 3px solid var(--blue-300);
+    }
+    .inherit-field.overridable {
+      background: var(--amber-50);
+      color: var(--amber-700);
+      border-left: 3px solid var(--amber-600);
+    }
+    .inherit-field.own {
+      background: var(--slate-100);
+      color: var(--slate-700);
+      border-left: 3px solid var(--slate-400);
+    }
+    .override-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--amber-700);
+      opacity: 0.8;
+    }
+    .inherit-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--slate-400);
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .inherit-arrow span {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+    }
+    .diagram-legend {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--slate-600);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .legend-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── SETUP FLOW ── */
+    .setup-flow {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      min-width: 110px;
+      max-width: 130px;
+    }
+    .flow-step-inner {
+      width: 100%;
+      border-radius: 0.4rem;
+      padding: 0.6rem 0.75rem;
+      text-align: center;
+    }
+    .flow-step.required .flow-step-inner {
+      background: var(--blue-700);
+      color: #fff;
+    }
+    .flow-step.optional .flow-step-inner {
+      background: var(--slate-200);
+      color: var(--slate-600);
+    }
+    .flow-step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin: 0 auto 0.3rem;
+    }
+    .flow-step.required .flow-step-num {
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+    .flow-step.optional .flow-step-num {
+      background: var(--slate-300);
+      color: var(--slate-600);
+    }
+    .flow-step-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .flow-step-note {
+      font-size: 0.7rem;
+      line-height: 1.3;
+      opacity: 0.85;
+    }
+    .flow-step-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .flow-connector {
+      font-size: 1.25rem;
+      color: var(--slate-300);
+      margin-top: 1.1rem;
+      flex-shrink: 0;
+    }
+    .flow-amber-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+      border-radius: 0.35rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.75rem;
+      color: var(--amber-700);
+      margin-top: 0.4rem;
+      max-width: 130px;
+      text-align: center;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -407,37 +589,46 @@
       <!-- CLASSES AND GROUPS -->
       <section id="classes-groups">
         <p class="section-label">Classes and Groups — the Template Concept</p>
-        <p class="section-intro">This is the most important concept in Data Manager. Several entity types in Tramm follow a two-layer pattern: a <strong>Class</strong> (or <strong>Group</strong>) acts as a template, and individual entities are based on that template.</p>
 
-        <div class="concept-grid">
-          <div class="concept-card card-class">
-            <h4>The Class or Group (template)</h4>
-            <p>Defines shared properties once — type, capacity, dimensions, operating hours, restrictions, and more.</p>
-            <ul>
-              <li>Vehicle Class — capacity, dimensions, costing</li>
-              <li>Site Class — operating hours, entry/exit durations</li>
-              <li>Product Group — shared attributes and restrictions</li>
-            </ul>
+        <p class="body-text">In Data Manager, most entities come in pairs: a <strong>Class</strong> (or <strong>Group</strong>) and the individual entity that belongs to it. The Class is the template — you define shared properties once on the Class, and every entity of that Class inherits them automatically. You only need to set individual values on an entity when it differs from its class.</p>
+
+        <div class="inherit-diagram">
+          <div class="inherit-card inherit-class">
+            <div class="inherit-card-header">Vehicle Class — Box Truck</div>
+            <div class="inherit-card-body">
+              <div class="inherit-field fixed">Type: Rigid Truck</div>
+              <div class="inherit-field fixed">Capacity: 8 000 kg / 40 m³</div>
+              <div class="inherit-field fixed">Dimensions: 7.5m × 2.4m × 2.8m</div>
+              <div class="inherit-field fixed">Routing Class: Standard Road</div>
+              <div class="inherit-field overridable">Operating Hours <span class="override-tag">overridable</span></div>
+              <div class="inherit-field overridable">Efficiency <span class="override-tag">overridable</span></div>
+            </div>
           </div>
-          <div class="concept-card card-entity">
-            <h4>The individual entity (inherits from the template)</h4>
-            <p>References its Class or Group and automatically inherits all its shared properties. You only need to enter the details that are unique to this specific entity.</p>
-            <ul>
-              <li>Vehicle — registration, home site, operator</li>
-              <li>Site — address, coordinates, client link</li>
-              <li>Product — name, code, loading rate</li>
-            </ul>
+          <div class="inherit-arrow">
+            <span>inherits</span>
+            <span>→</span>
+          </div>
+          <div class="inherit-card inherit-entity">
+            <div class="inherit-card-header">Vehicle — ABC 123</div>
+            <div class="inherit-card-body">
+              <div class="inherit-field own">Registration: ABC 123</div>
+              <div class="inherit-field own">Home Site: JHB Depot</div>
+              <div class="inherit-field own">Operator: J. Dlamini</div>
+              <div class="inherit-field fixed" style="opacity:0.55; font-style:italic;">Capacity: 8 000 kg (from class)</div>
+              <div class="inherit-field fixed" style="opacity:0.55; font-style:italic;">Routing Class: Standard Road (from class)</div>
+              <div class="inherit-field overridable">Operating Hours: 06:00–22:00 ↑</div>
+            </div>
           </div>
         </div>
-
-        <p class="body-text">The benefit is that you define shared properties once on the Class or Group, and all entities in that class inherit them automatically. You do not need to re-enter the same capacity, dimensions, or operating hours for each individual vehicle or site.</p>
-
-        <div class="screenshot-placeholder">[Screenshot: Vehicle Classes list in Data Manager showing multiple classes with their type, capacity, and dimensions columns]</div>
+        <div class="diagram-legend">
+          <div class="legend-item"><div class="legend-swatch" style="background:var(--blue-100);border-left:3px solid var(--blue-300);"></div> Fixed — set on the Class, cannot be changed per entity</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:var(--amber-50);border-left:3px solid var(--amber-600);"></div> Overridable — Class sets the default, entity can override</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:var(--slate-100);border-left:3px solid var(--slate-400);"></div> Entity-only — set on the individual entity, not the Class</div>
+        </div>
+        <p class="body-text" style="margin-top:1rem;">The same pattern applies to <strong>Site Classes → Sites</strong> and <strong>Product Groups → Products</strong>. Once you understand it for one pair, you understand it for all of them.</p>
 
         <p class="section-label" style="margin-top:0.5rem;">Overrides — when an individual entity differs from its class</p>
-        <p class="body-text">Some properties can be overridden at the individual entity level. For example, a specific vehicle may have different operating hours from its Vehicle Class, or a specific site may have a different entry duration from its Site Class. When the system needs a value, it uses the entity's own value if one is set — otherwise it falls back to the Class or Group value.</p>
-
-        <div class="screenshot-placeholder">[Screenshot: A Vehicle record showing the Operating Hours field set at the vehicle level, overriding the value inherited from the Vehicle Class]</div>
+        <p class="body-text">If a value is left blank (or set to zero for durations), the system automatically uses the Class value. You only need to fill in a value on the entity if it differs from the class. This means you can set up 50 sites in a "Retail Delivery" class and only override the operating hours for the two sites that have unusual hours — the other 48 inherit the class default without any extra work.</p>
 
         <p class="body-text">The table below summarises what is fixed at Class level versus what can be overridden on individual entities.</p>
 
@@ -497,83 +688,50 @@
       <!-- SETUP SEQUENCE -->
       <section id="sequence">
         <p class="section-label">Recommended Setup Sequence</p>
-        <p class="section-intro">The steps below represent the recommended order for setting up Data Manager. It is not a strict requirement — you can revisit any step later — but following this sequence means you will have the right dependencies in place before you need them.</p>
 
-        <div class="sequence-list">
+        <p class="body-text">Follow this order when setting up Data Manager for the first time. Each step builds on the one before it.</p>
 
-          <div class="sequence-item">
-            <div class="sequence-step">1</div>
-            <div class="sequence-body">
-              <h4>Settings</h4>
-              <p>Set up your site address preference and other system options. Each user can configure their own preferences. For a full list of settings that affect Data Manager, see the <a href="index.html#settings">Data Manager overview</a>.</p>
+        <div class="setup-flow">
+          <div class="flow-step required">
+            <div class="flow-step-inner">
+              <div class="flow-step-num">1</div>
+              <div class="flow-step-label">Settings</div>
             </div>
           </div>
-
-          <div class="sequence-item">
-            <div class="sequence-step">2</div>
-            <div class="sequence-body">
-              <h4>Vehicle Classes</h4>
-              <p>Define the templates for your vehicles: type, capacity, physical dimensions, compartments, costing, and routing class. If you are using the 3D Visualiser, set physical dimensions (length, width, height) here. All vehicles will inherit these values from their class.</p>
+          <div class="flow-connector">→</div>
+          <div class="flow-step required">
+            <div class="flow-step-inner">
+              <div class="flow-step-num">2</div>
+              <div class="flow-step-label">Vehicle Classes &amp; Vehicles</div>
+            </div>
+            <div class="flow-amber-note">Add Dimensions if using the 3D Visualiser</div>
+          </div>
+          <div class="flow-connector">→</div>
+          <div class="flow-step required">
+            <div class="flow-step-inner">
+              <div class="flow-step-num">3</div>
+              <div class="flow-step-label">Site Classes &amp; Sites</div>
             </div>
           </div>
-
-          <div class="sequence-item">
-            <div class="sequence-step">3</div>
-            <div class="sequence-body">
-              <h4>Vehicles <span class="sequence-badge badge-optional">Optional</span></h4>
-              <p>Add individual vehicles if you need to track or assign specific vehicles by name or registration. Each vehicle must reference a Vehicle Class. If you only need to plan trips by vehicle type, Vehicle Classes are sufficient — individual vehicle records are not required.</p>
+          <div class="flow-connector">→</div>
+          <div class="flow-step required">
+            <div class="flow-step-inner">
+              <div class="flow-step-num">4</div>
+              <div class="flow-step-label">Product Groups &amp; Products</div>
             </div>
           </div>
-
-          <div class="sequence-item">
-            <div class="sequence-step">4</div>
-            <div class="sequence-body">
-              <h4>Site Classes</h4>
-              <p>Define templates for your locations — standard operating hours, entry and exit durations, and any attribute restrictions shared across similar sites. Every site must reference a Site Class.</p>
+          <div class="flow-connector">→</div>
+          <div class="flow-step optional">
+            <div class="flow-step-inner">
+              <div class="flow-step-num">5</div>
+              <div class="flow-step-label">Optional Entities</div>
+              <div class="flow-step-note">Clients, Transporters, Regions, etc.</div>
             </div>
+            <div class="flow-step-tag" style="color:var(--slate-400);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em;margin-top:0.3rem;">Add as needed</div>
           </div>
-
-          <div class="sequence-item">
-            <div class="sequence-step">5</div>
-            <div class="sequence-body">
-              <h4>Sites</h4>
-              <p>Add your depots, warehouses, distribution centres, and delivery points. Each site references a Site Class and inherits its operating hours and durations. Override operating hours or durations on individual sites where needed.</p>
-            </div>
-          </div>
-
-          <div class="sequence-item">
-            <div class="sequence-step">6</div>
-            <div class="sequence-body">
-              <h4>Product Groups</h4>
-              <p>Create groupings for your products that share transport restrictions — for example, refrigerated goods, hazardous materials, or standard dry cargo. Every product must reference a Product Group.</p>
-            </div>
-          </div>
-
-          <div class="sequence-item">
-            <div class="sequence-step">7</div>
-            <div class="sequence-body">
-              <h4>Products</h4>
-              <p>Add your transportable goods with their sizes (weight, volume, units), loading rates, and stackability rules. Each product references a Product Group. If using the 3D Visualiser, ensure size values are set here.</p>
-            </div>
-          </div>
-
-          <div class="sequence-item sequence-item-optional">
-            <div class="sequence-step">8</div>
-            <div class="sequence-body">
-              <h4>Optional setup <span class="sequence-badge badge-optional">As needed</span></h4>
-              <p>Add these entities when your operation requires them: <strong>Clients</strong> (for customer relationship tracking and order cutoff schedules), <strong>Transporters</strong> (for external carriers), <strong>Fleets</strong> (for grouping vehicles by home site), <strong>Operators</strong> (for individual driver tracking), <strong>Regions &amp; Lanes</strong> (for geographic groupings or lane-based tariffs), and <strong>Transport Units</strong> (for container type tracking).</p>
-            </div>
-          </div>
-
-          <div class="sequence-item sequence-item-transact">
-            <div class="sequence-step">9</div>
-            <div class="sequence-body">
-              <h4>Financial setup <span class="sequence-badge badge-transact">Transact Extension only</span></h4>
-              <p>Set up <strong>Master Charges</strong>, <strong>Charge Categories</strong>, and <strong>Tax Types</strong> only if you are using Tramm for costing, billing, or tariff management. These are part of the Transact Extension and are not visible to all users.</p>
-            </div>
-          </div>
-
         </div>
+
+        <p class="body-text">Steps 1–4 are required before you can start planning trips. Step 5 entities are optional and can be added at any time.</p>
       </section>
 
       <!-- WHERE TO NEXT -->
