@@ -156,49 +156,6 @@
       margin-bottom: 0.75rem;
     }
 
-    /* ── FIELD TABLE ── */
-    .field-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.855rem;
-    }
-    .field-table thead th {
-      text-align: left;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--slate-400);
-      padding: 0 0.9rem 0.6rem;
-      border-bottom: 2px solid var(--slate-200);
-    }
-    .field-table tbody tr {
-      border-bottom: 1px solid var(--slate-100);
-    }
-    .field-table tbody tr:last-child { border-bottom: none; }
-    .field-table tbody tr:hover { background: var(--slate-50); }
-    .field-table td {
-      padding: 0.7rem 0.9rem;
-      vertical-align: top;
-    }
-    .field-name {
-      font-weight: 700;
-      color: var(--slate-900);
-      font-size: 0.875rem;
-      white-space: nowrap;
-    }
-    .field-desc {
-      font-size: 0.845rem;
-      color: var(--slate-600);
-      line-height: 1.55;
-    }
-    .field-note {
-      font-size: 0.8rem;
-      color: var(--slate-400);
-      margin-top: 0.3rem;
-      font-style: italic;
-    }
-
     /* ── BADGES ── */
     .badge {
       display: inline-block;
@@ -224,18 +181,6 @@
       background: var(--amber-50);
       color: var(--amber-700);
       border: 1px solid var(--amber-100);
-    }
-
-    /* ── GROUP HEADER ROW ── */
-    .field-table .group-header td {
-      background: var(--slate-50);
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--slate-500);
-      padding: 0.4rem 0.9rem;
-      border-bottom: 1px solid var(--slate-200);
     }
 
     /* ── CALLOUTS ── */
@@ -322,19 +267,6 @@
     .step-detail a { color: var(--blue-700); }
     .step-detail strong { color: var(--slate-800); }
 
-    /* ── SCREENSHOT PLACEHOLDER ── */
-    .screenshot-placeholder {
-      background: var(--slate-50);
-      border: 1.5px dashed var(--slate-300);
-      border-radius: 0.5rem;
-      padding: 1.5rem 1.25rem;
-      font-size: 0.82rem;
-      color: var(--slate-400);
-      text-align: center;
-      margin: 1rem 0 0.25rem;
-      line-height: 1.5;
-    }
-
     /* ── TIPS LIST ── */
     .tips-list {
       list-style: none;
@@ -402,6 +334,141 @@
     }
     .concept-panel-body li { margin-bottom: 0.2rem; }
 
+    /* ── FIELD MATRIX ── */
+    .field-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.855rem;
+      margin-bottom: 1.5rem;
+    }
+    .field-matrix thead th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      padding: 0 0.75rem 0.5rem;
+      border-bottom: 2px solid var(--slate-200);
+    }
+    .field-matrix thead th.col-tick {
+      text-align: center;
+      width: 3.5rem;
+    }
+    .field-matrix tbody tr {
+      border-bottom: 1px solid var(--slate-100);
+      transition: background 0.1s;
+    }
+    .field-matrix tbody tr:last-child { border-bottom: none; }
+    .field-matrix tbody tr:hover { background: var(--slate-50); }
+    .field-matrix td {
+      padding: 0.55rem 0.75rem;
+      vertical-align: top;
+    }
+    .field-matrix .col-tick {
+      text-align: center;
+      width: 3.5rem;
+      vertical-align: middle;
+    }
+    .field-matrix .fname {
+      font-weight: 700;
+      color: var(--slate-900);
+      font-size: 0.875rem;
+      white-space: nowrap;
+    }
+    .field-matrix .fdesc {
+      font-size: 0.83rem;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+    .field-matrix .fnote {
+      font-size: 0.75rem;
+      color: var(--slate-400);
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+    .field-matrix .row-required {
+      border-left: 3px solid var(--blue-600);
+    }
+    .field-matrix .row-optional {
+      border-left: 3px solid var(--slate-300);
+    }
+    .field-matrix .row-override {
+      border-left: 3px solid var(--amber-600);
+    }
+    .tick-req { color: var(--blue-600); font-weight: 700; font-size: 1rem; }
+    .tick-opt { color: var(--slate-400); font-weight: 700; font-size: 1rem; }
+    .tick-ovr { color: var(--amber-600); font-weight: 700; font-size: 1rem; }
+
+    /* ── OVERRIDE FLOW DIAGRAM ── */
+    .override-flow {
+      margin: 1.25rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      max-width: 480px;
+    }
+    .of-question {
+      background: var(--slate-100);
+      border: 2px solid var(--slate-300);
+      border-radius: 0.4rem;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-700);
+      width: 100%;
+      text-align: center;
+    }
+    .of-branches {
+      display: flex;
+      width: 100%;
+      gap: 1rem;
+      margin-top: 0;
+    }
+    .of-branch {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .of-line {
+      width: 2px;
+      height: 1.5rem;
+      flex-shrink: 0;
+    }
+    .of-branch.yes .of-line { background: var(--green-700); }
+    .of-branch.no  .of-line { background: var(--amber-600); }
+    .of-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.25rem;
+    }
+    .of-branch.yes .of-label { color: var(--green-700); }
+    .of-branch.no  .of-label { color: var(--amber-600); }
+    .of-result {
+      border-radius: 0.35rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.82rem;
+      text-align: center;
+      line-height: 1.4;
+      width: 100%;
+    }
+    .of-branch.yes .of-result {
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+      color: var(--green-700);
+      font-weight: 600;
+    }
+    .of-branch.no .of-result {
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+      color: var(--amber-700);
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--slate-900);
@@ -417,10 +484,9 @@
       .side-nav { position: static; border-bottom: 1px solid var(--slate-200); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
       .site-header h1 { font-size: 1.4rem; }
       .concept-panels { grid-template-columns: 1fr; }
-      .field-table thead { display: none; }
-      .field-table td { display: block; padding: 0.4rem 0.75rem; }
-      .field-table tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
-      .field-table .group-header { display: block; }
+      .field-matrix thead { display: none; }
+      .field-matrix td { display: block; padding: 0.4rem 0.75rem; }
+      .field-matrix tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
     }
   </style>
 </head>
@@ -529,169 +595,87 @@
         <p class="section-label">Vehicle Class Fields</p>
         <p class="section-intro">Fields are grouped by function below. Fields marked <span class="badge badge-required">Required</span> must be filled in before saving. All others are optional but recommended for accurate planning and costing.</p>
 
-        <table class="field-table">
+        <table class="field-matrix">
           <thead>
             <tr>
               <th style="width:22%">Field</th>
-              <th style="width:12%">Status</th>
               <th>Description</th>
+              <th class="col-tick">Req</th>
+              <th class="col-tick">Opt</th>
+              <th class="col-tick">Override</th>
             </tr>
           </thead>
           <tbody>
-
-            <!-- Identity -->
-            <tr class="group-header">
-              <td colspan="3">Identity</td>
+            <tr class="row-required">
+              <td><span class="fname">Name</span></td>
+              <td><span class="fdesc">The display name for this class. Used to identify the class when assigning vehicles and in planning.</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Name</p></td>
-              <td><span class="badge badge-required">Required</span></td>
-              <td>
-                <p class="field-desc">A descriptive name for this class, such as "10T Rigid" or "Refrigerated Van". This name appears in the Planner when selecting a vehicle type for a trip.</p>
-              </td>
+            <tr class="row-required">
+              <td><span class="fname">Type</span></td>
+              <td><span class="fdesc">The vehicle type classification (e.g. Rigid, Articulated, Motorcycle). Affects how the planning engine handles this class.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Type</p></td>
-              <td><span class="badge badge-required">Required</span></td>
-              <td>
-                <p class="field-desc">The vehicle category — for example, Truck, Van, or Motorbike. This is selected from a fixed list (EVehicleType) and affects how the Planner handles the vehicle.</p>
-              </td>
+            <tr class="row-required">
+              <td><span class="fname">Capacity</span></td>
+              <td><span class="fdesc">The load capacity of this vehicle class — weight (kg), volume (m³), and/or units. The planning engine uses this to determine how much can be loaded on a trip.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <!-- Capacity -->
-            <tr class="group-header">
-              <td colspan="3">Capacity</td>
+            <tr class="row-optional">
+              <td><span class="fname">Physical Dimensions</span></td>
+              <td><span class="fdesc">The physical size of the vehicle: Length, Width, Height, and Mass. Required if you use the 3D Visualiser in the Planner.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Capacity</p></td>
-              <td><span class="badge badge-required">Required</span></td>
-              <td>
-                <p class="field-desc">How much this vehicle can carry, expressed as weight, volume, and/or units. This is the value the Planner checks when loading orders onto a trip — if an order's size exceeds the remaining capacity, the Planner will not add it to that trip.</p>
-                <p class="field-note">Set all three measures that are relevant to your operation. If you only use weight-based planning, set weight only. If you use both weight and volume, set both — the Planner enforces whichever limits are set.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Compartments</span></td>
+              <td><span class="fdesc">Sub-compartments within the vehicle, each with their own capacity. Used for multi-temp or segregated loads.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Compartments</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">Sub-sections within the vehicle that have separate capacity limits — for example, a chilled compartment and an ambient compartment on a refrigerated truck. Each compartment has its own capacity settings.</p>
-                <p class="field-note">Only needed if the vehicle carries loads that must be physically separated or have different temperature requirements.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Routing Class</span></td>
+              <td><span class="fdesc">The routing profile used by the planning engine for this vehicle type (e.g. Standard Road, Heavy Vehicle). Affects route calculations, toll costs, and travel times.</span><div class="fnote">Falls back to the Default routing class if not set.</div></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Max Trailer Count</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">The maximum number of trailers this class of vehicle can pull. Used for planning multi-trailer operations.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Operating Hours</span></td>
+              <td><span class="fdesc">The default working hours for vehicles in this class (e.g. 06:00–20:00 Mon–Sat). Individual vehicles can override this.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <!-- Physical Dimensions -->
-            <tr class="group-header">
-              <td colspan="3">Physical Dimensions</td>
+            <tr class="row-optional">
+              <td><span class="fname">Efficiency</span></td>
+              <td><span class="fdesc">Fuel or energy efficiency metrics for this class. Used in cost calculations. Individual vehicles can override this.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Length</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">The overall length of the vehicle. Required if the 3D Visualiser is enabled — the visualiser uses these measurements to render an accurate representation of the vehicle and its load.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Costing</span></td>
+              <td><span class="fdesc">Cost structure for trips using this vehicle class — fixed costs, per-km costs, and per-hour costs. Used by the Transact Extension for financial calculations.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Width</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">The overall width of the vehicle. Required for 3D Visualiser rendering.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Attributes</span></td>
+              <td><span class="fdesc">Custom attributes inherited by all vehicles in this class. Used for matching vehicles to jobs with specific requirements.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Height</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">The overall height of the vehicle. Required for 3D Visualiser rendering.</p>
-              </td>
-            </tr>
-            <tr>
-              <td><p class="field-name">Mass</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">The unladen (tare) mass of the vehicle. Used in conjunction with the load capacity for gross vehicle mass calculations.</p>
-                <p class="field-note">Physical dimensions are set on the Vehicle Class only. Individual vehicles do not have their own dimension fields — they inherit these values from their class.</p>
-              </td>
-            </tr>
-
-            <!-- Planning & Routing -->
-            <tr class="group-header">
-              <td colspan="3">Planning &amp; Routing</td>
-            </tr>
-            <tr>
-              <td><p class="field-name">Routing Class</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">The routing profile the Planner uses when calculating travel times and distances for vehicles of this class. Different vehicle types may have different speed profiles, restricted roads, or legal requirements — these are encoded in Routing Classes.</p>
-                <p class="field-note">If left blank, the system uses the Default routing profile, which may not accurately reflect the real travel behaviour of specialised vehicles such as heavy trucks or hazmat carriers.</p>
-              </td>
-            </tr>
-
-            <!-- Time & Availability -->
-            <tr class="group-header">
-              <td colspan="3">Time &amp; Availability</td>
-            </tr>
-            <tr>
-              <td><p class="field-name">Operating Hours</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">The default hours that vehicles of this class are available to be planned. For example, a day-shift fleet might be available 06:00–18:00. The Planner uses these hours to constrain when trips can start and end.</p>
-                <p class="field-note">Can be overridden on individual vehicles if a specific vehicle has different availability from the rest of its class.</p>
-              </td>
-            </tr>
-
-            <!-- Costing -->
-            <tr class="group-header">
-              <td colspan="3">Costing</td>
-            </tr>
-            <tr>
-              <td><p class="field-name">Fixed Cost</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">A flat cost applied per trip for vehicles of this class, regardless of distance or duration — for example, a daily hire fee or a fixed trip charge.</p>
-              </td>
-            </tr>
-            <tr>
-              <td><p class="field-name">Distance-Based Cost</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">A cost rate applied per kilometre (or per unit of distance). Used to calculate the variable distance component of trip cost.</p>
-              </td>
-            </tr>
-            <tr>
-              <td><p class="field-name">Time-Based Cost</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">A cost rate applied per unit of time — for example, per hour of trip duration. Used when driver time or vehicle utilisation by the hour forms part of the costing model.</p>
-              </td>
-            </tr>
-
-            <!-- Other -->
-            <tr class="group-header">
-              <td colspan="3">Other</td>
-            </tr>
-            <tr>
-              <td><p class="field-name">Efficiency</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">Fuel efficiency metrics for vehicles of this class — for example, litres per 100 km. Used in fuel cost calculations and FleetVision reporting.</p>
-                <p class="field-note">Can be overridden on individual vehicles if a specific vehicle's measured efficiency differs from the class default.</p>
-              </td>
-            </tr>
-            <tr>
-              <td><p class="field-name">Attributes</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">Custom key-value attributes that apply to all vehicles of this class. Attributes are inherited by every vehicle in the class and can be used for filtering, reporting, or custom business logic.</p>
-              </td>
-            </tr>
-
           </tbody>
         </table>
       </section>
@@ -718,76 +702,91 @@
         <p class="section-label">Vehicle Fields</p>
         <p class="section-intro">Fields marked <span class="badge badge-overridable">Overridable</span> can override the value set on the Vehicle Class for this specific vehicle. Leave them blank to inherit the class value.</p>
 
-        <table class="field-table">
+        <table class="field-matrix">
           <thead>
             <tr>
               <th style="width:22%">Field</th>
-              <th style="width:12%">Status</th>
               <th>Description</th>
+              <th class="col-tick">Req</th>
+              <th class="col-tick">Opt</th>
+              <th class="col-tick">Override</th>
             </tr>
           </thead>
           <tbody>
-
-            <tr>
-              <td><p class="field-name">Vehicle Class</p></td>
-              <td><span class="badge badge-required">Required</span></td>
-              <td>
-                <p class="field-desc">The Vehicle Class this vehicle belongs to. This is the only required field on a vehicle record. It determines the vehicle's capacity, physical dimensions, costing structure, routing profile, and default operating hours.</p>
-                <p class="field-note">Once saved, changing the Vehicle Class on a vehicle record will change its capacity and costing. Do this carefully.</p>
-              </td>
+            <tr class="row-required">
+              <td><span class="fname">Vehicle Class</span></td>
+              <td><span class="fdesc">The class this vehicle belongs to. Sets the vehicle's capacity, dimensions, type, costing, and routing class. A vehicle cannot be used for planning without a Vehicle Class.</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Registration / Name</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">The registration plate or internal identifier for this vehicle. This is the label that appears when selecting or allocating a specific vehicle in the Planner or Execution Manager.</p>
-              </td>
+            <tr class="row-required">
+              <td><span class="fname">Name / Registration</span></td>
+              <td><span class="fdesc">How this vehicle is identified in the system and in planning views. Typically the vehicle registration number.</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Home Site</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">The depot or site this vehicle is based at. The Planner can use the home site as the vehicle's start and end point when building trips.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Home Site</span></td>
+              <td><span class="fdesc">The depot or site this vehicle is based at. Used as the default start and end point for trips.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Default Operators</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">The driver or drivers usually assigned to this vehicle. Setting default operators saves time when allocating a trip — the usual driver is pre-filled rather than requiring manual selection each time.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Operators</span></td>
+              <td><span class="fdesc">The default driver(s) or operator(s) assigned to this vehicle.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Default Trailers</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">Trailers that are usually attached to this vehicle. Like default operators, these are pre-filled when the vehicle is allocated to a trip.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Default Trailers</span></td>
+              <td><span class="fdesc">Trailers that are regularly attached to this vehicle. Can be overridden when planning individual trips.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Operating Hours</p></td>
-              <td><span class="badge badge-overridable">Overridable</span></td>
-              <td>
-                <p class="field-desc">If this vehicle has different availability from the rest of its class — for example, a vehicle reserved for night-shift work — set its specific operating hours here. If left blank, the vehicle uses the operating hours defined on its Vehicle Class.</p>
-              </td>
+            <tr class="row-override">
+              <td><span class="fname">Operating Hours</span></td>
+              <td><span class="fdesc">If set, overrides the Vehicle Class operating hours for this specific vehicle. Leave blank to use the class default.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-ovr">✓</span></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Efficiency</p></td>
-              <td><span class="badge badge-overridable">Overridable</span></td>
-              <td>
-                <p class="field-desc">If this vehicle's actual fuel consumption is measurably different from the class default — for example, an older vehicle with higher fuel use — set a vehicle-specific efficiency here. If left blank, the vehicle uses the efficiency defined on its Vehicle Class.</p>
-              </td>
+            <tr class="row-override">
+              <td><span class="fname">Efficiency</span></td>
+              <td><span class="fdesc">If set, overrides the Vehicle Class efficiency for this specific vehicle. Useful when one vehicle in a class has different fuel consumption.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-ovr">✓</span></td>
             </tr>
-            <tr>
-              <td><p class="field-name">Regulatory Permits</p></td>
-              <td><span class="badge badge-optional">Optional</span></td>
-              <td>
-                <p class="field-desc">Vehicle-specific permits — for example, a hazardous materials transport permit, an oversize load permit, or a border crossing permit. These are recorded at the individual vehicle level because they apply to the specific unit, not to the whole class.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Regulatory Permits</span></td>
+              <td><span class="fdesc">Vehicle-specific operating permits (e.g. hazardous goods, oversize load). Used by the planning engine for route and job matching.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
           </tbody>
         </table>
+
+        <div class="override-flow">
+          <div class="of-question">Is Operating Hours (or Efficiency) set on the Vehicle?</div>
+          <div class="of-branches">
+            <div class="of-branch yes">
+              <div class="of-line"></div>
+              <div class="of-label">Yes</div>
+              <div class="of-result">Use the vehicle's value</div>
+            </div>
+            <div class="of-branch no">
+              <div class="of-line"></div>
+              <div class="of-label">No</div>
+              <div class="of-result">Use the Vehicle Class value</div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ── ADDING A VEHICLE CLASS ── -->
@@ -811,8 +810,6 @@
             </div>
           </li>
         </ol>
-
-        <div class="screenshot-placeholder">[Screenshot: Add Vehicle Class form showing Name, Type, and Capacity fields]</div>
 
         <ol class="task-steps" style="margin-top:0.5rem;" start="3">
           <li>
@@ -888,8 +885,6 @@
             </div>
           </li>
         </ol>
-
-        <div class="screenshot-placeholder">[Screenshot: Add Vehicle form with Vehicle Class field highlighted]</div>
 
         <ol class="task-steps" style="margin-top:0.5rem;" start="4">
           <li>
