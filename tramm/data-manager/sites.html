@@ -22,6 +22,7 @@
       --slate-500: #64748b;
       --slate-600: #475569;
       --slate-700: #334155;
+      --slate-800: #1e293b;
       --slate-900: #0f172a;
       --green-50:  #f0fdf4;
       --green-100: #dcfce7;
@@ -30,6 +31,7 @@
       --amber-100: #fef3c7;
       --amber-600: #d97706;
       --amber-700: #b45309;
+      --teal-600:  #0d9488;
     }
 
     body {
@@ -109,13 +111,14 @@
 
     /* ── SECTION LABEL ── */
     .section-label {
-      font-size: 0.75rem;
+      font-size: 1rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--slate-400);
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--slate-200);
+      letter-spacing: 0.06em;
+      color: var(--slate-800);
+      border-left: 4px solid var(--blue-600);
+      padding-left: 0.75rem;
+      margin-top: 2.5rem;
       margin-bottom: 1.25rem;
     }
     .section-intro {
@@ -133,67 +136,6 @@
     }
     .body-text a { color: var(--blue-700); }
     .body-text strong { color: var(--slate-900); }
-
-    /* ── FIELD TABLE ── */
-    .field-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 0.5rem;
-    }
-    .field-table thead th {
-      text-align: left;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--slate-400);
-      padding: 0 1rem 0.6rem;
-      border-bottom: 2px solid var(--slate-200);
-    }
-    .field-table tbody tr { border-bottom: 1px solid var(--slate-100); }
-    .field-table tbody tr:last-child { border-bottom: none; }
-    .field-table tbody tr:hover { background: var(--slate-50); }
-    .field-table td {
-      padding: 0.75rem 1rem;
-      vertical-align: top;
-      font-size: 0.875rem;
-    }
-    .field-name {
-      font-weight: 700;
-      color: var(--slate-900);
-      white-space: nowrap;
-    }
-    .field-badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 0.15rem 0.45rem;
-      border-radius: 0.25rem;
-      margin-top: 0.25rem;
-    }
-    .badge-required {
-      background: var(--blue-50);
-      color: var(--blue-700);
-      border: 1px solid var(--blue-100);
-    }
-    .badge-optional {
-      background: var(--slate-100);
-      color: var(--slate-500);
-      border: 1px solid var(--slate-200);
-    }
-    .badge-override {
-      background: var(--amber-50);
-      color: var(--amber-700);
-      border: 1px solid var(--amber-100);
-    }
-    .field-desc { color: var(--slate-600); }
-    .field-note {
-      font-size: 0.8rem;
-      color: var(--slate-400);
-      margin-top: 0.3rem;
-    }
 
     /* ── STEPS LIST ── */
     .steps-list {
@@ -304,18 +246,6 @@
     .tip-warning svg { color: var(--amber-600); }
     .tip-warning strong { color: var(--amber-700); }
 
-    /* ── SCREENSHOT PLACEHOLDER ── */
-    .screenshot-placeholder {
-      background: var(--slate-50);
-      border: 1.5px dashed var(--slate-300);
-      border-radius: 0.5rem;
-      padding: 1.5rem 1.25rem;
-      text-align: center;
-      font-size: 0.825rem;
-      color: var(--slate-400);
-      margin-top: 1.25rem;
-    }
-
     /* ── OVERRIDE EXAMPLE BOX ── */
     .logic-box {
       background: var(--slate-50);
@@ -363,10 +293,162 @@
         margin-bottom: 1.5rem;
       }
       .site-header h1 { font-size: 1.4rem; }
-      .field-table thead { display: none; }
-      .field-table td { display: block; padding: 0.4rem 0.75rem; }
-      .field-table tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
     }
+
+    /* ── FIELD MATRIX ── */
+    .field-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.855rem;
+      margin-bottom: 1.5rem;
+    }
+    .field-matrix thead th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      padding: 0 0.75rem 0.5rem;
+      border-bottom: 2px solid var(--slate-200);
+    }
+    .field-matrix thead th.col-tick {
+      text-align: center;
+      width: 3.5rem;
+    }
+    .field-matrix tbody tr {
+      border-bottom: 1px solid var(--slate-100);
+      transition: background 0.1s;
+    }
+    .field-matrix tbody tr:last-child { border-bottom: none; }
+    .field-matrix tbody tr:hover { background: var(--slate-50); }
+    .field-matrix td {
+      padding: 0.55rem 0.75rem;
+      vertical-align: top;
+    }
+    .field-matrix .col-tick {
+      text-align: center;
+      width: 3.5rem;
+      vertical-align: middle;
+    }
+    .field-matrix .fname {
+      font-weight: 700;
+      color: var(--slate-900);
+      font-size: 0.875rem;
+      white-space: nowrap;
+    }
+    .field-matrix .fdesc {
+      font-size: 0.83rem;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+    .field-matrix .fnote {
+      font-size: 0.75rem;
+      color: var(--slate-400);
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+    .field-matrix .row-required { border-left: 3px solid var(--blue-600); }
+    .field-matrix .row-recommended { border-left: 3px solid var(--teal-600); }
+    .field-matrix .row-optional { border-left: 3px solid var(--slate-300); }
+    .field-matrix .row-override { border-left: 3px solid var(--amber-600); }
+    .tick-req { color: var(--blue-600); font-weight: 700; font-size: 1rem; }
+    .tick-rec { color: var(--teal-600); font-weight: 700; font-size: 1rem; }
+    .tick-opt { color: var(--slate-400); font-weight: 700; font-size: 1rem; }
+    .tick-ovr { color: var(--amber-600); font-weight: 700; font-size: 1rem; }
+
+    /* ── INHERITANCE DIAGRAM ── */
+    .inherit-diagram {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .inherit-card {
+      flex: 1;
+      min-width: 200px;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .inherit-card-header {
+      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .inherit-class .inherit-card-header { background: var(--blue-900); color: #fff; }
+    .inherit-entity .inherit-card-header { background: var(--slate-200); color: var(--slate-700); }
+    .inherit-card-body {
+      padding: 0.75rem 1rem;
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-top: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .inherit-field {
+      font-size: 0.82rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .inherit-field.fixed { background: var(--blue-50); color: var(--blue-700); border-left: 3px solid var(--blue-300); }
+    .inherit-field.overridable { background: var(--amber-50); color: var(--amber-700); border-left: 3px solid var(--amber-600); }
+    .inherit-field.own { background: var(--slate-100); color: var(--slate-700); border-left: 3px solid var(--slate-400); }
+    .override-tag {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.04em; color: var(--amber-700); opacity: 0.8;
+    }
+    .inherit-arrow {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.25rem; color: var(--slate-400); font-size: 1.5rem; flex-shrink: 0;
+    }
+    .inherit-arrow span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-400); }
+    .diagram-legend {
+      display: flex; gap: 1.25rem; flex-wrap: wrap; margin-top: 0.75rem;
+      font-size: 0.78rem; color: var(--slate-600);
+    }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+    .legend-swatch { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+    /* ── OVERRIDE FLOW DIAGRAM ── */
+    .override-flow {
+      margin: 1.25rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      max-width: 480px;
+    }
+    .of-question {
+      background: var(--slate-100);
+      border: 2px solid var(--slate-300);
+      border-radius: 0.4rem;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-700);
+      width: 100%;
+      text-align: center;
+    }
+    .of-branches { display: flex; width: 100%; gap: 1rem; margin-top: 0; }
+    .of-branch { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .of-line { width: 2px; height: 1.5rem; flex-shrink: 0; }
+    .of-branch.yes .of-line { background: var(--green-700); }
+    .of-branch.no  .of-line { background: var(--amber-600); }
+    .of-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.25rem; }
+    .of-branch.yes .of-label { color: var(--green-700); }
+    .of-branch.no  .of-label { color: var(--amber-600); }
+    .of-result { border-radius: 0.35rem; padding: 0.5rem 0.75rem; font-size: 0.82rem; text-align: center; line-height: 1.4; width: 100%; }
+    .of-branch.yes .of-result { background: var(--green-50); border: 1px solid var(--green-100); color: var(--green-700); font-weight: 600; }
+    .of-branch.no  .of-result { background: var(--amber-50); border: 1px solid var(--amber-100); color: var(--amber-700); }
   </style>
 </head>
 <body>
@@ -442,6 +524,37 @@
             <a href="getting-started.html#classes">Getting Started guide</a> for a full explanation of how the Class and instance pattern works.
           </span>
         </div>
+
+        <div class="inherit-diagram">
+          <div class="inherit-card inherit-class">
+            <div class="inherit-card-header">Site Class — Distribution Centre</div>
+            <div class="inherit-card-body">
+              <div class="inherit-field overridable">Operating Hours: 06:00–22:00 <span class="override-tag">overridable</span></div>
+              <div class="inherit-field overridable">Entry Duration: 15 min <span class="override-tag">overridable</span></div>
+              <div class="inherit-field overridable">Exit Duration: 10 min <span class="override-tag">overridable</span></div>
+              <div class="inherit-field fixed">Attributes &amp; Restrictions</div>
+            </div>
+          </div>
+          <div class="inherit-arrow">
+            <span>inherits</span>
+            <span>→</span>
+          </div>
+          <div class="inherit-card inherit-entity">
+            <div class="inherit-card-header">Site — JHB Depot</div>
+            <div class="inherit-card-body">
+              <div class="inherit-field own">Location: 14 Industrial Rd, JHB</div>
+              <div class="inherit-field own">GPS: -26.195, 28.034</div>
+              <div class="inherit-field own">Client: Acme Logistics</div>
+              <div class="inherit-field overridable">Entry Duration: 30 min ↑</div>
+              <div class="inherit-field fixed" style="opacity:0.55;font-style:italic;">Operating Hours: 06:00–22:00 (from class)</div>
+            </div>
+          </div>
+        </div>
+        <div class="diagram-legend">
+          <div class="legend-item"><div class="legend-swatch" style="background:var(--blue-100);border-left:3px solid var(--blue-300);"></div> Fixed — set on the Class only</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:var(--amber-50);border-left:3px solid var(--amber-600);"></div> Overridable — Class sets the default, Site can override</div>
+          <div class="legend-item"><div class="legend-swatch" style="background:var(--slate-100);border-left:3px solid var(--slate-400);"></div> Entity-only — set on the individual Site</div>
+        </div>
       </section>
 
       <!-- SITE CLASS FIELDS -->
@@ -449,80 +562,59 @@
         <p class="section-label">Site Class Fields</p>
         <p class="section-intro">Fields available when adding or editing a Site Class.</p>
 
-        <table class="field-table">
+        <table class="field-matrix">
           <thead>
             <tr>
-              <th style="width: 22%;">Field</th>
-              <th style="width: 10%;">Required</th>
+              <th style="width:22%">Field</th>
               <th>Description</th>
+              <th class="col-tick">Req</th>
+              <th class="col-tick">Opt</th>
+              <th class="col-tick">Override</th>
             </tr>
           </thead>
           <tbody>
-
-            <tr>
-              <td>
-                <span class="field-name">Name</span>
-              </td>
-              <td><span class="field-badge badge-required">Required</span></td>
-              <td class="field-desc">
-                A descriptive label for this class of sites. Choose a name that reflects the type of location — for example, <em>Retail Delivery</em>, <em>Distribution Centre</em>, or <em>Crossdock</em>.
-              </td>
+            <tr class="row-required">
+              <td><span class="fname">Name</span></td>
+              <td><span class="fdesc">The display name of the class. Describes the type of site it represents (e.g. "Distribution Centre", "Retail Delivery Point").</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Operating Hours</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                The default working hours for sites in this class — for example, 08:00–17:00 Monday to Friday. These hours tell the Planner when sites of this type are accessible for deliveries and collections.
-                <p class="field-note">Individual sites can override this value if their hours differ from the class default.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Operating Hours</span></td>
+              <td><span class="fdesc">Default working hours for all sites of this class. Individual sites can override this if they have different hours.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Entry Duration</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                The default time required to arrive and set up at a site of this class — also called arrival dwell time. This value is added to the start of each stop in trip time calculations.
-                <p class="field-note">Used by the Planner's trip calculation engine. Individual sites can override this with a non-zero value.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Entry Duration</span></td>
+              <td><span class="fdesc">Time added to the start of each stop at sites of this class — arrival dwell time (check-in, setup). Used in trip time calculations.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Exit Duration</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                The default time required to depart and close off at a site of this class — also called departure dwell time. This value is added to the end of each stop in trip time calculations.
-                <p class="field-note">Used by the Planner's trip calculation engine. Individual sites can override this with a non-zero value.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Exit Duration</span></td>
+              <td><span class="fdesc">Time added to the end of each stop at sites of this class — departure dwell time (sign-off, close). Used in trip time calculations.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Attributes</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                Custom attributes that are inherited by all sites in this class. Attributes can be used for filtering, reporting, or attribute-based rules.
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Attributes</span></td>
+              <td><span class="fdesc">Custom attributes inherited by all sites in this class. Used for matching and filtering.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Restrictions</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                Attribute rules (also called AttributeRules) that constrain which vehicles or products can use sites in this class. For example, you can restrict a Site Class to vehicles with a certain attribute such as <em>Refrigerated</em>, or to products tagged with a specific attribute.
-                <p class="field-note">Restrictions defined on the class apply to all sites in that class. Additional restrictions can also be added at the individual site level.</p>
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Restrictions</span></td>
+              <td><span class="fdesc">Rules that control which vehicle types or product types can service sites in this class.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
           </tbody>
         </table>
       </section>
@@ -544,215 +636,150 @@
         <p class="section-label">Site Fields</p>
         <p class="section-intro">Fields available when adding or editing a Site.</p>
 
-        <table class="field-table">
+        <table class="field-matrix">
           <thead>
             <tr>
-              <th style="width: 22%;">Field</th>
-              <th style="width: 10%;">Required</th>
+              <th style="width:22%">Field</th>
               <th>Description</th>
+              <th class="col-tick">Req</th>
+              <th class="col-tick">Opt</th>
+              <th class="col-tick">Override</th>
             </tr>
           </thead>
           <tbody>
-
-            <tr>
-              <td>
-                <span class="field-name">Name</span>
-              </td>
-              <td><span class="field-badge badge-required">Required</span></td>
-              <td class="field-desc">
-                The full name of the site as it will appear in Tramm — for example, <em>Cape Town Distribution Centre</em> or <em>Pick n Pay Rondebosch</em>.
-              </td>
+            <tr class="row-required">
+              <td><span class="fname">Name</span></td>
+              <td><span class="fdesc">The display name of the site as it appears throughout Tramm.</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Code</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                A short identifier for the site. Useful when importing data or referencing sites in reports.
-              </td>
+            <tr class="row-required">
+              <td><span class="fname">Code</span></td>
+              <td><span class="fdesc">A short unique identifier for the site, used in imports and integrations.</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Site Class</span>
-              </td>
-              <td><span class="field-badge badge-optional">Recommended</span></td>
-              <td class="field-desc">
-                The Site Class this site belongs to. Selecting a class gives the site its default operating hours, entry duration, and exit duration. While not strictly required, assigning a Site Class is strongly recommended — without one, all time and duration values must be set manually on every site.
-              </td>
+            <tr class="row-recommended">
+              <td><span class="fname">Site Class</span></td>
+              <td><span class="fdesc">The class this site belongs to. Sets the default operating hours, entry/exit durations, and attribute rules. Strongly recommended — a site without a class has no defaults.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-rec">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Type</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                A type label for the site — for example, <em>Depot</em>, <em>Warehouse</em>, or <em>Delivery Point</em>. Site types are configured in <strong>Entity Types</strong> in Data Manager, which controls the available options here.
-              </td>
+            <tr class="row-required">
+              <td><span class="fname">Location / Address</span></td>
+              <td><span class="fdesc">The physical address of the site. Used for route planning and displayed on maps.</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Location</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                The physical address and GPS coordinates of the site. GPS coordinates are used for route distance and travel time calculations. They are also used when auto-assigning the site to a Region based on geographic boundaries.
-                <p class="field-note">Enter coordinates as accurately as possible — the Planner calculates road distance and estimated travel times from this position.</p>
-              </td>
+            <tr class="row-recommended">
+              <td><span class="fname">GPS Coordinates</span></td>
+              <td><span class="fdesc">Latitude and longitude. Required for accurate route calculations and for automatic region assignment. Without coordinates, the planning engine cannot route to this site.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-rec">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Operating Hours</span>
-              </td>
-              <td>
-                <span class="field-badge badge-override">Override</span>
-              </td>
-              <td class="field-desc">
-                The operating hours for this specific site. If set, these hours override the Site Class operating hours. If left blank, the system falls back to the class default.
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Type</span></td>
+              <td><span class="fdesc">Site type label (e.g. Depot, Customer, Crossdock). Controlled by Entity Types in Data Manager.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Entry Duration</span>
-              </td>
-              <td>
-                <span class="field-badge badge-override">Override</span>
-              </td>
-              <td class="field-desc">
-                Arrival dwell time for this specific site. If set to a non-zero value, this overrides the Site Class Entry Duration. If left at zero, the system uses the class value.
-                <p class="field-note">Only set this if the site differs from its class default. See <a href="#override-logic">Override Logic</a> for details.</p>
-              </td>
+            <tr class="row-override">
+              <td><span class="fname">Operating Hours</span></td>
+              <td><span class="fdesc">If set, overrides the Site Class operating hours for this site only. Leave blank to use the class default.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-ovr">✓</span></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Exit Duration</span>
-              </td>
-              <td>
-                <span class="field-badge badge-override">Override</span>
-              </td>
-              <td class="field-desc">
-                Departure dwell time for this specific site. If set to a non-zero value, this overrides the Site Class Exit Duration. If left at zero, the system uses the class value.
-                <p class="field-note">Only set this if the site differs from its class default. See <a href="#override-logic">Override Logic</a> for details.</p>
-              </td>
+            <tr class="row-override">
+              <td><span class="fname">Entry Duration</span></td>
+              <td><span class="fdesc">If set to a non-zero value, overrides the Site Class entry duration for this site. Use when this site takes longer or shorter to check in than the class default.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-ovr">✓</span></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Loading Rate</span>
-              </td>
-              <td>
-                <span class="field-badge badge-override">Override</span>
-              </td>
-              <td class="field-desc">
-                The loading and unloading speed at this specific site — for example, units per hour. If set, this overrides the class-level loading rate and is used by the Planner when calculating stop durations based on load quantity.
-              </td>
+            <tr class="row-override">
+              <td><span class="fname">Exit Duration</span></td>
+              <td><span class="fdesc">If set to a non-zero value, overrides the Site Class exit duration for this site.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-ovr">✓</span></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Region(s)</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                The Regions this site belongs to. Regions are used in Lanes for tariff pricing and for geographic reporting. A site can belong to more than one Region.
-                <p class="field-note">If GPS coordinates are set, the system can auto-assign the site to the correct Region. If you manage Lanes and tariffs, make sure each site has a Region assigned.</p>
-              </td>
+            <tr class="row-override">
+              <td><span class="fname">Loading Rate</span></td>
+              <td><span class="fdesc">Site-specific loading/unloading speed. Overrides any class or product-level loading rate when set.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-ovr">✓</span></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Client</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                If this site belongs to a specific client — for example, a retail chain's own delivery point — link the client here. Client-specific sites can be filtered and reported on by client.
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Regions</span></td>
+              <td><span class="fdesc">The geographic region(s) this site belongs to. Used for Lane-based tariff pricing. Can be assigned manually or automatically based on GPS coordinates.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Contact Info</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                Phone number, email address, and physical address for the site. Useful for planners and drivers who need to contact the site directly.
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Client</span></td>
+              <td><span class="fdesc">Link this site to a specific client if it is a client-dedicated location (e.g. a customer's warehouse).</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Instructions</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                Free-text operational notes for this site — for example, access gate codes, security procedures, or special delivery instructions. These notes are visible to planners and can be made available to drivers.
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Contact Info</span></td>
+              <td><span class="fdesc">Phone number, email, and address contact details for the site.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Attributes</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                Site-specific attributes, in addition to any attributes inherited from the Site Class. Used for filtering, reporting, and attribute-based restriction rules.
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Instructions</span></td>
+              <td><span class="fdesc">Free-text operational notes visible to planners and drivers — access codes, delivery instructions, special requirements.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
-            <tr>
-              <td>
-                <span class="field-name">Restrictions</span>
-              </td>
-              <td><span class="field-badge badge-optional">Optional</span></td>
-              <td class="field-desc">
-                Site-specific attribute rules that constrain which vehicles or products can use this site — in addition to any restrictions defined on the Site Class.
-              </td>
+            <tr class="row-optional">
+              <td><span class="fname">Attributes</span></td>
+              <td><span class="fdesc">Site-specific custom attributes, in addition to those inherited from the Site Class.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
             </tr>
-
           </tbody>
         </table>
+        <p style="font-size:0.78rem;color:var(--teal-600);margin-top:-0.75rem;margin-bottom:1rem;">✓ in the Opt column marked in teal = Recommended (important even if not strictly required)</p>
       </section>
 
       <!-- OVERRIDE LOGIC -->
       <section id="override-logic">
         <p class="section-label">How Override Logic Works</p>
-        <p class="section-intro">
-          The Site Class defines defaults. Individual sites only need values set if they differ from those defaults. The Planner follows a simple fallback rule for Entry Duration, Exit Duration, and Operating Hours.
-        </p>
 
-        <p class="body-text">
-          If a site's <strong>Entry Duration</strong> is set to a non-zero value, the Planner uses that value for trip calculations. If it is left at zero, the system falls back to the Site Class Entry Duration. The same pattern applies to Exit Duration and Operating Hours — if the site has a value, it takes precedence; otherwise, the class default applies.
-        </p>
+        <p class="body-text">For Entry Duration, Exit Duration, and Operating Hours, the Site value takes priority over the Site Class value — but only if it is actually set. If the site's value is zero (for durations) or blank (for operating hours), the system automatically falls back to the Site Class value.</p>
 
-        <p class="body-text">
-          This means you only need to set values on the site if they differ from the class defaults. A site that behaves exactly like its class requires no duration or hours overrides at all.
-        </p>
-
-        <div class="logic-box">
-          <div class="logic-row">
-            <span class="logic-label">Scenario</span>
-            <span class="logic-value">Retail Delivery class has Entry Duration = 15 min. One site — <em>Woolworths Claremont</em> — requires 30 min to enter due to a parking bay queue.</span>
-          </div>
-          <div class="logic-row">
-            <span class="logic-label">What to do</span>
-            <span class="logic-value">Set Entry Duration = 30 min on the Woolworths Claremont site only. Leave all other retail sites at zero — they will inherit the 15 min class default.</span>
-          </div>
-          <div class="logic-row">
-            <span class="logic-label">Result</span>
-            <span class="logic-value">The Planner uses 30 min for Woolworths Claremont and 15 min for every other site in the Retail Delivery class.</span>
+        <div class="override-flow">
+          <div class="of-question">Is Entry Duration set on the Site (non-zero)?</div>
+          <div class="of-branches">
+            <div class="of-branch yes">
+              <div class="of-line"></div>
+              <div class="of-label">Yes</div>
+              <div class="of-result">Use the Site's Entry Duration</div>
+            </div>
+            <div class="of-branch no">
+              <div class="of-line"></div>
+              <div class="of-label">No / Zero</div>
+              <div class="of-result">Use the Site Class Entry Duration</div>
+            </div>
           </div>
         </div>
 
-        <div class="screenshot-placeholder">
-          [Screenshot: Site form showing Entry Duration field with a note that leaving it blank inherits from the Site Class]
-        </div>
+        <p class="body-text">The same logic applies to Exit Duration and Operating Hours. This means you only need to fill in these fields on a site when it genuinely differs from its class — leave them blank and the class values apply automatically.</p>
       </section>
 
       <!-- ADDING A SITE CLASS -->
@@ -770,9 +797,6 @@
           <li>Click <strong>Save</strong>.</li>
         </ol>
 
-        <div class="screenshot-placeholder">
-          [Screenshot: Add Site Class form]
-        </div>
       </section>
 
       <!-- ADDING A SITE -->
@@ -794,9 +818,6 @@
           <li>Click <strong>Save</strong>.</li>
         </ol>
 
-        <div class="screenshot-placeholder">
-          [Screenshot: Add Site form with Site Class and Location fields highlighted]
-        </div>
       </section>
 
       <!-- TIPS AND COMMON MISTAKES -->
