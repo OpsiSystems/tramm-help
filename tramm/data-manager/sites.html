@@ -357,67 +357,6 @@
     .tick-opt { color: var(--slate-400); font-weight: 700; font-size: 1rem; }
     .tick-ovr { color: var(--amber-600); font-weight: 700; font-size: 1rem; }
 
-    /* ── INHERITANCE DIAGRAM ── */
-    .inherit-diagram {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin: 1.5rem 0;
-      flex-wrap: wrap;
-    }
-    .inherit-card {
-      flex: 1;
-      min-width: 200px;
-      border-radius: 0.5rem;
-      overflow: hidden;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    }
-    .inherit-card-header {
-      padding: 0.6rem 1rem;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .inherit-class .inherit-card-header { background: var(--blue-900); color: #fff; }
-    .inherit-entity .inherit-card-header { background: var(--slate-200); color: var(--slate-700); }
-    .inherit-card-body {
-      padding: 0.75rem 1rem;
-      background: #fff;
-      border: 1px solid var(--slate-200);
-      border-top: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-    .inherit-field {
-      font-size: 0.82rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-    .inherit-field.fixed { background: var(--blue-50); color: var(--blue-700); border-left: 3px solid var(--blue-300); }
-    .inherit-field.overridable { background: var(--amber-50); color: var(--amber-700); border-left: 3px solid var(--amber-600); }
-    .inherit-field.own { background: var(--slate-100); color: var(--slate-700); border-left: 3px solid var(--slate-400); }
-    .override-tag {
-      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.04em; color: var(--amber-700); opacity: 0.8;
-    }
-    .inherit-arrow {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 0.25rem; color: var(--slate-400); font-size: 1.5rem; flex-shrink: 0;
-    }
-    .inherit-arrow span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-400); }
-    .diagram-legend {
-      display: flex; gap: 1.25rem; flex-wrap: wrap; margin-top: 0.75rem;
-      font-size: 0.78rem; color: var(--slate-600);
-    }
-    .legend-item { display: flex; align-items: center; gap: 0.4rem; }
-    .legend-swatch { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
-
     /* ── OVERRIDE FLOW DIAGRAM ── */
     .override-flow {
       margin: 1.25rem 0;
@@ -525,36 +464,7 @@
           </span>
         </div>
 
-        <div class="inherit-diagram">
-          <div class="inherit-card inherit-class">
-            <div class="inherit-card-header">Site Class — Distribution Centre</div>
-            <div class="inherit-card-body">
-              <div class="inherit-field overridable">Operating Hours: 06:00–22:00 <span class="override-tag">overridable</span></div>
-              <div class="inherit-field overridable">Entry Duration: 15 min <span class="override-tag">overridable</span></div>
-              <div class="inherit-field overridable">Exit Duration: 10 min <span class="override-tag">overridable</span></div>
-              <div class="inherit-field fixed">Attributes &amp; Restrictions</div>
-            </div>
-          </div>
-          <div class="inherit-arrow">
-            <span>inherits</span>
-            <span>→</span>
-          </div>
-          <div class="inherit-card inherit-entity">
-            <div class="inherit-card-header">Site — JHB Depot</div>
-            <div class="inherit-card-body">
-              <div class="inherit-field own">Location: 14 Industrial Rd, JHB</div>
-              <div class="inherit-field own">GPS: -26.195, 28.034</div>
-              <div class="inherit-field own">Client: Acme Logistics</div>
-              <div class="inherit-field overridable">Entry Duration: 30 min ↑</div>
-              <div class="inherit-field fixed" style="opacity:0.55;font-style:italic;">Operating Hours: 06:00–22:00 (from class)</div>
-            </div>
-          </div>
-        </div>
-        <div class="diagram-legend">
-          <div class="legend-item"><div class="legend-swatch" style="background:var(--blue-100);border-left:3px solid var(--blue-300);"></div> Fixed — set on the Class only</div>
-          <div class="legend-item"><div class="legend-swatch" style="background:var(--amber-50);border-left:3px solid var(--amber-600);"></div> Overridable — Class sets the default, Site can override</div>
-          <div class="legend-item"><div class="legend-swatch" style="background:var(--slate-100);border-left:3px solid var(--slate-400);"></div> Entity-only — set on the individual Site</div>
-        </div>
+        <p class="body-text">Think of a Site Class like a standard operating profile for a type of location. You define how that type of site works — its operating hours, how long it takes to enter and exit, any restrictions — and every site you create from that class inherits those settings automatically. You only need to record what is different on an individual site: its address, GPS coordinates, or any operational detail that makes it unique. This is especially useful when you have many sites of the same type — a "Retail Delivery" class might cover dozens of similar customer sites, all sharing the same dwell times and operating hours, with exceptions noted only where they exist.</p>
       </section>
 
       <!-- SITE CLASS FIELDS -->
