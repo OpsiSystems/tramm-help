@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Groups &amp; Products — Data Manager — OPSI Docs</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-300: #93c5fd;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+      --amber-700: #b45309;
+      --teal-50:  #f0fdfa;
+      --teal-100: #ccfbf1;
+      --teal-600: #0d9488;
+      --teal-700: #0f766e;
+      --purple-50:  #faf5ff;
+      --purple-100: #f3e8ff;
+      --purple-600: #9333ea;
+      --purple-700: #7e22ce;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 2.25rem;
+    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── LEFT NAV ── */
+    .side-nav {
+      position: sticky;
+      top: 2rem;
+    }
+    .side-nav-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--slate-400);
+      margin-bottom: 0.6rem;
+    }
+    .side-nav ul { list-style: none; }
+    .side-nav > ul > li { margin-bottom: 0.1rem; }
+    .side-nav a {
+      display: block;
+      font-size: 0.825rem;
+      color: var(--slate-600);
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.3rem;
+      transition: background 0.15s, color 0.15s;
+      border-left: 2px solid transparent;
+    }
+    .side-nav a:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+    }
+    .side-nav .nav-divider {
+      border: none;
+      border-top: 1px solid var(--slate-200);
+      margin: 0.6rem 0;
+    }
+
+    /* ── CONTENT ── */
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2.75rem;
+      min-width: 0;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--slate-800);
+      border-left: 4px solid var(--blue-600);
+      padding-left: 0.75rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-intro {
+      font-size: 0.925rem;
+      color: var(--slate-600);
+      margin-bottom: 1.25rem;
+      line-height: 1.65;
+    }
+    .section-intro a { color: var(--blue-700); }
+    .section-intro a:hover { text-decoration: underline; }
+
+    /* ── BODY TEXT ── */
+    .body-text {
+      font-size: 0.9rem;
+      color: var(--slate-700);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .body-text a { color: var(--blue-700); }
+    .body-text a:hover { text-decoration: underline; }
+    .body-text + .body-text { margin-top: 0; }
+
+    /* ── SECTION HEADING (h2 within content) ── */
+    .content-h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 0.25rem;
+      white-space: nowrap;
+    }
+    .badge-required {
+      background: var(--blue-50);
+      color: var(--blue-700);
+      border: 1px solid var(--blue-100);
+    }
+    .badge-recommended {
+      background: var(--teal-50);
+      color: var(--teal-700);
+      border: 1px solid var(--teal-100);
+    }
+    .badge-optional {
+      background: var(--slate-100);
+      color: var(--slate-500);
+      border: 1px solid var(--slate-200);
+    }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+      margin-bottom: 1.25rem;
+    }
+    .callout svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+    }
+    .callout p { line-height: 1.55; }
+    .callout a { color: var(--blue-700); }
+    .callout a:hover { text-decoration: underline; }
+    .callout-blue {
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+    }
+    .callout-blue svg { color: var(--blue-600); }
+    .callout-green {
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+    }
+    .callout-green svg { color: var(--green-700); }
+    .callout-amber {
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+    }
+    .callout-amber svg { color: var(--amber-600); }
+
+    /* ── TASK STEPS ── */
+    .task-steps {
+      list-style: none;
+      counter-reset: step-counter;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .task-steps li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .task-steps li:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 1.6rem;
+      height: 1.6rem;
+      background: var(--blue-700);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15rem;
+    }
+    .step-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .step-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.25rem;
+    }
+    .step-detail {
+      font-size: 0.845rem;
+      color: var(--slate-600);
+      line-height: 1.55;
+    }
+    .step-detail a { color: var(--blue-700); }
+    .step-detail strong { color: var(--slate-800); }
+
+    /* ── TIPS LIST ── */
+    .tips-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .tips-list li {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+      line-height: 1.55;
+      padding: 0.8rem 1rem;
+      border-radius: 0.45rem;
+    }
+    .tips-list li.tip {
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+    }
+    .tips-list li.mistake {
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+    }
+    .tips-list li svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+    }
+    .tips-list li.tip svg { color: var(--green-700); }
+    .tips-list li.mistake svg { color: var(--amber-600); }
+    .tips-list li strong { color: var(--slate-900); }
+
+    /* ── TWO-PANEL CONCEPT BLOCK ── */
+    .concept-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .concept-panel {
+      border: 1px solid var(--slate-200);
+      border-radius: 0.55rem;
+      overflow: hidden;
+    }
+    .concept-panel-header {
+      background: var(--slate-100);
+      padding: 0.6rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-500);
+    }
+    .concept-panel-body {
+      padding: 0.85rem 1rem;
+      font-size: 0.84rem;
+      color: var(--slate-600);
+      line-height: 1.55;
+    }
+    .concept-panel-body ul {
+      padding-left: 1.1rem;
+      margin-top: 0.35rem;
+    }
+    .concept-panel-body li { margin-bottom: 0.2rem; }
+
+    /* ── FIELD MATRIX ── */
+    .field-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.855rem;
+      margin-bottom: 1.5rem;
+    }
+    .field-matrix thead th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      padding: 0 0.75rem 0.5rem;
+      border-bottom: 2px solid var(--slate-200);
+    }
+    .field-matrix thead th.col-tick {
+      text-align: center;
+      width: 3.5rem;
+    }
+    .field-matrix tbody tr {
+      border-bottom: 1px solid var(--slate-100);
+      transition: background 0.1s;
+    }
+    .field-matrix tbody tr:last-child { border-bottom: none; }
+    .field-matrix tbody tr:hover { background: var(--slate-50); }
+    .field-matrix td {
+      padding: 0.55rem 0.75rem;
+      vertical-align: top;
+    }
+    .field-matrix .col-tick {
+      text-align: center;
+      width: 3.5rem;
+      vertical-align: middle;
+    }
+    .field-matrix .fname {
+      font-weight: 700;
+      color: var(--slate-900);
+      font-size: 0.875rem;
+      white-space: nowrap;
+    }
+    .field-matrix .fdesc {
+      font-size: 0.83rem;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+    .field-matrix .fnote {
+      font-size: 0.75rem;
+      color: var(--slate-400);
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+    .field-matrix .row-required {
+      border-left: 3px solid var(--blue-600);
+    }
+    .field-matrix .row-optional {
+      border-left: 3px solid var(--slate-300);
+    }
+    .field-matrix .row-recommended {
+      border-left: 3px solid var(--teal-600);
+    }
+    .tick-req { color: var(--blue-600); font-weight: 700; font-size: 1rem; }
+    .tick-opt { color: var(--slate-400); font-weight: 700; font-size: 1rem; }
+    .tick-rec { color: var(--teal-600); font-weight: 700; font-size: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .side-nav { position: static; border-bottom: 1px solid var(--slate-200); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+      .site-header h1 { font-size: 1.4rem; }
+      .concept-panels { grid-template-columns: 1fr; }
+      .field-matrix thead { display: none; }
+      .field-matrix td { display: block; padding: 0.4rem 0.75rem; }
+      .field-matrix tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="../../index.html">OPSI Docs</a>
+        <span>&rsaquo;</span>
+        <a href="../index.html">Tramm</a>
+        <span>&rsaquo;</span>
+        <a href="index.html">Data Manager</a>
+        <span>&rsaquo;</span>
+        Products
+      </div>
+      <h1>Product Groups &amp; Products</h1>
+      <p class="subtitle">Product Groups categorise goods and set shared rules. Products define the physical specs — size, weight, and loading behaviour.</p>
+    </div>
+  </header>
+
+  <div class="page-layout">
+
+    <!-- LEFT NAVIGATION -->
+    <nav class="side-nav">
+      <p class="side-nav-label">On this page</p>
+      <ul>
+        <li><a href="#product-group-concept">What is a Product Group?</a></li>
+        <li><a href="#product-group-fields">Product Group Fields</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#product-concept">What is a Product?</a></li>
+        <li><a href="#product-fields">Product Fields</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#adding-product-group">Adding a Product Group</a></li>
+        <li><a href="#adding-product">Adding a Product</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#tips">Tips &amp; Common Mistakes</a></li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="page-content">
+
+      <!-- ── INTRO ── -->
+      <section>
+        <p class="body-text">Tramm uses two related entities for managing goods: <strong>Product Groups</strong> and <strong>Products</strong>. A Product Group is a classification that sets shared rules for a category of goods — which vehicles can carry them, which sites can handle them, and how much quantity variance is acceptable. A Product is the specific item record, holding the physical facts about a single product: its dimensions, weight, and how fast it loads and unloads.</p>
+        <p class="body-text">Unlike the Vehicle and Site class patterns, a Product can belong to more than one Product Group simultaneously — so a product can inherit rules from multiple categories at once.</p>
+
+        <div class="concept-panels" style="margin-top:1.25rem;">
+          <div class="concept-panel">
+            <div class="concept-panel-header">Product Group — the shared rules</div>
+            <div class="concept-panel-body">
+              Defines the handling rules that apply to a category of goods.
+              <ul>
+                <li>Shared attributes for matching and filtering</li>
+                <li>Restrictions (vehicle types, site types)</li>
+                <li>Variance tolerance for catch-weight or bulk goods</li>
+                <li>A product can belong to multiple groups</li>
+              </ul>
+            </div>
+          </div>
+          <div class="concept-panel">
+            <div class="concept-panel-header">Product — the physical specification</div>
+            <div class="concept-panel-body">
+              Defines the physical facts for a specific item.
+              <ul>
+                <li>Weight and volume per unit</li>
+                <li>Physical dimensions (L &times; W &times; H)</li>
+                <li>Loading and offloading rate</li>
+                <li>Stackability rules and limits</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── WHAT IS A PRODUCT GROUP ── -->
+      <section id="product-group-concept">
+        <p class="section-label">What is a Product Group?</p>
+        <p class="section-intro">A Product Group is a classification label for a category of goods. It holds the shared rules that apply to every product in the group — restrictions, attributes, and variance tolerance — so you do not have to duplicate those rules on every individual product.</p>
+
+        <p class="body-text">Think of a Product Group like a classification label in your warehouse — similar to a goods category in a WMS. It defines the shared rules that apply to all products of that type: which vehicles can carry them, which sites can handle them, and how much quantity variance is acceptable. A product can belong to more than one group — so a product can be both "Hazardous" and "Frozen" simultaneously if both sets of rules apply to it.</p>
+        <p class="body-text">Product Groups are optional but strongly recommended if you have products with shared handling requirements or restrictions — they save you from duplicating the same rules on every individual product.</p>
+      </section>
+
+      <!-- ── PRODUCT GROUP FIELDS ── -->
+      <section id="product-group-fields">
+        <p class="section-label">Product Group Fields</p>
+        <p class="section-intro">Fields marked <span class="badge badge-required">Required</span> must be filled in before saving. All other fields are optional.</p>
+
+        <table class="field-matrix">
+          <thead>
+            <tr>
+              <th style="width:22%">Field</th>
+              <th>Description</th>
+              <th class="col-tick">Req</th>
+              <th class="col-tick">Opt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-required">
+              <td><span class="fname">Name</span></td>
+              <td><span class="fdesc">The display name of the group. Should describe the product category clearly — for example, <strong>Frozen Goods</strong>, <strong>Hazardous Materials</strong>, or <strong>Bulk Liquids</strong>.</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">Attributes</span></td>
+              <td><span class="fdesc">Custom attributes shared by all products in this group. Used for matching and filtering in the Planner.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">Restrictions</span></td>
+              <td><span class="fdesc">Rules that control which vehicle types or site types can handle products in this group. Example: only refrigerated vehicles can carry products in the <strong>Frozen Goods</strong> group.</span><div class="fnote">Restrictions are applied via AttributeRules — define the attribute conditions a vehicle or site must meet.</div></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">Variance Tolerance</span></td>
+              <td><span class="fdesc">How much quantity variance is acceptable for products in this group. Set a <strong>Kind</strong> (Value or Percentage), an <strong>Under</strong> amount, and an <strong>Over</strong> amount. Useful for bulk or catch-weight goods where exact quantities can vary.</span><div class="fnote">Kind: None disables tolerance checking. Kind: Value sets an absolute threshold. Kind: Percentage sets a relative threshold.</div></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── WHAT IS A PRODUCT ── -->
+      <section id="product-concept">
+        <p class="section-label">What is a Product?</p>
+        <p class="section-intro">A Product is the physical goods specification — the record that holds the exact dimensions, weight, and loading behaviour of a specific item in your catalogue.</p>
+
+        <p class="body-text">Think of a Product as the physical goods specification — the equivalent of a product datasheet. It defines the exact dimensions, weight, and loading behaviour of a specific item. Where a Product Group sets the rules (what can carry it, what variance is allowed), the Product itself holds the physical facts: how big it is, how heavy, how fast it loads, and whether anything can be stacked on top of it.</p>
+
+        <div class="callout callout-blue" style="margin-top:1rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p><strong>3D Visualiser requires physical dimensions.</strong> If you use the 3D Visualiser in the Planner, you must set the physical dimensions (Length, Width, Height) and weight on each Product. Without dimensions, the 3D Visualiser cannot represent the product visually.</p>
+        </div>
+
+        <p class="body-text">Unlike Vehicle Classes and Site Classes, a Product can belong to more than one Product Group. A single product that is both refrigerated and hazardous can belong to both the "Frozen Goods" and "Hazardous Materials" groups — inheriting restrictions and attributes from both simultaneously.</p>
+      </section>
+
+      <!-- ── PRODUCT FIELDS ── -->
+      <section id="product-fields">
+        <p class="section-label">Product Fields</p>
+        <p class="section-intro">Fields marked <span class="badge badge-required">Required</span> must be filled in before saving. Fields marked <span class="badge badge-recommended">Recommended</span> are not required by the system but are practically necessary for accurate planning.</p>
+
+        <table class="field-matrix">
+          <thead>
+            <tr>
+              <th style="width:24%">Field</th>
+              <th>Description</th>
+              <th class="col-tick">Req</th>
+              <th class="col-tick">Rec</th>
+              <th class="col-tick">Opt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-required">
+              <td><span class="fname">Name</span></td>
+              <td><span class="fdesc">The display name of the product as it appears in orders and planning.</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+            </tr>
+            <tr class="row-required">
+              <td><span class="fname">Code</span></td>
+              <td><span class="fdesc">Short unique identifier for this product. Used in imports, integrations, and order line items.</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+            </tr>
+            <tr class="row-recommended">
+              <td><span class="fname">Product Group(s)</span></td>
+              <td><span class="fdesc">The group or groups this product belongs to. A product can belong to multiple groups — for example, both <strong>Frozen Goods</strong> and <strong>Hazardous Materials</strong>. Without a group, no shared restrictions or attributes apply to this product.</span><div class="fnote">Recommended — products without a group will not inherit any handling restrictions or shared attributes.</div></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-rec">✓</span></td>
+              <td class="col-tick"></td>
+            </tr>
+            <tr class="row-recommended">
+              <td><span class="fname">Size — Weight</span></td>
+              <td><span class="fdesc">The weight of one unit of this product. Used by the Planner to check vehicle capacity against the total weight of a load.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-rec">✓</span></td>
+              <td class="col-tick"></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">Size — Volume</span></td>
+              <td><span class="fdesc">The volume of one unit. Used for capacity planning alongside weight — if the vehicle class has a volume limit, the Planner will check product volumes against it.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+            <tr class="row-recommended">
+              <td><span class="fname">Size — Dimensions (L &times; W &times; H)</span></td>
+              <td><span class="fdesc">Physical dimensions of one unit: Length, Width, and Height. Required for the 3D Visualiser in the Planner to represent this product visually in a load plan.</span><div class="fnote">If you use the 3D Visualiser, all three dimensions must be set — without them, the product will not appear in the visual load plan.</div></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-rec">✓</span></td>
+              <td class="col-tick"></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">Loading Rate</span></td>
+              <td><span class="fdesc">How long it takes to load and offload this product, expressed in seconds per unit — <strong>LoadingSecondsPerUnit</strong> and <strong>OffloadingSecondsPerUnit</strong>. Used to calculate stop durations in the Planner.</span><div class="fnote">If not set, the vehicle class or site loading rate applies as the fallback.</div></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">Stackability</span></td>
+              <td><span class="fdesc">Controls whether other products can be stacked on top of this product. Set <strong>IsDisabled</strong> to prevent stacking entirely, or define maximum surface loads per orientation — <strong>Upright</strong>, <strong>LengthWise</strong>, and <strong>WidthWise</strong> — each with an optional AllowRotation flag and a MaxLoad weight limit. Used by the 3D Visualiser.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── ADDING A PRODUCT GROUP ── -->
+      <section id="adding-product-group">
+        <p class="section-label">Adding a Product Group</p>
+        <p class="section-intro">Follow these steps to create a new Product Group in Data Manager. Set up your Product Groups before adding products so you can assign products to groups during setup.</p>
+
+        <ol class="task-steps">
+          <li>
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <p class="step-title">Open Data Manager and go to Product Groups</p>
+              <p class="step-detail">From the main navigation, open <strong>Data Manager</strong>. Select <strong>Product Groups</strong> from the entity list on the left.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <p class="step-title">Click Add</p>
+              <p class="step-detail">Click the <strong>Add</strong> button in the toolbar. The new Product Group form will open.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <p class="step-title">Enter a name that clearly describes the category</p>
+              <p class="step-detail">Give the group a clear, descriptive name — for example, <strong>Frozen Goods</strong>, <strong>Bulk Liquids</strong>, or <strong>Hazardous Materials</strong>. The name appears in product records and in Planner filtering, so clarity helps.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <p class="step-title">Add restrictions if applicable</p>
+              <p class="step-detail">If only certain vehicle types or site types can handle this product category, add the appropriate restrictions here. For example, if only refrigerated vehicles can carry products in this group, set a vehicle restriction to match vehicles with a "refrigerated" attribute. Restrictions are defined as attribute rules.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <p class="step-title">Add shared attributes if applicable</p>
+              <p class="step-detail">If all products in this group share a set of attributes — for example, a "hazmat" flag used for matching — add those attributes here. Products in the group will inherit them automatically.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <p class="step-title">Set a Variance Tolerance if this is a catch-weight or bulk product type</p>
+              <p class="step-detail">If delivered quantities for this type of product typically vary from ordered quantities — for example, bulk products sold by approximate weight — set a <strong>Variance Tolerance</strong>. Choose a <strong>Kind</strong> (Value or Percentage), then set the acceptable <strong>Under</strong> and <strong>Over</strong> amounts. Leave Kind as None if exact quantities are always expected.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">7</div>
+            <div class="step-body">
+              <p class="step-title">Save</p>
+              <p class="step-detail">Click <strong>Save</strong>. The Product Group is now available to assign to products.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ── ADDING A PRODUCT ── -->
+      <section id="adding-product">
+        <p class="section-label">Adding a Product</p>
+        <p class="section-intro">Follow these steps to add a new Product in Data Manager. Set up your Product Groups first so you can assign the product to a group during this process.</p>
+
+        <ol class="task-steps">
+          <li>
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <p class="step-title">Open Data Manager and go to Products</p>
+              <p class="step-detail">From the main navigation, open <strong>Data Manager</strong>. Select <strong>Products</strong> from the entity list on the left.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <p class="step-title">Click Add</p>
+              <p class="step-detail">Click the <strong>Add</strong> button in the toolbar. The new Product form will open.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <p class="step-title">Enter the product name and code</p>
+              <p class="step-detail">Enter the product's display <strong>Name</strong> and a unique <strong>Code</strong>. The code is used in imports and order integrations, so it must match whatever identifier your order management system uses for this product.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <p class="step-title">Assign the product to one or more Product Groups</p>
+              <p class="step-detail">Select the Product Group or groups this product belongs to. A product can belong to multiple groups — for example, a product that is both frozen and hazardous should be assigned to both the <strong>Frozen Goods</strong> and <strong>Hazardous Materials</strong> groups. If no group applies, you can leave this blank, but the product will not inherit any shared restrictions or attributes.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <p class="step-title">Enter the weight</p>
+              <p class="step-detail">Enter the weight of one unit of this product. The Planner uses this figure to check whether a vehicle's weight capacity is exceeded by a given load. Accurate weights are essential for reliable capacity planning.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <p class="step-title">Enter the volume if applicable</p>
+              <p class="step-detail">If your operation plans against volume limits (cubic metres), enter the volume per unit here. If your vehicles are only capacity-limited by weight or units, you can leave volume blank.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">7</div>
+            <div class="step-body">
+              <p class="step-title">Enter physical dimensions if using the 3D Visualiser</p>
+              <p class="step-detail">If your Tramm environment uses the 3D load visualiser, enter the product's <strong>Length</strong>, <strong>Width</strong>, and <strong>Height</strong>. These are required for the visualiser to draw the product in a load plan. If you are not using the 3D Visualiser, you can skip this step — though entering dimensions is good practice for future use.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">8</div>
+            <div class="step-body">
+              <p class="step-title">Set the Loading Rate if this product has a different loading speed</p>
+              <p class="step-detail">If this product takes significantly longer — or shorter — to load or offload than your other products, enter the <strong>Loading Rate</strong> in seconds per unit. This affects how the Planner calculates stop duration. If you leave this blank, the vehicle class or site loading rate will be used as the default.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">9</div>
+            <div class="step-body">
+              <p class="step-title">Configure Stackability if needed</p>
+              <p class="step-detail">If nothing can be placed on top of this product, set <strong>IsDisabled</strong> to prevent stacking entirely. If stacking is allowed but limited, define the maximum surface loads per orientation — <strong>Upright</strong>, <strong>LengthWise</strong>, and <strong>WidthWise</strong> — with the maximum load weight for each. The 3D Visualiser uses these settings when building a load plan. If stacking is unrestricted, you can leave this section blank.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">10</div>
+            <div class="step-body">
+              <p class="step-title">Save</p>
+              <p class="step-detail">Click <strong>Save</strong>. The product is now available in the Planner and can be referenced in orders and load plans.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ── TIPS ── -->
+      <section id="tips">
+        <p class="section-label">Tips &amp; Common Mistakes</p>
+        <p class="section-intro">A few things to keep in mind when setting up Product Groups and Products for the first time.</p>
+
+        <ul class="tips-list">
+
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span><strong>Set up Product Groups before adding products.</strong> Even a single "General Goods" group is useful as a starting point for restrictions. Creating your groups first means you can assign products to them during initial setup rather than returning to each product later.</span>
+          </li>
+
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span><strong>Enter dimensions carefully.</strong> The 3D Visualiser uses dimensions to draw the product in a load plan, so rough or approximate values lead to unrealistic load visualisations. Measure product dimensions from the outer packaging — the dimensions that matter are the space the product actually occupies in the vehicle.</span>
+          </li>
+
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span><strong>A product can belong to multiple groups.</strong> Use this for products that have more than one set of handling requirements. A product assigned to both <strong>Frozen Goods</strong> and <strong>Hazardous Materials</strong> will inherit restrictions and attributes from both groups simultaneously — you do not need to duplicate rules.</span>
+          </li>
+
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span><strong>Leaving dimensions blank when using the 3D Visualiser.</strong> If a product has no dimensions set, the 3D Visualiser cannot render it in the load plan — the product will simply not appear. This makes the visual load plan incomplete and unreliable. Always set Length, Width, and Height on every product you expect to see in the visualiser.</span>
+          </li>
+
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span><strong>Setting a very tight Variance Tolerance on products that routinely vary in quantity.</strong> If the tolerance is narrower than the natural variation for a bulk or catch-weight product, the system will generate unnecessary warnings on deliveries. Set the tolerance to reflect the realistic variation you expect — not the theoretical ideal.</span>
+          </li>
+
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span><strong>Forgetting that Loading Rate affects stop duration in the Planner.</strong> If a product takes a long time to load or unload and no loading rate is set anywhere — not on the product, the vehicle class, or the site — the Planner will underestimate stop times for orders that include this product. This leads to trips that run consistently late. If your products vary significantly in loading time, set the Loading Rate on the products that differ most from your average.</span>
+          </li>
+
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>OPSI Docs</p>
+  </footer>
+
+</body>
+</html>
