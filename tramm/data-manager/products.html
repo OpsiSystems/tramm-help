@@ -525,6 +525,12 @@
               <td class="col-tick"></td>
             </tr>
             <tr class="row-optional">
+              <td><span class="fname">Icon</span></td>
+              <td><span class="fdesc">A visual icon to represent this product group in the interface. Selected from a dropdown of available icons. Useful for quick visual identification when scanning product or order lists.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+            <tr class="row-optional">
               <td><span class="fname">Attributes</span></td>
               <td><span class="fdesc">Custom attributes shared by all products in this group. Used for matching and filtering in the Planner.</span></td>
               <td class="col-tick"></td>
@@ -642,56 +648,42 @@
       <!-- ── ADDING A PRODUCT GROUP ── -->
       <section id="adding-product-group">
         <p class="section-label">Adding a Product Group</p>
-        <p class="section-intro">Follow these steps to create a new Product Group in Data Manager. Set up your Product Groups before adding products so you can assign products to groups during setup.</p>
+        <p class="section-intro">Set up your Product Groups before adding products so you can assign products to groups during initial setup.</p>
 
         <ol class="task-steps">
           <li>
             <div class="step-num">1</div>
             <div class="step-body">
               <p class="step-title">Open Data Manager and go to Product Groups</p>
-              <p class="step-detail">From the main navigation, open <strong>Data Manager</strong>. Select <strong>Product Groups</strong> from the entity list on the left.</p>
+              <p class="step-detail">From the main navigation, open <strong>Data Manager</strong>. Select <strong>Product Groups</strong> from the entity list on the left. Click <strong>Add</strong> in the toolbar.</p>
             </div>
           </li>
           <li>
             <div class="step-num">2</div>
             <div class="step-body">
-              <p class="step-title">Click Add</p>
-              <p class="step-detail">Click the <strong>Add</strong> button in the toolbar. The new Product Group form will open.</p>
+              <p class="step-title">Basic Info — enter a name</p>
+              <p class="step-detail">Enter the group <strong>Name</strong> (required) — something that clearly describes the category, for example <strong>Frozen Goods</strong>, <strong>Bulk Liquids</strong>, or <strong>Hazardous Materials</strong>. The ID is auto-generated. Add an External ID and Description if needed.</p>
             </div>
           </li>
           <li>
             <div class="step-num">3</div>
             <div class="step-body">
-              <p class="step-title">Enter a name that clearly describes the category</p>
-              <p class="step-detail">Give the group a clear, descriptive name — for example, <strong>Frozen Goods</strong>, <strong>Bulk Liquids</strong>, or <strong>Hazardous Materials</strong>. The name appears in product records and in Planner filtering, so clarity helps.</p>
+              <p class="step-title">Specification — select an Icon and add shared Attributes</p>
+              <p class="step-detail">Optionally select an <strong>Icon</strong> from the dropdown to visually identify this group in the interface. Add any <strong>Attributes</strong> that should be inherited by all products in this group — for example, a <em>frozen_goods_product</em> or <em>Hazardous</em> attribute used for matching in the Planner. If this is a catch-weight or bulk product category, also set the <strong>Variance Tolerance</strong> — choose a Kind (Value or Percentage) and set the acceptable Under and Over amounts.</p>
             </div>
           </li>
           <li>
             <div class="step-num">4</div>
             <div class="step-body">
-              <p class="step-title">Add restrictions if applicable</p>
-              <p class="step-detail">If only certain vehicle types or site types can handle this product category, add the appropriate restrictions here. For example, if only refrigerated vehicles can carry products in this group, set a vehicle restriction to match vehicles with a "refrigerated" attribute. Restrictions are defined as attribute rules.</p>
+              <p class="step-title">Attribute Rules — restrict which vehicles or sites can handle this group</p>
+              <p class="step-detail">If only certain vehicle types or site types can handle products in this group, add the relevant <strong>Attribute Rules</strong> here. For example, if only refrigerated vehicles can carry frozen goods, set a rule that matches vehicles with a "refrigerated" attribute. Leave this tab blank if there are no handling restrictions.</p>
             </div>
           </li>
           <li>
             <div class="step-num">5</div>
             <div class="step-body">
-              <p class="step-title">Add shared attributes if applicable</p>
-              <p class="step-detail">If all products in this group share a set of attributes — for example, a "hazmat" flag used for matching — add those attributes here. Products in the group will inherit them automatically.</p>
-            </div>
-          </li>
-          <li>
-            <div class="step-num">6</div>
-            <div class="step-body">
-              <p class="step-title">Set a Variance Tolerance if this is a catch-weight or bulk product type</p>
-              <p class="step-detail">If delivered quantities for this type of product typically vary from ordered quantities — for example, bulk products sold by approximate weight — set a <strong>Variance Tolerance</strong>. Choose a <strong>Kind</strong> (Value or Percentage), then set the acceptable <strong>Under</strong> and <strong>Over</strong> amounts. Leave Kind as None if exact quantities are always expected.</p>
-            </div>
-          </li>
-          <li>
-            <div class="step-num">7</div>
-            <div class="step-body">
-              <p class="step-title">Save</p>
-              <p class="step-detail">Click <strong>Save</strong>. The Product Group is now available to assign to products.</p>
+              <p class="step-title">Click Commit</p>
+              <p class="step-detail">Click <strong>Commit</strong>. The Product Group is now available to assign to products.</p>
             </div>
           </li>
         </ol>
@@ -700,77 +692,56 @@
       <!-- ── ADDING A PRODUCT ── -->
       <section id="adding-product">
         <p class="section-label">Adding a Product</p>
-        <p class="section-intro">Follow these steps to add a new Product in Data Manager. Set up your Product Groups first so you can assign the product to a group during this process.</p>
+        <p class="section-intro">Set up your Product Groups first so you can assign the product to a group during this process.</p>
 
         <ol class="task-steps">
           <li>
             <div class="step-num">1</div>
             <div class="step-body">
               <p class="step-title">Open Data Manager and go to Products</p>
-              <p class="step-detail">From the main navigation, open <strong>Data Manager</strong>. Select <strong>Products</strong> from the entity list on the left.</p>
+              <p class="step-detail">From the main navigation, open <strong>Data Manager</strong>. Select <strong>Products</strong> from the entity list on the left. Click <strong>Add</strong> in the toolbar.</p>
             </div>
           </li>
           <li>
             <div class="step-num">2</div>
             <div class="step-body">
-              <p class="step-title">Click Add</p>
-              <p class="step-detail">Click the <strong>Add</strong> button in the toolbar. The new Product form will open.</p>
+              <p class="step-title">Basic Info — enter the product name</p>
+              <p class="step-detail">Enter the product <strong>Name</strong> (required). The ID is auto-generated. Add a Description if needed.</p>
             </div>
           </li>
           <li>
             <div class="step-num">3</div>
             <div class="step-body">
-              <p class="step-title">Enter the product name and code</p>
-              <p class="step-detail">Enter the product's display <strong>Name</strong> and a unique <strong>Code</strong>. The code is used in imports and order integrations, so it must match whatever identifier your order management system uses for this product.</p>
+              <p class="step-title">Specification → Links — assign Product Groups</p>
+              <p class="step-detail">Select the <strong>Product Group</strong> or groups this product belongs to using the multi-select dropdown. A product can belong to more than one group — for example, a product that is both frozen and hazardous should be assigned to both groups simultaneously. If no group applies, leave this blank (but the product will not inherit any shared restrictions or attributes).</p>
             </div>
           </li>
           <li>
             <div class="step-num">4</div>
             <div class="step-body">
-              <p class="step-title">Assign the product to one or more Product Groups</p>
-              <p class="step-detail">Select the Product Group or groups this product belongs to. A product can belong to multiple groups — for example, a product that is both frozen and hazardous should be assigned to both the <strong>Frozen Goods</strong> and <strong>Hazardous Materials</strong> groups. If no group applies, you can leave this blank, but the product will not inherit any shared restrictions or attributes.</p>
+              <p class="step-title">Specification → Size — add dimension values</p>
+              <p class="step-detail">Click the <strong>+</strong> button to add dimension rows. For each row, select the <strong>Dimension</strong> from the dropdown (the available dimensions match those configured in Settings — for example, weight, length, width, height), choose the <strong>Value Type</strong>, and enter the <strong>Value</strong>. Add one row per dimension you need to track for this product. Weight is the most important for capacity planning; length, width, and height are required for the 3D Visualiser.</p>
             </div>
           </li>
           <li>
             <div class="step-num">5</div>
             <div class="step-body">
-              <p class="step-title">Enter the weight</p>
-              <p class="step-detail">Enter the weight of one unit of this product. The Planner uses this figure to check whether a vehicle's weight capacity is exceeded by a given load. Accurate weights are essential for reliable capacity planning.</p>
+              <p class="step-title">Specification → Loading Rate — set loading and offloading times</p>
+              <p class="step-detail">Select the <strong>Dimension Name</strong> from the dropdown — this identifies which unit dimension is the basis for loading time calculations (for example, the weight dimension). Enter the <strong>Loading seconds per unit</strong> and <strong>Off-loading seconds per unit</strong>. Leave at zero if loading time for this product does not differ from your other products.</p>
             </div>
           </li>
           <li>
             <div class="step-num">6</div>
             <div class="step-body">
-              <p class="step-title">Enter the volume if applicable</p>
-              <p class="step-detail">If your operation plans against volume limits (cubic metres), enter the volume per unit here. If your vehicles are only capacity-limited by weight or units, you can leave volume blank.</p>
+              <p class="step-title">Specification → Stackability — set stacking rules</p>
+              <p class="step-detail">Tick <strong>Stacking Disabled</strong> if nothing can be placed on top of this product. Leave unticked if stacking is permitted. The 3D Visualiser uses this setting when building a load plan.</p>
             </div>
           </li>
           <li>
             <div class="step-num">7</div>
             <div class="step-body">
-              <p class="step-title">Enter physical dimensions if using the 3D Visualiser</p>
-              <p class="step-detail">If your Tramm environment uses the 3D load visualiser, enter the product's <strong>Length</strong>, <strong>Width</strong>, and <strong>Height</strong>. These are required for the visualiser to draw the product in a load plan. If you are not using the 3D Visualiser, you can skip this step — though entering dimensions is good practice for future use.</p>
-            </div>
-          </li>
-          <li>
-            <div class="step-num">8</div>
-            <div class="step-body">
-              <p class="step-title">Set the Loading Rate if this product has a different loading speed</p>
-              <p class="step-detail">If this product takes significantly longer — or shorter — to load or offload than your other products, enter the <strong>Loading Rate</strong> in seconds per unit. This affects how the Planner calculates stop duration. If you leave this blank, the vehicle class or site loading rate will be used as the default.</p>
-            </div>
-          </li>
-          <li>
-            <div class="step-num">9</div>
-            <div class="step-body">
-              <p class="step-title">Configure Stackability if needed</p>
-              <p class="step-detail">If nothing can be placed on top of this product, set <strong>IsDisabled</strong> to prevent stacking entirely. If stacking is allowed but limited, define the maximum surface loads per orientation — <strong>Upright</strong>, <strong>LengthWise</strong>, and <strong>WidthWise</strong> — with the maximum load weight for each. The 3D Visualiser uses these settings when building a load plan. If stacking is unrestricted, you can leave this section blank.</p>
-            </div>
-          </li>
-          <li>
-            <div class="step-num">10</div>
-            <div class="step-body">
-              <p class="step-title">Save</p>
-              <p class="step-detail">Click <strong>Save</strong>. The product is now available in the Planner and can be referenced in orders and load plans.</p>
+              <p class="step-title">Click Commit</p>
+              <p class="step-detail">Click <strong>Commit</strong>. The product is now available in the Planner and can be referenced in orders and load plans.</p>
             </div>
           </li>
         </ol>

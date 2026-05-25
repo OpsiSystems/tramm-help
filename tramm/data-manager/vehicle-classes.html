@@ -782,64 +782,84 @@
         <p class="section-label">Adding a Vehicle Class</p>
         <p class="section-intro">Follow these steps to create a new Vehicle Class in Data Manager. Set up all your Vehicle Classes before adding individual vehicles.</p>
 
+        <p class="body-text">The Add a VehicleClass form is organised into tabs. Work through them in order:</p>
+
         <ol class="task-steps">
           <li>
             <div class="step-num">1</div>
             <div class="step-body">
-              <p class="step-title">Open Data Manager and go to Vehicle Classes</p>
-              <p class="step-detail">From the main navigation, open <strong>Data Manager</strong>. Select <strong>Vehicle Classes</strong> from the entity list on the left.</p>
+              <div class="step-title">Open Data Manager → Vehicle Classes, then click Add</div>
+              <div class="step-detail">The form opens on the <strong>Basic Info</strong> tab.</div>
             </div>
           </li>
           <li>
             <div class="step-num">2</div>
             <div class="step-body">
-              <p class="step-title">Click Add</p>
-              <p class="step-detail">Click the <strong>Add</strong> button in the toolbar. The new Vehicle Class form will open.</p>
+              <div class="step-title">Basic Info — enter the identity details</div>
+              <div class="step-detail">Enter a <strong>Name</strong> (required). The ID is auto-generated — leave it unless you have a specific code to use. Add an External ID if you need to match this class to a record in another system. Add a Description if it helps distinguish this class from others. Assign a Group if you use groups to organise your vehicle classes.</div>
             </div>
           </li>
-        </ol>
-
-        <ol class="task-steps" style="margin-top:0.5rem;" start="3">
           <li>
             <div class="step-num">3</div>
             <div class="step-body">
-              <p class="step-title">Enter a name and select the vehicle type</p>
-              <p class="step-detail">Give the class a clear, descriptive name — for example, <strong>10T Rigid</strong> or <strong>Refrigerated Van</strong>. Select the appropriate <strong>Type</strong> from the dropdown (for example, Truck, Van, or Motorbike).</p>
+              <div class="step-title">Specification — Type</div>
+              <div class="step-detail">Select the vehicle type: <strong>Rigid</strong> (fixed cab and body) or <strong>Horse</strong> (truck-tractor that pulls interchangeable trailers). Defaults to None if left unset.</div>
             </div>
           </li>
           <li>
             <div class="step-num">4</div>
             <div class="step-body">
-              <p class="step-title">Set the capacity</p>
-              <p class="step-detail">Enter the vehicle's carrying capacity. You can set <strong>weight</strong>, <strong>volume</strong>, and <strong>units</strong> independently — set whichever measures your operation uses. The Planner enforces every limit you set, so if you set both weight and volume, a load is rejected if it exceeds either limit. If you only plan by weight, leave volume and units blank.</p>
+              <div class="step-title">Specification — Capacity</div>
+              <div class="step-detail">Set the load capacity — weight, volume, and/or units depending on what you plan in. This is what the Planner checks against when assigning jobs to trips.</div>
             </div>
           </li>
           <li>
             <div class="step-num">5</div>
             <div class="step-body">
-              <p class="step-title">Set physical dimensions (if using the 3D Visualiser)</p>
-              <p class="step-detail">If your Tramm environment uses the 3D load visualiser, enter the vehicle's <strong>Length</strong>, <strong>Width</strong>, and <strong>Height</strong>. These are required for the visualiser to render the vehicle correctly. Mass is optional but useful for gross vehicle mass calculations. If you are not using the 3D Visualiser, you can skip this step.</p>
+              <div class="step-title">Specification — Physical Size</div>
+              <div class="step-detail">Set the physical dimensions: Length, Width, Height, and Mass. <strong>Required if you use the 3D Visualiser</strong> in the Planner — without these, the visualiser cannot represent the vehicle correctly.</div>
             </div>
           </li>
           <li>
             <div class="step-num">6</div>
             <div class="step-body">
-              <p class="step-title">Assign a Routing Class</p>
-              <p class="step-detail">Select the <strong>Routing Class</strong> that best matches this vehicle type. The Routing Class controls how the Planner calculates travel times and routes — for example, heavy vehicles may be restricted from certain roads or have lower average speeds. If your fleet is standard and no specialist routing is needed, you may leave this blank and the system will use the Default routing profile.</p>
+              <div class="step-title">Specification — Routing Class</div>
+              <div class="step-detail">Select the Routing Class that matches this vehicle type (e.g. the profile for standard road vehicles vs. heavy vehicles). Falls back to the Default routing class if left blank.</div>
             </div>
           </li>
           <li>
             <div class="step-num">7</div>
             <div class="step-body">
-              <p class="step-title">Set operating hours (if different from company defaults)</p>
-              <p class="step-detail">If vehicles of this class have specific availability windows — for example, they only operate 06:00–14:00 — enter those hours here. If the class follows the same hours as the rest of your operation, you can leave this blank and configure operating hours at the company or site level instead.</p>
+              <div class="step-title">Specification — Costing (Transact Extension only)</div>
+              <div class="step-detail">Set Fixed, Time, and Distance cost rates if your organisation uses Tramm for trip costing. Leave all at 0 if you do not use the Transact Extension.</div>
             </div>
           </li>
           <li>
             <div class="step-num">8</div>
             <div class="step-body">
-              <p class="step-title">Save</p>
-              <p class="step-detail">Click <strong>Save</strong> (or <strong>Commit</strong> depending on your form layout). The Vehicle Class is now available in the Planner and can be referenced when adding individual vehicles.</p>
+              <div class="step-title">Specification — Attributes</div>
+              <div class="step-detail">Add any attributes that should apply to all vehicles of this class — used for matching and filtering in the Planner. Leave empty if not applicable.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">9</div>
+            <div class="step-body">
+              <div class="step-title">Operating Hours tab</div>
+              <div class="step-detail">Set the default operating hours for this class — select the days and time slots. Individual vehicles can override these if needed.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">10</div>
+            <div class="step-body">
+              <div class="step-title">Attribute Rules tab</div>
+              <div class="step-detail">Add restrictions if vehicles of this class have specific requirements — for example, if they can only carry certain product types or can only visit certain site types. Each rule specifies an Entity Type, Attribute Name, Operator, and Value.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">11</div>
+            <div class="step-body">
+              <div class="step-title">Click Commit</div>
+              <div class="step-detail">Saves the Vehicle Class. Close returns without saving.</div>
             </div>
           </li>
         </ol>
@@ -850,64 +870,63 @@
         <p class="section-label">Adding a Vehicle</p>
         <p class="section-intro">Follow these steps to add an individual vehicle record. Remember — individual vehicles are optional. You only need them if you want to allocate named vehicles to trips, track specific units, or assign operators by vehicle.</p>
 
+        <p class="body-text">The Add a Vehicle form is also tab-based. Most vehicles only need Basic Info and Default Operators filled in — the rest is optional.</p>
+
         <ol class="task-steps">
           <li>
             <div class="step-num">1</div>
             <div class="step-body">
-              <p class="step-title">Open Data Manager and go to Vehicles</p>
-              <p class="step-detail">From the main navigation, open <strong>Data Manager</strong>. Select <strong>Vehicles</strong> from the entity list.</p>
+              <div class="step-title">Open Data Manager → Vehicles, then click Add</div>
+              <div class="step-detail">The form opens on the <strong>Basic Info</strong> tab.</div>
             </div>
           </li>
           <li>
             <div class="step-num">2</div>
             <div class="step-body">
-              <p class="step-title">Click Add</p>
-              <p class="step-detail">Click the <strong>Add</strong> button in the toolbar to open the new Vehicle form.</p>
+              <div class="step-title">Basic Info — enter the identity details</div>
+              <div class="step-detail">Enter the vehicle <strong>Name</strong> (typically the registration number or fleet number). Select the <strong>Vehicle Class</strong> — this is required and sets all the inherited specifications. Set the Home Site (the depot this vehicle returns to at the end of a trip). Add a Description if helpful.</div>
             </div>
           </li>
           <li>
             <div class="step-num">3</div>
             <div class="step-body">
-              <p class="step-title">Select a Vehicle Class</p>
-              <p class="step-detail">This is the only required field. Select the <strong>Vehicle Class</strong> this vehicle belongs to. This determines the vehicle's capacity, physical dimensions, costing, and routing profile. Make sure the correct Vehicle Classes are set up before adding vehicles.</p>
+              <div class="step-title">Specification — Trailers</div>
+              <div class="step-detail">Assign default trailers to this vehicle if it typically pulls the same trailer(s). These will be pre-selected when the vehicle is allocated to a trip. Leave empty if trailers are assigned manually at trip time.</div>
             </div>
           </li>
-        </ol>
-
-        <ol class="task-steps" style="margin-top:0.5rem;" start="4">
           <li>
             <div class="step-num">4</div>
             <div class="step-body">
-              <p class="step-title">Enter the registration or identifier</p>
-              <p class="step-detail">Enter the vehicle's registration plate or an internal code. This is the label used to identify this vehicle in the Planner and Execution Manager.</p>
+              <div class="step-title">Specification — Efficiency</div>
+              <div class="step-detail">Set the fuel efficiency for this specific vehicle only if it differs from the Vehicle Class default. Leave blank to inherit the class efficiency.</div>
             </div>
           </li>
           <li>
             <div class="step-num">5</div>
             <div class="step-body">
-              <p class="step-title">Set the home site (if applicable)</p>
-              <p class="step-detail">Select the depot or warehouse this vehicle is based at. If the vehicle operates from a single site, setting the home site lets the Planner use it as the vehicle's default start and end location.</p>
+              <div class="step-title">Specification — Regulatory Permits</div>
+              <div class="step-detail">Add any regulatory permits that apply to this specific vehicle — for example, hazardous goods permits or oversize load permits. These are used by the Planner to check route and job eligibility.</div>
             </div>
           </li>
           <li>
             <div class="step-num">6</div>
             <div class="step-body">
-              <p class="step-title">Assign default operators or trailers (if applicable)</p>
-              <p class="step-detail">If a specific driver is normally assigned to this vehicle, add them as a <strong>Default Operator</strong>. If a trailer is normally attached, add it as a <strong>Default Trailer</strong>. These defaults speed up trip allocation but can always be changed when building a trip.</p>
+              <div class="step-title">Default Operators tab</div>
+              <div class="step-detail">Assign the default driver(s) or operator(s) for this vehicle. These will be pre-selected when the vehicle is allocated to a trip. Search and select from the operators already set up in Data Manager.</div>
             </div>
           </li>
           <li>
             <div class="step-num">7</div>
             <div class="step-body">
-              <p class="step-title">Override operating hours only if needed</p>
-              <p class="step-detail">Leave this blank unless this specific vehicle has different availability from the rest of its class. If you set operating hours here, they will override the class-level hours for this vehicle only. In most cases, operating hours should be set at the class level rather than on individual vehicles.</p>
+              <div class="step-title">Operating Hours tab</div>
+              <div class="step-detail">Override the operating hours only if this vehicle's availability differs from the Vehicle Class default — for example, a vehicle that only operates certain days. Leave blank to inherit the class operating hours.</div>
             </div>
           </li>
           <li>
             <div class="step-num">8</div>
             <div class="step-body">
-              <p class="step-title">Save</p>
-              <p class="step-detail">Click <strong>Save</strong>. The vehicle is now available for allocation in the Planner and Execution Manager.</p>
+              <div class="step-title">Click Commit</div>
+              <div class="step-detail">Saves the Vehicle record. The vehicle is now available for allocation in the Planner.</div>
             </div>
           </li>
         </ol>

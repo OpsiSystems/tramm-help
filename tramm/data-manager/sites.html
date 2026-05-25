@@ -635,6 +635,13 @@
               <td class="col-tick"></td>
             </tr>
             <tr class="row-optional">
+              <td><span class="fname">Linked Vehicle Classes</span></td>
+              <td><span class="fdesc">The Vehicle Classes permitted to service this site. Only vehicles belonging to these classes will be considered for stops at this site during planning. Leave blank to allow all vehicle classes.</span></td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+              <td class="col-tick"></td>
+            </tr>
+            <tr class="row-optional">
               <td><span class="fname">Client</span></td>
               <td><span class="fdesc">Link this site to a specific client if it is a client-dedicated location (e.g. a customer's warehouse).</span></td>
               <td class="col-tick"></td>
@@ -698,13 +705,13 @@
         <p class="section-intro">Create Site Classes before adding sites. Even if you start with only one class, the class concept makes it easy to update shared settings across many sites later.</p>
 
         <ol class="steps-list">
-          <li>Open <strong>Data Manager</strong> and select <strong>Site Classes</strong> from the navigation.</li>
-          <li>Click <strong>Add</strong> in the toolbar.</li>
-          <li>Enter a name that describes the type of site — for example, <em>Retail Delivery</em>, <em>Distribution Centre</em>, or <em>Crossdock</em>.</li>
-          <li>Set <strong>Operating Hours</strong> for this class — the default hours during which sites of this type are accessible.</li>
-          <li>Set <strong>Entry Duration</strong> and <strong>Exit Duration</strong> — the time it typically takes to arrive at and depart from sites in this class.</li>
-          <li>Add any shared <strong>Attributes</strong> or <strong>Restrictions</strong> if applicable to all sites in this class.</li>
-          <li>Click <strong>Save</strong>.</li>
+          <li>Open <strong>Data Manager</strong> and select <strong>Site Classes</strong> from the navigation. Click <strong>Add</strong> in the toolbar.</li>
+          <li><strong>Basic Info</strong> tab: Enter the class <strong>Name</strong> — something that describes the type of site it represents, for example <em>Retail Delivery</em>, <em>Distribution Centre</em>, or <em>Crossdock</em>. The ID is auto-generated. Add an External ID and Description if needed.</li>
+          <li><strong>Specification → Entry/Exit Duration</strong>: Set the default <strong>Entry Duration</strong> and <strong>Exit Duration</strong> in hours and minutes. These are the typical dwell times for arrival and departure at sites of this class — every site in the class will inherit these values unless overridden on the individual site.</li>
+          <li><strong>Specification → Attributes</strong>: Add any shared attributes that all sites in this class should carry automatically. Leave blank if no shared attributes are needed at this stage.</li>
+          <li><strong>Operating Hours</strong> tab: Set the default operating days and time windows for sites of this class.</li>
+          <li><strong>Attribute Rules</strong> tab: Add attribute rules if needed — for example, to restrict which vehicle types or product types can service sites in this class.</li>
+          <li>Click <strong>Commit</strong>.</li>
         </ol>
 
       </section>
@@ -712,20 +719,24 @@
       <!-- ADDING A SITE -->
       <section id="adding-a-site">
         <p class="section-label">Adding a Site</p>
-        <p class="section-intro">Before adding sites, make sure your Site Classes are already set up. The Site Class selection is one of the first fields in the form and sets several defaults for the rest of the form.</p>
+        <p class="section-intro">Before adding sites, make sure your Site Classes are already set up. The Site Class is selected in the first Specification sub-section and sets several defaults for the site.</p>
 
         <ol class="steps-list">
-          <li>Open <strong>Data Manager</strong> and select <strong>Sites</strong> from the navigation.</li>
-          <li>Click <strong>Add</strong> in the toolbar.</li>
-          <li>Enter the <strong>site name</strong> and, if used, a short <strong>code</strong>.</li>
-          <li>Select the <strong>Site Class</strong>. This sets the default operating hours, entry duration, and exit duration for the site.</li>
-          <li>Select the <strong>site type</strong> if applicable.</li>
-          <li>Enter the <strong>Location</strong> — address and GPS coordinates. Coordinates are used for route calculations and for automatically assigning the site to the correct Region.</li>
-          <li>Override <strong>Operating Hours</strong>, <strong>Entry Duration</strong>, or <strong>Exit Duration</strong> only if this site differs from its class defaults. Leave these at zero or blank to inherit from the class.</li>
-          <li>Assign <strong>Region(s)</strong> if not using automatic region assignment from GPS coordinates.</li>
-          <li>Link a <strong>Client</strong> if this is a client-specific site.</li>
-          <li>Add <strong>Contact Info</strong> and any operational <strong>Instructions</strong> for drivers or planners.</li>
-          <li>Click <strong>Save</strong>.</li>
+          <li>Open <strong>Data Manager</strong> and select <strong>Sites</strong> from the navigation. Click <strong>Add</strong> in the toolbar.</li>
+          <li><strong>Basic Info</strong> tab: Enter the site <strong>Name</strong> (required). The ID is auto-generated.</li>
+          <li><strong>Specification → Links</strong>: Select the <strong>Site Class</strong> (required). This sets the default operating hours, entry/exit durations, and attribute rules for the site. Optionally link a <strong>Client</strong> if this is a client-specific location.</li>
+          <li><strong>Specification → Type</strong>: Select the site type if applicable — for example, <em>Depot</em>, <em>Customer</em>, or <em>Crossdock</em>. Types are configured in Entity Types.</li>
+          <li><strong>Specification → Instructions</strong>: Add any operational notes — access codes, delivery instructions, or special requirements for drivers or planners.</li>
+          <li><strong>Specification → Location</strong>: The <strong>Auto Allocate To Region</strong> checkbox is on by default — leave it checked to have the system assign the site to a Region automatically. Use the <strong>Location Ref</strong> chooser to link to an existing Location record if one already exists in the system.</li>
+          <li><strong>Specification → Region Allocation</strong>: If you are not using automatic region allocation, manually assign the site to one or more Regions here.</li>
+          <li><strong>Specification → Linked Vehicle Classes</strong>: Link the Vehicle Classes permitted to service this site. Only vehicles in these classes will be considered for stops here during planning. Leave blank to allow all classes.</li>
+          <li><strong>Specification → Durations</strong>: Override the <strong>Entry Duration</strong> or <strong>Exit Duration</strong> only if this specific site's dwell time differs from its Site Class default. Leave at zero to inherit from the class.</li>
+          <li><strong>Specification → Loading Rate</strong>: Override the loading rate if this site handles goods at a different rate from the class or product default.</li>
+          <li><strong>Specification → Attributes</strong>: Add any site-specific attributes not already inherited from the Site Class.</li>
+          <li><strong>Operating Hours</strong> tab: Override the operating hours only if this site's hours differ from its Site Class. Leave blank to inherit from the class.</li>
+          <li><strong>Contact Info</strong> tab: Add the site contact details — contact name, type, and details.</li>
+          <li><strong>Attribute Rules</strong> tab: Add any site-specific attribute rules if needed.</li>
+          <li>Click <strong>Commit</strong>.</li>
         </ol>
 
       </section>

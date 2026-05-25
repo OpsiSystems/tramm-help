@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Data Manager — OPSI Docs</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-300: #93c5fd;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+      --amber-700: #b45309;
+      --teal-50:  #f0fdfa;
+      --teal-100: #ccfbf1;
+      --teal-600: #0d9488;
+      --teal-700: #0f766e;
+      --purple-50:  #faf5ff;
+      --purple-100: #f3e8ff;
+      --purple-600: #9333ea;
+      --purple-700: #7e22ce;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 2.25rem;
+    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── LEFT NAV ── */
+    .side-nav {
+      position: sticky;
+      top: 2rem;
+    }
+    .side-nav-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--slate-400);
+      margin-bottom: 0.6rem;
+    }
+    .side-nav ul { list-style: none; }
+    .side-nav > ul > li { margin-bottom: 0.1rem; }
+    .side-nav a {
+      display: block;
+      font-size: 0.825rem;
+      color: var(--slate-600);
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.3rem;
+      transition: background 0.15s, color 0.15s;
+      border-left: 2px solid transparent;
+    }
+    .side-nav a:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+    }
+    .side-nav .nav-divider {
+      border: none;
+      border-top: 1px solid var(--slate-200);
+      margin: 0.6rem 0;
+    }
+
+    /* ── CONTENT ── */
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2.75rem;
+      min-width: 0;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--slate-800);
+      border-left: 4px solid var(--blue-600);
+      padding-left: 0.75rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-intro {
+      font-size: 0.925rem;
+      color: var(--slate-600);
+      margin-bottom: 1.25rem;
+      line-height: 1.65;
+    }
+    .section-intro a { color: var(--blue-700); }
+    .section-intro a:hover { text-decoration: underline; }
+
+    /* ── BODY TEXT ── */
+    .body-text {
+      font-size: 0.9rem;
+      color: var(--slate-700);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .body-text a { color: var(--blue-700); }
+    .body-text a:hover { text-decoration: underline; }
+    .body-text + .body-text { margin-top: 0; }
+
+    /* ── SECTION HEADING (h2 within content) ── */
+    .content-h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+      margin-bottom: 1.25rem;
+    }
+    .callout svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+    }
+    .callout p { line-height: 1.55; }
+    .callout a { color: var(--blue-700); }
+    .callout a:hover { text-decoration: underline; }
+    .callout-blue {
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+    }
+    .callout-blue svg { color: var(--blue-600); }
+    .callout-green {
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+    }
+    .callout-green svg { color: var(--green-700); }
+    .callout-amber {
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+    }
+    .callout-amber svg { color: var(--amber-600); }
+
+    /* ── TASK STEPS ── */
+    .task-steps {
+      list-style: none;
+      counter-reset: step-counter;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .task-steps li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .task-steps li:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 1.6rem;
+      height: 1.6rem;
+      background: var(--blue-700);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15rem;
+    }
+    .step-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .step-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.25rem;
+    }
+    .step-detail {
+      font-size: 0.845rem;
+      color: var(--slate-600);
+      line-height: 1.55;
+    }
+    .step-detail a { color: var(--blue-700); }
+    .step-detail strong { color: var(--slate-800); }
+
+    /* ── REFERENCE TABLE ── */
+    .ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.855rem;
+      margin-bottom: 1.5rem;
+    }
+    .ref-table thead th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      padding: 0 0.75rem 0.5rem;
+      border-bottom: 2px solid var(--slate-200);
+    }
+    .ref-table tbody tr {
+      border-bottom: 1px solid var(--slate-100);
+      transition: background 0.1s;
+    }
+    .ref-table tbody tr:last-child { border-bottom: none; }
+    .ref-table tbody tr:hover { background: var(--slate-50); }
+    .ref-table tbody tr:nth-child(even) { background: var(--slate-50); }
+    .ref-table tbody tr:nth-child(even):hover { background: var(--slate-100); }
+    .ref-table td {
+      padding: 0.55rem 0.75rem;
+      vertical-align: top;
+    }
+    .ref-table .col-name {
+      font-weight: 700;
+      color: var(--slate-900);
+      font-size: 0.875rem;
+      white-space: nowrap;
+    }
+    .ref-table .col-mono {
+      font-family: 'Consolas', 'Menlo', monospace;
+      font-weight: 700;
+      color: var(--blue-700);
+      font-size: 0.835rem;
+      white-space: nowrap;
+    }
+    .ref-table .col-desc {
+      font-size: 0.83rem;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+
+    /* ── WHERE TO NEXT CARDS ── */
+    .next-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.85rem;
+    }
+    .next-card {
+      border: 1px solid var(--slate-200);
+      border-radius: 0.6rem;
+      padding: 1.1rem 1.25rem;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .next-card:hover {
+      border-color: var(--blue-200);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+    }
+    .next-card h4 {
+      font-size: 0.875rem; font-weight: 700; color: var(--blue-700);
+      margin-bottom: 0.3rem;
+    }
+    .next-card p {
+      font-size: 0.8rem; color: var(--slate-500); line-height: 1.45;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .side-nav { position: static; border-bottom: 1px solid var(--slate-200); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+      .site-header h1 { font-size: 1.4rem; }
+      .ref-table thead { display: none; }
+      .ref-table td { display: block; padding: 0.4rem 0.75rem; }
+      .ref-table tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="../../index.html">OPSI Docs</a>
+        <span>&rsaquo;</span>
+        <a href="../index.html">Tramm</a>
+        <span>&rsaquo;</span>
+        <a href="index.html">Data Manager</a>
+        <span>&rsaquo;</span>
+        Settings
+      </div>
+      <h1>Settings</h1>
+      <p class="subtitle">Configure dimensions, routing classes, and user preferences before setting up Data Manager.</p>
+    </div>
+  </header>
+
+  <div class="page-layout">
+
+    <!-- LEFT NAVIGATION -->
+    <nav class="side-nav">
+      <p class="side-nav-label">On this page</p>
+      <ul>
+        <li><a href="#why-first">Why Settings First</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#dimensions">Dimensions</a></li>
+        <li><a href="#routing-classes">Routing Classes</a></li>
+        <li><a href="#entity-types">Entity Types</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#user-preferences">User Preferences</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#where-next">Where to Next</a></li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="page-content">
+
+      <!-- ── WHY SETTINGS FIRST ── -->
+      <section id="why-first">
+        <p class="section-label">Why Settings First</p>
+        <p class="body-text">Before you add vehicles, sites, or products in Data Manager, Settings needs to have the building blocks in place. Two things in particular must be set up first: Dimensions (which define how weight, volume, and size are measured in your system) and Routing Classes (which define the routing profiles used when the Planner calculates routes). Without these, vehicle classes and the planning engine cannot function correctly.</p>
+        <p class="body-text">Most settings in Tramm are organisation-wide — configured once and shared across all users. A few preferences are per-user, meaning each user can set their own preference without affecting others.</p>
+      </section>
+
+      <!-- ── DIMENSIONS ── -->
+      <section id="dimensions">
+        <p class="section-label">Dimensions</p>
+        <p class="section-intro">Dimensions define the units of measurement used throughout Tramm for capacity and size. They are configured in <strong>Settings &rarr; Definitions &rarr; Dimensions</strong>. Every capacity figure on a Vehicle Class, every size figure on a Product, and every load calculation in the Planner references a Dimension.</p>
+
+        <table class="ref-table">
+          <thead>
+            <tr>
+              <th style="width:14%">Dimension</th>
+              <th style="width:28%">What it measures</th>
+              <th style="width:18%">Typical unit</th>
+              <th>Used by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="col-mono">weight</span></td>
+              <td><span class="col-desc">The mass of goods</span></td>
+              <td><span class="col-desc">kg</span></td>
+              <td><span class="col-desc">Vehicle capacity, Product size, Load calculations</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-mono">volume</span></td>
+              <td><span class="col-desc">The space goods occupy</span></td>
+              <td><span class="col-desc">m&sup3; or L</span></td>
+              <td><span class="col-desc">Vehicle capacity, Product size</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-mono">units</span></td>
+              <td><span class="col-desc">The count of items</span></td>
+              <td><span class="col-desc">pcs / cartons / pallets</span></td>
+              <td><span class="col-desc">Job quantity, Vehicle capacity</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-mono">length</span></td>
+              <td><span class="col-desc">Physical length</span></td>
+              <td><span class="col-desc">m</span></td>
+              <td><span class="col-desc">Vehicle Physical Size, Product size (3D Visualiser)</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-mono">width</span></td>
+              <td><span class="col-desc">Physical width</span></td>
+              <td><span class="col-desc">m</span></td>
+              <td><span class="col-desc">Vehicle Physical Size, Product size (3D Visualiser)</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-mono">height</span></td>
+              <td><span class="col-desc">Physical height</span></td>
+              <td><span class="col-desc">m</span></td>
+              <td><span class="col-desc">Vehicle Physical Size, Product size (3D Visualiser)</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <p>Do not rename the standard dimension IDs (<strong>weight</strong>, <strong>length</strong>, <strong>width</strong>, <strong>height</strong>, <strong>units</strong>). The Planner and 3D Visualiser reference them by these exact IDs. You can change the display name and unit, but not the ID.</p>
+        </div>
+
+        <p class="content-h2">Checking your Dimensions</p>
+        <ol class="task-steps">
+          <li>
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Open Settings &rarr; Definitions &rarr; Dimensions</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Confirm the standard dimensions are present</div>
+              <div class="step-detail">Check that <strong>weight</strong>, <strong>volume</strong> (or equivalent), <strong>units</strong>, <strong>length</strong>, <strong>width</strong>, and <strong>height</strong> are all listed.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">Check that units match your operation</div>
+              <div class="step-detail">For example: kg for weight, m&sup3; for volume. If your operation uses different units, update the unit label on each dimension — not the ID.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Add any missing dimensions</div>
+              <div class="step-detail">If a dimension is missing, click <strong>Add</strong> and set the ID, display name, and unit.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <div class="step-title">Do not change the IDs of existing standard dimensions</div>
+              <div class="step-detail">Renaming an ID (e.g. changing <strong>weight</strong> to something else) will break references in the Planner and 3D Visualiser.</div>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ── ROUTING CLASSES ── -->
+      <section id="routing-classes">
+        <p class="section-label">Routing Classes</p>
+        <p class="section-intro">A Routing Class is a profile that tells the routing engine how to treat vehicles of a particular type when calculating routes and travel times. It defines the vehicle's physical size constraints, speed limits, road restrictions, and other routing behaviour. Each Vehicle Class in Data Manager is assigned a Routing Class.</p>
+
+        <p class="body-text">A Routing Class is not the same as a Vehicle Class. A Vehicle Class describes a type of vehicle (capacity, costing, operating hours); a Routing Class describes how the routing engine should route that type of vehicle (road restrictions, max speed, hazmat constraints).</p>
+
+        <table class="ref-table" style="margin-top:1rem;">
+          <thead>
+            <tr>
+              <th style="width:26%">Field</th>
+              <th>What it controls</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="col-name">Name</span></td>
+              <td><span class="col-desc">Display name — used when assigning to a Vehicle Class (e.g. "Standard Road", "Heavy Vehicle", "Refrigerated")</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Length / Width / Height</span></td>
+              <td><span class="col-desc">Physical size constraints passed to the routing engine. Affects road and bridge restrictions.</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Mass</span></td>
+              <td><span class="col-desc">Total vehicle mass. Affects weight-restricted roads.</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Transport Mode</span></td>
+              <td><span class="col-desc">Road, Rail, or other available modes.</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Max Speed</span></td>
+              <td><span class="col-desc">Maximum travel speed used for time calculations.</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Axle Count</span></td>
+              <td><span class="col-desc">Number of axles — affects road restrictions in some regions.</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Avoid Features</span></td>
+              <td><span class="col-desc">Features to avoid: ferry, tunnel, motorway, toll roads, dirt roads.</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Hazardous Goods Types</span></td>
+              <td><span class="col-desc">Types of hazardous goods this class can carry (e.g. flammable, toxic, explosive).</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Max Trip Duration</span></td>
+              <td><span class="col-desc">Maximum allowed trip duration for this vehicle type.</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Fatigue Rules</span></td>
+              <td><span class="col-desc">Reference to a Fatigue Rule definition (driver rest requirements).</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p>Tramm always falls back to a routing class named <strong>Default</strong> if no routing class is assigned to a Vehicle Class. Make sure a Default routing class exists — it is used by any vehicle class that does not have a specific routing class set.</p>
+        </div>
+
+        <p class="content-h2">Adding a Routing Class</p>
+        <ol class="task-steps">
+          <li>
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Open Settings &rarr; Definitions &rarr; Routing Classes</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Click Add</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">Enter a Name that describes the vehicle type</div>
+              <div class="step-detail">For example: "Standard Road", "Heavy Vehicle — 56 Tonne". Choose a name that will be recognisable when assigning to Vehicle Classes in Data Manager.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Set the physical dimensions</div>
+              <div class="step-detail">Enter <strong>Length</strong>, <strong>Width</strong>, <strong>Height</strong>, and <strong>Mass</strong> to match the maximum size for this vehicle type. These values are passed to the routing engine to enforce road and bridge restrictions.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <div class="step-title">Set Max Speed if applicable</div>
+              <div class="step-detail">Enter the maximum travel speed for this vehicle type. Used by the routing engine to calculate travel times.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <div class="step-title">Select any features to avoid</div>
+              <div class="step-detail">For example: toll roads, tunnels, ferries. The routing engine will route around these features for any vehicle class that uses this profile.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">7</div>
+            <div class="step-body">
+              <div class="step-title">Set Hazardous Goods Types if this class carries hazmat</div>
+              <div class="step-detail">Select the applicable hazmat categories. The routing engine uses this to apply hazmat road restrictions.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">8</div>
+            <div class="step-body">
+              <div class="step-title">Assign Fatigue Rules if driver rest rules apply</div>
+              <div class="step-detail">Select the relevant Fatigue Rule definition. This controls how the planning engine enforces mandatory rest breaks for this vehicle type.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">9</div>
+            <div class="step-body">
+              <div class="step-title">Click Commit</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">10</div>
+            <div class="step-body">
+              <div class="step-title">In Data Manager, assign this Routing Class to the relevant Vehicle Classes</div>
+              <div class="step-detail">Open each Vehicle Class and select this Routing Class in the <strong>Routing Class</strong> field on the Specification tab.</div>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ── ENTITY TYPES ── -->
+      <section id="entity-types">
+        <p class="section-label">Entity Types</p>
+        <p class="section-intro">Entity Types define the custom type labels that appear in the Type dropdown on vehicles, sites, and other entities. They are configured in <strong>Settings &rarr; Definitions &rarr; Entity Types</strong>. Setting up meaningful entity types makes it easier to filter and organise your data in the Planner and other apps.</p>
+
+        <p class="body-text">Examples: for Sites you might define types like Depot, Customer, Crossdock, Port. For Vehicles: Rigid, Horse, Trailer. These are display labels only — they do not affect routing or planning logic.</p>
+        <p class="body-text">Entity Types are optional but recommended before adding large volumes of entities.</p>
+      </section>
+
+      <!-- ── USER PREFERENCES ── -->
+      <section id="user-preferences">
+        <p class="section-label">User Preferences</p>
+        <p class="section-intro">Some settings are personal — each user can configure these themselves without affecting other users.</p>
+
+        <table class="ref-table">
+          <thead>
+            <tr>
+              <th style="width:26%">Preference</th>
+              <th style="width:44%">What it does</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="col-name">Site Address Required</span></td>
+              <td><span class="col-desc">When on, the address fields become required when adding or editing a site. Useful for users who want to enforce complete address data.</span></td>
+              <td><span class="col-desc">Settings &rarr; General &rarr; Preferences</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Date Range Mode</span></td>
+              <td><span class="col-desc">Controls how the date filter works across apps. <strong>Static:</strong> set your own range. <strong>Auto-today:</strong> always centres on today. <strong>Perpetual:</strong> no date restriction.</span></td>
+              <td><span class="col-desc">Settings &rarr; General &rarr; Preferences</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Time Zone</span></td>
+              <td><span class="col-desc">Sets the time zone used for displaying dates and times in the UI.</span></td>
+              <td><span class="col-desc">Settings &rarr; General &rarr; Preferences</span></td>
+            </tr>
+            <tr>
+              <td><span class="col-name">Map Language</span></td>
+              <td><span class="col-desc">Primary and secondary language for map labels.</span></td>
+              <td><span class="col-desc">Settings &rarr; General &rarr; Preferences</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── WHERE TO NEXT ── -->
+      <section id="where-next">
+        <p class="section-label">Where to Next</p>
+        <p class="section-intro">After Settings, return to the setup sequence.</p>
+
+        <div class="next-grid">
+          <a class="next-card" href="vehicle-classes.html">
+            <h4>Vehicle Classes &amp; Vehicles</h4>
+            <p>Set up vehicle type templates, capacity, dimensions, and individual vehicle records.</p>
+          </a>
+          <a class="next-card" href="getting-started.html">
+            <h4>Back to Getting Started</h4>
+            <p>Return to the Data Manager setup sequence overview.</p>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>OPSI Docs</p>
+  </footer>
+
+</body>
+</html>
