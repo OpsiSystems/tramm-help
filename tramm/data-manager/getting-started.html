@@ -356,86 +356,99 @@
     /* ── SETUP FLOW ── */
     .setup-flow {
       display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin: 1.5rem 0;
+      align-items: stretch;
+      gap: 0;
+      margin: 1.75rem 0 1.25rem;
+      flex-wrap: nowrap;
     }
     .flow-step {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .flow-step-inner {
+      flex: 1;
+      border-radius: 0.5rem;
+      padding: 1rem 0.75rem 0.875rem;
+      text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.35rem;
-      min-width: 110px;
-      max-width: 130px;
-    }
-    .flow-step-inner {
-      width: 100%;
-      min-width: 110px;
-      border-radius: 0.4rem;
-      padding: 0.6rem 0.75rem;
-      text-align: center;
+      justify-content: flex-start;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.15s;
     }
     .flow-step.required .flow-step-inner {
       background: var(--blue-700);
       color: #fff;
     }
     .flow-step.optional .flow-step-inner {
-      background: var(--slate-200);
-      color: var(--slate-600);
-      min-width: 110px;
-      padding: 0.6rem 0.75rem;
+      background: var(--blue-50);
+      border: 2px dashed var(--blue-300);
+      color: var(--blue-700);
+    }
+    a.flow-step-inner:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
     }
     .flow-step-num {
-      width: 22px;
-      height: 22px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      margin: 0 auto 0.3rem;
+      margin-bottom: 0.4rem;
+      flex-shrink: 0;
     }
     .flow-step.required .flow-step-num {
-      background: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.2);
       color: #fff;
     }
     .flow-step.optional .flow-step-num {
-      background: var(--slate-300);
-      color: var(--slate-600);
+      background: var(--blue-100);
+      color: var(--blue-700);
     }
     .flow-step-label {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 700;
       line-height: 1.3;
+      margin-bottom: 0.25rem;
     }
     .flow-step-desc {
       font-size: 0.7rem;
-      line-height: 1.3;
-      margin-top: 0.2rem;
+      line-height: 1.35;
       opacity: 0.85;
     }
-    .flow-connector {
-      font-size: 1.25rem;
-      color: var(--slate-300);
-      margin-top: 1.1rem;
-      flex-shrink: 0;
+    .flow-step.optional .flow-step-desc {
+      opacity: 0.75;
     }
-    .flow-amber-note {
+    .flow-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.3rem;
+      color: var(--blue-300);
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      padding-top: 0.5rem;
+    }
+    .flow-note {
       display: flex;
       align-items: flex-start;
-      gap: 0.5rem;
+      gap: 0.6rem;
       background: var(--amber-50);
       border: 1px solid var(--amber-100);
-      border-radius: 0.35rem;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.75rem;
+      border-radius: 0.4rem;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.82rem;
       color: var(--amber-700);
-      margin-top: 0.4rem;
-      max-width: 130px;
-      text-align: center;
-      line-height: 1.4;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
@@ -485,10 +498,11 @@
         <p class="body-text">In Data Manager, most entities come in pairs: a <strong>Class</strong> (or <strong>Group</strong>) and the individual entity that belongs to it. The Class is the template — you define shared properties once on the Class, and every entity of that Class inherits them automatically. You only need to set individual values on an entity when it differs from its class.</p>
 
         <p class="body-text">Think of a Vehicle Class, Site Class, or Product Group as a <strong>specification sheet</strong> — you define the standard specifications once, and every entity you create from that template inherits them automatically. You only need to record what differs on an individual entity: a vehicle's registration number, a site's address, or a product's exact dimensions. The same principle applies across all three pairs — one specification sheet, many instances, with individual variations noted only where they exist.</p>
-        <p class="body-text">Products work slightly differently: a Product can belong to <strong>more than one Product Group</strong> simultaneously. A refrigerated hazardous item can belong to both a "Frozen Goods" group and a "Hazardous Materials" group at the same time, inheriting the rules and restrictions of both. For Vehicle Classes and Site Classes, each entity belongs to exactly one class.</p>
+        <p class="body-text">Products take this one step further — a Product can belong to <strong>more than one Product Group</strong> simultaneously. A refrigerated hazardous item can belong to both a "Frozen Goods" group and a "Hazardous Materials" group at the same time, inheriting the rules and restrictions of both. For Vehicle Classes and Site Classes, each entity belongs to exactly one class.</p>
 
-        <p class="section-label" style="margin-top:0.5rem;">Overrides — when an individual entity differs from its class</p>
-        <p class="body-text">If a value is left blank (or set to zero for durations), the system automatically uses the Class value. You only need to fill in a value on the entity if it differs from the class. This means you can set up 50 sites in a "Retail Delivery" class and only override the operating hours for the two sites that have unusual hours — the other 48 inherit the class default without any extra work.</p>
+        <p class="section-label" style="margin-top:0.5rem;">Overrides — when an individual entity differs from its Class or Group</p>
+        <p class="body-text">If a value is left blank (or set to zero for durations), the system automatically uses the Class or Group value as the default. You only need to fill in a value on the entity if it genuinely differs. This means you can set up 50 sites in a "Retail Delivery" class and only override the operating hours for the two sites that have unusual hours — the other 48 inherit the class default without any extra work.</p>
+        <p class="body-text">Note: for Products, the pattern works slightly differently. A Product Group provides shared rules (restrictions, variance tolerance) rather than values to inherit — the Product itself defines its own physical specifications. See the <a href="products.html">Product Groups &amp; Products guide</a> for details.</p>
 
         <p class="body-text">The table below summarises what is fixed at Class level versus what can be overridden on individual entities.</p>
 
@@ -496,8 +510,8 @@
           <thead>
             <tr>
               <th style="width:20%">Entity</th>
-              <th style="width:40%">Fixed at Class level — cannot be overridden</th>
-              <th style="width:40%">Can be overridden on individual entities</th>
+              <th style="width:40%">Fixed at Class / Group level</th>
+              <th style="width:40%">Defined or overridden on individual entities</th>
             </tr>
           </thead>
           <tbody>
@@ -559,32 +573,31 @@
               <div class="flow-step-desc">System and user preferences</div>
             </div>
           </div>
-          <div class="flow-connector">→</div>
+          <div class="flow-connector">›</div>
           <div class="flow-step required">
-            <div class="flow-step-inner">
+            <a class="flow-step-inner" href="vehicle-classes.html">
               <div class="flow-step-num">2</div>
               <div class="flow-step-label">Vehicle Classes &amp; Vehicles</div>
               <div class="flow-step-desc">Capacity, dimensions, routing profiles</div>
-            </div>
-            <div class="flow-amber-note">Add Dimensions if using the 3D Visualiser</div>
+            </a>
           </div>
-          <div class="flow-connector">→</div>
+          <div class="flow-connector">›</div>
           <div class="flow-step required">
-            <div class="flow-step-inner">
+            <a class="flow-step-inner" href="sites.html">
               <div class="flow-step-num">3</div>
               <div class="flow-step-label">Site Classes &amp; Sites</div>
               <div class="flow-step-desc">Depots, warehouses, delivery points</div>
-            </div>
+            </a>
           </div>
-          <div class="flow-connector">→</div>
+          <div class="flow-connector">›</div>
           <div class="flow-step required">
-            <div class="flow-step-inner">
+            <a class="flow-step-inner" href="products.html">
               <div class="flow-step-num">4</div>
               <div class="flow-step-label">Product Groups &amp; Products</div>
               <div class="flow-step-desc">Goods being transported</div>
-            </div>
+            </a>
           </div>
-          <div class="flow-connector">→</div>
+          <div class="flow-connector">›</div>
           <div class="flow-step optional">
             <div class="flow-step-inner">
               <div class="flow-step-num">5</div>
@@ -594,7 +607,10 @@
           </div>
         </div>
 
-        <p class="body-text">Steps 1–4 are required before you can start planning trips. Step 5 entities are optional and can be added at any time.</p>
+        <div class="flow-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;margin-top:0.1rem;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span><strong>Using the 3D Visualiser?</strong> Add physical dimensions (length, width, height) to Vehicle Classes in step 2, and size dimensions to Products in step 4. Without these, the 3D Visualiser cannot render loads correctly.</span>
+        </div>
       </section>
 
       <!-- WHERE TO NEXT -->
