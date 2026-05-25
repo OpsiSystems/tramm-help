@@ -371,6 +371,7 @@
     }
     .flow-step-inner {
       width: 100%;
+      min-width: 110px;
       border-radius: 0.4rem;
       padding: 0.6rem 0.75rem;
       text-align: center;
@@ -382,6 +383,8 @@
     .flow-step.optional .flow-step-inner {
       background: var(--slate-200);
       color: var(--slate-600);
+      min-width: 110px;
+      padding: 0.6rem 0.75rem;
     }
     .flow-step-num {
       width: 22px;
@@ -407,16 +410,11 @@
       font-weight: 700;
       line-height: 1.3;
     }
-    .flow-step-note {
+    .flow-step-desc {
       font-size: 0.7rem;
       line-height: 1.3;
+      margin-top: 0.2rem;
       opacity: 0.85;
-    }
-    .flow-step-tag {
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
     .flow-connector {
       font-size: 1.25rem;
@@ -486,7 +484,8 @@
 
         <p class="body-text">In Data Manager, most entities come in pairs: a <strong>Class</strong> (or <strong>Group</strong>) and the individual entity that belongs to it. The Class is the template — you define shared properties once on the Class, and every entity of that Class inherits them automatically. You only need to set individual values on an entity when it differs from its class.</p>
 
-        <p class="body-text">Think of a Vehicle Class like the design file for a 3D printer — or a blueprint. You define the specifications once (capacity, dimensions, routing profile, operating hours) and every vehicle you create from that class inherits them automatically. You only need to record what is different on an individual vehicle: its registration number, home depot, or any spec that genuinely varies from the standard. The same principle applies to <strong>Site Classes → Sites</strong> and <strong>Product Groups → Products</strong>: one template, many instances, with individual exceptions noted only where they exist.</p>
+        <p class="body-text">Think of a Vehicle Class, Site Class, or Product Group as a <strong>specification sheet</strong> — you define the standard specifications once, and every entity you create from that template inherits them automatically. You only need to record what differs on an individual entity: a vehicle's registration number, a site's address, or a product's exact dimensions. The same principle applies across all three pairs — one specification sheet, many instances, with individual variations noted only where they exist.</p>
+        <p class="body-text">Products work slightly differently: a Product can belong to <strong>more than one Product Group</strong> simultaneously. A refrigerated hazardous item can belong to both a "Frozen Goods" group and a "Hazardous Materials" group at the same time, inheriting the rules and restrictions of both. For Vehicle Classes and Site Classes, each entity belongs to exactly one class.</p>
 
         <p class="section-label" style="margin-top:0.5rem;">Overrides — when an individual entity differs from its class</p>
         <p class="body-text">If a value is left blank (or set to zero for durations), the system automatically uses the Class value. You only need to fill in a value on the entity if it differs from the class. This means you can set up 50 sites in a "Retail Delivery" class and only override the operating hours for the two sites that have unusual hours — the other 48 inherit the class default without any extra work.</p>
@@ -557,6 +556,7 @@
             <div class="flow-step-inner">
               <div class="flow-step-num">1</div>
               <div class="flow-step-label">Settings</div>
+              <div class="flow-step-desc">System and user preferences</div>
             </div>
           </div>
           <div class="flow-connector">→</div>
@@ -564,6 +564,7 @@
             <div class="flow-step-inner">
               <div class="flow-step-num">2</div>
               <div class="flow-step-label">Vehicle Classes &amp; Vehicles</div>
+              <div class="flow-step-desc">Capacity, dimensions, routing profiles</div>
             </div>
             <div class="flow-amber-note">Add Dimensions if using the 3D Visualiser</div>
           </div>
@@ -572,6 +573,7 @@
             <div class="flow-step-inner">
               <div class="flow-step-num">3</div>
               <div class="flow-step-label">Site Classes &amp; Sites</div>
+              <div class="flow-step-desc">Depots, warehouses, delivery points</div>
             </div>
           </div>
           <div class="flow-connector">→</div>
@@ -579,6 +581,7 @@
             <div class="flow-step-inner">
               <div class="flow-step-num">4</div>
               <div class="flow-step-label">Product Groups &amp; Products</div>
+              <div class="flow-step-desc">Goods being transported</div>
             </div>
           </div>
           <div class="flow-connector">→</div>
@@ -586,9 +589,8 @@
             <div class="flow-step-inner">
               <div class="flow-step-num">5</div>
               <div class="flow-step-label">Optional Entities</div>
-              <div class="flow-step-note">Clients, Transporters, Regions, etc.</div>
+              <div class="flow-step-desc">Clients, Transporters, Regions &amp; more</div>
             </div>
-            <div class="flow-step-tag" style="color:var(--slate-400);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em;margin-top:0.3rem;">Add as needed</div>
           </div>
         </div>
 

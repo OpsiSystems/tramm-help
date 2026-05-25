@@ -499,8 +499,8 @@
         <p class="section-label">What is a Product Group?</p>
         <p class="section-intro">A Product Group is a classification label for a category of goods. It holds the shared rules that apply to every product in the group — restrictions, attributes, and variance tolerance — so you do not have to duplicate those rules on every individual product.</p>
 
-        <p class="body-text">Think of a Product Group like a classification label in your warehouse — similar to a goods category in a WMS. It defines the shared rules that apply to all products of that type: which vehicles can carry them, which sites can handle them, and how much quantity variance is acceptable. A product can belong to more than one group — so a product can be both "Hazardous" and "Frozen" simultaneously if both sets of rules apply to it.</p>
-        <p class="body-text">Product Groups are optional but strongly recommended if you have products with shared handling requirements or restrictions — they save you from duplicating the same rules on every individual product.</p>
+        <p class="body-text">Think of a Product Group like a <strong>goods specification category</strong> — a classification that defines the shared handling rules for a type of goods. It sets the attribute rules, vehicle and site restrictions, and acceptable quantity variance for all products in the group. Products then provide their own physical specification: dimensions, weight, loading speed, and stacking behaviour.</p>
+        <p class="body-text">Unlike Vehicle Classes and Site Classes, a Product can belong to <strong>more than one Product Group</strong> simultaneously. A refrigerated item that also carries hazard classification can belong to both a "Frozen Goods" group and a "Hazardous Materials" group at the same time — inheriting the rules and restrictions of both.</p>
       </section>
 
       <!-- ── PRODUCT GROUP FIELDS ── -->
@@ -551,7 +551,7 @@
         <p class="section-label">What is a Product?</p>
         <p class="section-intro">A Product is the physical goods specification — the record that holds the exact dimensions, weight, and loading behaviour of a specific item in your catalogue.</p>
 
-        <p class="body-text">Think of a Product as the physical goods specification — the equivalent of a product datasheet. It defines the exact dimensions, weight, and loading behaviour of a specific item. Where a Product Group sets the rules (what can carry it, what variance is allowed), the Product itself holds the physical facts: how big it is, how heavy, how fast it loads, and whether anything can be stacked on top of it.</p>
+        <p class="body-text">Think of a Product as a <strong>product datasheet</strong> — the physical specification for a specific goods item. Where a Product Group sets the rules (what can carry it, what variance is allowed), the Product holds the physical facts: how big it is, how heavy, how fast it loads, and whether anything can be stacked on top of it.</p>
 
         <div class="callout callout-blue" style="margin-top:1rem;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
