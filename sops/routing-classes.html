@@ -1,0 +1,1095 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Routing Classes SOP — OPSI Docs</title>
+  <style>
+    :root {
+      --blue-dark:   #1a3a5c;
+      --blue-mid:    #1e5799;
+      --blue-light:  #e8f1fb;
+      --blue-accent: #2980b9;
+      --text:        #2c2c2c;
+      --muted:       #5a6a78;
+      --border:      #c8d8ea;
+      --white:       #ffffff;
+      --warn-bg:     #fff8e1;
+      --warn-border: #f0c040;
+      --tip-bg:      #edf7ee;
+      --tip-border:  #4caf50;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+      background: #f4f7fb;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+      color: var(--white);
+      padding: 36px 48px 28px;
+    }
+    header .doc-type {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #a8c8e8;
+      margin-bottom: 6px;
+    }
+    header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    header p.subtitle {
+      font-size: 14px;
+      color: #c8ddf0;
+    }
+    .meta-bar {
+      background: var(--blue-dark);
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding: 10px 48px;
+      display: flex;
+      gap: 32px;
+      font-size: 12px;
+      color: #a0bcd8;
+    }
+    .meta-bar span strong { color: var(--white); }
+
+    /* ── Layout ── */
+    .wrapper {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .main-content { min-width: 0; }
+
+    /* ── Sidebar nav ── */
+    .sidebar {
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+    }
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+    .sidebar nav a {
+      display: block;
+      font-size: 12.5px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 5px 12px;
+      border-left: 2px solid var(--border);
+      border-radius: 0 3px 3px 0;
+      margin-bottom: 1px;
+      line-height: 1.4;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .sidebar nav a:hover {
+      color: var(--blue-mid);
+      border-left-color: var(--blue-mid);
+      background: var(--blue-light);
+    }
+    .sidebar nav a.active {
+      color: var(--blue-mid);
+      border-left-color: var(--blue-mid);
+      font-weight: 600;
+      background: var(--blue-light);
+    }
+
+    @media (max-width: 800px) {
+      .wrapper { grid-template-columns: 1fr; gap: 0; padding: 16px; }
+      .sidebar {
+        position: static;
+        max-height: none;
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--blue-mid);
+        border-radius: 4px;
+        padding: 16px 0;
+        margin-bottom: 24px;
+        background: var(--white);
+      }
+      .sidebar-title { padding: 0 16px; }
+      .sidebar nav a { padding: 5px 16px; }
+    }
+
+    /* ── Sections ── */
+    section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+    section h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--blue-dark);
+      border-bottom: 2px solid var(--blue-light);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    section h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-mid);
+      margin: 20px 0 8px;
+    }
+    section h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 16px 0 6px;
+    }
+    p { margin-bottom: 10px; }
+
+    /* ── Steps ── */
+    .steps { list-style: none; counter-reset: step; padding: 0; }
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+    .steps li::before {
+      content: counter(step);
+      background: var(--blue-mid);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 12px;
+      border-radius: 50%;
+      min-width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .steps li .step-body { flex: 1; }
+    .steps li .step-body > strong:first-child { display: block; margin-bottom: 2px; }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 12px 0 16px;
+    }
+    thead tr { background: var(--blue-dark); color: var(--white); }
+    thead th { padding: 9px 12px; text-align: left; font-weight: 600; }
+    tbody tr:nth-child(even) { background: var(--blue-light); }
+    tbody tr:hover { background: #d0e5f7; }
+    tbody td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    td code, th code { background: #e0eaf5; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+
+    /* ── Callouts ── */
+    .callout {
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin: 14px 0;
+      font-size: 13px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .callout.warn { background: var(--warn-bg); border-left: 4px solid var(--warn-border); }
+    .callout.tip  { background: var(--tip-bg);  border-left: 4px solid var(--tip-border); }
+    .callout.info { background: var(--blue-light); border-left: 4px solid var(--blue-accent); }
+    .callout-icon { font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+    .callout p { margin: 0; }
+
+    /* ── Tags ── */
+    .tag {
+      display: inline-block;
+      background: var(--blue-light);
+      color: var(--blue-dark);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      margin: 2px 3px 2px 0;
+    }
+    .tag.required { background: #fdecea; border-color: #f5c6c2; color: #b71c1c; }
+    .tag.optional { background: #e8f5e9; border-color: #c8e6c9; color: #2e7d32; }
+
+    /* ── Path crumb ── */
+    .nav-path {
+      background: var(--blue-light);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 8px 14px;
+      font-size: 13px;
+      margin-bottom: 14px;
+      color: var(--blue-dark);
+    }
+    .nav-path span { color: var(--muted); margin: 0 5px; }
+
+    /* ── Screenshots ── */
+    .screenshot-wrap {
+      margin: 16px 0 20px;
+      text-align: center;
+    }
+    .screenshot-wrap img {
+      max-width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+    .screenshot-wrap figcaption {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── Print / PDF ── */
+    @media print {
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+      body { background: white; font-size: 12px; }
+
+      header { background: #1a3a5c !important; padding: 20px 24px 14px; }
+      .meta-bar { background: #1a3a5c !important; padding: 8px 24px; }
+
+      .wrapper { display: block; max-width: 100%; margin: 12px 0; padding: 0; }
+      .sidebar { display: none; }
+
+      section {
+        border: 1px solid #c8d8ea;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+      }
+
+      .steps li { break-inside: avoid; }
+      .callout  { break-inside: avoid; }
+      .screenshot-wrap { break-inside: avoid; }
+      .screenshot-wrap img { max-width: 72%; box-shadow: none; }
+
+      a { color: inherit; text-decoration: none; }
+      footer { border-top: 1px solid #c8d8ea; margin-top: 16px; }
+    }
+    /* ── Portal breadcrumb & footer ── */
+    .breadcrumb-nav {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 14px;
+    }
+    .breadcrumb-nav a { color: rgba(255,255,255,0.85); text-decoration: none; }
+    .breadcrumb-nav a:hover { color: #fff; text-decoration: underline; }
+    .breadcrumb-nav .sep { margin: 0 7px; opacity: 0.45; }
+    .portal-footer {
+      background: #0f172a;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 20px 24px;
+      font-size: 12px;
+    }
+    .portal-footer a { color: rgba(255,255,255,0.65); text-decoration: none; }
+    .portal-footer a:hover { color: #fff; }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-mid);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-mid);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-dark); }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav class="breadcrumb-nav"><a href="../index.html">OPSI Docs</a><span class="sep">›</span><a href="index.html">SOPs &amp; Procedures</a><span class="sep">›</span>Routing Classes</nav>
+  <div class="doc-type">Standard Operating Procedure</div>
+  <h1>Routing Classes</h1>
+  <p class="subtitle">How to configure and apply Routing Classes in the Tramm platform</p>
+</header>
+<div class="meta-bar">
+  <span><strong>Module:</strong> Tramm – Planner / Routing Definitions</span>
+  <span><strong>Audience:</strong> Implementers &amp; System Administrators</span>
+  <span><strong>Version:</strong> 1.0</span>
+  <span><strong>Date:</strong> May 2026</span>
+</div>
+
+<div class="wrapper">
+
+  <!-- Sticky sidebar nav -->
+  <aside class="sidebar">
+    <p class="sidebar-title">Contents</p>
+    <nav>
+      <a href="#overview">1. What is a Routing Class?</a>
+      <a href="#where">2. Where it's Used</a>
+      <a href="#navigate">3. Navigating to Routing Classes</a>
+      <a href="#create">4. Creating a Routing Class</a>
+      <a href="#fields">5. Field Reference</a>
+      <a href="#edit">6. Editing a Routing Class</a>
+      <a href="#delete">7. Deleting a Routing Class</a>
+      <a href="#assign">8. Assigning to a Vehicle Class</a>
+      <a href="#import-export">9. Import and Export</a>
+      <a href="#effect">10. How it Affects Calculations</a>
+      <a href="#tips">11. Configuration Tips</a>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <div class="main-content">
+
+  <!-- 1. Overview -->
+  <section id="overview">
+    <h2>1. What is a Routing Class?</h2>
+    <p>A <strong>Routing Class</strong> is a reusable configuration profile that describes how a specific type of vehicle should be routed. It captures the vehicle's physical dimensions, transport category, speed constraints, cargo restrictions, and any pre-defined routing overrides.</p>
+    <p>When a trip is calculated, Tramm looks up the Routing Class assigned to the trip's Vehicle Class and passes its parameters to the routing engine (HERE Maps). The routing engine then computes distances and travel times that are appropriate for that vehicle type.</p>
+
+    <div class="callout info">
+      <span class="callout-icon">&#x2139;&#xFE0F;</span>
+      <p><strong>Key principle:</strong> Routing Classes are defined once in Settings and then referenced by Vehicle Classes. Updating a Routing Class automatically affects all trips that use Vehicle Classes linked to it.</p>
+    </div>
+  </section>
+
+  <!-- 2. Where used -->
+  <section id="where">
+    <h2>2. Where Routing Classes are Used</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Context</th>
+          <th>How it is used</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Vehicle Class</strong></td>
+          <td>Each Vehicle Class has a <em>Routing Class</em> field. The Routing Class defines how vehicles of that class are routed.</td>
+        </tr>
+        <tr>
+          <td><strong>Trip Calculation</strong></td>
+          <td>When a trip is (re-)calculated, the system resolves: Trip → Vehicle Class → Routing Class → routing parameters sent to HERE Maps.</td>
+        </tr>
+        <tr>
+          <td><strong>Toll Calculation</strong></td>
+          <td>The same Routing Class parameters are used when calculating toll costs for a trip.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3. Navigate -->
+  <section id="navigate">
+    <h2>3. Navigating to Routing Classes</h2>
+
+    <div class="nav-path">
+      Settings <span>&#8250;</span> Routing Definitions <span>&#8250;</span> Routing Classes
+    </div>
+
+    <ol class="steps">
+      <li>
+        <div class="step-body">
+          <strong>Open Settings</strong>
+          Click the <strong>hamburger menu icon</strong> (&#9776;) in the <strong>top-right corner</strong> of the screen. A small tooltip labelled <em>Settings</em> appears. Click it to open the Settings panel.
+        </div>
+      </li>
+    </ol>
+
+    <figure class="screenshot-wrap">
+      <img src="img/open-settings.png"
+           alt="Opening Settings from the hamburger menu icon at the top right of the screen" />
+      <figcaption>Click the hamburger icon (top right) to open Settings</figcaption>
+    </figure>
+
+    <ol class="steps" start="2" style="counter-reset: step 1;">
+      <li>
+        <div class="step-body">
+          <strong>Find Routing Definitions</strong>
+          The Settings panel opens on the left. Either <strong>scroll down</strong> until you see the <strong>Routing Definitions</strong> group, or type <strong>Routing</strong> in the Search box at the top of the panel to jump straight to it.
+        </div>
+      </li>
+    </ol>
+
+    <figure class="screenshot-wrap">
+      <img src="img/search-routing-definitions.png"
+           alt="The Routing Definitions group in the Settings panel, showing Routing Classes, Routing Barriers, Standard Travels, Region Windows, and Transport Segment Chains" />
+      <figcaption>The Routing Definitions group — scroll or search to find it</figcaption>
+    </figure>
+
+    <ol class="steps" start="3" style="counter-reset: step 2;">
+      <li>
+        <div class="step-body">
+          <strong>Open Routing Classes</strong>
+          Click <strong>Routing Classes</strong> under the Routing Definitions group. The Routing Classes management screen opens on the right.
+        </div>
+      </li>
+    </ol>
+
+    <figure class="screenshot-wrap">
+      <img src="img/select-routing-classes.png"
+           alt="The Routing Classes management screen showing the Manage scope panel, Add new button, and the items table" />
+      <figcaption>The Routing Classes screen — existing classes are listed in the table</figcaption>
+    </figure>
+
+    <div class="callout warn">
+      <span class="callout-icon">&#x26A0;&#xFE0F;</span>
+      <p><strong>Permission required:</strong> You must have the <code>system:settings:routing-definitions</code> permission to view or manage Routing Classes. Contact your system administrator if this option is not visible.</p>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">&#x2139;&#xFE0F;</span>
+      <p><strong>Manage scope:</strong> The screen defaults to <strong>Organisation</strong> scope. This means Routing Classes you create are available across all partitions within the organisation. Use the <em>Select scope</em> dropdown to manage classes at a different scope level if required.</p>
+    </div>
+  </section>
+
+  <!-- 4. Create -->
+  <section id="create">
+    <h2>4. Creating a Routing Class</h2>
+
+    <ol class="steps">
+      <li>
+        <div class="step-body">
+          <strong>Click Add new</strong>
+          On the Routing Classes screen, click the <strong>Add new</strong> button (top right of the items table). An <em>Add New</em> panel slides open.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Set an Identifier and Name</strong>
+          <ul style="margin-top:4px;padding-left:18px;">
+            <li><strong>Unique Identifier</strong> – Optional. Can be left blank; the system will auto-generate one. Maximum 70 characters. Must be unique across all Routing Classes.</li>
+            <li><strong>Name</strong> – Required. A descriptive label (e.g. <em>Standard Truck</em>, <em>Hazmat Tanker</em>). Must be unique.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Select linked Barriers, Fatigue Rules, and Standard Travels</strong>
+          Use the dropdown lists to attach template items. These are optional — leave them blank if not applicable. See the <a href="#fields">Field Reference</a> for details on each.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Select an Emission Type</strong>
+          Choose from the dropdown (euro1–euro6) if this vehicle class requires emission-aware routing. Leave blank if not applicable.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Select Transport Mode</strong>
+          Choose <strong>Truck</strong> or <strong>Car</strong>. This determines the road network and constraints used by the routing engine, and controls whether physical dimensions are required.
+          <div class="callout tip" style="margin-top:8px;">
+            <span class="callout-icon">&#x1F4A1;</span>
+            <p>When <strong>Truck</strong> is selected, the Width, Height, Length, and Mass fields are enabled. When <strong>Car</strong> is selected, those fields are disabled.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Select Routing Mode</strong>
+          Choose <strong>Fast</strong> (optimise for shortest travel time) or <strong>Short</strong> (optimise for shortest distance).
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Enter Max Speed and Axle Count</strong>
+          Set a speed cap in km/h (leave as 0 for no cap). Enter the number of axles if relevant for road restrictions or toll calculations.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Set the Travel Duration Multiplier</strong>
+          This field is required and defaults to <strong>100</strong> (meaning 100% — no adjustment). Enter a higher value to add a buffer to all travel time calculations for this vehicle type (e.g. 120 = 20% longer than the routing engine baseline).
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Enter physical dimensions (Truck mode)</strong>
+          Fill in <strong>Width</strong>, <strong>Height</strong>, and <strong>Length</strong> in centimetres, and <strong>Mass</strong> in kilograms. These prevent the routing engine from selecting roads or structures the vehicle cannot use.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Set Max Trip Duration</strong>
+          Enter the maximum allowable trip duration using the <strong>Hours</strong> and <strong>Minutes</strong> fields. Leave at 0 for no limit.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Select Hazardous Goods Types and Avoid Features</strong>
+          Tick any checkboxes that apply to this vehicle type. The routing engine will avoid roads and areas that prohibit the selected hazards or features.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Click Add</strong>
+          Click the <strong>Add</strong> button at the bottom of the panel to save the new Routing Class. It will appear in the table immediately.
+        </div>
+      </li>
+    </ol>
+
+    <figure class="screenshot-wrap">
+      <img src="img/add-new-form.png"
+           alt="The Add New Routing Class panel showing all fields including Name, Barriers, Fatigue Rules, Standard Travels, Emission Type, Transport Mode, Routing Mode, Max Speed, Axle Count, Travel Duration Multiplier, dimensions, Max trip duration, Hazardous goods types, and Avoid features" />
+      <figcaption>The Add New panel — complete all relevant fields then click Add</figcaption>
+    </figure>
+  </section>
+
+  <!-- 5. Fields -->
+  <section id="fields">
+    <h2>5. Field Reference</h2>
+    <p>Fields appear in the form in the order listed below.</p>
+
+    <h3>Identity</h3>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Unique Identifier</strong></td>
+          <td><span class="tag optional">Optional</span></td>
+          <td>Auto-generated if left blank. Max 70 characters. Must be unique.</td>
+        </tr>
+        <tr>
+          <td><strong>Name</strong></td>
+          <td><span class="tag required">Required</span></td>
+          <td>Display name. Must be unique across all Routing Classes.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Linked Routing Entities</h3>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Barriers</strong></td>
+          <td>Multi-select dropdown</td>
+          <td>Attach one or more <em>Routing Barrier templates</em>. Barriers define geographic areas that vehicles of this class must avoid. Only barriers flagged as <strong>templates</strong> appear in this list.</td>
+        </tr>
+        <tr>
+          <td><strong>Fatigue Rules</strong></td>
+          <td>Single-select dropdown</td>
+          <td>Select the Fatigue Rule set applicable to drivers operating this vehicle class. Click the <strong>X</strong> icon next to the field to clear the selection.</td>
+        </tr>
+        <tr>
+          <td><strong>Standard Travels</strong></td>
+          <td>Multi-select dropdown</td>
+          <td>Attach one or more <em>Standard Travel templates</em>. A Standard Travel defines a pre-approved site-to-site route with fixed distance and duration, overriding the routing engine result for that pair. Only Standard Travels flagged as <strong>templates</strong> appear in this list.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <span class="callout-icon">&#x2139;&#xFE0F;</span>
+      <p><strong>Template vs. non-template:</strong> Barriers and Standard Travels that are <em>not</em> marked as templates apply to <em>all</em> trips regardless of Routing Class. Template items only apply when a Routing Class explicitly references them.</p>
+    </div>
+
+    <h3>Emission Type</h3>
+    <table>
+      <thead>
+        <tr><th>Value</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>euro1</code> – <code>euro6</code></td>
+          <td>Enables emission-aware routing. Leave blank if not applicable. When set, the system requests a full route shape from HERE Maps to support emission zone avoidance.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Transport &amp; Routing Mode</h3>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Options</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Transport Mode</strong></td>
+          <td><code>Car</code> | <code>Truck</code></td>
+          <td>Determines the road network and constraints used. Selecting Truck enables the physical dimension fields; selecting Car disables them.</td>
+        </tr>
+        <tr>
+          <td><strong>Routing Mode</strong></td>
+          <td><code>Fast</code> | <code>Short</code></td>
+          <td><strong>Fast</strong> optimises for shortest travel time. <strong>Short</strong> optimises for shortest distance.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Speed &amp; Duration</h3>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Unit</th><th>Default</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Max Speed</strong></td>
+          <td>km/h</td>
+          <td>0</td>
+          <td>Sets a speed cap for this vehicle type. The routing engine converts this to m/s internally. Values outside the valid 1–70 m/s range are silently ignored.</td>
+        </tr>
+        <tr>
+          <td><strong>Axle Count</strong></td>
+          <td>Integer</td>
+          <td>0</td>
+          <td>Number of axles. Used for road restrictions and toll calculations.</td>
+        </tr>
+        <tr>
+          <td><strong>Travel Duration Multiplier (%)</strong></td>
+          <td>%</td>
+          <td>100</td>
+          <td><strong>Required.</strong> Scales all calculated travel durations. 100 = no change. 120 = 20% longer than the routing engine baseline. Applies to both network path results and Standard Travel durations.</td>
+        </tr>
+        <tr>
+          <td><strong>Max Trip Duration</strong></td>
+          <td>h / min</td>
+          <td>0</td>
+          <td>Maximum allowable trip duration for this vehicle type. Enter values in the Hours and Minutes fields.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Physical Dimensions (Truck mode only)</h3>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Unit</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Width</strong></td><td>cm</td><td>Overall vehicle width. Disabled when Transport Mode is Car.</td></tr>
+        <tr><td><strong>Height</strong></td><td>cm</td><td>Overall vehicle height including load. Disabled when Transport Mode is Car.</td></tr>
+        <tr><td><strong>Length</strong></td><td>cm</td><td>Overall vehicle length. Disabled when Transport Mode is Car.</td></tr>
+        <tr><td><strong>Mass</strong></td><td>kg</td><td>Gross vehicle mass (vehicle + maximum load). Disabled when Transport Mode is Car.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Hazardous Goods Types</h3>
+    <p>Tick all categories that apply to this vehicle. The routing engine avoids roads and areas that prohibit the selected hazard types.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px;">
+      <span class="tag">Explosive</span>
+      <span class="tag">Flammable</span>
+      <span class="tag">Oxidizing</span>
+      <span class="tag">Radioactive</span>
+      <span class="tag">Gasses</span>
+      <span class="tag">Toxic Or Infectious</span>
+      <span class="tag">Corrosive</span>
+      <span class="tag">Other</span>
+    </div>
+
+    <h3>Avoid Features</h3>
+    <p>Instruct the routing engine to avoid specific road or infrastructure types.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px;">
+      <span class="tag">Ferry</span>
+      <span class="tag">Dirt Road</span>
+      <span class="tag">Tunnel</span>
+      <span class="tag">Motorway</span>
+      <span class="tag">Toll Road</span>
+    </div>
+  </section>
+
+  <!-- 6. Edit -->
+  <section id="edit">
+    <h2>6. Editing a Routing Class</h2>
+
+    <ol class="steps">
+      <li>
+        <div class="step-body">
+          <strong>Locate the Routing Class</strong>
+          In the Routing Classes table, find the class you want to edit.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Click the edit icon</strong>
+          At the right end of the row, in the <strong>Actions</strong> column, click the <strong>edit icon</strong> (the lines icon). The form slides open, pre-populated with the current values.
+        </div>
+      </li>
+    </ol>
+
+    <figure class="screenshot-wrap">
+      <img src="img/editing-routing-class.png"
+           alt="The Routing Classes table with the edit icon highlighted in the Actions column" />
+      <figcaption>Click the edit icon in the Actions column to open the form</figcaption>
+    </figure>
+
+    <ol class="steps" start="3" style="counter-reset: step 2;">
+      <li>
+        <div class="step-body">
+          <strong>Make your changes</strong>
+          Update any fields as needed. The form title shows "Update [Routing Class Name]".
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Click Update</strong>
+          Click the <strong>Update</strong> button at the bottom of the panel to save your changes.
+        </div>
+      </li>
+    </ol>
+
+    <figure class="screenshot-wrap">
+      <img src="img/update-routing-class.png"
+           alt="The Update Routing Class form showing the Update button at the bottom right" />
+      <figcaption>The edit form is titled "Update [name]" — click Update to save</figcaption>
+    </figure>
+
+    <div class="callout warn">
+      <span class="callout-icon">&#x26A0;&#xFE0F;</span>
+      <p><strong>Impact of changes:</strong> Editing a Routing Class affects all Vehicle Classes that reference it. Existing trip records are not retroactively recalculated — only new or re-triggered calculations will use the updated values.</p>
+    </div>
+  </section>
+
+  <!-- 7. Delete -->
+  <section id="delete">
+    <h2>7. Deleting a Routing Class</h2>
+
+    <ol class="steps">
+      <li>
+        <div class="step-body">
+          <strong>Locate the Routing Class</strong>
+          In the Routing Classes table, find the class you want to delete.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Click the red bin icon</strong>
+          At the right end of the row, in the <strong>Actions</strong> column, click the <strong>red bin icon</strong>. Confirm the deletion when prompted.
+        </div>
+      </li>
+    </ol>
+
+    <figure class="screenshot-wrap">
+      <img src="img/delete-routing-class.png"
+           alt="The Routing Classes table showing the red bin Delete icon in the Actions column" />
+      <figcaption>Click the red bin icon in the Actions column to delete that Routing Class</figcaption>
+    </figure>
+
+    <div class="callout warn">
+      <span class="callout-icon">&#x26A0;&#xFE0F;</span>
+      <p><strong>Before deleting:</strong> Check whether any Vehicle Classes reference the Routing Class you intend to delete. After deletion, those Vehicle Classes will show a validation warning for a missing Routing Class reference. Update or reassign them before deleting.</p>
+    </div>
+  </section>
+
+  <!-- 8. Assign to Vehicle Class -->
+  <section id="assign">
+    <h2>8. Assigning a Routing Class to a Vehicle Class</h2>
+    <p>A Routing Class has no effect until it is assigned to at least one Vehicle Class. Vehicle Classes are managed in <strong>Data Manager</strong>, not in Settings.</p>
+
+    <ol class="steps">
+      <li>
+        <div class="step-body">
+          <strong>Open the app launcher</strong>
+          Click the <strong>waffle icon</strong> (grid of dots) in the top-left corner of the screen to open the app launcher.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Open Data Manager</strong>
+          Under the <strong>Data</strong> section, click <strong>Data Manager</strong>.
+        </div>
+      </li>
+    </ol>
+
+    <figure class="screenshot-wrap">
+      <img src="img/waffle-data-manager.png"
+           alt="The Tramm app launcher showing Data Manager under the Data section" />
+      <figcaption>Click the waffle icon (top left) to open the app launcher, then select Data Manager</figcaption>
+    </figure>
+
+    <ol class="steps" start="3" style="counter-reset: step 2;">
+      <li>
+        <div class="step-body">
+          <strong>Select Vehicle Classes</strong>
+          In Data Manager, click <strong>Vehicle Classes</strong> in the <strong>Master Data</strong> section of the left sidebar.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Select and edit the Vehicle Class</strong>
+          Click the row for the Vehicle Class you want to update to highlight it, then click the <strong>Edit (pencil) icon</strong> in the toolbar at the top of the table.
+        </div>
+      </li>
+    </ol>
+
+    <figure class="screenshot-wrap">
+      <img src="img/select-vehicle-class.png"
+           alt="The Vehicle Classes table with a row selected and the Edit pencil icon highlighted in the toolbar" />
+      <figcaption>Select the Vehicle Class row, then click the Edit icon in the toolbar</figcaption>
+    </figure>
+
+    <ol class="steps" start="5" style="counter-reset: step 4;">
+      <li>
+        <div class="step-body">
+          <strong>Navigate to the Routing Class tab</strong>
+          In the <strong>Edit VehicleClass</strong> form, click <strong>Specification</strong> in the left tab list to expand it, then click <strong>Routing Class</strong>.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Select the Routing Class</strong>
+          Click the <strong>Routing Class</strong> dropdown. Each available class is listed showing its name, ID, and Transport Mode. Select the appropriate one.
+        </div>
+      </li>
+    </ol>
+
+    <figure class="screenshot-wrap">
+      <img src="img/edit-vehicleclass-routing-tab.png"
+           alt="The Edit VehicleClass form with the Routing Class tab selected in the left navigation" />
+      <figcaption>Go to Specification → Routing Class in the left tab list</figcaption>
+    </figure>
+
+    <figure class="screenshot-wrap">
+      <img src="img/routing-class-dropdown.png"
+           alt="The Routing Class dropdown open, listing available classes with their Name, Id, and Transport Mode" />
+      <figcaption>Each option shows the class name, Id, and Transport Mode — select the appropriate one</figcaption>
+    </figure>
+
+    <ol class="steps" start="7" style="counter-reset: step 6;">
+      <li>
+        <div class="step-body">
+          <strong>Click Commit</strong>
+          Click the <strong>Commit</strong> button to save. All trips using this Vehicle Class will now be routed using the selected Routing Class.
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 9. Import / Export -->
+  <section id="import-export">
+    <h2>9. Import and Export</h2>
+    <p>Routing Classes can be bulk-managed using Excel files. This is useful when setting up a new partition or migrating configurations between environments.</p>
+
+    <p>Click the <strong>&#8942;</strong> (three-dot) menu next to the <em>Add new</em> button to access Import, Export, and History options.</p>
+
+    <figure class="screenshot-wrap">
+      <img src="img/three-dot-menu.png"
+           alt="The three-dot menu open showing History, Import, and Export options" />
+      <figcaption>The three-dot menu — use Import or Export to bulk-manage Routing Classes</figcaption>
+    </figure>
+
+    <h3>Exporting</h3>
+    <p>Click the <strong>&#8942;</strong> menu and select <strong>Export</strong>. An Excel file (<code>.xlsx</code>) downloads immediately with all current Routing Classes.</p>
+
+    <h3>Importing</h3>
+    <ol class="steps">
+      <li>
+        <div class="step-body">
+          <strong>Prepare the Excel file</strong>
+          Use an exported file as your template. The following columns are supported:
+        </div>
+      </li>
+    </ol>
+
+    <table>
+      <thead>
+        <tr><th>Column</th><th>Type</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>id</code></td><td>Text</td><td>Optional. Auto-generated if blank.</td></tr>
+        <tr><td><code>name</code></td><td>Text</td><td>Required. Must be unique.</td></tr>
+        <tr><td><code>length</code></td><td>Number</td><td>Centimetres.</td></tr>
+        <tr><td><code>width</code></td><td>Number</td><td>Centimetres.</td></tr>
+        <tr><td><code>height</code></td><td>Number</td><td>Centimetres.</td></tr>
+        <tr><td><code>mass</code></td><td>Number</td><td>Kilograms.</td></tr>
+        <tr><td><code>maxSpeed</code></td><td>Number</td><td>km/h.</td></tr>
+        <tr><td><code>emissionType</code></td><td>Text</td><td>e.g. <code>euro5</code>. Leave blank if not applicable.</td></tr>
+        <tr><td><code>mode</code></td><td>Text</td><td><code>car</code> or <code>truck</code>.</td></tr>
+        <tr><td><code>barrierRefs</code></td><td>Text</td><td>Comma-separated Barrier IDs (templates only).</td></tr>
+        <tr><td><code>standardTravelRefs</code></td><td>Text</td><td>Comma-separated Standard Travel IDs (templates only).</td></tr>
+        <tr><td><code>avoidFeatures</code></td><td>Text</td><td>Comma-separated: <code>ferry</code>, <code>dirtRoad</code>, <code>tunnel</code>, <code>motorway</code>, <code>tollRoad</code>.</td></tr>
+        <tr><td><code>maxTripDuration</code></td><td>Duration</td><td>Duration value in seconds.</td></tr>
+        <tr><td><code>travelDurationMultiplier</code></td><td>Number</td><td>Enter as a <strong>percentage</strong> (e.g. <code>120</code> for 120%). The system divides by 100 on import.</td></tr>
+        <tr><td><code>fatigueRulesRef</code></td><td>Text</td><td>ID of the Fatigue Rule to link.</td></tr>
+        <tr><td><code>hazardousGoodsTypes</code></td><td>Text</td><td>Comma-separated: <code>explosive</code>, <code>flammable</code>, <code>oxidizing</code>, <code>radioactive</code>, <code>gasses</code>, <code>toxicOrInfectious</code>, <code>corrosive</code>, <code>other</code>.</td></tr>
+      </tbody>
+    </table>
+
+    <ol class="steps" start="2" style="counter-reset: step 1;">
+      <li>
+        <div class="step-body">
+          <strong>Click Import</strong>
+          Click the <strong>&#8942;</strong> menu and select <strong>Import</strong>, then choose your prepared file.
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Review &amp; confirm</strong>
+          The system validates and imports the records. Check for any validation errors flagged in the import results.
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 10. How routing classes affect calculation -->
+  <section id="effect">
+    <h2>10. How Routing Classes Affect Route Calculation</h2>
+
+    <p>When a trip is calculated, the system follows this chain:</p>
+
+    <div style="background:var(--blue-light);border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin:12px 0;font-size:13px;line-height:2;">
+      <strong>Trip</strong> &#x2192; <em>references Vehicle Class</em><br>
+      <strong>Vehicle Class</strong> &#x2192; <em>references Routing Class</em><br>
+      <strong>Routing Class</strong> &#x2192; <em>parameters sent to HERE Maps (or DTS routing service)</em><br>
+      <strong>HERE Maps</strong> &#x2192; <em>returns distance and duration</em><br>
+      <strong>Travel Duration Multiplier</strong> &#x2192; <em>applied to the returned durations</em><br>
+      <strong>Standard Travel lookup</strong> &#x2192; <em>if a matching Standard Travel exists, it overrides the HERE result</em>
+    </div>
+
+    <h3>Travel Duration Multiplier in detail</h3>
+    <p>The multiplier is applied to every travel result returned for this Routing Class:</p>
+    <ul style="margin:8px 0 12px;padding-left:20px;">
+      <li>A multiplier of <strong>100</strong> leaves durations unchanged.</li>
+      <li>A multiplier of <strong>120</strong> means travel times are 20% longer than the HERE baseline.</li>
+      <li>The multiplier is applied to both <em>Standard Travel</em> durations and <em>network path</em> durations.</li>
+    </ul>
+    <p><strong>Example:</strong> HERE Maps calculates 60 minutes. With a multiplier of 120, Tramm records 72 minutes for planning purposes.</p>
+
+    <h3>Standard Travels override network results</h3>
+    <p>When the routing engine finds a matching Standard Travel for a stop pair, it uses the Standard Travel's pre-defined distance and duration <em>instead of</em> the HERE Maps result. The Travel Duration Multiplier still applies to the Standard Travel duration.</p>
+
+    <h3>Barriers restrict route areas</h3>
+    <p>Barriers referenced by the Routing Class are sent to HERE Maps as geographic areas to avoid. Non-template barriers apply to all trips; template barriers only apply to trips whose Routing Class references them.</p>
+  </section>
+
+  <!-- 11. Tips -->
+  <section id="tips">
+    <h2>11. Configuration Tips</h2>
+
+    <h3>Naming conventions</h3>
+    <p>Use descriptive names that indicate vehicle type, region, or special restrictions, for example:</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px;">
+      <span class="tag">Standard Truck</span>
+      <span class="tag">Heavy Tanker – Hazmat</span>
+      <span class="tag">Light Delivery Van</span>
+      <span class="tag">Refrigerated Truck – Euro6</span>
+    </div>
+
+    <h3>Start with a Default class</h3>
+    <p>Create a <strong>Default</strong> Routing Class with Transport Mode <code>Truck</code> and Travel Duration Multiplier <code>100</code>. Assign it to Vehicle Classes where no special restrictions apply. This ensures all Vehicle Classes have a valid reference from the start.</p>
+
+    <h3>Avoid over-restricting features</h3>
+    <p>Only tick <strong>Avoid Features</strong> that genuinely apply to the vehicle. Avoiding motorways or toll roads unnecessarily can produce longer, less practical routes.</p>
+
+    <h3>Use Standard Travels for high-frequency corridors</h3>
+    <p>If certain site-to-site legs are travelled frequently and the HERE Maps estimate is known to be inaccurate, define a Standard Travel template and attach it to the relevant Routing Class rather than applying a blanket multiplier.</p>
+
+    <h3>Test after changes</h3>
+    <p>After creating or modifying a Routing Class, trigger a test trip recalculation to confirm the route and duration are as expected before rolling out to production trips.</p>
+
+    <div class="callout warn">
+      <span class="callout-icon">&#x26A0;&#xFE0F;</span>
+      <p><strong>Scope reminder:</strong> Routing Classes are managed at Organisation scope by default. Each partition sees the same set of Organisation-level classes. If you need partition-specific overrides, use the <em>Select scope</em> dropdown on the Routing Classes screen.</p>
+    </div>
+  </section>
+
+    <nav class="page-nav-bottom">
+      <a href="index.html">← Back to SOPs &amp; Procedures</a>
+      <div class="nav-right">
+        <a href="../index.html">OPSI Docs home</a>
+      </div>
+    </nav>
+
+  </div><!-- /main-content -->
+</div><!-- /wrapper -->
+
+<footer class="portal-footer"><p><a href="../index.html">OPSI Docs</a> &mdash; Tramm Implementation Documentation &mdash; May 2026</p></footer>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
+
+<script>
+(function () {
+  const links    = document.querySelectorAll('.sidebar nav a');
+  const sections = document.querySelectorAll('section[id]');
+
+  if (!links.length || !sections.length) return;
+
+  // Mark first link active on load
+  links[0].classList.add('active');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+})();
+</script>
+</body>
+</html>

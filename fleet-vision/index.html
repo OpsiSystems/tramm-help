@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FleetVision — OPSI Docs</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --amber-100: #fef3c7;
+      --amber-700: #b45309;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 1.75rem;
+    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.5rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 60ch; }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── LEFT NAV ── */
+    .side-nav { position: sticky; top: 2rem; }
+    .side-nav-label {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--slate-400); margin-bottom: 0.6rem;
+    }
+    .side-nav ul { list-style: none; }
+    .side-nav > ul > li { margin-bottom: 0.1rem; }
+    .side-nav a {
+      display: block; font-size: 0.825rem; color: var(--slate-600);
+      text-decoration: none; padding: 0.3rem 0.6rem; border-radius: 0.3rem;
+      transition: background 0.15s, color 0.15s; border-left: 2px solid transparent;
+    }
+    .side-nav a:hover { background: var(--slate-100); color: var(--slate-900); }
+    .side-nav .nav-divider { border: none; border-top: 1px solid var(--slate-200); margin: 0.6rem 0; }
+
+    /* ── CONTENT ── */
+    .page-content { display: flex; flex-direction: column; gap: 2.75rem; min-width: 0; }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 1rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--slate-800);
+      border-left: 4px solid var(--blue-600); padding-left: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-intro { font-size: 0.925rem; color: var(--slate-600); margin-bottom: 1.25rem; line-height: 1.65; }
+
+    /* ── QRC CARDS ── */
+    .qrc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; }
+    .qrc-card {
+      display: flex; flex-direction: column; gap: 0.3rem;
+      background: var(--blue-50); border: 1px solid var(--blue-100);
+      border-radius: 0.6rem; padding: 1rem 1.1rem;
+      text-decoration: none; color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .qrc-card:hover { box-shadow: 0 4px 12px rgba(37,99,235,0.12); border-color: var(--blue-200); }
+    .qrc-card-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue-700); }
+    .qrc-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--slate-900); }
+    .qrc-card p  { font-size: 0.8rem; color: var(--slate-600); line-height: 1.4; }
+
+    /* ── GUIDE CARDS ── */
+    .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.65rem; }
+    .works-card {
+      display: flex; flex-direction: column; gap: 0.25rem;
+      background: #fff; border: 1px solid var(--slate-200);
+      border-radius: 0.6rem; padding: 0.9rem 1rem;
+      text-decoration: none; color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .works-card:hover { box-shadow: 0 4px 12px rgba(37,99,235,0.08); border-color: var(--blue-200); }
+    .works-card h3 { font-size: 0.875rem; font-weight: 700; color: var(--slate-900); }
+    .works-card p  { font-size: 0.78rem; color: var(--slate-500); line-height: 1.4; }
+    .coming-label {
+      display: inline-block; margin-top: 0.3rem;
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; padding: 0.12rem 0.45rem; border-radius: 9999px;
+      background: var(--slate-100); color: var(--slate-400);
+    }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;
+      border-top: 1px solid var(--slate-200); padding-top: 1.75rem; font-size: 0.85rem;
+    }
+    .page-nav-bottom a { color: var(--blue-700); text-decoration: none; }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--blue-700); color: #fff; border: none;
+      border-radius: 0.5rem; padding: 0.55rem 0.9rem;
+      font-size: 0.82rem; font-family: inherit; font-weight: 600;
+      cursor: pointer; box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate-900); color: var(--slate-400);
+      text-align: center; padding: 1.5rem 2rem; font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .site-header h1 { font-size: 1.4rem; }
+      .page-layout { grid-template-columns: 1fr; padding: 1.5rem 1rem 3rem; }
+      .side-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="../index.html">OPSI Docs</a>
+        <span>›</span>
+        FleetVision
+      </div>
+      <h1>FleetVision</h1>
+      <p class="subtitle">Documentation, guides, and reference for the FleetVision live fleet monitoring platform.</p>
+    </div>
+  </header>
+
+  <div class="page-layout">
+
+    <nav class="side-nav">
+      <p class="side-nav-label">On this page</p>
+      <ul>
+        <li><a href="#quick-reference">Quick Reference</a></li>
+        <hr class="nav-divider">
+        <li><a href="#understanding-fv">Understanding FleetVision</a></li>
+      </ul>
+    </nav>
+
+    <main class="page-content">
+
+      <!-- QUICK REFERENCE -->
+      <section id="quick-reference">
+        <p class="section-label">Quick Reference</p>
+        <p class="section-intro">At-a-glance guides for when you need a fast answer.</p>
+        <div class="qrc-grid">
+          <a class="qrc-card" href="quick-reference.html">
+            <p class="qrc-card-label">FleetVision</p>
+            <h3>Colours &amp; Statuses</h3>
+            <p>Every colour, status label, and indicator in FleetVision — what each one means and when it appears.</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- UNDERSTANDING FLEETVISION -->
+      <section id="understanding-fv">
+        <p class="section-label">Understanding FleetVision</p>
+        <p class="section-intro">Key concepts, the live map, alerts, and how FleetVision connects to Tramm.</p>
+        <div class="works-grid">
+          <div class="works-card">
+            <h3>The Live Map</h3>
+            <p>How to read the map, what the vehicle icons mean, and how to interact with trips in real time.</p>
+            <span class="coming-label">Coming soon</span>
+          </div>
+          <div class="works-card">
+            <h3>Alerts &amp; Escalations</h3>
+            <p>The types of alerts FleetVision generates, how to acknowledge them, and when to escalate.</p>
+            <span class="coming-label">Coming soon</span>
+          </div>
+          <div class="works-card">
+            <h3>Trip Monitoring</h3>
+            <p>How to track a trip from dispatch to completion, including stop-by-stop progress.</p>
+            <span class="coming-label">Coming soon</span>
+          </div>
+          <div class="works-card">
+            <h3>Analysis &amp; Reports</h3>
+            <p>Using FleetVision's built-in charts and reports to review on-time delivery and fleet performance.</p>
+            <span class="coming-label">Coming soon</span>
+          </div>
+        </div>
+      </section>
+
+      <nav class="page-nav-bottom">
+        <a href="../index.html">← OPSI Docs home</a>
+      </nav>
+
+    </main>
+
+  </div>
+
+  <footer>
+    <p>OPSI Docs &mdash; for support, contact your FleetVision implementation team.</p>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
+
+</body>
+</html>

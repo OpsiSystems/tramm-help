@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FleetVision – Colours &amp; Statuses Reference</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-700: #b45309;
+      --red-50:    #fff1f2;
+      --red-100:   #ffe4e6;
+      --red-700:   #b91c1c;
+
+      /* FleetVision brand colours */
+      --fv-green:       #175D31;
+      --fv-orange:      #EC6C19;
+      --fv-red:         #BA1818;
+      --fv-blue:        #00338A;
+      --fv-blue-mid:    #3D59AB;
+      --fv-green-dark:  #023020;
+      --fv-grey:        #A0A0A0;
+      --fv-blue-stop:   #409AC1;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--slate-100);
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 1.5rem;
+    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.5rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 64ch; }
+
+    /* ── PAGE LAYOUT ── */
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar-nav { position: sticky; top: 2rem; }
+    .sidebar-heading {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--slate-400); margin-bottom: 0.6rem;
+    }
+    .sidebar-nav a {
+      display: block; font-size: 0.825rem; color: var(--slate-600);
+      text-decoration: none; padding: 0.3rem 0.6rem; border-radius: 0.3rem;
+      transition: background 0.15s, color 0.15s; border-left: 2px solid transparent;
+    }
+    .sidebar-nav a:hover { background: var(--slate-100); color: var(--slate-900); }
+    .sidebar-nav a.active { color: var(--blue-700); background: var(--blue-50); border-left-color: var(--blue-600); font-weight: 600; }
+
+    /* ── CONTENT ── */
+    .content { min-width: 0; }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 1rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--slate-800);
+      border-left: 4px solid var(--blue-600); padding-left: 0.75rem;
+      margin-top: 2.5rem; margin-bottom: 1.25rem;
+    }
+    .section-label:first-child { margin-top: 0; }
+
+    .section-intro {
+      font-size: 0.88rem; color: var(--slate-600); line-height: 1.6;
+      margin-bottom: 1.25rem; max-width: 72ch;
+    }
+
+    /* ── COLOUR SWATCHES ── */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
+    }
+    .swatch {
+      display: flex; align-items: center; gap: 0.75rem;
+      background: #fff; border: 1px solid var(--slate-200);
+      border-radius: 0.5rem; padding: 0.6rem 0.85rem;
+    }
+    .swatch-dot {
+      width: 2.4rem; height: 2.4rem; border-radius: 0.4rem;
+      flex-shrink: 0; border: 1px solid rgba(0,0,0,0.08);
+    }
+    .swatch-name { font-size: 0.82rem; font-weight: 600; color: var(--slate-700); margin-bottom: 0.1rem; }
+    .swatch-hex { font-size: 0.72rem; font-family: 'Courier New', Courier, monospace; color: var(--slate-400); }
+
+    /* ── STATUS LIST ── */
+    .status-list { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.5rem; }
+    .status-row {
+      display: flex; align-items: center; gap: 0.85rem;
+      background: #fff; border: 1px solid var(--slate-200);
+      border-radius: 0.4rem; padding: 0.55rem 0.85rem;
+    }
+    .status-badge {
+      display: inline-block; padding: 0.2rem 0.75rem; border-radius: 9999px;
+      font-size: 0.77rem; font-weight: 600; white-space: nowrap;
+      flex-shrink: 0; min-width: 8rem; text-align: center;
+    }
+    .status-id {
+      font-size: 0.7rem; font-family: 'Courier New', Courier, monospace;
+      color: var(--slate-300); flex-shrink: 0; width: 2.2rem;
+    }
+    .status-desc { font-size: 0.83rem; color: var(--slate-600); line-height: 1.45; }
+    .status-note {
+      margin-left: auto; font-size: 0.72rem; color: var(--slate-400);
+      background: var(--slate-100); border-radius: 0.25rem;
+      padding: 0.1rem 0.45rem; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── STOP CIRCLE ── */
+    .stop-circle {
+      width: 1.85rem; height: 1.85rem; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700; border: 2px solid rgba(0,0,0,0.12);
+    }
+
+    /* ── VEHICLE STATUS CARDS ── */
+    .vehicle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
+    }
+    .vehicle-card {
+      background: #fff; border: 1px solid var(--slate-200);
+      border-radius: 0.5rem; padding: 0.75rem 0.9rem;
+      display: flex; gap: 0.7rem; align-items: flex-start;
+    }
+    .vehicle-icon-circle {
+      width: 2rem; height: 2rem; border-radius: 50%; flex-shrink: 0;
+      border: 2px solid rgba(0,0,0,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+    }
+    .vehicle-card-name { font-size: 0.83rem; font-weight: 600; color: var(--slate-700); margin-bottom: 0.2rem; }
+    .vehicle-card-desc { font-size: 0.78rem; color: var(--slate-500); line-height: 1.4; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: var(--amber-50); border: 1px solid var(--amber-100);
+      border-left: 4px solid var(--amber-700); border-radius: 0.4rem;
+      padding: 0.75rem 1rem; margin-bottom: 1.25rem;
+      font-size: 0.85rem; color: var(--slate-700);
+    }
+    .callout strong { color: var(--amber-700); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      text-align: center; padding: 2rem;
+      font-size: 0.78rem; color: var(--slate-400);
+      border-top: 1px solid var(--slate-200); margin-top: 2rem;
+    }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--blue-700); color: #fff; border: none;
+      border-radius: 0.5rem; padding: 0.55rem 0.9rem;
+      font-size: 0.82rem; font-family: inherit; font-weight: 600;
+      cursor: pointer; box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    @media (max-width: 700px) {
+      .page-layout { grid-template-columns: 1fr; }
+      .sidebar-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════ HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="breadcrumb">
+      <a href="../index.html">OPSI Docs</a>
+      <span>›</span>
+      FleetVision Colours &amp; Statuses
+    </div>
+    <h1>FleetVision – Colours &amp; Statuses</h1>
+    <p class="subtitle">A reference guide for every colour code and status label in FleetVision — what each one means and when it appears on screen.</p>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════ CONTENT -->
+<div class="page-layout">
+
+  <!-- ── SIDEBAR ── -->
+  <nav class="sidebar-nav" aria-label="Page sections">
+    <p class="sidebar-heading">On this page</p>
+    <a href="#colour-palette">Colour Palette</a>
+    <a href="#trip-lifecycle">Trip Lifecycle</a>
+    <a href="#trip-display">Trip Display Status</a>
+    <a href="#stop-statuses">Stop Statuses</a>
+    <a href="#vehicle-statuses">Vehicle Statuses</a>
+    <a href="#delivery-statuses">Delivery Statuses</a>
+  </nav>
+
+  <!-- ── MAIN CONTENT ── -->
+  <div class="content">
+
+    <!-- ════════════════════════════════ COLOUR PALETTE -->
+    <section id="colour-palette">
+      <h2 class="section-label">Colour Palette</h2>
+      <p class="section-intro">FleetVision uses eight colours consistently across all maps, charts, and status indicators. The same colour always means the same thing — green is good, orange is a warning, red is a problem, grey means no data.</p>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-dot" style="background: var(--fv-green)"></div>
+          <div>
+            <div class="swatch-name">On Time / Complete</div>
+            <div class="swatch-hex">#175D31</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-dot" style="background: var(--fv-orange)"></div>
+          <div>
+            <div class="swatch-name">Late / Partial</div>
+            <div class="swatch-hex">#EC6C19</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-dot" style="background: var(--fv-red)"></div>
+          <div>
+            <div class="swatch-name">Very Late / Failed</div>
+            <div class="swatch-hex">#BA1818</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-dot" style="background: var(--fv-blue)"></div>
+          <div>
+            <div class="swatch-name">Main / Active Route</div>
+            <div class="swatch-hex">#00338A</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-dot" style="background: var(--fv-blue-stop)"></div>
+          <div>
+            <div class="swatch-name">Scheduled Stop</div>
+            <div class="swatch-hex">#409AC1</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-dot" style="background: var(--fv-blue-mid)"></div>
+          <div>
+            <div class="swatch-name">Forced Complete</div>
+            <div class="swatch-hex">#3D59AB</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-dot" style="background: var(--fv-green-dark)"></div>
+          <div>
+            <div class="swatch-name">Completed (GPS)</div>
+            <div class="swatch-hex">#023020</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-dot" style="background: var(--fv-grey)"></div>
+          <div>
+            <div class="swatch-name">No GPS / Scheduled</div>
+            <div class="swatch-hex">#A0A0A0</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-dot" style="background: #000; border-color: var(--slate-300);"></div>
+          <div>
+            <div class="swatch-name">No Vehicle Allocated</div>
+            <div class="swatch-hex">#000000</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ TRIP LIFECYCLE -->
+    <section id="trip-lifecycle">
+      <h2 class="section-label">Trip Lifecycle</h2>
+      <p class="section-intro">Every trip moves through a numbered status sequence as it progresses from planning through to completion. FleetVision receives this status from Tramm and displays it on the trip record. The status numbers are internal — users see the descriptions.</p>
+      <div class="status-list">
+        <div class="status-row">
+          <span class="status-id">0</span>
+          <span class="status-badge" style="background: var(--fv-grey); color: #fff;">Tracking</span>
+          <span class="status-desc">Vehicle is being tracked by GPS but has no trip assigned yet.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">30</span>
+          <span class="status-badge" style="background: var(--fv-grey); color: #fff;">Scheduled</span>
+          <span class="status-desc">Trip is planned and scheduled in Tramm. Vehicle has not yet departed.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">40</span>
+          <span class="status-badge" style="background: var(--fv-grey); color: #fff;">Confirmed</span>
+          <span class="status-desc">Trip has been confirmed — operational acknowledgement that it will run.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">50</span>
+          <span class="status-badge" style="background: var(--fv-grey); color: #fff;">Fleet Confirmed</span>
+          <span class="status-desc">The fleet team has confirmed the trip and vehicle assignment.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">60</span>
+          <span class="status-badge" style="background: var(--fv-grey); color: #fff;">Vehicle Confirmed</span>
+          <span class="status-desc">The specific vehicle has been confirmed for this trip.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">65</span>
+          <span class="status-badge" style="background: var(--fv-grey); color: #fff;">Loaded</span>
+          <span class="status-desc">Vehicle has been loaded with the consignment and is ready to depart.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">70</span>
+          <span class="status-badge" style="background: var(--fv-blue); color: #fff;">Departed (GPS)</span>
+          <span class="status-desc">GPS has detected that the vehicle has left the departure point and is on its way.</span>
+          <span class="status-note">Live</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">80</span>
+          <span class="status-badge" style="background: var(--fv-blue); color: #fff;">Dispatched</span>
+          <span class="status-desc">Trip has been formally dispatched by the operations team.</span>
+          <span class="status-note">Live</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">90</span>
+          <span class="status-badge" style="background: var(--fv-blue); color: #fff;">Returning (GPS)</span>
+          <span class="status-desc">GPS has detected the vehicle is on its way back to base after completing deliveries.</span>
+          <span class="status-note">Live</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">100</span>
+          <span class="status-badge" style="background: var(--fv-green-dark); color: #fff;">Completed (GPS)</span>
+          <span class="status-desc">GPS has confirmed the trip is complete — the vehicle has returned.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">110</span>
+          <span class="status-badge" style="background: var(--fv-green); color: #fff;">Delivered</span>
+          <span class="status-desc">All deliveries have been recorded as complete in the system.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-id">120</span>
+          <span class="status-badge" style="background: var(--fv-green); color: #fff;">Debriefed</span>
+          <span class="status-desc">Trip has been closed out — debrief complete, all discrepancies recorded.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ TRIP DISPLAY STATUS -->
+    <section id="trip-display">
+      <h2 class="section-label">Trip Display Status</h2>
+      <p class="section-intro">The display status is what FleetVision shows on the map and dashboard — it's a calculated label that combines the trip lifecycle status with GPS data and schedule timing. It answers the question: <em>how is this trip performing right now?</em></p>
+      <div class="callout">
+        <strong>Note:</strong> The display status is separate from the trip lifecycle status above. A trip can be in <em>Departed (GPS)</em> lifecycle status but show <em>Late</em> as its display status if it has fallen behind schedule.
+      </div>
+      <div class="status-list">
+        <div class="status-row">
+          <span class="status-badge" style="background: #000; color: #fff;">No Vehicle Allocated</span>
+          <span class="status-desc">Trip has no vehicle assigned. Cannot be tracked.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-grey); color: #fff;">No GPS</span>
+          <span class="status-desc">A vehicle is assigned but no GPS signal is being received.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-grey); color: #fff;">Planned Start</span>
+          <span class="status-desc">Trip has not yet started — waiting for the planned departure time.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-grey); color: #fff;">Delayed Start</span>
+          <span class="status-desc">The planned start time has passed but the vehicle has not yet departed.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-blue); color: #fff;">Wrong Trip</span>
+          <span class="status-desc">GPS activity has been detected, but it does not match the planned route for this trip.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-green); color: #fff;">On Time</span>
+          <span class="status-desc">Trip is running on or ahead of schedule.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-orange); color: #fff;">Late</span>
+          <span class="status-desc">Trip has exceeded the late threshold set for this domain.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-red); color: #fff;">Very Late</span>
+          <span class="status-desc">Trip has exceeded the very late threshold — escalation may be required.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-blue-mid); color: #fff;">Forced Complete</span>
+          <span class="status-desc">Trip was manually closed by an operator before GPS confirmation was received.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-green-dark); color: #fff;">Completed</span>
+          <span class="status-desc">Trip is fully complete — GPS confirmed the vehicle has returned.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ STOP STATUSES -->
+    <section id="stop-statuses">
+      <h2 class="section-label">Stop Statuses</h2>
+      <p class="section-intro">Each delivery stop on a trip has its own status, shown as a coloured circle on the map. The circle colour tells you at a glance whether each stop was completed, skipped, or something else went wrong.</p>
+      <div class="status-list">
+        <div class="status-row">
+          <div class="stop-circle" style="background: var(--fv-blue-stop); color: #000;">S</div>
+          <span class="status-badge" style="background: var(--fv-blue-stop); color: #000;">Scheduled</span>
+          <span class="status-desc">Stop is planned but the vehicle has not yet arrived. Upcoming on the route.</span>
+        </div>
+        <div class="status-row">
+          <div class="stop-circle" style="background: var(--fv-green); color: #fff;">A</div>
+          <span class="status-badge" style="background: var(--fv-green); color: #fff;">Arrived</span>
+          <span class="status-desc">Vehicle is currently at this stop.</span>
+        </div>
+        <div class="status-row">
+          <div class="stop-circle" style="background: var(--fv-blue-stop); color: #fff;">D</div>
+          <span class="status-badge" style="background: var(--fv-blue-stop); color: #fff;">Departed</span>
+          <span class="status-desc">Vehicle visited and left this stop. Delivery recorded.</span>
+        </div>
+        <div class="status-row">
+          <div class="stop-circle" style="background: var(--fv-red); color: #000;">K</div>
+          <span class="status-badge" style="background: var(--fv-red); color: #000;">Skipped</span>
+          <span class="status-desc">Stop was not visited — the vehicle moved past without stopping. Requires follow-up.</span>
+        </div>
+        <div class="status-row">
+          <div class="stop-circle" style="background: var(--fv-orange); color: #000;">Ab</div>
+          <span class="status-badge" style="background: var(--fv-orange); color: #000;">Aborted</span>
+          <span class="status-desc">Stop was cancelled — delivery was not attempted (e.g. site closed, refused delivery).</span>
+        </div>
+        <div class="status-row">
+          <div class="stop-circle" style="background: var(--fv-red); color: #fff;">U</div>
+          <span class="status-badge" style="background: var(--fv-red); color: #fff;">Unplanned</span>
+          <span class="status-desc">Vehicle stopped here, but this stop was not in the original route. May indicate an unauthorised stop.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ VEHICLE STATUSES -->
+    <section id="vehicle-statuses">
+      <h2 class="section-label">Vehicle Statuses</h2>
+      <p class="section-intro">Vehicle icons on the map change colour based on what the GPS reports the vehicle is doing. The icon colour tells you at a glance whether the vehicle is moving, stationary, on a trip, or off-network.</p>
+      <div class="vehicle-grid">
+        <div class="vehicle-card">
+          <div class="vehicle-icon-circle" style="background: var(--fv-green);">🚛</div>
+          <div>
+            <div class="vehicle-card-name">Moving — On Trip</div>
+            <div class="vehicle-card-desc">Vehicle is moving and has an active trip assigned. All good.</div>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-icon-circle" style="background: var(--fv-green);">🚛</div>
+          <div>
+            <div class="vehicle-card-name">Stopped — At Planned Stop</div>
+            <div class="vehicle-card-desc">Vehicle is stationary at a scheduled delivery stop on its route.</div>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-icon-circle" style="background: var(--fv-orange);">🚛</div>
+          <div>
+            <div class="vehicle-card-name">Stopped — At Unplanned Stop</div>
+            <div class="vehicle-card-desc">Vehicle is stationary at a location that was not on its planned route. May require attention.</div>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-icon-circle" style="background: var(--fv-grey);">🚛</div>
+          <div>
+            <div class="vehicle-card-name">Moving — No Trip</div>
+            <div class="vehicle-card-desc">GPS shows the vehicle is moving, but no trip is assigned. Check allocation.</div>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-icon-circle" style="background: var(--fv-grey);">🚛</div>
+          <div>
+            <div class="vehicle-card-name">Stopped — No Trip</div>
+            <div class="vehicle-card-desc">Vehicle is stationary with no active trip. Parked at base or idle.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════ DELIVERY STATUSES -->
+    <section id="delivery-statuses">
+      <h2 class="section-label">Delivery Statuses</h2>
+      <p class="section-intro">Delivery statuses appear in FleetVision's analysis charts and summary reports. They reflect the outcome of each consignment (order/load) at the end of a trip.</p>
+      <div class="status-list">
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-green); color: #fff;">Fully Done</span>
+          <span class="status-desc">All items on the consignment were delivered successfully.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-orange); color: #fff;">Partially Done</span>
+          <span class="status-desc">Some items were delivered but the consignment was not fully completed.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-grey); color: #fff;">Scheduled</span>
+          <span class="status-desc">Delivery is planned for this trip but has not yet been attempted.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-red); color: #fff;">Not Done</span>
+          <span class="status-desc">Delivery was not completed — no items from this consignment were delivered.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-red); color: #fff;">Aborted</span>
+          <span class="status-desc">Delivery was actively cancelled — the stop was visited but delivery did not proceed.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-badge" style="background: var(--fv-blue); color: #fff;">Total</span>
+          <span class="status-desc">Aggregate figure used in charts — represents all consignments combined.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="page-nav-bottom">
+      <a href="index.html">← Back to FleetVision</a>
+      <div class="nav-right">
+        <a href="../index.html">OPSI Docs home</a>
+      </div>
+    </nav>
+
+  </div><!-- /content -->
+</div><!-- /page-layout -->
+
+<footer class="site-footer">
+  OPSI Docs · FleetVision Reference · For internal use only
+</footer>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+<script>
+  // Back to top button
+  const btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 300);
+  });
+
+  // Active sidebar link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.sidebar-nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
