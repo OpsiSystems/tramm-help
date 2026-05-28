@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Release 1174 — January 2026 — Tramm Help</title>
+  <title>Release 1174 — January 2026 — OPSI Docs</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
       --blue-200: #bfdbfe;
       --blue-500: #3b82f6;
       --blue-600: #2563eb;
       --blue-700: #1d4ed8;
       --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
       --slate-300: #cbd5e1;
@@ -106,13 +108,14 @@
 
     /* ── SECTION LABELS ── */
     .section-label {
-      font-size: 0.75rem;
+      font-size: 1rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--slate-400);
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--slate-200);
+      letter-spacing: 0.06em;
+      color: var(--slate-800);
+      border-left: 4px solid var(--blue-600);
+      padding-left: 0.75rem;
+      margin-top: 2.5rem;
       margin-bottom: 1.5rem;
     }
 
@@ -155,6 +158,8 @@
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 0.75rem;
     }
+
+    /* ── PDF CARD ── */
     .pdf-card {
       display: flex;
       align-items: flex-start;
@@ -163,14 +168,6 @@
       border: 1px solid var(--slate-200);
       border-radius: 0.6rem;
       padding: 1rem 1.1rem;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
-    }
-    .pdf-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(30,58,138,0.09);
-      border-color: var(--blue-200);
     }
     .pdf-icon {
       flex-shrink: 0;
@@ -199,6 +196,88 @@
       line-height: 1.4;
     }
 
+    /* ── PDF ACTION BUTTONS ── */
+    .pdf-actions {
+      display: flex;
+      gap: 0.45rem;
+      margin-top: 0.65rem;
+    }
+    .pdf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.28rem 0.65rem;
+      border-radius: 0.3rem;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .pdf-btn svg { width: 0.8rem; height: 0.8rem; flex-shrink: 0; }
+    .pdf-btn-view {
+      background: var(--blue-50);
+      color: var(--blue-700);
+      border: 1px solid var(--blue-200);
+    }
+    .pdf-btn-view:hover {
+      background: var(--blue-100);
+      color: var(--blue-900);
+    }
+    .pdf-btn-dl {
+      background: var(--slate-100);
+      color: var(--slate-600);
+      border: 1px solid var(--slate-200);
+    }
+    .pdf-btn-dl:hover {
+      background: var(--slate-200);
+      color: var(--slate-900);
+    }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
+
     /* ── FOOTER ── */
     footer {
       background: var(--slate-900);
@@ -220,7 +299,7 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="breadcrumb">
-        <a href="../index.html">Tramm Help</a>
+        <a href="../index.html">OPSI Docs</a>
         <span>›</span>
         <a href="index.html">What's New</a>
         <span>›</span>
@@ -268,10 +347,10 @@
     <!-- FEATURE GUIDES -->
     <section class="pdf-section">
       <p class="section-label">Feature Guides</p>
-      <p class="pdf-intro">Download a feature guide for a detailed walkthrough of each new capability, including configuration steps and examples.</p>
+      <p class="pdf-intro">Click <strong>View</strong> to read a guide in your browser, or <strong>Download</strong> to save it to your device.</p>
       <div class="pdf-grid">
 
-        <a class="pdf-card" href="pdfs/Jan_2026_Enhancements.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -280,10 +359,20 @@
           <div class="pdf-body">
             <p class="pdf-title">January 2026 Enhancements</p>
             <p class="pdf-desc">System-wide improvements included in this release.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Jan_2026_Enhancements.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Jan_2026_Enhancements.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Licence and Permit Validation.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -292,10 +381,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Licence and Permit Validation</p>
             <p class="pdf-desc">Validate licences and permits before trip allocation.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Licence and Permit Validation.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Licence and Permit Validation.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Tariff Validation.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -304,10 +403,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Tariff Validation</p>
             <p class="pdf-desc">Check tariff validity during order and job processing.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Tariff Validation.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Tariff Validation.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Partial Redirects.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -316,10 +425,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Partial Redirects</p>
             <p class="pdf-desc">Redirect partial jobs to alternative destinations mid-execution.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Partial Redirects.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Partial Redirects.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Transporter State Machine.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -328,10 +447,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Transporter State Machine</p>
             <p class="pdf-desc">Improved workflow states for transporter allocation.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Transporter State Machine.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Transporter State Machine.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Solver settings.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -340,10 +469,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Solver Settings</p>
             <p class="pdf-desc">Configure time windows and parameters for the route optimisation solver.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Solver settings.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Solver settings.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Dimension Configurations.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -352,10 +491,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Dimension Configurations</p>
             <p class="pdf-desc">Configure dimension types and units for capacity management.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Dimension Configurations.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Dimension Configurations.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Quantity Conversion.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -364,10 +513,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Quantity Conversion</p>
             <p class="pdf-desc">Convert order quantities between different units of measure.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Quantity Conversion.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Quantity Conversion.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Dynamic Trailers.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -376,10 +535,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Dynamic Trailers</p>
             <p class="pdf-desc">Dynamically assign trailers based on load requirements.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Dynamic Trailers.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Dynamic Trailers.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/LOB Trailers.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -388,10 +557,20 @@
           <div class="pdf-body">
             <p class="pdf-title">LOB Trailers</p>
             <p class="pdf-desc">Track quantities left on board trailers between trips.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/LOB Trailers.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/LOB Trailers.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Trip Locking.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -400,10 +579,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Trip Locking</p>
             <p class="pdf-desc">Lock confirmed trips to prevent unintended changes.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Trip Locking.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Trip Locking.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Charge expressions.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -412,10 +601,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Charge Expressions</p>
             <p class="pdf-desc">Configure charge calculations using expressions in the tariff engine.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Charge expressions.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Charge expressions.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Configurable Trip Validations.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -424,10 +623,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Configurable Trip Validations</p>
             <p class="pdf-desc">Define custom validation rules applied when trips are confirmed.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Configurable Trip Validations.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Configurable Trip Validations.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Custom Distance Matrix.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -436,10 +645,20 @@
           <div class="pdf-body">
             <p class="pdf-title">Custom Distance Matrix</p>
             <p class="pdf-desc">Define custom site-to-site distances, overriding calculated values.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Custom Distance Matrix.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Custom Distance Matrix.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a class="pdf-card" href="pdfs/Email History.pdf" target="_blank">
+        <div class="pdf-card">
           <span class="pdf-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -448,17 +667,43 @@
           <div class="pdf-body">
             <p class="pdf-title">Email History</p>
             <p class="pdf-desc">View a history of all system-generated emails.</p>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="pdfs/Email History.pdf" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </a>
+              <a class="pdf-btn pdf-btn-dl" href="pdfs/Email History.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
       </div>
     </section>
 
+    <nav class="page-nav-bottom">
+      <a href="index.html">← Back to What's New</a>
+      <div class="nav-right">
+        <a href="../index.html">OPSI Docs home</a>
+      </div>
+    </nav>
+
   </main>
 
   <footer>
-    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+    <p>OPSI Docs</p>
   </footer>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
 
 </body>
 </html>
