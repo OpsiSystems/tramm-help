@@ -106,13 +106,14 @@
     }
 
     .section-label {
-      font-size: 0.75rem;
+      font-size: 1rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--slate-400);
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--slate-200);
+      letter-spacing: 0.06em;
+      color: var(--slate-800);
+      border-left: 4px solid var(--blue-600);
+      padding-left: 0.75rem;
+      margin-top: 2.5rem;
       margin-bottom: 1.25rem;
     }
     .section-intro {
@@ -123,15 +124,61 @@
     .section-intro a { color: var(--blue-700); }
 
     .subsection-label {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--slate-500);
-      margin: 1.75rem 0 0.6rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 1px solid var(--slate-100);
+      color: var(--blue-700);
+      margin: 2rem 0 0.75rem;
+      padding: 0.45rem 0.75rem;
+      background: var(--blue-50);
+      border-left: 3px solid var(--blue-600);
+      border-radius: 0 0.25rem 0.25rem 0;
     }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
 
     /* ── ACTION TABLE ── */
     .action-table { width: 100%; border-collapse: collapse; }
@@ -184,6 +231,89 @@
     }
     .callout-orange svg { color: var(--orange-600); }
 
+    /* ── BUTTON IMAGES ── */
+    .btn-img {
+      display: block;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      margin-bottom: 0.4rem;
+    }
+    .toolbar-screenshot {
+      display: block;
+      max-width: 100%;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .screenshot-caption {
+      font-size: 0.78rem;
+      color: var(--slate-400);
+      margin-bottom: 1.25rem;
+      padding-left: 0.25rem;
+    }
+
+    /* ── INTERACTIVE TOOLBAR MAP ── */
+    .toolbar-map-wrap { margin-bottom: 1.25rem; }
+    .toolbar-map {
+      position: relative;
+      display: inline-block;
+    }
+    .toolbar-map > img {
+      display: block;
+      max-width: 500px;
+      width: 100%;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+    }
+    .hotspot {
+      position: absolute;
+      top: 5%; height: 90%;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.12s;
+    }
+    .hotspot:hover { background: rgba(37,99,235,0.18); outline: 2px solid rgba(37,99,235,0.35); }
+    .hotspot-label {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%; transform: translateX(-50%);
+      background: var(--blue-900); color: #fff;
+      font-size: 0.72rem; font-weight: 600;
+      padding: 4px 10px; border-radius: 4px;
+      white-space: nowrap; pointer-events: none;
+      opacity: 0; transition: opacity 0.1s; z-index: 20;
+    }
+    .hotspot-label::before {
+      content: ''; position: absolute;
+      bottom: 100%; left: 50%; transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-bottom-color: var(--blue-900);
+    }
+    .hotspot:hover .hotspot-label { opacity: 1; }
+    .toolbar-map-hint {
+      font-size: 0.78rem; color: var(--slate-400);
+      margin-top: 0.65rem; padding-left: 0.25rem;
+    }
+    tr.row-active td { animation: row-flash 1.4s ease-out forwards; }
+    @keyframes row-flash {
+      0%, 20% { background: var(--blue-100); }
+      100%     { background: transparent; }
+    }
+
+    /* ── IN PROGRESS BANNER ── */
+    .in-progress-banner {
+      background: var(--amber-50);
+      border-bottom: 2px solid var(--amber-100);
+      padding: 0.6rem 2rem;
+      font-size: 0.8rem;
+      color: var(--amber-700);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .in-progress-banner strong { font-weight: 700; }
+
     /* ── COMING SOON STUB ── */
     .stub-section {
       background: var(--slate-100);
@@ -226,6 +356,10 @@
       <p class="subtitle">Standard buttons that appear in every app, plus the action buttons specific to each app — all in one place.</p>
     </div>
   </header>
+
+  <div class="in-progress-banner">
+    <strong>In progress</strong> — individual Planner button screenshots to be added.
+  </div>
 
   <div class="page-body">
 
@@ -277,63 +411,101 @@
       <section id="standard-actions">
         <p class="section-label">Standard Toolbar Buttons</p>
         <p class="section-intro">These buttons appear in the toolbar of every app that has a grid. They always do the same thing, regardless of which app you are in.</p>
+
+        <div class="toolbar-map-wrap">
+          <div class="toolbar-map">
+            <img src="img/toolbar-data-manager.png" alt="Standard toolbar buttons in Data Manager">
+            <div class="hotspot" data-target="row-add"       style="left:0%;width:12.5%">    <span class="hotspot-label">Add</span></div>
+            <div class="hotspot" data-target="row-duplicate" style="left:12.5%;width:12.5%"> <span class="hotspot-label">Duplicate</span></div>
+            <div class="hotspot" data-target="row-edit"      style="left:25%;width:12.5%">   <span class="hotspot-label">Edit</span></div>
+            <div class="hotspot" data-target="row-security"  style="left:37.5%;width:12.5%"> <span class="hotspot-label">Set Security Groups</span></div>
+            <div class="hotspot" data-target="row-toggle"    style="left:50%;width:12.5%">   <span class="hotspot-label">Activate / Deactivate</span></div>
+            <div class="hotspot" data-target="row-delete"    style="left:62.5%;width:12.5%"> <span class="hotspot-label">Delete</span></div>
+            <div class="hotspot" data-target="row-import"    style="left:75%;width:12.5%">   <span class="hotspot-label">Import</span></div>
+            <div class="hotspot" data-target="row-export"    style="left:87.5%;width:12.5%"> <span class="hotspot-label">Export</span></div>
+          </div>
+          <p class="toolbar-map-hint">Hover over a button to see its name — click to jump to the full description below.</p>
+        </div>
+
         <div class="callout" style="margin-bottom:1.25rem;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
           <span>Most actions only become active once you select one or more records. Buttons that require a selection are greyed out until a row is selected in the grid.</span>
         </div>
+
         <table class="action-table">
           <thead>
-            <tr>
-              <th style="width:28%">Button</th>
-              <th>What it does</th>
-            </tr>
+            <tr><th style="width:28%">Button</th><th>What it does</th></tr>
           </thead>
           <tbody>
 
-            <tr>
+            <tr id="row-add">
               <td>
+                <img src="img/btn-add.png" alt="Add button" class="btn-img">
                 <p class="action-name">Add</p>
                 <p class="action-when">No selection needed</p>
               </td>
               <td class="action-desc">Opens a blank form to create a new record. Available on all entity types.</td>
             </tr>
 
-            <tr>
+            <tr id="row-duplicate">
               <td>
+                <img src="img/btn-duplicate.png" alt="Duplicate button" class="btn-img">
                 <p class="action-name">Duplicate</p>
                 <p class="action-when">One record selected</p>
               </td>
               <td class="action-desc">Creates a copy of the selected record, pre-filled with the same values. Useful for creating similar records without starting from scratch — for example, a new vehicle of the same class.</td>
             </tr>
 
-            <tr>
+            <tr id="row-edit">
               <td>
+                <img src="img/btn-edit.png" alt="Edit button" class="btn-img">
                 <p class="action-name">Edit</p>
                 <p class="action-when">One record selected</p>
               </td>
               <td class="action-desc">Opens the selected record for editing. Only fields the current user has permission to change will be editable.</td>
             </tr>
 
-            <tr>
+            <tr id="row-security">
               <td>
+                <img src="img/btn-security.png" alt="Set Security Groups button" class="btn-img">
+                <p class="action-name">Set Security Groups</p>
+                <p class="action-when">One or more records selected</p>
+              </td>
+              <td class="action-desc">Assigns the selected records to a security group, controlling which users can view or edit them. Only relevant where record-level access control has been configured.</td>
+            </tr>
+
+            <tr id="row-toggle">
+              <td>
+                <img src="img/btn-toggle.png" alt="Activate/Deactivate button" class="btn-img">
+                <p class="action-name">Activate / Deactivate</p>
+                <p class="action-when">One or more records selected</p>
+              </td>
+              <td class="action-desc">Toggles the selected records between active and inactive. Inactive records are hidden from most workflows and cannot be selected in forms — for example, an inactive vehicle class will not appear as an option when adding a vehicle.</td>
+            </tr>
+
+            <tr id="row-delete">
+              <td>
+                <img src="img/btn-delete.png" alt="Delete button" class="btn-img">
                 <p class="action-name">Delete</p>
                 <p class="action-when">One or more records selected</p>
               </td>
               <td class="action-desc">Deletes the selected record(s). Tramm will warn if a record is referenced by other data — for example, a site that is still used on active trips cannot be deleted.</td>
             </tr>
 
-            <tr>
+            <tr id="row-import">
               <td>
+                <img src="img/btn-import.png" alt="Import button" class="btn-img">
                 <p class="action-name">Import</p>
                 <p class="action-when">No selection needed</p>
               </td>
               <td class="action-desc">Imports records from an Excel file. A template can usually be downloaded first to ensure the correct column structure. Available on most master data entity types.</td>
             </tr>
 
-            <tr>
+            <tr id="row-export">
               <td>
+                <img src="img/btn-export.png" alt="Export button" class="btn-img">
                 <p class="action-name">Export</p>
                 <p class="action-when">No selection needed</p>
               </td>
@@ -355,9 +527,11 @@
       <!-- ── PLANNER ── -->
       <section id="planner">
         <p class="section-label">Planner</p>
-        <p class="section-intro">The Planner has its own set of action buttons for building and managing trip plans. These are in addition to the <a href="#standard-actions">standard toolbar buttons</a> above. For a visual guide with button screenshots, see the <a href="../planner/quick-reference.html">Planner Quick Reference Card</a>.</p>
+        <p class="section-intro">The Planner has its own set of action buttons for building and managing trip plans. These are in addition to the <a href="#standard-actions">standard toolbar buttons</a> above. For a visual guide with button screenshots, see the <a href="planner/quick-reference.html">Planner Quick Reference Card</a>.</p>
 
         <p class="subsection-label">Gantt view controls</p>
+        <img src="img/planner-gantt-toolbar.png" alt="Planner Gantt toolbar buttons" class="toolbar-screenshot">
+        <p class="screenshot-caption">Gantt view controls — shown above the schedule timeline.</p>
         <table class="action-table">
           <thead><tr><th style="width:28%">Button</th><th>What it does</th></tr></thead>
           <tbody>
@@ -420,6 +594,8 @@
         </table>
 
         <p class="subsection-label">Jobs</p>
+        <img src="img/planner-jobs-toolbar.png" alt="Planner Jobs toolbar buttons" class="toolbar-screenshot">
+        <p class="screenshot-caption">Jobs panel toolbar — buttons for working with the selected jobs.</p>
         <table class="action-table">
           <thead><tr><th style="width:28%">Button</th><th>What it does</th></tr></thead>
           <tbody>
@@ -461,6 +637,8 @@
         </table>
 
         <p class="subsection-label">Trips</p>
+        <img src="img/planner-trips-toolbar.png" alt="Planner Trips toolbar buttons" class="toolbar-screenshot">
+        <p class="screenshot-caption">Trips panel toolbar — buttons for managing planned and live trips.</p>
         <table class="action-table">
           <thead><tr><th style="width:28%">Button</th><th>What it does</th></tr></thead>
           <tbody>
@@ -560,6 +738,13 @@
         <p class="section-intro">Data Manager uses the standard toolbar buttons only — there are no additional app-specific toolbar buttons. See the <a href="data-manager/index.html">Data Manager guide</a> for a full overview of the app.</p>
       </section>
 
+      <nav class="page-nav-bottom">
+        <a href="index.html">← Back to Tramm</a>
+        <div class="nav-right">
+          <a href="../index.html">OPSI Docs home</a>
+        </div>
+      </nav>
+
     </main>
 
   </div>
@@ -567,6 +752,27 @@
   <footer>
     <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
   </footer>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    document.querySelectorAll('.hotspot').forEach(h => {
+      h.addEventListener('click', () => {
+        const row = document.getElementById(h.dataset.target);
+        if (!row) return;
+        row.scrollIntoView({behavior: 'smooth', block: 'center'});
+        row.classList.remove('row-active');
+        void row.offsetWidth;
+        row.classList.add('row-active');
+        setTimeout(() => row.classList.remove('row-active'), 1400);
+      });
+    });
+  </script>
 
 </body>
 </html>
