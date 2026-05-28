@@ -309,18 +309,18 @@
       gap: 1rem;
     }
     .concept-panel {
-      border: 1px solid var(--slate-200);
+      border: 1px solid var(--slate-300);
       border-radius: 0.55rem;
       overflow: hidden;
     }
     .concept-panel-header {
-      background: var(--slate-100);
+      background: var(--slate-500);
       padding: 0.6rem 1rem;
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--slate-500);
+      color: #fff;
     }
     .concept-panel-body {
       padding: 0.85rem 1rem;
@@ -333,6 +333,27 @@
       margin-top: 0.35rem;
     }
     .concept-panel-body li { margin-bottom: 0.2rem; }
+    .concept-panel.panel-class .concept-panel-header {
+      background: var(--blue-700);
+      color: #fff;
+    }
+    .concept-panel-body li.item-override {
+      color: var(--amber-700);
+      font-weight: 500;
+    }
+    /* ── ATTRIBUTE VALUE PILLS ── */
+    .av-list { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.35rem; }
+    .av { display: inline-flex; align-items: center; font-size: 0.74rem; font-family: 'Courier New', Courier, monospace; background: var(--slate-100); border: 1px solid var(--slate-200); border-radius: 0.25rem; padding: 0.1rem 0.45rem; color: var(--slate-700); white-space: nowrap; }
+    .av.av-note { color: var(--amber-700); background: var(--amber-50); border-color: var(--amber-100); }
+    .av-sub { font-size: 0.68rem; color: var(--slate-500); margin-left: 0.25rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-style: italic; }
+
+    /* ── ATTRIBUTE EXAMPLE BLOCK ── */
+    .av-example { background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 0.45rem; padding: 0.85rem 1rem; margin-top: 0.75rem; }
+    .av-example-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-400); margin-bottom: 0.5rem; }
+    .av-example-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; margin-bottom: 0.6rem; }
+    .av-field { font-size: 0.75rem; color: var(--slate-500); font-weight: 600; }
+    .av-field::after { content: ':'; margin-right: 0.1rem; }
+    .av-example-note { font-size: 0.82rem; color: var(--slate-600); line-height: 1.55; }
 
     /* ── FIELD MATRIX ── */
     .field-matrix {
@@ -488,6 +509,50 @@
       .field-matrix td { display: block; padding: 0.4rem 0.75rem; }
       .field-matrix tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
     }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
   </style>
 </head>
 <body>
@@ -536,7 +601,7 @@
         <p class="body-text">This split means you can plan trips and check capacity without registering every vehicle individually. The Planner works directly against Vehicle Classes, so a Vehicle Class alone is enough for most planning work.</p>
 
         <div class="concept-panels" style="margin-top:1.25rem;">
-          <div class="concept-panel">
+          <div class="concept-panel panel-class">
             <div class="concept-panel-header">Vehicle Class — the template</div>
             <div class="concept-panel-body">
               Defines shared properties for a group of vehicles.
@@ -550,7 +615,7 @@
               </ul>
             </div>
           </div>
-          <div class="concept-panel">
+          <div class="concept-panel panel-entity">
             <div class="concept-panel-header">Vehicle — the individual unit</div>
             <div class="concept-panel-body">
               References a Vehicle Class and adds identity-level detail.
@@ -559,7 +624,7 @@
                 <li>Home site (depot)</li>
                 <li>Default operators and trailers</li>
                 <li>Regulatory permits</li>
-                <li>Optional overrides: operating hours, efficiency</li>
+                <li class="item-override">&#8593;&nbsp;Optional overrides: operating hours, efficiency</li>
               </ul>
             </div>
           </div>
@@ -784,6 +849,13 @@
 
         <p class="body-text">The Add a VehicleClass form is organised into tabs. Work through them in order:</p>
 
+        <div class="callout callout-amber" style="margin-bottom:1.25rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>If vehicles of this class pull trailers, set up the <strong>Trailer</strong> records in Data Manager first (under <strong>Trailers</strong>). You cannot assign a trailer that does not already exist.</span>
+        </div>
+
         <ol class="task-steps">
           <li>
             <div class="step-num">1</div>
@@ -796,67 +868,119 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <div class="step-title">Basic Info — enter the identity details</div>
-              <div class="step-detail">Enter a <strong>Name</strong> (required). The ID is auto-generated — leave it unless you have a specific code to use. Add an External ID if you need to match this class to a record in another system. Add a Description if it helps distinguish this class from others. Assign a Group if you use groups to organise your vehicle classes.</div>
+              <div class="step-detail">Enter a <strong>Name</strong> (required). The ID is auto-generated — leave it unless you have a specific code to use. Add an <strong>External ID</strong> if you need to match this class to a record in another system. Add a <strong>Description</strong> if it helps distinguish this class from others. The <strong>Groups</strong> field is for data partitioning — it assigns this record to a specific business unit or division, as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</div>
             </div>
           </li>
           <li>
             <div class="step-num">3</div>
             <div class="step-body">
-              <div class="step-title">Specification — Type</div>
-              <div class="step-detail">Select the vehicle type: <strong>Rigid</strong> (fixed cab and body) or <strong>Horse</strong> (truck-tractor that pulls interchangeable trailers). Defaults to None if left unset.</div>
+              <div class="step-title">Specification → Type</div>
+              <div class="step-detail">Select the vehicle type: <strong>Rigid</strong> (fixed cab and body) or <strong>Horse</strong> (truck-tractor that pulls interchangeable trailers). Leave unset if you prefer not to classify.</div>
             </div>
           </li>
           <li>
             <div class="step-num">4</div>
             <div class="step-body">
-              <div class="step-title">Specification — Capacity</div>
-              <div class="step-detail">Set the load capacity — weight, volume, and/or units depending on what you plan in. This is what the Planner checks against when assigning jobs to trips.</div>
+              <div class="step-title">Specification → Costing</div>
+              <div class="step-detail">Set the <strong>Fixed</strong>, <strong>Time</strong>, and <strong>Distance</strong> cost rates for this vehicle type. Used by the Transact Extension for trip costing and financial reporting. Leave all at 0 if your organisation does not use Tramm for financial costing.</div>
             </div>
           </li>
           <li>
             <div class="step-num">5</div>
             <div class="step-body">
-              <div class="step-title">Specification — Physical Size</div>
-              <div class="step-detail">Set the physical dimensions: Length, Width, Height, and Mass. <strong>Required if you use the 3D Visualiser</strong> in the Planner — without these, the visualiser cannot represent the vehicle correctly.</div>
+              <div class="step-title">Specification → Routing Class</div>
+              <div class="step-detail">Select the Routing Class that matches this vehicle type — for example, a profile for standard road vehicles, heavy vehicles, or vehicles with specific road restrictions. Falls back to the Default routing class if left blank. Routing Classes are defined in Settings.</div>
             </div>
           </li>
           <li>
             <div class="step-num">6</div>
             <div class="step-body">
-              <div class="step-title">Specification — Routing Class</div>
-              <div class="step-detail">Select the Routing Class that matches this vehicle type (e.g. the profile for standard road vehicles vs. heavy vehicles). Falls back to the Default routing class if left blank.</div>
+              <div class="step-title">Specification → Attributes</div>
+              <div class="step-detail">Add attribute name/value pairs that describe the capabilities of vehicles in this class — used by the Planner when matching vehicles to jobs and sites via Attribute Rules. Examples: <em>refrigeration_capable = yes</em>, <em>dangerous_goods_certified = true</em>, <em>curtainsider = yes</em>, <em>flatbed = yes</em>. Attribute names must exactly match the names referenced in the Attribute Rules on Product Groups and Site Classes for matching to work correctly.</div>
             </div>
           </li>
           <li>
             <div class="step-num">7</div>
             <div class="step-body">
-              <div class="step-title">Specification — Costing (Transact Extension only)</div>
-              <div class="step-detail">Set Fixed, Time, and Distance cost rates if your organisation uses Tramm for trip costing. Leave all at 0 if you do not use the Transact Extension.</div>
+              <div class="step-title">Specification → Capacity</div>
+              <div class="step-detail">Set the load capacity for this vehicle type — weight, volume, and/or units, depending on what dimensions you plan against. The Planner checks these limits when assigning jobs to a trip — a load that would exceed any capacity value will not be assigned.</div>
             </div>
           </li>
           <li>
             <div class="step-num">8</div>
             <div class="step-body">
-              <div class="step-title">Specification — Attributes</div>
-              <div class="step-detail">Add any attributes that should apply to all vehicles of this class — used for matching and filtering in the Planner. Leave empty if not applicable.</div>
+              <div class="step-title">Specification → Physical Size</div>
+              <div class="step-detail">Set the vehicle's external dimensions: <strong>Length</strong>, <strong>Width</strong>, <strong>Height</strong>, and <strong>Mass</strong>. Required if you use the 3D load visualiser in the Planner — without these, the visualiser cannot represent the vehicle correctly.</div>
             </div>
           </li>
           <li>
             <div class="step-num">9</div>
             <div class="step-body">
-              <div class="step-title">Operating Hours tab</div>
-              <div class="step-detail">Set the default operating hours for this class — select the days and time slots. Individual vehicles can override these if needed.</div>
+              <div class="step-title">Specification → Trailers</div>
+              <div class="step-detail">For <strong>Horse</strong>-type vehicles: assign the default trailer type(s) typically used by vehicles of this class. Trailers must already exist in Data Manager (see callout above). Leave blank if trailers vary by trip or if this is a Rigid class.</div>
             </div>
           </li>
           <li>
             <div class="step-num">10</div>
             <div class="step-body">
-              <div class="step-title">Attribute Rules tab</div>
-              <div class="step-detail">Add restrictions if vehicles of this class have specific requirements — for example, if they can only carry certain product types or can only visit certain site types. Each rule specifies an Entity Type, Attribute Name, Operator, and Value.</div>
+              <div class="step-title">Specification → Efficiency</div>
+              <div class="step-detail">Set the default efficiency figures for this vehicle type: <strong>Carbon Emissions</strong> (gCO₂/km), <strong>Max Payload</strong> (kg), and <strong>Fuel Consumption</strong> (l/100km). Used for cost and sustainability reporting. Can be overridden on individual vehicles.</div>
             </div>
           </li>
           <li>
             <div class="step-num">11</div>
+            <div class="step-body">
+              <div class="step-title">Specification → Loading Rate</div>
+              <div class="step-detail">Set the default loading time per unit for vehicles of this class. Used by the Planner to estimate stop duration when no product-specific or site-specific loading rate is configured.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">12</div>
+            <div class="step-body">
+              <div class="step-title">Operating Hours tab</div>
+              <div class="step-detail">Set the default operating days and time windows for vehicles of this class. Individual vehicles can override these if needed.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">13</div>
+            <div class="step-body">
+              <div class="step-title">Attribute Rules tab</div>
+              <div class="step-detail">
+                <p style="margin-bottom:0.6rem;">Attribute Rules define the conditions under which vehicles of this class can be matched to jobs, products, and sites. Each rule has four parts:</p>
+                <ul style="padding-left:1.2rem;margin-bottom:0.6rem;font-size:0.845rem;color:var(--slate-600);line-height:1.6;">
+                  <li style="margin-bottom:0.75rem;">
+                    <strong>Entity Type</strong> — the type of entity the rule checks:
+                    <div class="av-list">
+                      <span class="av">vehicle</span><span class="av">trailer</span><span class="av">compartment</span><span class="av">site</span><span class="av">loadingBay</span><span class="av">region</span><span class="av av-note">operator <span class="av-sub">(driver/person)</span></span><span class="av">product</span>
+                    </div>
+                  </li>
+                  <li style="margin-bottom:0.75rem;">
+                    <strong>Attribute Name</strong> — the attribute key to check on that entity type, e.g.&nbsp;<span class="av">refrigeration_required</span> <span class="av">dangerous_goods</span> <span class="av">frozen_goods_product</span>
+                  </li>
+                  <li style="margin-bottom:0.75rem;">
+                    <strong>Operator</strong> — a logical comparison (not a person):
+                    <div class="av-list">
+                      <span class="av">none</span><span class="av">isSet</span><span class="av">isNotSet</span><span class="av">equals</span><span class="av">notEquals</span><span class="av">greaterThan</span><span class="av">lessThan</span><span class="av">greaterThanOrEqual</span><span class="av">lessThanOrEqual</span><span class="av">in</span><span class="av">notIn</span>
+                    </div>
+                  </li>
+                  <li><strong>Value</strong> — the value to compare against. Leave blank when using <span class="av">isSet</span> or <span class="av">isNotSet</span>.</li>
+                </ul>
+                <div class="av-example">
+                  <div class="av-example-label">Example rule</div>
+                  <div class="av-example-row">
+                    <span class="av-field">Entity Type</span><span class="av">product</span>
+                    <span class="av-field">Attribute Name</span><span class="av">refrigeration_required</span>
+                    <span class="av-field">Operator</span><span class="av">isSet</span>
+                    <span class="av-field">Value</span><span class="av" style="font-style:italic;color:var(--slate-400);">— leave blank</span>
+                  </div>
+                  <p class="av-example-note"><strong>What this does:</strong> Only products that have the <em>refrigeration_required</em> attribute will be matched to vehicles of this class. Products without that attribute will be excluded.</p>
+                  <p class="av-example-note" style="margin-top:0.45rem;"><strong>If you leave Attribute Rules empty:</strong> The vehicle class has no product restrictions at all — it will accept any product, regardless of what attributes that product has.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">14</div>
             <div class="step-body">
               <div class="step-title">Click Commit</div>
               <div class="step-detail">Saves the Vehicle Class. Close returns without saving.</div>
@@ -870,7 +994,14 @@
         <p class="section-label">Adding a Vehicle</p>
         <p class="section-intro">Follow these steps to add an individual vehicle record. Remember — individual vehicles are optional. You only need them if you want to allocate named vehicles to trips, track specific units, or assign operators by vehicle.</p>
 
-        <p class="body-text">The Add a Vehicle form is also tab-based. Most vehicles only need Basic Info and Default Operators filled in — the rest is optional.</p>
+        <p class="body-text">The Add a Vehicle form is also tab-based. Most vehicles only need Basic Info and Specification → Links filled in — the rest is optional or inherited from the Vehicle Class.</p>
+
+        <div class="callout callout-amber" style="margin-bottom:1.25rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>If this vehicle pulls a trailer, set up the <strong>Trailer</strong> record in Data Manager (under <strong>Trailers</strong>) before adding the vehicle. You cannot assign a trailer that does not already exist.</span>
+        </div>
 
         <ol class="task-steps">
           <li>
@@ -884,49 +1015,56 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <div class="step-title">Basic Info — enter the identity details</div>
-              <div class="step-detail">Enter the vehicle <strong>Name</strong> (typically the registration number or fleet number). Select the <strong>Vehicle Class</strong> — this is required and sets all the inherited specifications. Set the Home Site (the depot this vehicle returns to at the end of a trip). Add a Description if helpful.</div>
+              <div class="step-detail">Enter the vehicle <strong>Name</strong> (typically the registration number or fleet number). Add an <strong>External ID</strong> if you need to match this record to a fleet management system. Add a <strong>Description</strong> if helpful. The <strong>Groups</strong> field is for data partitioning — assigns this vehicle to a business unit or division as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</div>
             </div>
           </li>
           <li>
             <div class="step-num">3</div>
             <div class="step-body">
-              <div class="step-title">Specification — Trailers</div>
-              <div class="step-detail">Assign default trailers to this vehicle if it typically pulls the same trailer(s). These will be pre-selected when the vehicle is allocated to a trip. Leave empty if trailers are assigned manually at trip time.</div>
+              <div class="step-title">Specification → Links — assign Vehicle Class and Home Site</div>
+              <div class="step-detail">Select the <strong>Vehicle Class</strong> (required) — this sets all the inherited specifications for this vehicle. Select the <strong>Home Site</strong> — the depot this vehicle starts from and returns to at the end of each trip.</div>
             </div>
           </li>
           <li>
             <div class="step-num">4</div>
             <div class="step-body">
-              <div class="step-title">Specification — Efficiency</div>
-              <div class="step-detail">Set the fuel efficiency for this specific vehicle only if it differs from the Vehicle Class default. Leave blank to inherit the class efficiency.</div>
+              <div class="step-title">Specification → Trailers</div>
+              <div class="step-detail">For Horse-type vehicles: assign the specific trailer(s) this vehicle typically pulls. The trailer must already exist in Data Manager. These will be pre-selected when the vehicle is allocated to a trip. Leave empty if this vehicle does not pull a trailer, or if trailers are assigned manually at trip time.</div>
             </div>
           </li>
           <li>
             <div class="step-num">5</div>
             <div class="step-body">
-              <div class="step-title">Specification — Regulatory Permits</div>
-              <div class="step-detail">Add any regulatory permits that apply to this specific vehicle — for example, hazardous goods permits or oversize load permits. These are used by the Planner to check route and job eligibility.</div>
+              <div class="step-title">Specification → Efficiency</div>
+              <div class="step-detail">Override the efficiency figures for this specific vehicle only if it differs from its Vehicle Class defaults — <strong>Carbon Emissions</strong> (gCO₂/km), <strong>Max Payload</strong> (kg), <strong>Fuel Consumption</strong> (l/100km). Leave blank to inherit from the class.</div>
             </div>
           </li>
           <li>
             <div class="step-num">6</div>
             <div class="step-body">
-              <div class="step-title">Default Operators tab</div>
-              <div class="step-detail">Assign the default driver(s) or operator(s) for this vehicle. These will be pre-selected when the vehicle is allocated to a trip. Search and select from the operators already set up in Data Manager.</div>
+              <div class="step-title">Specification → Regulatory Permits</div>
+              <div class="step-detail">Add any permits specific to this vehicle — for example, a hazardous goods transport permit or an oversize load permit. The Planner uses these to check route and job eligibility for this vehicle.</div>
             </div>
           </li>
           <li>
             <div class="step-num">7</div>
             <div class="step-body">
-              <div class="step-title">Operating Hours tab</div>
-              <div class="step-detail">Override the operating hours only if this vehicle's availability differs from the Vehicle Class default — for example, a vehicle that only operates certain days. Leave blank to inherit the class operating hours.</div>
+              <div class="step-title">Default Operators tab</div>
+              <div class="step-detail">Assign the default driver(s) for this vehicle. These will be pre-selected when the vehicle is allocated to a trip. Operators must already be set up in Data Manager.</div>
             </div>
           </li>
           <li>
             <div class="step-num">8</div>
             <div class="step-body">
+              <div class="step-title">Operating Hours tab</div>
+              <div class="step-detail">Override operating hours only if this vehicle's availability differs from its Vehicle Class default. Leave blank to inherit the class operating hours.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">9</div>
+            <div class="step-body">
               <div class="step-title">Click Commit</div>
-              <div class="step-detail">Saves the Vehicle record. The vehicle is now available for allocation in the Planner.</div>
+              <div class="step-detail">Saves the vehicle record. The vehicle is now available for allocation in the Planner.</div>
             </div>
           </li>
         </ol>
@@ -977,6 +1115,14 @@
         </ul>
       </section>
 
+      <nav class="page-nav-bottom">
+        <a href="index.html">← Back to Data Manager</a>
+        <div class="nav-right">
+          <a href="../index.html">Tramm</a>
+          <a href="../../index.html">OPSI Docs home</a>
+        </div>
+      </nav>
+
     </main>
   </div>
 
@@ -984,5 +1130,13 @@
     <p>OPSI Docs</p>
   </footer>
 
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
 </body>
 </html>

@@ -135,7 +135,8 @@
       justify-content: space-between;
       gap: 1rem;
       background: var(--blue-50);
-      border: 1px solid var(--blue-100);
+      border: 1px solid var(--blue-200);
+      border-left: 4px solid var(--blue-600);
       border-radius: 0.6rem;
       padding: 1rem 1.25rem;
     }
@@ -161,35 +162,35 @@
       flex-shrink: 0;
       font-size: 0.85rem;
       font-weight: 600;
-      color: var(--blue-700);
+      color: #fff;
       text-decoration: none;
       white-space: nowrap;
-      padding: 0.4rem 0.9rem;
-      border: 1px solid var(--blue-200);
+      padding: 0.4rem 1rem;
+      border: none;
       border-radius: 0.4rem;
-      background: #fff;
-      transition: background 0.15s, border-color 0.15s;
+      background: var(--blue-600);
+      transition: background 0.15s;
     }
     .start-here-link:hover {
-      background: var(--blue-100);
-      border-color: var(--blue-300);
+      background: var(--blue-700);
     }
 
     /* ── SECTION LABELS ── */
     .section-label {
-      font-size: 0.75rem;
+      font-size: 1rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--slate-400);
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--slate-200);
+      letter-spacing: 0.06em;
+      color: var(--slate-800);
+      border-left: 4px solid var(--blue-600);
+      padding-left: 0.75rem;
       margin-bottom: 1.25rem;
     }
     .section-intro {
       font-size: 0.9rem;
       color: var(--slate-600);
       margin-bottom: 1.25rem;
+      line-height: 1.65;
     }
 
     /* ── ENTITY CARD GRID ── */
@@ -236,6 +237,50 @@
       color: var(--blue-700);
     }
 
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
+
     /* ── FOOTER ── */
     footer {
       background: var(--slate-900); color: var(--slate-400);
@@ -276,8 +321,8 @@
         <li><a href="getting-started.html">Getting Started</a></li>
         <hr class="nav-divider" />
         <li><a href="#required-setup">Required Setup</a></li>
-        <li><a href="#optional-setup">Optional Setup</a></li>
-        <li><a href="#advanced-optional">Advanced &amp; Optional</a></li>
+        <li><a href="#common-additions">Common Additions</a></li>
+        <li><a href="#specialist-config">Specialist Configuration</a></li>
       </ul>
     </nav>
 
@@ -306,6 +351,12 @@
           <a class="entity-nav-card" href="settings.html">
             <h3>Settings</h3>
             <p>System and user preferences for your Tramm environment.</p>
+            <span class="card-link">View guide &rarr;</span>
+          </a>
+
+          <a class="entity-nav-card" href="trailers.html">
+            <h3>Trailers</h3>
+            <p>Optional passive transport assets towed by horse vehicles. Set up before Vehicle Classes that reference them.</p>
             <span class="card-link">View guide &rarr;</span>
           </a>
 
@@ -348,10 +399,10 @@
         </div>
       </section>
 
-      <!-- OPTIONAL SETUP -->
-      <section id="optional-setup">
-        <p class="section-label">Optional Setup</p>
-        <p class="section-intro">Add these entities as your operation requires. They are not needed for basic planning and execution, but unlock additional capability such as outsourced transport, financial contracts, and geographic reporting.</p>
+      <!-- COMMON ADDITIONS -->
+      <section id="common-additions">
+        <p class="section-label">Common Additions</p>
+        <p class="section-intro">Extend your setup as your operation grows. These entities are not required for basic planning, but most deployments add some or all of them — drivers, third-party carriers, geographic zones, and trackable transport equipment.</p>
         <div class="entity-card-grid">
 
           <a class="entity-nav-card" href="clients.html">
@@ -393,50 +444,57 @@
         </div>
       </section>
 
-      <!-- ADVANCED & OPTIONAL -->
-      <section id="advanced-optional">
-        <p class="section-label">Advanced &amp; Optional</p>
-        <p class="section-intro">Specialist configuration for complex operations. Most implementations do not need these at initial setup.</p>
+      <!-- SPECIALIST CONFIGURATION -->
+      <section id="specialist-config">
+        <p class="section-label">Specialist Configuration</p>
+        <p class="section-intro">Advanced features and app-specific configuration. Some of these require specific Tramm extensions (such as Transact) — check with your implementation team which apply to your environment.</p>
         <div class="entity-card-grid">
 
           <a class="entity-nav-card" href="routing-classes.html">
             <h3>Routing Classes</h3>
-            <p>Routing profiles used by the planning engine per vehicle type.</p>
+            <p>Controls routing parameters for the Planner — vehicle dimensions, speed limits, road-type preferences, and no-go zones. Required only for specialist vehicle types; standard planning works without one.</p>
             <span class="card-link">View guide &rarr;</span>
           </a>
 
           <a class="entity-nav-card" href="entity-types.html">
             <h3>Entity Types</h3>
-            <p>Custom type labels and attribute rules applied across entities.</p>
+            <p>Custom type labels and attribute rule sets applied across vehicles, sites, and other entities.</p>
             <span class="card-link">View guide &rarr;</span>
           </a>
 
           <a class="entity-nav-card" href="transport-segments.html">
             <h3>Transport Segments</h3>
-            <p>Predefined legs in a multi-modal or crossdock network.</p>
+            <p>Predefined legs in a multi-modal or crossdock network. Planner-specific.</p>
             <span class="card-link">View guide &rarr;</span>
           </a>
 
           <a class="entity-nav-card" href="master-routes.html">
             <h3>Master Routes</h3>
-            <p>Saved route templates for recurring trips.</p>
+            <p>Saved route templates for recurring trips. Planner-specific.</p>
             <span class="card-link">View guide &rarr;</span>
           </a>
 
           <a class="entity-nav-card" href="master-routes.html#route-sets">
             <h3>Route Sets</h3>
-            <p>Named collections of master routes.</p>
+            <p>Named collections of master routes. Planner-specific.</p>
             <span class="card-link">View guide &rarr;</span>
           </a>
 
           <a class="entity-nav-card" href="master-charges.html">
             <h3>Master Charges</h3>
-            <p>Predefined surcharge rules applied automatically on top of base trip costs.</p>
+            <p>Surcharge rules calculated automatically on top of base trip costs. Requires the Transact extension.</p>
             <span class="card-link">View guide &rarr;</span>
           </a>
 
         </div>
       </section>
+
+      <nav class="page-nav-bottom">
+        <a href="../index.html">← Back to Tramm</a>
+        <div class="nav-right">
+          <a href="../../index.html">OPSI Docs home</a>
+        </div>
+      </nav>
 
     </main>
   </div>
@@ -445,5 +503,13 @@
     <p>OPSI Docs</p>
   </footer>
 
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
 </body>
 </html>

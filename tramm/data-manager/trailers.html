@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trailers — Data Manager — OPSI Docs</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-300: #93c5fd;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+      --amber-700: #b45309;
+      --teal-50:  #f0fdfa;
+      --teal-100: #ccfbf1;
+      --teal-600: #0d9488;
+      --teal-700: #0f766e;
+      --purple-50:  #faf5ff;
+      --purple-100: #f3e8ff;
+      --purple-600: #9333ea;
+      --purple-700: #7e22ce;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 2.25rem;
+    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── LEFT NAV ── */
+    .side-nav {
+      position: sticky;
+      top: 2rem;
+    }
+    .side-nav-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--slate-400);
+      margin-bottom: 0.6rem;
+    }
+    .side-nav ul { list-style: none; }
+    .side-nav > ul > li { margin-bottom: 0.1rem; }
+    .side-nav a {
+      display: block;
+      font-size: 0.825rem;
+      color: var(--slate-600);
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.3rem;
+      transition: background 0.15s, color 0.15s;
+      border-left: 2px solid transparent;
+    }
+    .side-nav a:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+    }
+    .side-nav .nav-divider {
+      border: none;
+      border-top: 1px solid var(--slate-200);
+      margin: 0.6rem 0;
+    }
+
+    /* ── CONTENT ── */
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2.75rem;
+      min-width: 0;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--slate-800);
+      border-left: 4px solid var(--blue-600);
+      padding-left: 0.75rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-intro {
+      font-size: 0.925rem;
+      color: var(--slate-600);
+      margin-bottom: 1.25rem;
+      line-height: 1.65;
+    }
+    .section-intro a { color: var(--blue-700); }
+    .section-intro a:hover { text-decoration: underline; }
+
+    /* ── BODY TEXT ── */
+    .body-text {
+      font-size: 0.9rem;
+      color: var(--slate-700);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .body-text a { color: var(--blue-700); }
+    .body-text a:hover { text-decoration: underline; }
+    .body-text + .body-text { margin-top: 0; }
+
+    /* ── SECTION HEADING (h2 within content) ── */
+    .content-h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 0.25rem;
+      white-space: nowrap;
+    }
+    .badge-required {
+      background: var(--blue-50);
+      color: var(--blue-700);
+      border: 1px solid var(--blue-100);
+    }
+    .badge-optional {
+      background: var(--slate-100);
+      color: var(--slate-500);
+      border: 1px solid var(--slate-200);
+    }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+      margin-bottom: 1.25rem;
+    }
+    .callout svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+    }
+    .callout p { line-height: 1.55; }
+    .callout a { color: var(--blue-700); }
+    .callout a:hover { text-decoration: underline; }
+    .callout-blue {
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+    }
+    .callout-blue svg { color: var(--blue-600); }
+    .callout-green {
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+    }
+    .callout-green svg { color: var(--green-700); }
+    .callout-amber {
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+    }
+    .callout-amber svg { color: var(--amber-600); }
+
+    /* ── TASK STEPS ── */
+    .task-steps {
+      list-style: none;
+      counter-reset: step-counter;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .task-steps li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .task-steps li:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 1.6rem;
+      height: 1.6rem;
+      background: var(--blue-700);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15rem;
+    }
+    .step-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .step-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.25rem;
+    }
+    .step-detail {
+      font-size: 0.845rem;
+      color: var(--slate-600);
+      line-height: 1.55;
+    }
+    .step-detail a { color: var(--blue-700); }
+    .step-detail strong { color: var(--slate-800); }
+
+    /* ── TIPS LIST ── */
+    .tips-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .tips-list li {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      font-size: 0.875rem;
+      color: var(--slate-700);
+      line-height: 1.55;
+      padding: 0.8rem 1rem;
+      border-radius: 0.45rem;
+    }
+    .tips-list li.tip {
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+    }
+    .tips-list li.mistake {
+      background: var(--amber-50);
+      border: 1px solid var(--amber-100);
+    }
+    .tips-list li svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+    }
+    .tips-list li.tip svg { color: var(--green-700); }
+    .tips-list li.mistake svg { color: var(--amber-600); }
+    .tips-list li strong { color: var(--slate-900); }
+
+    /* ── TWO-PANEL CONCEPT BLOCK ── */
+    .concept-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .concept-panel {
+      border: 1px solid var(--slate-300);
+      border-radius: 0.55rem;
+      overflow: hidden;
+    }
+    .concept-panel-header {
+      background: var(--slate-500);
+      padding: 0.6rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #fff;
+    }
+    .concept-panel-body {
+      padding: 0.85rem 1rem;
+      font-size: 0.84rem;
+      color: var(--slate-600);
+      line-height: 1.55;
+    }
+    .concept-panel-body ul {
+      padding-left: 1.1rem;
+      margin-top: 0.35rem;
+    }
+    .concept-panel-body li { margin-bottom: 0.2rem; }
+    .concept-panel.panel-class .concept-panel-header {
+      background: var(--blue-700);
+      color: #fff;
+    }
+    .concept-panel.panel-entity .concept-panel-header {
+      background: var(--slate-600);
+      color: #fff;
+    }
+
+    /* ── ATTRIBUTE VALUE PILLS ── */
+    .av-list { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.35rem; }
+    .av { display: inline-flex; align-items: center; font-size: 0.74rem; font-family: 'Courier New', Courier, monospace; background: var(--slate-100); border: 1px solid var(--slate-200); border-radius: 0.25rem; padding: 0.1rem 0.45rem; color: var(--slate-700); white-space: nowrap; }
+    .av.av-note { color: var(--amber-700); background: var(--amber-50); border-color: var(--amber-100); }
+    .av-sub { font-size: 0.68rem; color: var(--slate-500); margin-left: 0.25rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-style: italic; }
+
+    /* ── ATTRIBUTE EXAMPLE BLOCK ── */
+    .av-example { background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 0.45rem; padding: 0.85rem 1rem; margin-top: 0.75rem; }
+    .av-example-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-400); margin-bottom: 0.5rem; }
+    .av-example-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; margin-bottom: 0.6rem; }
+    .av-field { font-size: 0.75rem; color: var(--slate-500); font-weight: 600; }
+    .av-field::after { content: ':'; margin-right: 0.1rem; }
+    .av-example-note { font-size: 0.82rem; color: var(--slate-600); line-height: 1.55; }
+
+    /* ── FIELD MATRIX ── */
+    .field-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.855rem;
+      margin-bottom: 1.5rem;
+    }
+    .field-matrix thead th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      padding: 0 0.75rem 0.5rem;
+      border-bottom: 2px solid var(--slate-200);
+    }
+    .field-matrix thead th.col-tick {
+      text-align: center;
+      width: 3.5rem;
+    }
+    .field-matrix tbody tr {
+      border-bottom: 1px solid var(--slate-100);
+      transition: background 0.1s;
+    }
+    .field-matrix tbody tr:last-child { border-bottom: none; }
+    .field-matrix tbody tr:hover { background: var(--slate-50); }
+    .field-matrix td {
+      padding: 0.55rem 0.75rem;
+      vertical-align: top;
+    }
+    .field-matrix .col-tick {
+      text-align: center;
+      width: 3.5rem;
+      vertical-align: middle;
+    }
+    .field-matrix .fname {
+      font-weight: 700;
+      color: var(--slate-900);
+      font-size: 0.875rem;
+      white-space: nowrap;
+    }
+    .field-matrix .fdesc {
+      font-size: 0.83rem;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+    .field-matrix .fnote {
+      font-size: 0.75rem;
+      color: var(--slate-400);
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+    .field-matrix .row-required {
+      border-left: 3px solid var(--blue-600);
+    }
+    .field-matrix .row-optional {
+      border-left: 3px solid var(--slate-300);
+    }
+    .tick-req { color: var(--blue-600); font-weight: 700; font-size: 1rem; }
+    .tick-opt { color: var(--slate-400); font-weight: 700; font-size: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .side-nav { position: static; border-bottom: 1px solid var(--slate-200); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+      .site-header h1 { font-size: 1.4rem; }
+      .concept-panels { grid-template-columns: 1fr; }
+      .field-matrix thead { display: none; }
+      .field-matrix td { display: block; padding: 0.4rem 0.75rem; }
+      .field-matrix tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
+    }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="../../index.html">OPSI Docs</a>
+        <span>&rsaquo;</span>
+        <a href="../index.html">Tramm</a>
+        <span>&rsaquo;</span>
+        <a href="index.html">Data Manager</a>
+        <span>&rsaquo;</span>
+        Trailers
+      </div>
+      <h1>Trailers</h1>
+      <p class="subtitle">Passive transport assets pulled by Horse-type vehicles. Set up Trailers before creating the Vehicle Classes and Vehicles that reference them.</p>
+    </div>
+  </header>
+
+  <div class="page-layout">
+
+    <!-- LEFT NAVIGATION -->
+    <nav class="side-nav">
+      <p class="side-nav-label">On this page</p>
+      <ul>
+        <li><a href="#what-is-a-trailer">What is a Trailer?</a></li>
+        <li><a href="#trailer-fields">Trailer Fields</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#compartments">Compartments vs Capacity</a></li>
+        <li><a href="#attribute-rules">Attribute Rules</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#adding-a-trailer">Adding a Trailer</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#tips">Tips &amp; Common Mistakes</a></li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="page-content">
+
+      <!-- ── INTRO ── -->
+      <section>
+        <p class="body-text">A Trailer is a passive transport asset — it has no engine of its own and must be pulled by a <strong>Horse</strong>-type vehicle. In Tramm, Trailers are set up as individual records in Data Manager, and then referenced on Vehicle Classes and individual Vehicles that typically use them.</p>
+        <p class="body-text">Not every operation uses Trailers. They are only needed if your fleet includes Horse-type vehicles (truck-tractors) that pull interchangeable trailers, and you want Tramm to track those trailers, manage their capacity, or pre-assign them to vehicles and trips.</p>
+
+        <div class="concept-panels" style="margin-top:1.25rem;">
+          <div class="concept-panel panel-class">
+            <div class="concept-panel-header">Where Trailers are referenced</div>
+            <div class="concept-panel-body">
+              Once created, a Trailer record can be assigned in two places:
+              <ul>
+                <li><strong>Vehicle Class</strong> — default trailer type(s) for all vehicles of that class</li>
+                <li><strong>Vehicle</strong> — default trailer(s) for a specific named vehicle</li>
+              </ul>
+              In both cases, the Trailer must already exist in Data Manager before it can be assigned.
+            </div>
+          </div>
+          <div class="concept-panel panel-entity">
+            <div class="concept-panel-header">What a Trailer record defines</div>
+            <div class="concept-panel-body">
+              Each Trailer record holds the properties specific to that trailer:
+              <ul>
+                <li>Load capacity (weight, volume)</li>
+                <li>Physical dimensions</li>
+                <li>Compartments (for multi-temp or segregated loads)</li>
+                <li>Costing structure</li>
+                <li>Regulatory permits</li>
+                <li>Attribute Rules (vehicle compatibility)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-amber" style="margin-top:1.25rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <p><strong>Set up Trailers first.</strong> If your Vehicle Classes or Vehicles reference trailers, create all Trailer records in Data Manager before you add those Vehicle Classes or Vehicles. You cannot assign a trailer that does not already exist.</p>
+        </div>
+      </section>
+
+      <!-- ── WHAT IS A TRAILER ── -->
+      <section id="what-is-a-trailer">
+        <p class="section-label">What is a Trailer?</p>
+        <p class="section-intro">In Tramm, a Trailer is a standalone master data record representing a physical trailer unit in your fleet. It is a passive asset — it cannot move on its own, and it is always used in conjunction with a Horse-type vehicle.</p>
+
+        <p class="body-text">Horse-type vehicles (truck-tractors) can be paired with different trailers depending on the load. This flexibility is a key reason for managing trailers as separate records: the same tractor can pull a flatbed one day and a refrigerated trailer the next. By setting up each trailer as its own record, Tramm can track capacity and attributes at the trailer level — not just at the vehicle level.</p>
+
+        <p class="body-text">When a trip is planned using a Horse vehicle, the trailer's capacity and attributes are factored in alongside the vehicle's. If the trailer has defined compartments, those compartments are available for load planning just as they would be on a rigid vehicle.</p>
+
+        <div class="callout callout-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p>Trailers are only relevant for <strong>Horse-type</strong> vehicle classes. Rigid vehicles have their own fixed body and do not pull separate trailers — do not set up Trailer records for Rigid-type fleets. See <a href="vehicle-classes.html">Vehicle Classes &amp; Vehicles</a> for an explanation of the Horse vs Rigid distinction.</p>
+        </div>
+      </section>
+
+      <!-- ── TRAILER FIELDS ── -->
+      <section id="trailer-fields">
+        <p class="section-label">Trailer Fields</p>
+        <p class="section-intro">Fields are grouped by function. Fields marked <span class="badge badge-required">Required</span> must be filled in before saving. All others are optional but recommended where relevant to your operation.</p>
+
+        <table class="field-matrix">
+          <thead>
+            <tr>
+              <th style="width:22%">Field</th>
+              <th>Description</th>
+              <th class="col-tick">Req</th>
+              <th class="col-tick">Opt</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- IDENTITY -->
+            <tr class="row-required">
+              <td><span class="fname">Name</span></td>
+              <td>
+                <span class="fdesc">The display name for this trailer. Used to identify it when assigning to Vehicle Classes, Vehicles, and trips. Typically a fleet number or descriptive label (e.g. <em>Tri-axle Flatbed 001</em>, <em>Reefer Trailer A</em>).</span>
+              </td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
+              <td class="col-tick"></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">Description</span></td>
+              <td>
+                <span class="fdesc">A free-text description to help distinguish this trailer from others of the same type.</span>
+              </td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">External ID</span></td>
+              <td>
+                <span class="fdesc">A reference code from an external system — for example, a fleet management platform or asset register. Useful for matching records during import/export.</span>
+              </td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">Groups</span></td>
+              <td>
+                <span class="fdesc">Assigns this trailer to a business unit or division for data partitioning purposes, as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</span>
+              </td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+
+            <!-- CAPACITY -->
+            <tr class="row-optional">
+              <td><span class="fname">Capacity</span></td>
+              <td>
+                <span class="fdesc">The load capacity of this trailer — weight (kg), volume (m³), and/or units. Used by the planning engine to determine how much can be loaded. Set this if the trailer's capacity should be tracked separately from the towing vehicle's capacity.</span>
+                <div class="fnote">Not required if this trailer's capacity is already accounted for in the Vehicle Class. Only used if Compartments are not defined — see <a href="#compartments">Compartments vs Capacity</a> below.</div>
+              </td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">Physical Size</span></td>
+              <td>
+                <span class="fdesc">The external dimensions of the trailer: Length, Width, Height, and Mass. Required if you use the 3D Visualiser in the Planner — without these, the visualiser cannot represent the trailer correctly.</span>
+              </td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+            <tr class="row-optional">
+              <td><span class="fname">Compartments</span></td>
+              <td>
+                <span class="fdesc">Sub-compartments within the trailer, each with their own capacity. Use this for trailers that carry segregated loads — for example, a multi-temperature trailer with a frozen section and a chilled section.</span>
+                <div class="fnote">When Compartments are defined, the simple Capacity field is cleared and ignored. See <a href="#compartments">Compartments vs Capacity</a> below.</div>
+              </td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+
+            <!-- COSTING -->
+            <tr class="row-optional">
+              <td><span class="fname">Costing</span></td>
+              <td>
+                <span class="fdesc">Cost structure for trips using this trailer — <strong>Fixed</strong> cost, cost per km (<strong>Distance</strong>), and cost per hour (<strong>Time</strong>). Used by the Transact Extension for financial calculations. Leave at 0 if trailer costing is handled at the vehicle level or is not tracked in Tramm.</span>
+              </td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+
+            <!-- ATTRIBUTES -->
+            <tr class="row-optional">
+              <td><span class="fname">Attributes</span></td>
+              <td>
+                <span class="fdesc">Custom key-value pairs that describe the capabilities or characteristics of this trailer. Used by the Planner when matching trailers to jobs, vehicles, and sites via Attribute Rules. Examples: <em>refrigerated = yes</em>, <em>curtainsider = true</em>, <em>hazmat_certified = yes</em>.</span>
+                <div class="fnote">Attribute names must exactly match the names referenced in Attribute Rules elsewhere in the system for matching to work correctly.</div>
+              </td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+
+            <!-- REGULATORY PERMITS -->
+            <tr class="row-optional">
+              <td><span class="fname">Regulatory Permits</span></td>
+              <td>
+                <span class="fdesc">Permits specific to this trailer — for example, a hazardous goods transport permit or an oversize load permit. The Planner uses these to check route and job eligibility.</span>
+              </td>
+              <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── COMPARTMENTS VS CAPACITY ── -->
+      <section id="compartments">
+        <p class="section-label">Compartments vs Simple Capacity</p>
+        <p class="section-intro">A trailer can be set up with either a simple total capacity, or with multiple named compartments each having their own capacity — but not both at the same time. Choose the approach that matches how this trailer is actually used.</p>
+
+        <p class="body-text"><strong>Use simple Capacity</strong> when the trailer carries a single type of load and there is no need to separate cargo into distinct sections. Set the total weight, volume, and/or unit capacity on the trailer record. The Planner treats the trailer as a single load space.</p>
+
+        <p class="body-text"><strong>Use Compartments</strong> when the trailer has physically or logically separate sections — for example, a multi-temperature trailer with a frozen compartment and a chilled compartment, or a tanker with multiple chambers. Each compartment has its own capacity, and can also have its own attributes and restrictions. When compartments are defined and enabled, the simple Capacity field on the trailer is cleared and ignored — the compartment capacities are used instead.</p>
+
+        <div class="callout callout-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p>Compartment planning on trailers works the same way as on Vehicle Classes. If you have already set up compartments on a Vehicle Class, the same logic applies here. You cannot use both simple Capacity and Compartments on the same trailer record — the system uses one or the other based on whether compartments are defined.</p>
+        </div>
+      </section>
+
+      <!-- ── ATTRIBUTE RULES ── -->
+      <section id="attribute-rules">
+        <p class="section-label">Attribute Rules</p>
+        <p class="section-intro">Attribute Rules on a Trailer define the conditions under which this trailer can be used — for example, restricting it to vehicles with a specific permit, or to products that meet a particular requirement. They work in exactly the same way as Attribute Rules on Vehicle Classes.</p>
+
+        <p class="body-text">Each rule has four parts:</p>
+
+        <ul style="padding-left:1.2rem; margin-bottom: 1rem; font-size:0.875rem; color:var(--slate-600); line-height:1.65;">
+          <li style="margin-bottom:0.75rem;">
+            <strong>Entity Type</strong> — the type of entity the rule checks against:
+            <div class="av-list">
+              <span class="av">vehicle</span><span class="av">trailer</span><span class="av">compartment</span><span class="av">site</span><span class="av">loadingBay</span><span class="av">region</span><span class="av av-note">operator <span class="av-sub">(driver/person)</span></span><span class="av">product</span>
+            </div>
+          </li>
+          <li style="margin-bottom:0.75rem;">
+            <strong>Attribute Name</strong> — the attribute key to check on that entity type, e.g. <span class="av">hazmat_permit</span> <span class="av">refrigeration_required</span>
+          </li>
+          <li style="margin-bottom:0.75rem;">
+            <strong>Operator</strong> — a logical comparison:
+            <div class="av-list">
+              <span class="av">none</span><span class="av">isSet</span><span class="av">isNotSet</span><span class="av">equals</span><span class="av">notEquals</span><span class="av">greaterThan</span><span class="av">lessThan</span><span class="av">greaterThanOrEqual</span><span class="av">lessThanOrEqual</span><span class="av">in</span><span class="av">notIn</span>
+            </div>
+          </li>
+          <li><strong>Value</strong> — the value to compare against. Leave blank when using <span class="av">isSet</span> or <span class="av">isNotSet</span>.</li>
+        </ul>
+
+        <div class="av-example">
+          <div class="av-example-label">Example rule</div>
+          <div class="av-example-row">
+            <span class="av-field">Entity Type</span><span class="av">vehicle</span>
+            <span class="av-field">Attribute Name</span><span class="av">hazmat_permit</span>
+            <span class="av-field">Operator</span><span class="av">isSet</span>
+            <span class="av-field">Value</span><span class="av" style="font-style:italic;color:var(--slate-400);">— leave blank</span>
+          </div>
+          <p class="av-example-note"><strong>What this does:</strong> This trailer can only be assigned to vehicles that have the <em>hazmat_permit</em> attribute set. Vehicles without that attribute will not be matched to this trailer.</p>
+          <p class="av-example-note" style="margin-top:0.45rem;"><strong>If Attribute Rules are left empty:</strong> The trailer has no restrictions — it can be assigned to any vehicle or used with any product, regardless of attributes.</p>
+        </div>
+      </section>
+
+      <!-- ── ADDING A TRAILER ── -->
+      <section id="adding-a-trailer">
+        <p class="section-label">Adding a Trailer</p>
+        <p class="section-intro">Follow these steps to create a new Trailer record in Data Manager. Complete this before setting up the Vehicle Classes or Vehicles that will reference this trailer.</p>
+
+        <ol class="task-steps">
+          <li>
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Open Data Manager → Trailers, then click Add</div>
+              <div class="step-detail">The form opens on the <strong>Basic Info</strong> tab.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Basic Info — enter the identity details</div>
+              <div class="step-detail">Enter a <strong>Name</strong> (required) — this is how the trailer will appear when assigning it to a Vehicle Class or Vehicle. Add an <strong>External ID</strong> if you need to match this record to an external asset register or fleet management system. Add a <strong>Description</strong> if it helps distinguish this trailer from others of the same type. The <strong>Groups</strong> field is for data partitioning — leave blank in a standard single-organisation setup.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">Specification → Costing</div>
+              <div class="step-detail">Set the <strong>Fixed</strong>, <strong>Time</strong>, and <strong>Distance</strong> cost rates if trailer costs are tracked separately from the towing vehicle. Leave all at 0 if your organisation does not track trailer-level costing in Tramm, or if costs are already accounted for on the Vehicle Class.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Specification → Attributes</div>
+              <div class="step-detail">Add attribute name/value pairs that describe the capabilities of this trailer — used by the Planner when matching trailers to jobs, vehicles, and sites via Attribute Rules. Examples: <em>refrigerated = yes</em>, <em>curtainsider = true</em>, <em>hazmat_certified = yes</em>. Attribute names must exactly match the names referenced in Attribute Rules on Vehicle Classes and Product Groups for matching to work correctly.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <div class="step-title">Specification → Compartment Planning</div>
+              <div class="step-detail">Decide whether this trailer uses compartments or simple capacity. <strong>If the trailer carries a single load type</strong> — leave compartments off and proceed to the Capacity step. <strong>If the trailer has separate sections</strong> (e.g. frozen and chilled) — enable compartments, define each compartment with its own name and capacity, and skip the simple Capacity step. You cannot use both simultaneously.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <div class="step-title">Specification → Capacity (if not using compartments)</div>
+              <div class="step-detail">Set the total load capacity for this trailer — weight (kg), volume (m³), and/or units, depending on what dimensions your operation plans against. Skip this step if you have set up compartments — compartment capacities are used instead.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">7</div>
+            <div class="step-body">
+              <div class="step-title">Specification → Physical Size</div>
+              <div class="step-detail">Set the trailer's external dimensions: <strong>Length</strong>, <strong>Width</strong>, <strong>Height</strong>, and <strong>Mass</strong>. Required if you use the 3D load visualiser in the Planner — without these, the visualiser cannot represent the trailer correctly.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">8</div>
+            <div class="step-body">
+              <div class="step-title">Specification → Regulatory Permits</div>
+              <div class="step-detail">Add any permits applicable to this trailer — for example, a hazardous goods permit or an oversize load permit. These are used by the Planner to check route and job eligibility when this trailer is assigned to a trip.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">9</div>
+            <div class="step-body">
+              <div class="step-title">Attribute Rules tab</div>
+              <div class="step-detail">Define any rules that restrict which vehicles, products, or other entities this trailer can be used with. Leave this tab empty if this trailer has no restrictions. See <a href="#attribute-rules">Attribute Rules</a> above for guidance on how to configure rules.</div>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">10</div>
+            <div class="step-body">
+              <div class="step-title">Click Commit</div>
+              <div class="step-detail">Saves the Trailer record. It is now available to assign to Vehicle Classes and Vehicles. Close returns without saving.</div>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ── TIPS ── -->
+      <section id="tips">
+        <p class="section-label">Tips &amp; Common Mistakes</p>
+        <p class="section-intro">A few things to keep in mind when setting up Trailers for the first time.</p>
+
+        <ul class="tips-list">
+
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span><strong>Create all Trailer records before setting up Vehicle Classes or Vehicles.</strong> Both Vehicle Classes (for Horse-type vehicles) and individual Vehicles can reference default trailers. If you try to assign a trailer that doesn't exist yet, it won't be available in the selection list. Build your Trailer records first, then move on to Vehicle Classes.</span>
+          </li>
+
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span><strong>Trailers are only needed for Horse-type vehicles.</strong> If your entire fleet is Rigid-type vehicles, you do not need to create any Trailer records. Rigid vehicles have a fixed body — they do not pull trailers. Only create Trailer records if your fleet includes truck-tractors (Horses) that pull interchangeable trailers.</span>
+          </li>
+
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span><strong>You do not need a Trailer record for every physical trailer you own.</strong> If your operation plans at the class level — without tracking individual trailer units — you can create one or two representative Trailer records (e.g. <em>Standard Flatbed</em>, <em>Refrigerated Trailer</em>) and assign those to your Vehicle Classes. Individual trailer tracking is optional.</span>
+          </li>
+
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span><strong>Double-counting capacity between the trailer and the Vehicle Class.</strong> If a Horse vehicle's total capacity (vehicle + trailer combined) is already set on the Vehicle Class, do not also add capacity to the Trailer record — the Planner will count it twice. Either set the combined capacity on the Vehicle Class and leave the Trailer capacity blank, or set them separately and let the Planner add them together. Decide on one approach and apply it consistently.</span>
+          </li>
+
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span><strong>Enabling compartments and also setting simple Capacity.</strong> Tramm uses one or the other — not both. If compartments are defined and enabled, the Capacity field is ignored. If you later disable compartments, the simple Capacity field comes back into effect. Check which mode is active before saving to avoid a trailer with no effective capacity set.</span>
+          </li>
+
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span><strong>Not setting physical dimensions when the 3D Visualiser is enabled.</strong> If your Tramm environment uses the 3D load visualiser, trailers need Length, Width, and Height set to render correctly in the Planner. If these are missing, the visualiser cannot display the trailer, which makes it harder to visually verify loads.</span>
+          </li>
+
+        </ul>
+      </section>
+
+      <nav class="page-nav-bottom">
+        <a href="index.html">← Back to Data Manager</a>
+        <div class="nav-right">
+          <a href="vehicle-classes.html">Vehicle Classes &amp; Vehicles →</a>
+          <a href="../../index.html">OPSI Docs home</a>
+        </div>
+      </nav>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>OPSI Docs &mdash; for support, contact your Tramm implementation team.</p>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
+</body>
+</html>

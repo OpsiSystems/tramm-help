@@ -450,6 +450,102 @@
       line-height: 1.5;
       margin-bottom: 0.5rem;
     }
+
+    /* ── ENTITY PAIRS GRID ── */
+    .entity-pairs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .entity-pair {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 1rem 0.85rem;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.6rem;
+      text-align: center;
+    }
+    .pair-class {
+      background: var(--blue-700);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.3rem;
+      width: 100%;
+    }
+    .pair-arrow {
+      font-size: 0.75rem;
+      color: var(--slate-400);
+      font-style: italic;
+    }
+    .pair-entity {
+      background: #fff;
+      color: var(--slate-700);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.3rem;
+      border: 1px solid var(--slate-200);
+      width: 100%;
+    }
+    .pair-note {
+      font-size: 0.775rem;
+      color: var(--slate-500);
+      line-height: 1.45;
+      margin-top: 0.3rem;
+    }
+    @media (max-width: 700px) {
+      .entity-pairs-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
   </style>
 </head>
 <body>
@@ -499,6 +595,31 @@
 
         <p class="body-text">Think of a Vehicle Class, Site Class, or Product Group as a <strong>specification sheet</strong> — you define the standard specifications once, and every entity you create from that template inherits them automatically. You only need to record what differs on an individual entity: a vehicle's registration number, a site's address, or a product's exact dimensions. The same principle applies across all three pairs — one specification sheet, many instances, with individual variations noted only where they exist.</p>
         <p class="body-text">Products take this one step further — a Product can belong to <strong>more than one Product Group</strong> simultaneously. A refrigerated hazardous item can belong to both a "Frozen Goods" group and a "Hazardous Materials" group at the same time, inheriting the rules and restrictions of both. For Vehicle Classes and Site Classes, each entity belongs to exactly one class.</p>
+
+        <div class="entity-pairs-grid">
+
+          <div class="entity-pair">
+            <div class="pair-class">Vehicle Class</div>
+            <div class="pair-arrow">&#8595; inherits</div>
+            <div class="pair-entity">Vehicle</div>
+            <p class="pair-note">Class sets capacity, type, costing &amp; routing. Vehicle adds registration, home site &amp; operators.</p>
+          </div>
+
+          <div class="entity-pair">
+            <div class="pair-class">Site Class</div>
+            <div class="pair-arrow">&#8595; inherits</div>
+            <div class="pair-entity">Site</div>
+            <p class="pair-note">Class sets operating hours &amp; dwell times. Site adds address, coordinates &amp; local overrides.</p>
+          </div>
+
+          <div class="entity-pair">
+            <div class="pair-class">Product Group</div>
+            <div class="pair-arrow">&#8595; applies to</div>
+            <div class="pair-entity">Product</div>
+            <p class="pair-note">Group defines handling rules &amp; restrictions. Product defines physical specs — weight, size &amp; load rate.</p>
+          </div>
+
+        </div>
 
         <p class="section-label" style="margin-top:0.5rem;">Overrides — when an individual entity differs from its Class or Group</p>
         <p class="body-text">If a value is left blank (or set to zero for durations), the system automatically uses the Class or Group value as the default. You only need to fill in a value on the entity if it genuinely differs. This means you can set up 50 sites in a "Retail Delivery" class and only override the operating hours for the two sites that have unusual hours — the other 48 inherit the class default without any extra work.</p>
@@ -574,9 +695,17 @@
             </a>
           </div>
           <div class="flow-connector">›</div>
+          <div class="flow-step optional">
+            <a class="flow-step-inner" href="trailers.html">
+              <div class="flow-step-num">2</div>
+              <div class="flow-step-label">Trailers</div>
+              <div class="flow-step-desc">If using Horse vehicles</div>
+            </a>
+          </div>
+          <div class="flow-connector">›</div>
           <div class="flow-step required">
             <a class="flow-step-inner" href="vehicle-classes.html">
-              <div class="flow-step-num">2</div>
+              <div class="flow-step-num">3</div>
               <div class="flow-step-label">Vehicle Classes &amp; Vehicles</div>
               <div class="flow-step-desc">Capacity, dimensions, routing profiles</div>
             </a>
@@ -584,7 +713,7 @@
           <div class="flow-connector">›</div>
           <div class="flow-step required">
             <a class="flow-step-inner" href="sites.html">
-              <div class="flow-step-num">3</div>
+              <div class="flow-step-num">4</div>
               <div class="flow-step-label">Site Classes &amp; Sites</div>
               <div class="flow-step-desc">Depots, warehouses, delivery points</div>
             </a>
@@ -592,7 +721,7 @@
           <div class="flow-connector">›</div>
           <div class="flow-step required">
             <a class="flow-step-inner" href="products.html">
-              <div class="flow-step-num">4</div>
+              <div class="flow-step-num">5</div>
               <div class="flow-step-label">Product Groups &amp; Products</div>
               <div class="flow-step-desc">Goods being transported</div>
             </a>
@@ -600,7 +729,7 @@
           <div class="flow-connector">›</div>
           <div class="flow-step optional">
             <div class="flow-step-inner">
-              <div class="flow-step-num">5</div>
+              <div class="flow-step-num">6</div>
               <div class="flow-step-label">Optional Entities</div>
               <div class="flow-step-desc">Clients, Transporters, Regions &amp; more</div>
             </div>
@@ -609,7 +738,7 @@
 
         <div class="flow-note">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;margin-top:0.1rem;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <span><strong>Using the 3D Visualiser?</strong> Add physical dimensions (length, width, height) to Vehicle Classes in step 2, and size dimensions to Products in step 4. Without these, the 3D Visualiser cannot render loads correctly.</span>
+          <span><strong>Using the 3D Visualiser?</strong> Add physical dimensions (length, width, height) to Vehicle Classes in step 3, and size dimensions to Products in step 5. Trailer dimensions should also be set in step 2 if trailers will appear in the visualiser.</span>
         </div>
       </section>
 
@@ -619,6 +748,11 @@
         <p class="section-intro">Detailed guides for each entity type in Data Manager.</p>
 
         <div class="next-grid">
+
+          <a class="next-card" href="trailers.html">
+            <h4>Trailers</h4>
+            <p>Set up trailer records for Horse-type vehicles. Must be done before Vehicle Classes that reference them.</p>
+          </a>
 
           <a class="next-card" href="vehicle-classes.html">
             <h4>Vehicle Classes &amp; Vehicles</h4>
@@ -663,6 +797,14 @@
         </div>
       </section>
 
+      <nav class="page-nav-bottom">
+        <a href="index.html">← Back to Data Manager</a>
+        <div class="nav-right">
+          <a href="../index.html">Tramm</a>
+          <a href="../../index.html">OPSI Docs home</a>
+        </div>
+      </nav>
+
     </main>
   </div>
 
@@ -670,5 +812,13 @@
     <p>OPSI Docs &mdash; for support, contact your Tramm implementation team.</p>
   </footer>
 
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
 </body>
 </html>

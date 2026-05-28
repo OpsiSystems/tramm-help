@@ -204,6 +204,47 @@
     }
     .callout-green svg { color: var(--green-700); }
 
+    /* ── TWO-PANEL CONCEPT BLOCK ── */
+    .concept-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .concept-panel {
+      border: 1px solid var(--slate-300);
+      border-radius: 0.55rem;
+      overflow: hidden;
+    }
+    .concept-panel-header {
+      background: var(--slate-500);
+      padding: 0.6rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #fff;
+    }
+    .concept-panel.panel-class .concept-panel-header {
+      background: var(--blue-700);
+      color: #fff;
+    }
+    .concept-panel-body {
+      padding: 0.85rem 1rem;
+      font-size: 0.84rem;
+      color: var(--slate-600);
+      line-height: 1.55;
+    }
+    .concept-panel-body ul {
+      padding-left: 1.1rem;
+      margin-top: 0.35rem;
+    }
+    .concept-panel-body li { margin-bottom: 0.2rem; }
+    .concept-panel-body li.item-override {
+      color: var(--amber-700);
+      font-weight: 500;
+    }
+
     /* ── TIPS LIST ── */
     .tips-list {
       display: flex;
@@ -388,6 +429,50 @@
     .of-result { border-radius: 0.35rem; padding: 0.5rem 0.75rem; font-size: 0.82rem; text-align: center; line-height: 1.4; width: 100%; }
     .of-branch.yes .of-result { background: var(--green-50); border: 1px solid var(--green-100); color: var(--green-700); font-weight: 600; }
     .of-branch.no  .of-result { background: var(--amber-50); border: 1px solid var(--amber-100); color: var(--amber-700); }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
   </style>
 </head>
 <body>
@@ -437,6 +522,37 @@
         <p class="body-text">
           Sites are the locations in your logistics network — depots, warehouses, crossdocks, and delivery points. Tramm uses a two-layer system: a <strong>Site Class</strong> acts as a template that defines shared defaults such as operating hours and dwell times, and individual <strong>Sites</strong> inherit those defaults while being able to override any value that differs for that specific location. This keeps your data consistent without forcing you to repeat the same settings on every site.
         </p>
+      </section>
+
+      <!-- CONCEPT PANELS -->
+      <section>
+        <div class="concept-panels">
+          <div class="concept-panel panel-class">
+            <div class="concept-panel-header">Site Class — the template</div>
+            <div class="concept-panel-body">
+              Defines shared defaults for a group of similar sites.
+              <ul>
+                <li>Operating hours (default)</li>
+                <li>Entry and exit durations (default)</li>
+                <li>Loading rate (default)</li>
+                <li>Attribute rules and restrictions</li>
+              </ul>
+            </div>
+          </div>
+          <div class="concept-panel panel-entity">
+            <div class="concept-panel-header">Site — the individual location</div>
+            <div class="concept-panel-body">
+              References a Site Class and adds location-specific detail.
+              <ul>
+                <li>Name, address, GPS coordinates</li>
+                <li>Region assignment</li>
+                <li>Linked Vehicle Classes</li>
+                <li>Contact information</li>
+                <li class="item-override">&#8593;&nbsp;Optional overrides: operating hours, durations, loading rate</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- WHAT IS A SITE CLASS -->
@@ -513,14 +629,14 @@
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Attributes</span></td>
-              <td><span class="fdesc">Custom attributes inherited by all sites in this class. Used for matching and filtering.</span></td>
+              <td><span class="fdesc">Custom attributes inherited by all sites in this class. Used for matching and filtering in Attribute Rules. Examples: <code>dock_type = covered</code>, <code>requires_side_loader = true</code>, <code>cold_chain = yes</code>.</span></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
               <td class="col-tick"></td>
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Restrictions</span></td>
-              <td><span class="fdesc">Rules that control which vehicle types or product types can service sites in this class.</span></td>
+              <td><span class="fdesc">Rules that control which vehicle or product types can service sites in this class. Examples: restrict to vehicles with attribute <code>vehicle_type = rigid</code>, or only allow products with attribute <code>refrigerated = true</code>.</span></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
               <td class="col-tick"></td>
@@ -585,11 +701,11 @@
               <td class="col-tick"></td>
               <td class="col-tick"></td>
             </tr>
-            <tr class="row-recommended">
+            <tr class="row-required">
               <td><span class="fname">GPS Coordinates</span></td>
-              <td><span class="fdesc">Latitude and longitude. Required for accurate route calculations and for automatic region assignment. Without coordinates, the planning engine cannot route to this site.</span></td>
+              <td><span class="fdesc">Latitude and longitude. The planning engine cannot calculate routes or assign regions without coordinates — treat this as required for any site that will be included in route planning.</span></td>
+              <td class="col-tick"><span class="tick-req">✓</span></td>
               <td class="col-tick"></td>
-              <td class="col-tick"><span class="tick-rec">✓</span></td>
               <td class="col-tick"></td>
             </tr>
             <tr class="row-optional">
@@ -705,13 +821,13 @@
         <p class="section-intro">Create Site Classes before adding sites. Even if you start with only one class, the class concept makes it easy to update shared settings across many sites later.</p>
 
         <ol class="steps-list">
-          <li>Open <strong>Data Manager</strong> and select <strong>Site Classes</strong> from the navigation. Click <strong>Add</strong> in the toolbar.</li>
-          <li><strong>Basic Info</strong> tab: Enter the class <strong>Name</strong> — something that describes the type of site it represents, for example <em>Retail Delivery</em>, <em>Distribution Centre</em>, or <em>Crossdock</em>. The ID is auto-generated. Add an External ID and Description if needed.</li>
-          <li><strong>Specification → Entry/Exit Duration</strong>: Set the default <strong>Entry Duration</strong> and <strong>Exit Duration</strong> in hours and minutes. These are the typical dwell times for arrival and departure at sites of this class — every site in the class will inherit these values unless overridden on the individual site.</li>
-          <li><strong>Specification → Attributes</strong>: Add any shared attributes that all sites in this class should carry automatically. Leave blank if no shared attributes are needed at this stage.</li>
-          <li><strong>Operating Hours</strong> tab: Set the default operating days and time windows for sites of this class.</li>
-          <li><strong>Attribute Rules</strong> tab: Add attribute rules if needed — for example, to restrict which vehicle types or product types can service sites in this class.</li>
-          <li>Click <strong>Commit</strong>.</li>
+          <li><div>Open <strong>Data Manager</strong> and select <strong>Site Classes</strong> from the navigation. Click <strong>Add</strong> in the toolbar.</div></li>
+          <li><div><strong>Basic Info</strong> tab: Enter the class <strong>Name</strong> — something that describes the type of site it represents, for example <em>Retail Delivery</em>, <em>Distribution Centre</em>, or <em>Crossdock</em>. The ID is auto-generated. Add an <strong>External ID</strong> and <strong>Description</strong> if needed. The <strong>Groups</strong> field is for data partitioning — assigns this record to a business unit or division as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</div></li>
+          <li><div><strong>Specification → Entry/Exit Duration</strong>: Set the default <strong>Entry Duration</strong> and <strong>Exit Duration</strong> in hours and minutes. These are the typical dwell times for arrival and departure at sites of this class — every site in the class will inherit these values unless overridden on the individual site.</div></li>
+          <li><div><strong>Specification → Attributes</strong>: Add any shared attributes that all sites in this class should carry automatically. Leave blank if no shared attributes are needed at this stage.</div></li>
+          <li><div><strong>Operating Hours</strong> tab: Set the default operating days and time windows for sites of this class.</div></li>
+          <li><div><strong>Attribute Rules</strong> tab: Add attribute rules if needed — for example, to restrict which vehicle types or product types can service sites in this class.</div></li>
+          <li><div>Click <strong>Commit</strong>.</div></li>
         </ol>
 
       </section>
@@ -722,21 +838,21 @@
         <p class="section-intro">Before adding sites, make sure your Site Classes are already set up. The Site Class is selected in the first Specification sub-section and sets several defaults for the site.</p>
 
         <ol class="steps-list">
-          <li>Open <strong>Data Manager</strong> and select <strong>Sites</strong> from the navigation. Click <strong>Add</strong> in the toolbar.</li>
-          <li><strong>Basic Info</strong> tab: Enter the site <strong>Name</strong> (required). The ID is auto-generated.</li>
-          <li><strong>Specification → Links</strong>: Select the <strong>Site Class</strong> (required). This sets the default operating hours, entry/exit durations, and attribute rules for the site. Optionally link a <strong>Client</strong> if this is a client-specific location.</li>
-          <li><strong>Specification → Type</strong>: Select the site type if applicable — for example, <em>Depot</em>, <em>Customer</em>, or <em>Crossdock</em>. Types are configured in Entity Types.</li>
-          <li><strong>Specification → Instructions</strong>: Add any operational notes — access codes, delivery instructions, or special requirements for drivers or planners.</li>
-          <li><strong>Specification → Location</strong>: The <strong>Auto Allocate To Region</strong> checkbox is on by default — leave it checked to have the system assign the site to a Region automatically. Use the <strong>Location Ref</strong> chooser to link to an existing Location record if one already exists in the system.</li>
-          <li><strong>Specification → Region Allocation</strong>: If you are not using automatic region allocation, manually assign the site to one or more Regions here.</li>
-          <li><strong>Specification → Linked Vehicle Classes</strong>: Link the Vehicle Classes permitted to service this site. Only vehicles in these classes will be considered for stops here during planning. Leave blank to allow all classes.</li>
-          <li><strong>Specification → Durations</strong>: Override the <strong>Entry Duration</strong> or <strong>Exit Duration</strong> only if this specific site's dwell time differs from its Site Class default. Leave at zero to inherit from the class.</li>
-          <li><strong>Specification → Loading Rate</strong>: Override the loading rate if this site handles goods at a different rate from the class or product default.</li>
-          <li><strong>Specification → Attributes</strong>: Add any site-specific attributes not already inherited from the Site Class.</li>
-          <li><strong>Operating Hours</strong> tab: Override the operating hours only if this site's hours differ from its Site Class. Leave blank to inherit from the class.</li>
-          <li><strong>Contact Info</strong> tab: Add the site contact details — contact name, type, and details.</li>
-          <li><strong>Attribute Rules</strong> tab: Add any site-specific attribute rules if needed.</li>
-          <li>Click <strong>Commit</strong>.</li>
+          <li><div>Open <strong>Data Manager</strong> and select <strong>Sites</strong> from the navigation. Click <strong>Add</strong> in the toolbar.</div></li>
+          <li><div><strong>Basic Info</strong> tab: Enter the site <strong>Name</strong> (required). The ID is auto-generated. The <strong>Groups</strong> field is for data partitioning — assigns this site to a business unit or division as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</div></li>
+          <li><div><strong>Specification → Links</strong>: Select the <strong>Site Class</strong> (recommended). This sets the default operating hours, entry/exit durations, and attribute rules for the site. Optionally link a <strong>Client</strong> if this is a client-specific location.</div></li>
+          <li><div><strong>Specification → Type</strong>: Select the site type if applicable — for example, <em>Depot</em>, <em>Customer</em>, or <em>Crossdock</em>. Types are configured in Entity Types.</div></li>
+          <li><div><strong>Specification → Instructions</strong>: Add any operational notes — access codes, delivery instructions, or special requirements for drivers or planners.</div></li>
+          <li><div><strong>Specification → Location</strong>: The <strong>Auto Allocate To Region</strong> checkbox is on by default — leave it checked to have the system assign the site to a Region automatically. Use the <strong>Location Ref</strong> chooser to link to an existing Location record if one already exists in the system.</div></li>
+          <li><div><strong>Specification → Region Allocation</strong>: If you are not using automatic region allocation, manually assign the site to one or more Regions here.</div></li>
+          <li><div><strong>Specification → Linked Vehicle Classes</strong>: Link the Vehicle Classes permitted to service this site. Only vehicles in these classes will be considered for stops here during planning. Leave blank to allow all classes.</div></li>
+          <li><div><strong>Specification → Durations</strong>: Override the <strong>Entry Duration</strong> or <strong>Exit Duration</strong> only if this specific site's dwell time differs from its Site Class default. Leave at zero to inherit from the class.</div></li>
+          <li><div><strong>Specification → Loading Rate</strong>: Override the loading rate if this site handles goods at a different rate from the class or product default.</div></li>
+          <li><div><strong>Specification → Attributes</strong>: Add any site-specific attributes not already inherited from the Site Class.</div></li>
+          <li><div><strong>Operating Hours</strong> tab: Override the operating hours only if this site's hours differ from its Site Class. Leave blank to inherit from the class.</div></li>
+          <li><div><strong>Contact Info</strong> tab: Add the site contact details — contact name, type, and details.</div></li>
+          <li><div><strong>Attribute Rules</strong> tab: Add any site-specific attribute rules if needed.</div></li>
+          <li><div>Click <strong>Commit</strong>.</div></li>
         </ol>
 
       </section>
@@ -807,6 +923,14 @@
         </div>
       </section>
 
+      <nav class="page-nav-bottom">
+        <a href="index.html">← Back to Data Manager</a>
+        <div class="nav-right">
+          <a href="../index.html">Tramm</a>
+          <a href="../../index.html">OPSI Docs home</a>
+        </div>
+      </nav>
+
     </main>
   </div>
 
@@ -814,5 +938,13 @@
     <p>OPSI Docs</p>
   </footer>
 
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
 </body>
 </html>

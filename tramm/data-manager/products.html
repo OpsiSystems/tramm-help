@@ -309,18 +309,18 @@
       gap: 1rem;
     }
     .concept-panel {
-      border: 1px solid var(--slate-200);
+      border: 1px solid var(--slate-300);
       border-radius: 0.55rem;
       overflow: hidden;
     }
     .concept-panel-header {
-      background: var(--slate-100);
+      background: var(--slate-500);
       padding: 0.6rem 1rem;
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--slate-500);
+      color: #fff;
     }
     .concept-panel-body {
       padding: 0.85rem 1rem;
@@ -333,6 +333,10 @@
       margin-top: 0.35rem;
     }
     .concept-panel-body li { margin-bottom: 0.2rem; }
+    .concept-panel.panel-class .concept-panel-header {
+      background: var(--blue-700);
+      color: #fff;
+    }
 
     /* ── FIELD MATRIX ── */
     .field-matrix {
@@ -419,6 +423,50 @@
       .field-matrix td { display: block; padding: 0.4rem 0.75rem; }
       .field-matrix tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
     }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
   </style>
 </head>
 <body>
@@ -467,7 +515,7 @@
         <p class="body-text">Unlike the Vehicle and Site class patterns, a Product can belong to more than one Product Group simultaneously — so a product can inherit rules from multiple categories at once.</p>
 
         <div class="concept-panels" style="margin-top:1.25rem;">
-          <div class="concept-panel">
+          <div class="concept-panel panel-class">
             <div class="concept-panel-header">Product Group — the shared rules</div>
             <div class="concept-panel-body">
               Defines the handling rules that apply to a category of goods.
@@ -479,7 +527,7 @@
               </ul>
             </div>
           </div>
-          <div class="concept-panel">
+          <div class="concept-panel panel-entity">
             <div class="concept-panel-header">Product — the physical specification</div>
             <div class="concept-panel-body">
               Defines the physical facts for a specific item.
@@ -662,7 +710,7 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <p class="step-title">Basic Info — enter a name</p>
-              <p class="step-detail">Enter the group <strong>Name</strong> (required) — something that clearly describes the category, for example <strong>Frozen Goods</strong>, <strong>Bulk Liquids</strong>, or <strong>Hazardous Materials</strong>. The ID is auto-generated. Add an External ID and Description if needed.</p>
+              <p class="step-detail">Enter the group <strong>Name</strong> (required) — something that clearly describes the category, for example <strong>Frozen Goods</strong>, <strong>Bulk Liquids</strong>, or <strong>Hazardous Materials</strong>. The ID is auto-generated. Add an <strong>External ID</strong> and <strong>Description</strong> if needed. The <strong>Groups</strong> field is for data partitioning — assigns this record to a business unit or division as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</p>
             </div>
           </li>
           <li>
@@ -706,7 +754,7 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <p class="step-title">Basic Info — enter the product name</p>
-              <p class="step-detail">Enter the product <strong>Name</strong> (required). The ID is auto-generated. Add a Description if needed.</p>
+              <p class="step-detail">Enter the product <strong>Name</strong> (required). The ID is auto-generated. Add a <strong>Description</strong> if needed. The <strong>Groups</strong> field is for data partitioning — assigns this record to a business unit or division as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</p>
             </div>
           </li>
           <li>
@@ -799,6 +847,14 @@
         </ul>
       </section>
 
+      <nav class="page-nav-bottom">
+        <a href="index.html">← Back to Data Manager</a>
+        <div class="nav-right">
+          <a href="../index.html">Tramm</a>
+          <a href="../../index.html">OPSI Docs home</a>
+        </div>
+      </nav>
+
     </main>
   </div>
 
@@ -806,5 +862,13 @@
     <p>OPSI Docs</p>
   </footer>
 
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
 </body>
 </html>
