@@ -47,14 +47,11 @@
       color: #fff;
       padding: 2rem 2rem 1.5rem;
     }
-    .site-header .eyebrow {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 0.4rem;
-    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.5rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
     .site-header h1 {
       font-size: 1.75rem;
       font-weight: 700;
@@ -68,12 +65,16 @@
 
     /* ── HOW TO READ THIS ── */
     .legend {
+      background: var(--blue-900);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 0.75rem 2rem 1rem;
+    }
+    .legend-inner {
+      max-width: 1100px;
+      margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      background: var(--blue-900);
-      padding: 0.75rem 2rem 1rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
     }
     .legend-item {
       display: flex;
@@ -96,42 +97,42 @@
     .pill-caution{ background: var(--red-100);   color: var(--red-700);   }
 
     /* ── PAGE LAYOUT & SIDEBAR ── */
-    .page-layout { display: flex; align-items: flex-start; }
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
     .sidebar-nav {
-      width: 220px;
-      flex-shrink: 0;
       position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      background: #fff;
-      border-right: 1px solid var(--slate-200);
-      padding: 1.75rem 0 2rem;
+      top: 2rem;
     }
     .sidebar-heading {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: var(--slate-400);
-      padding: 0 1.25rem;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.6rem;
     }
     .sidebar-nav a {
       display: block;
-      padding: 0.42rem 1.25rem;
-      font-size: 0.855rem;
-      font-weight: 500;
+      font-size: 0.825rem;
       color: var(--slate-600);
       text-decoration: none;
-      border-left: 3px solid transparent;
-      transition: color 0.15s, background 0.15s, border-color 0.15s;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.3rem;
+      transition: background 0.15s, color 0.15s;
+      border-left: 2px solid transparent;
     }
-    .sidebar-nav a:hover { color: var(--blue-700); background: var(--blue-50); border-left-color: var(--blue-200); }
+    .sidebar-nav a:hover { background: var(--slate-100); color: var(--slate-900); }
     .sidebar-nav a.active { color: var(--blue-700); background: var(--blue-50); border-left-color: var(--blue-600); font-weight: 600; }
 
     /* ── CONTENT AREA ── */
-    .content { padding: 2rem; flex: 1; min-width: 0; }
+    .content { flex: 1; min-width: 0; }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
@@ -236,6 +237,50 @@
       margin-top: 2rem;
     }
 
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding: 1.5rem 2rem 0;
+      margin: 1rem 2rem 0;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
+
     .toolbar-strip {
       margin-bottom: 1.75rem;
       background: var(--slate-50);
@@ -300,16 +345,26 @@
 
 <!-- ═══════════════════════════════════════════════════════════ HEADER -->
 <header class="site-header">
-  <p class="eyebrow">Tramm Learning — Quick Reference Card</p>
-  <h1>Planner App — What Every Button Does</h1>
-  <p class="subtitle">A guide for brand new users. Find any button, learn what it does, when to use it, and what to expect after you click it.</p>
+  <div class="header-inner">
+    <div class="breadcrumb">
+      <a href="../../index.html">OPSI Docs</a>
+      <span>›</span>
+      <a href="../index.html">Tramm</a>
+      <span>›</span>
+      Planner Button Reference
+    </div>
+    <h1>Planner App — What Every Button Does</h1>
+    <p class="subtitle">A guide for brand new users. Find any button, learn what it does, when to use it, and what to expect after you click it.</p>
+  </div>
 </header>
 
 <div class="legend">
-  <div class="legend-item"><span class="pill pill-when">When to use</span> The right moment to click this button</div>
-  <div class="legend-item"><span class="pill pill-next">What happens next</span> What the system does after you click</div>
-  <div class="legend-item"><span class="pill pill-note">Tip</span> Helpful extra info for new users</div>
-  <div class="legend-item"><span class="pill pill-caution">Caution</span> Worth double-checking before you click</div>
+  <div class="legend-inner">
+    <div class="legend-item"><span class="pill pill-when">When to use</span> The right moment to click this button</div>
+    <div class="legend-item"><span class="pill pill-next">What happens next</span> What the system does after you click</div>
+    <div class="legend-item"><span class="pill pill-note">Tip</span> Helpful extra info for new users</div>
+    <div class="legend-item"><span class="pill pill-caution">Caution</span> Worth double-checking before you click</div>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════ CONTENT -->
@@ -418,7 +473,7 @@
     <p class="section-heading">Creating &amp; Editing Orders</p>
     <div class="callout" style="display:flex;gap:0.75rem;align-items:flex-start;margin-bottom:1.25rem;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;width:1rem;height:1rem;color:#2563eb;margin-top:0.15rem;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <span><strong>Add, Edit, Duplicate, and Delete</strong> work the same way here as in every other app. See <a href="../tramm/toolbar-reference.html#standard-actions">What the Buttons in Tramm Do</a> for details on these standard buttons.</span>
+      <span><strong>Add, Edit, Duplicate, and Delete</strong> work the same way here as in every other app. See <a href="../toolbar-reference.html#standard-actions">What the Buttons in Tramm Do</a> for details on these standard buttons.</span>
     </div>
     <div class="card-grid">
 
@@ -480,7 +535,7 @@
     <p class="section-heading">Creating &amp; Editing Jobs</p>
     <div class="callout" style="display:flex;gap:0.75rem;align-items:flex-start;margin-bottom:1.25rem;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;width:1rem;height:1rem;color:#2563eb;margin-top:0.15rem;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <span><strong>Add, Edit, Delete, and Transition</strong> work the same way here as in every other app. See <a href="../tramm/toolbar-reference.html#standard-actions">What the Buttons in Tramm Do</a> for details on these standard buttons.</span>
+      <span><strong>Add, Edit, Delete, and Transition</strong> work the same way here as in every other app. See <a href="../toolbar-reference.html#standard-actions">What the Buttons in Tramm Do</a> for details on these standard buttons.</span>
     </div>
     <div class="card-grid">
 
@@ -917,12 +972,26 @@
 </main>
 </div><!-- /page-layout -->
 
+<nav class="page-nav-bottom">
+  <a href="../index.html">← Back to Tramm</a>
+  <div class="nav-right">
+    <a href="../../index.html">OPSI Docs home</a>
+  </div>
+</nav>
+
 <footer class="site-footer">
   Tramm Planner Quick Reference · For brand new users · Version 1.0 · May 2026
 </footer>
 
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
 <!-- ═══════════════════════════════════════════════════════════ SCRIPT -->
 <script>
+  const btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+
   function showTab(name) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
