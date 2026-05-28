@@ -66,13 +66,14 @@
 
     /* ── SECTION LABELS ── */
     .section-label {
-      font-size: 0.75rem;
+      font-size: 1rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--slate-400);
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--slate-200);
+      letter-spacing: 0.06em;
+      color: var(--slate-800);
+      border-left: 4px solid var(--blue-600);
+      padding-left: 0.75rem;
+      margin-top: 2.5rem;
       margin-bottom: 1.5rem;
     }
 
@@ -199,6 +200,50 @@
       font-size: 0.8rem;
     }
 
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
+
     @media (max-width: 700px) {
       .site-header h1 { font-size: 1.4rem; }
       .page-content { padding: 1.5rem 1rem 3rem; gap: 2rem; }
@@ -210,7 +255,7 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="breadcrumb">
-        <a href="index.html">Tramm Help</a>
+        <a href="index.html">OPSI Docs</a>
         <span>›</span>
         <a href="how-tramm-works/index.html">How Tramm Works</a>
         <span>›</span>
@@ -404,11 +449,27 @@
       </div>
     </section>
 
+    <nav class="page-nav-bottom">
+      <a href="how-tramm-works/index.html">← How Tramm Works</a>
+      <div class="nav-right">
+        <a href="index.html">OPSI Docs home</a>
+      </div>
+    </nav>
+
   </main>
 
   <footer>
-    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+    <p>OPSI Docs</p>
   </footer>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
 
 </body>
 </html>

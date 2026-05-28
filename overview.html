@@ -35,7 +35,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--slate-100);
+      background: #fff;
       color: var(--slate-700);
       line-height: 1.6;
     }
@@ -46,6 +46,7 @@
       color: #fff;
       padding: 2rem 2rem 1.75rem;
     }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
     .breadcrumb {
       font-size: 0.78rem;
       opacity: 0.7;
@@ -257,6 +258,50 @@
       flex-shrink: 0;
     }
 
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--slate-200);
+      padding-top: 1.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .page-nav-bottom a {
+      color: var(--blue-700);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--blue-700);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
+
     footer {
       background: var(--slate-900);
       color: var(--slate-400);
@@ -275,13 +320,15 @@
 <body>
 
   <header class="site-header">
-    <div class="breadcrumb">
-      <a href="index.html">Tramm Help</a>
-      <span>›</span>
-      Tramm Overview
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="index.html">OPSI Docs</a>
+        <span>›</span>
+        Tramm Overview
+      </div>
+      <h1>The TMS Universe is Tramm's Universe</h1>
+      <p class="subtitle">Tramm covers the full logistics operation — from the moment an order is created to the moment it is delivered. Click on any area in the diagrams below to explore that part of the system.</p>
     </div>
-    <h1>The TMS Universe is Tramm's Universe</h1>
-    <p class="subtitle">Tramm covers the full logistics operation — from the moment an order is created to the moment it is delivered. Click on any area in the diagrams below to explore that part of the system.</p>
   </header>
 
   <nav class="section-nav">
@@ -291,7 +338,7 @@
 
   <main class="content">
 
-    <p class="intro-text">Tramm is made up of three interconnected products: the core <strong>Tramm TMS</strong> platform, the <strong>Tramm Mobile</strong> app used by drivers and field operators, and <strong>Fleetvision</strong> for real-time fleet visibility. Together they cover every stage of the logistics operation.</p>
+    <p class="intro-text">Tramm is made up of three interconnected products: the core <strong>Tramm</strong> platform, the <strong>Tramm Mobile</strong> app used by drivers and field operators, and <strong>Fleetvision</strong> for real-time fleet visibility. Together they cover every stage of the logistics operation.</p>
 
     <!-- PHASE 1: PLANNING -->
     <section id="planning" class="phase">
@@ -398,11 +445,27 @@
       </div>
     </section>
 
+    <nav class="page-nav-bottom">
+      <a href="index.html">← OPSI Docs home</a>
+      <div class="nav-right">
+        <a href="how-tramm-works/index.html">How Tramm Works →</a>
+      </div>
+    </nav>
+
   </main>
 
   <footer>
-    <p>Tramm Help &mdash; for support, contact your Tramm implementation team.</p>
+    <p>OPSI Docs</p>
   </footer>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
 
 </body>
 </html>

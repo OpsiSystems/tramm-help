@@ -285,6 +285,33 @@
       letter-spacing: 0.08em;
     }
 
+    /* ── SOPS ── */
+    .sop-grid-home {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    a.sop-home-card {
+      display: flex; flex-direction: column; gap: 0.3rem;
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-left: 4px solid #9333ea;
+      border-radius: 0.5rem;
+      padding: 1.1rem 1.25rem;
+      text-decoration: none; color: inherit;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+    a.sop-home-card:hover {
+      box-shadow: 0 4px 16px rgba(147,51,234,0.12);
+      transform: translateY(-2px);
+    }
+    .sop-home-card-label {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #9333ea; margin-bottom: 0.1rem;
+    }
+    .sop-home-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--slate-900); }
+    .sop-home-card p  { font-size: 0.8rem; color: var(--slate-500); line-height: 1.4; }
+
     /* ── WHAT'S NEW ── */
     .whats-new-card {
       display: flex;
@@ -428,8 +455,8 @@
           </div>
         </div>
 
-        <div class="product-card product-card-soon"
-             data-search="fleetvision fleet visibility live map alerts trip monitoring tracking">
+        <a class="product-card" href="fleet-vision/index.html"
+           data-search="fleetvision fleet visibility live map alerts trip monitoring tracking colours statuses">
           <div class="product-icon icon-fv">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -439,10 +466,56 @@
           <div class="product-card-body">
             <h3>FleetVision</h3>
             <p>Real-time fleet visibility — live map, alerts, and trip monitoring.</p>
-            <p class="product-soon-label">Coming soon</p>
           </div>
-        </div>
+          <svg class="product-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </a>
 
+      </div>
+    </section>
+
+    <!-- QUICK REFERENCE -->
+    <section class="content-section" data-section>
+      <div class="section-header">
+        <h2>Quick Reference</h2>
+        <p>Quick-reference guides for features and tasks you need to find fast — no scrolling through full guides.</p>
+      </div>
+      <div class="qrc-grid">
+        <a class="qrc-card" href="tramm/toolbar-reference.html"
+           data-search="buttons toolbar add edit delete duplicate import export transition standard actions tramm">
+          <p class="qrc-card-label">Tramm</p>
+          <h3>What the Buttons in Tramm Do</h3>
+          <p>Standard buttons that appear in every app, plus action buttons specific to each app.</p>
+        </a>
+        <a class="qrc-card" href="tramm/planner/quick-reference.html"
+           data-search="planner buttons gantt orders jobs trips toolbar quick reference">
+          <p class="qrc-card-label">Planner</p>
+          <h3>Planner Button Reference</h3>
+          <p>What every button does in the Planner toolbar and panels.</p>
+        </a>
+        <a class="qrc-card" href="fleet-vision/quick-reference.html"
+           data-search="fleetvision colours statuses trip stop vehicle delivery lateness map icons">
+          <p class="qrc-card-label">FleetVision</p>
+          <h3>Colours &amp; Statuses</h3>
+          <p>Every colour, status label, and indicator in FleetVision — what each one means.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- SOPS & PROCEDURES -->
+    <section class="content-section" data-section>
+      <div class="section-header">
+        <h2>SOPs &amp; Procedures</h2>
+        <p>Standard operating procedures for configuring and using the Tramm platform.</p>
+      </div>
+      <div class="sop-grid-home">
+        <a class="sop-home-card" href="sops/index.html"
+           data-search="sop procedures all list index routing class settings configuration">
+          <p class="sop-home-card-label">All SOPs</p>
+          <h3>Browse all SOPs &amp; Procedures →</h3>
+          <p>View the full SOPs library, filtered by product and topic.</p>
+        </a>
       </div>
     </section>
 
