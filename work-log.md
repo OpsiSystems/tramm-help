@@ -61,6 +61,28 @@
 
 ---
 
+## 2026-05-28 (Thursday) — standup presentation final session (evening)
+
+All changes to `Documents\Claude\Standup Presentation\presentation.html` and `script.html`:
+
+- **Script slides 3, 6, 8, 9, 10**: updated from Nina's txt files — exact wording, phrasing and cues corrected throughout
+- **Slide 9 script**: restructured — bullets point directly at the three on-screen items; adds behaviour change story (hesitant → jumped straight in); closes with "If I can do it, anybody can."
+- **Slide 10 script**: encyclopedia/disclaimer story moved here as setup for the Before & After visual; PowerShell punchline broken into three beats
+- **Slide 13 script (Portable SOP)**: rewritten in plain language — "we email you one file, you double-click, read, print"; no technical jargon
+- **Timeline slides 11 & 12**: stripped descriptive sentences from all 6 entries — bold cue text only; `.vtl-item` spacing increased from 26px → 52px; bold text size increased
+- **Timeline entries revised**: honest/factual language throughout — no "launched", "live", "rebuilt", "rebranded"; entries describe what information was added
+- **14–18 May entry added** to slide 11: FleetVision training documentation for client training
+- **27–28 May entry corrected**: changed from "FleetVision live. Toolbar made interactive." to "Routing Classes SOP." — FleetVision still needs QA
+- **Stats slide**: 91 → 99 commits; 15+ → 22 pages
+- **What's Next slide**: removed marketing language; split Tramm into two cards (Planner and Transact); added Plato → Tramm transition card (preparation checklists, FAQs, change management guide); now 8 cards
+- **Slide 11 script**: added audience/purpose intro (implementers, end users, whole Opsi team) before timeline walkthrough; timeline entries reformatted as date headers + bullet points
+- **Slide 12 script**: timeline entries reformatted as date headers + bullet points; updated to match revised slide content
+- **What's Next script**: rewritten — factual, no hype; Plato → Tramm card explained as change management guide for clients
+- **Demo plan added** to bottom of script: 3-stop, 60-second demo plan (Homepage → Toolbar reference hover demo → Data Manager page)
+- **Key Concepts page** (`how-tramm-works/key-concepts.html`): fixed wide layout — `.header-inner` max-width 1400px → 1060px; added `max-width: 1060px; margin: 0 auto` to `.page-layout`
+
+---
+
 ## 2026-05-28 (Thursday) — standup presentation polish session
 
 All changes to `Documents\Claude\Standup Presentation\presentation.html` and `script.html`:
@@ -73,6 +95,29 @@ All changes to `Documents\Claude\Standup Presentation\presentation.html` and `sc
 - **s14 (What's Next)**: redesigned all 6 cards — row 1 now shows the three products with real scope (Tramm: 24 apps, 5 modules, full app list; FleetVision: 7 apps with names; Tramm Mobile: 5 apps with names; row 2: SOPs, Articulate 360, "Every release documented"); updated `script.html` slide 16 to match
 - **s15 (Big Reveal)**: changed "about two hours" → "about four hours" on slide and in script
 - **s1 (Opening)**: replaced plain text heading with animated Facebook relationship status card — card slides in, "Single" gets a strikethrough drawn across it, arrow fades in, "Engaged 💍" pops in with spring bounce; updated `script.html` slide 1 cue accordingly
+
+---
+
+## 2026-05-28 (Thursday) — toolbar reference & GitHub setup
+
+- Updated QRC card label on home page: "System-wide" → "Tramm" to match Planner and FleetVision card labels
+- Added amber "In progress — individual Planner button screenshots to be added" banner to `tramm/toolbar-reference.html`
+- Rebuilt standard toolbar section with full interactive toolbar map:
+  - Replaced static `toolbar-context.png` with interactive `toolbar-data-manager.png` strip (333×41px, 8 buttons)
+  - Hotspot divs at 12.5% intervals — hover shows tooltip label, click scrolls to and flash-highlights the corresponding table row
+  - Added two missing standard buttons: **Set Security Groups** (padlock icon) and **Activate / Deactivate** (power icon)
+  - All 8 buttons now have individual icon screenshots: `btn-add`, `btn-duplicate`, `btn-edit`, `btn-security`, `btn-toggle`, `btn-delete`, `btn-import`, `btn-export`
+  - Added `id` attributes to all standard table rows for JS scroll targeting
+- Added Planner toolbar strip screenshots above Gantt, Jobs, and Trips subsection tables
+- Created `tramm/img/` image folder with 13 screenshots (button icons + toolbar strips)
+- Set up proper git workflow — no more web uploads:
+  - Cloned `OpsiSystems/tramm-help` to `Documents\GitHub\tramm-help`
+  - Diagnosed root cause of failed img folder upload: GitHub web had created `tramm/img` as a FILE not a folder (from a malformed "Create img" web commit)
+  - Removed malformed file, added real `tramm/img/` folder, committed and pushed 34 files in one clean commit
+  - Removed stale root `planner/` folder from GitHub (content had moved to `tramm/planner/` weeks ago)
+- Created `Documents\Claude\Scripts\` folder for site-wide PowerShell scripts:
+  - `publish-tramm-help-to-github.ps1` — syncs SharePoint → git clone → commits → pushes; right-click → Run with PowerShell
+  - Rule established: SOP-specific scripts (like `generate-portable.ps1`) stay next to their SOP; site-wide scripts go in `Scripts\`
 
 ---
 
