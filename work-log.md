@@ -5,18 +5,22 @@
 ## 2026-06-07 (Saturday)
 
 - Weekly Tramm Documentation meeting with Arnelle and Nicole — reviewed vehicle-classes.html:
-  - Corrections from meeting applied to vehicle-classes.html:
-    - Type field: added None as a third option (was showing only Rigid/Horse); corrected descriptions for all three
-    - Costing field: corrected from "Used by Transact Extension" to "Used by planning solver" (Arnelle: "It's not used by Transact at all")
-    - Physical Dimensions: clarified Mass is not used by 3D Visualiser; Length/Width/Height are
-    - External ID: corrected from "add if you need to match another system" to "auto-generated, not editable manually"
-    - Trailers step: updated from "For Horse-type" to "For Rigid and Horse-type vehicles"
+  - First pass corrections applied:
+    - Type field: added None as a third option; corrected descriptions for all three
+    - Costing field: corrected from "Used by Transact Extension" to "Used by planning solver"
+    - Physical Dimensions: partially corrected (first pass — later superseded, see below)
+    - External ID: corrected to "auto-generated, not editable manually"
+    - Trailers step: updated to "For Rigid and Horse-type vehicles"
     - Capacity step: added note that field is unavailable when Horse type is selected
-  - Vehicle type diagram added to Vehicle Class Fields section (CSS + inline SVG):
-    - Three illustrated cards: None / Rigid / Horse
-    - SVG truck shapes showing capacity placement for each type
-    - Clarifying note: "None vs Rigid — both have own cargo body; only difference is Rigid can pull a trailer"
-  - Responsive: vtype-grid collapses to single column on mobile
+  - Vehicle type diagram added (CSS + inline SVG — None / Rigid / Horse)
+  - Second pass corrections (full transcript review with Arnelle + Nicole):
+    - Physical Size field and step: complete rewrite — not used by 3D Load Builder; used for Vehicle Dimension Limits in Settings → Planning Configuration; tare weight explains mass field
+    - Capacity field and step: dimensions depend on Settings (not fixed kg/m3/units); vehicle is full when any one dimension maxes out; 3D Load Builder needs L/W/H set in Capacity section
+    - Compartments field: full detail added — "Use Compartment Planning" toggle; Mixed vs Bulk types with examples
+    - Routing Class field and step: removed "Default routing profile" language (Nicole: users think it's a configured business profile); replaced with HERE Maps standard routing defaults
+    - Efficiency field: clarified for reporting only, not solver optimisation
+    - Loading Rate step: seconds per unit of capacity dimension (not per item/quantity); added TAT terminology
+    - Tips section: fixed 3D Visualiser tip (Capacity L/W/H, not Physical Size); routing class tip simplified; class-required tip simplified
 
 ---
 
