@@ -490,6 +490,47 @@
       color: var(--amber-700);
     }
 
+    /* ── VEHICLE TYPE DIAGRAM ── */
+    .vtype-wrap {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.5rem;
+      padding: 1.25rem 1.25rem 1rem;
+      margin: 1.25rem 0 0;
+    }
+    .vtype-label-head {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--slate-400); margin-bottom: 1rem;
+    }
+    .vtype-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+    .vtype-card { display: flex; flex-direction: column; gap: 0.5rem; }
+    .vtype-tag {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; display: inline-block;
+      padding: 0.15rem 0.5rem; border-radius: 999px; width: fit-content;
+    }
+    .vtype-tag-none  { background: var(--slate-100); color: var(--slate-600); }
+    .vtype-tag-rigid { background: var(--blue-50); color: var(--blue-700); border: 1px solid var(--blue-100); }
+    .vtype-tag-horse { background: var(--teal-50); color: var(--teal-700); border: 1px solid var(--teal-100); }
+    .vtype-svg-wrap { width: 100%; }
+    .vtype-svg-wrap svg { width: 100%; height: auto; display: block; }
+    .vtype-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+    .vtype-bullets li {
+      font-size: 0.82rem; color: var(--slate-600); line-height: 1.45;
+      padding-left: 0.9rem; position: relative;
+    }
+    .vtype-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--slate-400); }
+    .vtype-example { font-size: 0.75rem; color: var(--slate-400); font-style: italic; }
+    .vtype-note {
+      margin-top: 1rem; font-size: 0.82rem; color: var(--slate-700);
+      padding: 0.6rem 0.75rem; background: var(--amber-50);
+      border: 1px solid var(--amber-100); border-radius: 0.35rem; line-height: 1.5;
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--slate-900);
@@ -505,6 +546,7 @@
       .side-nav { position: static; border-bottom: 1px solid var(--slate-200); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
       .site-header h1 { font-size: 1.4rem; }
       .concept-panels { grid-template-columns: 1fr; }
+      .vtype-grid { grid-template-columns: 1fr; }
       .field-matrix thead { display: none; }
       .field-matrix td { display: block; padding: 0.4rem 0.75rem; }
       .field-matrix tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
@@ -677,7 +719,7 @@
             </tr>
             <tr class="row-required">
               <td><span class="fname">Type</span></td>
-              <td><span class="fdesc">The vehicle type classification — either <strong>Rigid</strong> (fixed cab and body) or <strong>Horse</strong> (truck-tractor that pulls interchangeable trailers). Affects how the planning engine handles this class.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td><span class="fdesc">The vehicle type. Determines whether trailers can be attached and how capacity is calculated. <strong>None</strong> — a standard vehicle with its own cargo body; cannot pull a trailer. <strong>Rigid</strong> — a vehicle with its own cargo body that can optionally pull a trailer. <strong>Horse</strong> — a cab/tractor unit only; the Capacity field is not available on a Horse because all capacity comes from attached trailers. See the vehicle type diagram below.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
               <td class="col-tick"><span class="tick-req">✓</span></td>
               <td class="col-tick"></td>
             </tr>
@@ -689,7 +731,7 @@
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Physical Dimensions</span></td>
-              <td><span class="fdesc">The physical size of the vehicle: Length, Width, Height, and Mass. Required if you use the 3D Visualiser in the Planner.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td><span class="fdesc">The physical size of the vehicle: Length, Width, and Height are used by the 3D Visualiser in the Planner to render the vehicle correctly — required if you use that feature. Mass (tare weight — the empty vehicle weight) is used for road network and load calculations, not by the 3D Visualiser.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
             </tr>
@@ -719,7 +761,7 @@
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Costing</span></td>
-              <td><span class="fdesc">Cost structure for trips using this vehicle class — fixed costs, per-km costs, and per-hour costs. Used by the Transact Extension for financial calculations.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td><span class="fdesc">Cost structure for trips using this vehicle class — fixed costs, per-km costs, and per-hour costs. Used by the planning solver to optimise route and vehicle selection. A vehicle class with a high fixed cost will be deployed less aggressively; one with a high time cost will be assigned shorter trips.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
             </tr>
@@ -731,6 +773,87 @@
             </tr>
           </tbody>
         </table>
+
+        <div class="vtype-wrap">
+          <p class="vtype-label-head">Vehicle types at a glance</p>
+          <div class="vtype-grid">
+
+            <div class="vtype-card">
+              <p class="vtype-tag vtype-tag-none">None</p>
+              <div class="vtype-svg-wrap">
+                <svg viewBox="0 0 200 62" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="38" y="5" width="120" height="38" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                  <text x="98" y="29" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#475569">capacity</text>
+                  <rect x="4" y="14" width="38" height="29" rx="4" fill="#475569"/>
+                  <rect x="7" y="17" width="15" height="12" rx="2" fill="#7d96b0"/>
+                  <circle cx="20" cy="51" r="8" fill="#1e293b"/><circle cx="20" cy="51" r="3.5" fill="#475569"/>
+                  <circle cx="82" cy="51" r="8" fill="#1e293b"/><circle cx="82" cy="51" r="3.5" fill="#475569"/>
+                  <circle cx="108" cy="51" r="8" fill="#1e293b"/><circle cx="108" cy="51" r="3.5" fill="#475569"/>
+                  <circle cx="140" cy="51" r="8" fill="#1e293b"/><circle cx="140" cy="51" r="3.5" fill="#475569"/>
+                </svg>
+              </div>
+              <ul class="vtype-bullets">
+                <li>Complete single unit — cannot pull a trailer</li>
+                <li>Capacity is set on the vehicle itself</li>
+              </ul>
+              <p class="vtype-example">e.g. delivery van, flatbed truck</p>
+            </div>
+
+            <div class="vtype-card">
+              <p class="vtype-tag vtype-tag-rigid">Rigid</p>
+              <div class="vtype-svg-wrap">
+                <svg viewBox="0 0 250 62" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="38" y="5" width="96" height="38" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                  <text x="86" y="29" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#475569">capacity</text>
+                  <rect x="4" y="14" width="38" height="29" rx="4" fill="#475569"/>
+                  <rect x="7" y="17" width="15" height="12" rx="2" fill="#7d96b0"/>
+                  <rect x="134" y="30" width="14" height="7" rx="2" fill="#94a3b8"/>
+                  <rect x="150" y="13" width="84" height="30" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="5,3"/>
+                  <text x="192" y="29" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="600" fill="#2563eb">capacity</text>
+                  <text x="192" y="40" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" fill="#60a5fa">optional</text>
+                  <circle cx="20" cy="51" r="8" fill="#1e293b"/><circle cx="20" cy="51" r="3.5" fill="#475569"/>
+                  <circle cx="74" cy="51" r="8" fill="#1e293b"/><circle cx="74" cy="51" r="3.5" fill="#475569"/>
+                  <circle cx="98" cy="51" r="8" fill="#1e293b"/><circle cx="98" cy="51" r="3.5" fill="#475569"/>
+                  <circle cx="168" cy="51" r="8" fill="#1e293b"/><circle cx="168" cy="51" r="3.5" fill="#475569"/>
+                  <circle cx="214" cy="51" r="8" fill="#1e293b"/><circle cx="214" cy="51" r="3.5" fill="#475569"/>
+                </svg>
+              </div>
+              <ul class="vtype-bullets">
+                <li>Has its own cargo body and capacity</li>
+                <li>Can optionally pull a trailer</li>
+                <li>Total capacity = vehicle body + trailer (if used)</li>
+              </ul>
+            </div>
+
+            <div class="vtype-card">
+              <p class="vtype-tag vtype-tag-horse">Horse</p>
+              <div class="vtype-svg-wrap">
+                <svg viewBox="0 0 210 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="4" y="18" width="44" height="26" rx="4" fill="#475569"/>
+                  <rect x="7" y="21" width="17" height="12" rx="2" fill="#7d96b0"/>
+                  <text x="26" y="66" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8" fill="#94a3b8">no capacity</text>
+                  <rect x="48" y="30" width="14" height="7" rx="2" fill="#94a3b8"/>
+                  <rect x="65" y="5" width="128" height="40" rx="4" fill="#f0fdfa" stroke="#0d9488" stroke-width="1.5"/>
+                  <text x="129" y="30" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#0f766e">capacity</text>
+                  <circle cx="18" cy="52" r="8" fill="#1e293b"/><circle cx="18" cy="52" r="3.5" fill="#475569"/>
+                  <circle cx="40" cy="52" r="8" fill="#1e293b"/><circle cx="40" cy="52" r="3.5" fill="#475569"/>
+                  <circle cx="94" cy="52" r="8" fill="#1e293b"/><circle cx="94" cy="52" r="3.5" fill="#475569"/>
+                  <circle cx="126" cy="52" r="8" fill="#1e293b"/><circle cx="126" cy="52" r="3.5" fill="#475569"/>
+                  <circle cx="158" cy="52" r="8" fill="#1e293b"/><circle cx="158" cy="52" r="3.5" fill="#475569"/>
+                  <circle cx="186" cy="52" r="8" fill="#1e293b"/><circle cx="186" cy="52" r="3.5" fill="#475569"/>
+                </svg>
+              </div>
+              <ul class="vtype-bullets">
+                <li>Cab/tractor unit only — no cargo body</li>
+                <li>Capacity <strong>cannot</strong> be set on the horse</li>
+                <li>All capacity comes from the trailer</li>
+              </ul>
+            </div>
+
+          </div>
+          <p class="vtype-note"><strong>None vs Rigid:</strong> Both are complete vehicles with their own cargo body and capacity. The only difference: a Rigid can pull a trailer; a None cannot.</p>
+        </div>
+
       </section>
 
       <!-- ── WHAT IS A VEHICLE ── -->
@@ -868,21 +991,21 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <div class="step-title">Basic Info — enter the identity details</div>
-              <div class="step-detail">Enter a <strong>Name</strong> (required). The ID is auto-generated — leave it unless you have a specific code to use. Add an <strong>External ID</strong> if you need to match this class to a record in another system. Add a <strong>Description</strong> if it helps distinguish this class from others. The <strong>Groups</strong> field is for data partitioning — it assigns this record to a specific business unit or division, as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</div>
+              <div class="step-detail">Enter a <strong>Name</strong> (required). The ID is auto-generated — leave it. The <strong>External ID</strong> is also auto-generated by the system and cannot be set or edited manually. Add a <strong>Description</strong> if it helps distinguish this class from others. The <strong>Groups</strong> field is for data partitioning — it assigns this record to a specific business unit or division, as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</div>
             </div>
           </li>
           <li>
             <div class="step-num">3</div>
             <div class="step-body">
               <div class="step-title">Specification → Type</div>
-              <div class="step-detail">Select the vehicle type: <strong>Rigid</strong> (fixed cab and body) or <strong>Horse</strong> (truck-tractor that pulls interchangeable trailers). Leave unset if you prefer not to classify.</div>
+              <div class="step-detail">Select the vehicle type. <strong>None</strong> — a standard vehicle that cannot pull a trailer; set capacity on this class as normal. <strong>Rigid</strong> — a vehicle with its own cargo body that can optionally pull a trailer. <strong>Horse</strong> — a cab/tractor unit only; selecting Horse disables the Capacity field because a horse's capacity comes entirely from its trailers.</div>
             </div>
           </li>
           <li>
             <div class="step-num">4</div>
             <div class="step-body">
               <div class="step-title">Specification → Costing</div>
-              <div class="step-detail">Set the <strong>Fixed</strong>, <strong>Time</strong>, and <strong>Distance</strong> cost rates for this vehicle type. Used by the Transact Extension for trip costing and financial reporting. Leave all at 0 if your organisation does not use Tramm for financial costing.</div>
+              <div class="step-detail">Set the <strong>Fixed</strong>, <strong>Time</strong>, and <strong>Distance</strong> cost rates for this vehicle type. These are used by the planning solver to optimise route and vehicle selection — not by the Transact Extension. A vehicle with a high fixed cost will be used more sparingly; a high time cost will push the solver towards assigning shorter trips to that class. Leave all at 0 to exclude cost from the planning optimisation.</div>
             </div>
           </li>
           <li>
@@ -903,7 +1026,7 @@
             <div class="step-num">7</div>
             <div class="step-body">
               <div class="step-title">Specification → Capacity</div>
-              <div class="step-detail">Set the load capacity for this vehicle type — weight, volume, and/or units, depending on what dimensions you plan against. The Planner checks these limits when assigning jobs to a trip — a load that would exceed any capacity value will not be assigned.</div>
+              <div class="step-detail">Set the load capacity for this vehicle type — weight, volume, and/or units, depending on what dimensions you plan against. The Planner checks these limits when assigning jobs to a trip — a load that would exceed any capacity value will not be assigned. <strong>Note:</strong> this field is not available if you selected <strong>Horse</strong> as the vehicle type. A horse's capacity comes entirely from its trailers.</div>
             </div>
           </li>
           <li>
@@ -917,7 +1040,7 @@
             <div class="step-num">9</div>
             <div class="step-body">
               <div class="step-title">Specification → Trailers</div>
-              <div class="step-detail">For <strong>Horse</strong>-type vehicles: assign the default trailer type(s) typically used by vehicles of this class. Trailers must already exist in Data Manager (see callout above). Leave blank if trailers vary by trip or if this is a Rigid class.</div>
+              <div class="step-detail">For <strong>Rigid</strong> and <strong>Horse</strong>-type vehicles: assign the default trailer type(s) typically used by vehicles of this class. Trailers must already exist in Data Manager (see callout above). Normally one trailer for a Rigid, one or two for a Horse. Leave blank if this is a None-type class or if trailers are assigned at trip time.</div>
             </div>
           </li>
           <li>

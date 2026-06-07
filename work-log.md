@@ -2,6 +2,125 @@
 
 ---
 
+## 2026-06-07 (Saturday)
+
+- Weekly Tramm Documentation meeting with Arnelle and Nicole — reviewed vehicle-classes.html:
+  - Corrections from meeting applied to vehicle-classes.html:
+    - Type field: added None as a third option (was showing only Rigid/Horse); corrected descriptions for all three
+    - Costing field: corrected from "Used by Transact Extension" to "Used by planning solver" (Arnelle: "It's not used by Transact at all")
+    - Physical Dimensions: clarified Mass is not used by 3D Visualiser; Length/Width/Height are
+    - External ID: corrected from "add if you need to match another system" to "auto-generated, not editable manually"
+    - Trailers step: updated from "For Horse-type" to "For Rigid and Horse-type vehicles"
+    - Capacity step: added note that field is unavailable when Horse type is selected
+  - Vehicle type diagram added to Vehicle Class Fields section (CSS + inline SVG):
+    - Three illustrated cards: None / Rigid / Horse
+    - SVG truck shapes showing capacity placement for each type
+    - Clarifying note: "None vs Rigid — both have own cargo body; only difference is Rigid can pull a trailer"
+  - Responsive: vtype-grid collapses to single column on mobile
+
+---
+
+## 2026-06-05 (Friday) — 2026-06-06 (Saturday)
+
+- Verified FV/Mobile/Confirm Plan relationship against standard Tramm code (not DpWorld integration):
+  - FV reads all trips automatically via standard `trips` query — no Confirm Plan needed
+  - Operator assignment → trip appears on Mobile automatically (pull-based)
+  - Confirm Plan = state transition only, Transact module use only
+  - Publish Trip to Devices = real-time push for immediate mobile refresh when updating in-progress trips
+  - Added feedback memory: always check standard code paths, not integration-specific files
+- Weekly website meeting with Arnelle and Nicole
+- Easigas POC User Guide — Planner section major revision:
+  - Planning Your Day workflow section added (task-oriented entry point before reference material)
+  - Orders section simplified (Easigas uses jobs directly, not orders for POC)
+  - Confirm & Publish section removed (not relevant for standard Tramm without Transact)
+  - Plannable/Non-Plannable tabs: explained what determines status (automatic conditions + manual toggle), Settings screenshot added, correct path documented
+  - Trip Builder: completely rewritten from code — Times tab (Name, Start Time, Operator), Sites tab (Start/End Site, Vehicle), Create Trip button (not Commit), Planned/Unplanned Stops drag-and-drop
+  - Two Ways to Plan Routes section: comparison table with button screenshots, accurate minimum requirements (Vehicle Class required, not vehicle or driver)
+  - Run Scheduler: corrected to Solve button, all options documented from code, Settings Template dropdown explained
+  - Gantt toolbar: interactive hotspot map added (planner-gantt-toolbar.png), tooltip screenshots removed, correct descriptions from code
+  - Workflow Events: explained where events come from (planners via Add button, drivers via Mobile app), event types configurable in Settings
+  - Attributes vs Attribute Rules: new comparison table + "where to set them" table (verified against code — Vehicle rules class-only, Sites both levels, Products via group only)
+  - Import/Export: 3 screenshots added, #: marker explained (reference to sub-sheet)
+  - Global CSS: alternating row shading removed, hover effect removed — cleaner document
+  - h4 "How to add a/an [entity]" headings added to all 10 step lists
+  - "Too wordy" pass — still pending
+
+## 2026-06-04 (Thursday)
+
+- Investigated the Tramm app loading animation (truck, boxes flying in, hand with mobile phone):
+  - Confirmed it is not a video — it is a hybrid SVG + CSS animation, entirely code-based
+  - Component files: `login-anim.component.html` (SVG markup), `.scss` (CSS keyframes), `.ts` (runtime path randomisation for organic motion)
+  - Animation runs ~13 seconds: truck + boxes animate in → background fades → SVG fades out → TRAMM logo draws itself
+  - The "flying in" motion is driven by the TypeScript component injecting target coordinates at runtime — not extractable as a standalone asset
+  - Outcome: colleague screen-recorded the animation and embedded the mp4 as a video background — sorted
+- Easigas POC User Guide — Planner section continued:
+  - Overview table restructured: panels ③ and ④ converted from walls of text to mini-tables
+  - Gantt toolbar: all 8 buttons now have individual screenshots; Run Scheduler highlighted with ★
+  - Run Scheduler section fully rewritten with correct options from code (time limit, settings template, earliest/latest times, all checkboxes)
+  - "Two Ways to Plan Routes" section added: comparison table + full Trip Builder walkthrough (Sites tab, Times tab, stop sequencing, Optimize, Is Manual Trip)
+  - "Planning Your Day" workflow section added as entry point before all reference material
+  - Orders section simplified to brief mention (Easigas uses jobs directly, not orders)
+  - Confirm Plan / FV relationship: code found DpWorld-specific integration; Rene confirmed via call that standard Tramm auto-syncs to FV, Confirm Plan is Transact-only — needs deeper code investigation tomorrow
+  - client-discovery skill updated to ask about planning approach (Solver vs Trip Builder)
+
+---
+
+## 2026-06-03 (Wednesday)
+
+- Discovered and tested `/voice` command in Claude Code — dictation now works in PowerShell sessions (hold Space to record)
+- Created `/client-discovery` skill — outputs a Teams-friendly discovery checklist when a new documentation or training request comes in. Invoke with `/client-discovery [Client Name]`. Takes effect from next session restart.
+- Easigas POC User Guide — continued revision:
+  - Dependency diagram: redesigned left-to-right with all classes grouped in one column, entities in next column; purple dashed line for Dimensions connections; narrower boxes; legend reordered left-to-right
+  - Planner Overview: rewrote to describe 4 numbered areas from screenshot — Left panel (two independent sections), Map View (with Map View + Trips stats tabs), Trips Data Panel (with Gantt + tab bar), Details & Stats panel — all verified against code
+  - Orders section: added what an order is, Plannable/Not Plannable status table, "where do orders come from?" callout (middleware vs manual for POC), Remove Jobs explanation
+  - Jobs section: added what a job is, 4 job states table (Plannable, Not Plannable, Unplanned, Cancelled), richer action descriptions
+  - Left panel tabs corrected to include Plannable/Non-Plannable Orders and Jobs (not just "Orders" and "Jobs")
+
+## 2026-06-02 (Tuesday)
+
+- Completed FleetVision 2026 Vimeo Showcase:
+  - Downloaded 9 videos from Jan (Jandre Van Niekerk) via Teams
+  - Created FleetVision Releases 2026 Showcase on Vimeo
+  - Added tags, chapters and descriptions for all 9 videos from Jan's CoPilot scripts
+- Easigas POC User Guide — major build session:
+  - Created `GitHub Files\Clients\Easigas\easigas-tramm-user-guide.html` (standalone, SOP-style layout)
+  - Created `generate-portable.ps1` alongside it to bake screenshots into a self-contained file for client sharing
+  - Content covers: Start Here overview, Getting to Know Tramm (UI, top bar, toolbar, chat, user profile), Settings (Routing Classes, Fatigue Rules, Driving Restrictions, Botswana restriction), Data Manager (all 8 entities + Attribute Rules), Planner (Orders, Jobs, Gantt, Confirm/Publish, Run Scheduler)
+  - All content verified against `C:\Repos\Tramm` — corrected multiple inaccuracies (Export requires selection, Fatigue Rules is separate from Routing Classes, Driving Restrictions is separate section, no "Driving Rules" section exists, Routing Class is optional on Vehicle Class, Panel Options vs Panel Settings descriptions, Groups vs Partition distinction)
+  - Screenshots wired throughout using `file:///` paths; interactive toolbar hotspot map added
+  - Added Working Breaks vs Driving Breaks explanation to Fatigue Rules section
+- Website content backlog updated with: Driving Restrictions, Fatigue Rules, Selection Controls, Chat, User Profile button, Filters/Sorting/Panel Options
+- Easigas POC User Guide — continued major revision session (afternoon/evening):
+  - Redesigned layout to match SOP style (sticky sidebar nav, white section cards, blue-grey background)
+  - Added SVG dependency diagram (left-to-right, 5 columns, colour-coded) showing full setup chain
+  - Corrected interface descriptions against code: App Selector naming, Groups vs Partition, Search scope (global), status bar % = JS memory not solver progress, version number clickable for support
+  - Verified and documented all Routing Class form fields (17 fields) with plain-English descriptions from code
+  - Added comprehensive field reference table with Barriers, Standard Travels, Travel Duration Multiplier warning
+  - Fixed Settings section: added Dimensions section, Editing Existing Settings section, "already done by Opsi" green callout
+  - Fixed Botswana section: renamed to Driving Restrictions, generalised (removed law detail), corrected nav path
+  - Added Import/Export (Excel) section: export→edit→re-import workflow, multi-sheet structure, critical rules (seconds for durations, $ and # columns, ID handling)
+  - Added "Viewing and Editing Existing Records" section with POC data callout
+  - Fixed toolbar section: Selection Controls moved after buttons, interactive hotspots fixed (scroll + flash), button images added from tramm-help img folder
+  - Multiple screenshot additions and corrections throughout
+  - Pending: Planner section review (most important for POC users), "too wordy" pass
+
+## 2026-06-01 (Monday)
+
+- Learned about Claude Skills and how they work (built-in vs custom, slash command invocation)
+- Created first custom skill `/opsidocs-page` at `C:\Users\Nina Reyneke\.claude\skills\opsidocs-page.md`:
+  - Scaffolds a new OPSI Docs HTML page with all four mandatory navigation elements built in from the start
+  - Applies all established standards from memory without asking questions — only pauses if page title is missing
+  - Saves to correct SharePoint-synced folder automatically
+  - Includes FleetVision fuel chart exclusion reminder
+- Corrected file save path in skill and in memory (`feedback_file_save_location.md`) — removed erroneous "(Nicole & Nina)" suffix from `GitHub Files\` folder name
+- Discussed context/conversation length management — confirmed that memory system and skills mean Nina can safely start fresh conversations without losing established standards
+- Restructured Tim discussion list memory into a daily standup format (Discussion Items / Today's Plan / Yesterday's Reality)
+- Scoped Easigas training manual project from conversations with Rene Visagie (Sales) and Heyn Joubert (Implementer):
+  - Confirmed scope: Data Manager master data (Vehicle Classes, Vehicles, Site Classes, Sites, Operator Classes, Operators, Product Groups, Products), Settings (fatigue/driving/attribute rules), Planner (Manual + Solver) — no Execution Manager
+  - Extracted real Easigas data from screenshots: 7 Site Classes (Carrier Home Base, Customer, Depot, Minibulk variants, Refinery) and Vehicle Classes (capacity-based tanker fleet)
+  - Created project memory with full context for building the manual after Heyn discovery meeting (booked 2026-06-02, 10:00–13:00)
+- Pending: upload latest FleetVision videos to Vimeo → reshare Showcase link with Forte (reseller)
+
 ## 2026-05-27 (Wednesday)
 
 - Completed `tramm/planner/quick-reference.html` layout fix (HTML updates carried over from previous session):
@@ -280,6 +399,38 @@ All changes to `Documents\Claude\Standup Presentation\presentation.html` and `sc
 - Replaced pill-style constraints with checkmark lists (pills implied clickability)
 - Fixed Overview paragraph alignment and updated text to reference Solo by name
 - Added Chora card to How Tramm Works section on homepage
+
+---
+
+## 2026-05-29 (Thursday) — planning & admin session
+
+- Created Tim Discussion List (Claude memory): running list of topics to raise with Tim in daily meetings
+  - Item 1: Claude in PowerShell vs the app — needs revisiting with Tim
+  - Item 2: GitHub Pages concept + Azure DevOps comparison (David's suggestion)
+  - Item 3: Follow-up on Nina's request to be included in earlier customer/implementation discussions — Tim responded positively in principle; talking points drafted for the follow-up conversation
+- Created Stakeholder Comms Guide (Claude memory): how to pitch GitHub Pages/hosting decisions to Tim (detailed), David/MD (exec summary), and Sean (security-accurate)
+- Captured context from Nina's message to Tim re: PepsiCo meeting and training context gaps
+
+---
+
+## 2026-05-29 (Thursday)
+
+- Applied Nicole's review changes to `SOPs/Route Classes/routing-classes-sop.html`:
+  - Simplified permission callout (removed raw database permission code)
+  - Improved Travel Duration Multiplier explanation — both directions (faster and slower) with concrete example
+  - Added new Step 10: Additional Parameters field (with compatibility warning callout) — field order matches actual form
+  - Added paragraph in Overview linking Routing Classes to Barriers, Fatigue Rules, and Standard Travels
+  - Expanded Trip Calculation row in Where Used table
+  - Added Barriers polygon completeness note in Field Reference
+  - Simplified Max Speed description (removed confusing m/s conversion detail)
+  - Added Additional Parameters subsection to Field Reference
+  - Changed Import table separator from comma to pipe for barrierRefs, standardTravelRefs, avoidFeatures, hazardousGoodsTypes
+  - Expanded Section 10 Travel Duration Multiplier with 80% bullet and full example; enriched Barriers and Standard Travels descriptions
+- Identified that the new Settings toolbar UI (New/Edit/Delete buttons replacing inline icons) is on unmerged branch `fj/settings-new-syn` — not yet in production
+- Added **Min. platform version** field to SOP meta-bar — determined current release is **1.0.0-beta.1174** from repo (release/beta.1174 branch, last updated 2026-05-26)
+- Reverted SOP UI wording to match current released interface (Add new button, inline Actions column icons) — SOP is now ready for Miecke
+- Saved pending change list to memory for when fj/settings-new-syn ships (5 text edits + 2 screenshots still needed)
+- Discussed and agreed versioning strategy for future unreleased features: Min. platform version field in meta-bar; _drafts folder for whole-document changes; callout approach for partial section changes
 
 ---
 
