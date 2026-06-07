@@ -725,25 +725,25 @@
             </tr>
             <tr class="row-required">
               <td><span class="fname">Capacity</span></td>
-              <td><span class="fdesc">The load capacity of this vehicle class — weight (kg), volume (m³), and/or units. The planning engine uses this to determine how much can be loaded on a trip.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td><span class="fdesc">The load capacity of this vehicle class. The available dimensions depend on what is configured in Settings for your environment. The Planner checks all set dimensions when building trips — a vehicle is considered full as soon as any one dimension reaches its limit. For the 3D Load Builder, Length, Width, and Height must be set here.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
               <td class="col-tick"><span class="tick-req">✓</span></td>
               <td class="col-tick"></td>
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Physical Dimensions</span></td>
-              <td><span class="fdesc">The physical size of the vehicle: Length, Width, and Height are used by the 3D Visualiser in the Planner to render the vehicle correctly — required if you use that feature. Mass (tare weight — the empty vehicle weight) is used for road network and load calculations, not by the 3D Visualiser.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td><span class="fdesc">The external dimensions and tare weight of the vehicle itself: <strong>Length</strong>, <strong>Width</strong>, <strong>Height</strong>, and <strong>Mass</strong> (the empty vehicle weight). These are used in combination with the <strong>Vehicle Dimension Limits</strong> setting in Settings → Planning Configuration — when the combined physical mass of a vehicle combination (horse + trailer + pup, all unloaded) plus the loaded cargo approaches those limits, Trip Builder will warn you. Physical Size is <em>not</em> used by the 3D Load Builder.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Compartments</span></td>
-              <td><span class="fdesc">Sub-compartments within the vehicle, each with their own capacity. Used for multi-temp or segregated loads.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
+              <td><span class="fdesc">Enables compartment planning for this vehicle class. When the <strong>Use Compartment Planning</strong> toggle is switched on in the Capacity tab, the single vehicle capacity is replaced by individually named compartments, each with its own capacity limits. There are two compartment types: <strong>Mixed</strong> — can accept any number of product groups in the same compartment (e.g., frozen chicken and frozen vegetables in one mixed frozen compartment); <strong>Bulk</strong> — accepts only one product group (e.g., a fuel compartment that carries only diesel; petrol must be a separate bulk compartment). If compartment planning is not enabled, this section does not apply.</span><div class="fnote">Fixed — cannot be overridden per vehicle.</div></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Routing Class</span></td>
-              <td><span class="fdesc">The routing profile used by the planning engine for this vehicle type. Routing classes are defined in Settings — assign whichever profile matches this vehicle type. Affects route calculations, toll costs, and travel times.</span><div class="fnote">Falls back to the Default routing class if not set. Routing class names are configured by your system administrator.</div></td>
+              <td><span class="fdesc">The routing configuration passed to HERE Maps when the Planner calculates routes for this vehicle type. Routing classes are defined in Settings — assign whichever profile matches this vehicle type (e.g., heavy vehicle restrictions, specific road types). Affects route shape, travel times, and distances. Not all vehicle classes need one — standard vehicles that use regular road networks are fine without it.</span><div class="fnote">If not set, the Planner uses HERE Maps standard routing defaults. Routing class names are configured by your system administrator.</div></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
             </tr>
@@ -755,7 +755,7 @@
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Efficiency</span></td>
-              <td><span class="fdesc">Fuel or energy efficiency metrics for this class. Used in cost calculations. Individual vehicles can override this.</span></td>
+              <td><span class="fdesc">Fuel and emissions figures for this vehicle class: <strong>Carbon Emissions</strong> (gCO₂/km), <strong>Max Payload</strong> (kg), and <strong>Fuel Consumption</strong> (l/100km). Used for sustainability and cost reporting — not by the planning solver. Individual vehicles can override these values.</span></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
             </tr>
@@ -1012,7 +1012,7 @@
             <div class="step-num">5</div>
             <div class="step-body">
               <div class="step-title">Specification → Routing Class</div>
-              <div class="step-detail">Select the Routing Class that matches this vehicle type — for example, a profile for standard road vehicles, heavy vehicles, or vehicles with specific road restrictions. Falls back to the Default routing class if left blank. Routing Classes are defined in Settings.</div>
+              <div class="step-detail">Select the Routing Class that matches this vehicle type — for example, a profile for heavy vehicles or vehicles with specific road restrictions. Routing Classes are defined in Settings. Most standard vehicle classes do not need one. If left blank, the Planner uses HERE Maps standard routing defaults.</div>
             </div>
           </li>
           <li>
@@ -1026,14 +1026,14 @@
             <div class="step-num">7</div>
             <div class="step-body">
               <div class="step-title">Specification → Capacity</div>
-              <div class="step-detail">Set the load capacity for this vehicle type — weight, volume, and/or units, depending on what dimensions you plan against. The Planner checks these limits when assigning jobs to a trip — a load that would exceed any capacity value will not be assigned. <strong>Note:</strong> this field is not available if you selected <strong>Horse</strong> as the vehicle type. A horse's capacity comes entirely from its trailers.</div>
+              <div class="step-detail">Set the load capacity for this vehicle type. The available dimensions (weight, volume, pallets, or others) depend on what is configured in Settings for your environment — they are not fixed. The Planner checks all dimensions when assigning jobs — a vehicle is considered full as soon as <em>any one</em> dimension reaches its limit. <strong>3D Load Builder:</strong> if your Tramm environment includes the 3D Load Builder, you must set <strong>Length</strong>, <strong>Width</strong>, and <strong>Height</strong> here in the Capacity section — the 3D Load Builder uses these dimensions to calculate load placement, not the Physical Size fields. Only set a dimension if the products you plan against also use that dimension; mismatched dimensions can cause unexpected planning results. <strong>Note:</strong> this field is not available if you selected <strong>Horse</strong> as the vehicle type — a horse's capacity comes entirely from its trailers.</div>
             </div>
           </li>
           <li>
             <div class="step-num">8</div>
             <div class="step-body">
               <div class="step-title">Specification → Physical Size</div>
-              <div class="step-detail">Set the vehicle's external dimensions: <strong>Length</strong>, <strong>Width</strong>, <strong>Height</strong>, and <strong>Mass</strong>. Required if you use the 3D load visualiser in the Planner — without these, the visualiser cannot represent the vehicle correctly.</div>
+              <div class="step-detail">Set the vehicle's external dimensions: <strong>Length</strong>, <strong>Width</strong>, <strong>Height</strong>, and <strong>Mass</strong> (the empty vehicle weight — also called tare weight). These values are used in combination with the Vehicle Dimension Limits configured in Settings → Planning Configuration. When the combined physical mass of a vehicle combination exceeds those limits, Trip Builder displays a warning. <strong>Physical Size is not used by the 3D Load Builder</strong> — for the 3D Load Builder, set Length, Width, and Height in the <strong>Capacity</strong> tab (Step 7).</div>
             </div>
           </li>
           <li>
@@ -1054,7 +1054,7 @@
             <div class="step-num">11</div>
             <div class="step-body">
               <div class="step-title">Specification → Loading Rate</div>
-              <div class="step-detail">Set the default loading time per unit for vehicles of this class. Used by the Planner to estimate stop duration when no product-specific or site-specific loading rate is configured.</div>
+              <div class="step-detail">Set the default loading time for vehicles of this class. The value is in <strong>seconds per unit of the capacity dimension</strong> — for example, if your capacity dimension is mass, a value of 5 means 5 seconds per kg; if your dimension is pallets, it means 5 seconds per pallet. Used by the Planner to estimate stop duration (also called TAT — turnaround time) when no product-specific or site-specific loading rate is configured. The site or product loading rate takes priority if set.</div>
             </div>
           </li>
           <li>
@@ -1211,7 +1211,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
             </svg>
-            <span><strong>If you plan at the class level, you still need at least one Vehicle Class per vehicle type.</strong> Even if you do not register individual vehicles, the Planner needs Vehicle Classes to know the capacity and routing profile for each type of vehicle in your operation.</span>
+            <span><strong>You need at least one Vehicle Class to plan, even if you do not add individual vehicles.</strong> If you use an external or hired fleet and do not register individual vehicles, you still need a Vehicle Class for each vehicle type. The Planner works at class level — it cannot plan without one.</span>
           </li>
 
           <li class="mistake">
@@ -1225,14 +1225,14 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            <span><strong>Not setting physical dimensions when the 3D Visualiser is enabled.</strong> If your Tramm environment includes the 3D load visualiser, it requires Length, Width, and Height on the Vehicle Class to render correctly. If these are missing, the visualiser will not display the vehicle. Dimensions are set on the class — individual vehicles do not have their own size fields.</span>
+            <span><strong>Setting Length, Width, and Height in Physical Size instead of the Capacity section when using the 3D Load Builder.</strong> The 3D Load Builder uses the L/W/H values from the <strong>Capacity</strong> tab, not from Physical Size. If those Capacity dimensions are missing, the visual will not display. These are set on the Vehicle Class — individual vehicles do not have their own size fields.</span>
           </li>
 
           <li class="mistake">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            <span><strong>Forgetting to assign a Routing Class for specialised vehicles.</strong> If no Routing Class is set, the Planner uses the Default routing profile, which is calibrated for standard road vehicles. For heavy trucks, vehicles with road restrictions, or specialist transport types, the Default profile may produce inaccurate travel times and distances. Assign the appropriate Routing Class when setting up each Vehicle Class.</span>
+            <span><strong>Forgetting to assign a Routing Class for specialised vehicles.</strong> Standard vehicles on regular road networks do not need a Routing Class — the Planner will use HERE Maps standard routing defaults. But for heavy trucks, vehicles with size or weight restrictions, or other specialist transport types, those defaults may produce inaccurate travel times and distances. Assign the appropriate Routing Class for any non-standard vehicle class.</span>
           </li>
 
         </ul>
