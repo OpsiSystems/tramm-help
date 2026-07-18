@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPSI Competition Draw</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #001626;
+      --blue:       #0080C7;
+      --light-blue: #19AFFF;
+      --orange:     #FF5C00;
+      --mid:        #0a2540;
+      --dim:        rgba(255,255,255,0.55);
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--navy);
+      color: #fff;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── ADMIN VIEW ── */
+    #admin-view {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 28px;
+      background: rgba(0,0,0,0.35);
+      border-bottom: 1px solid rgba(0,128,199,0.3);
+      flex-shrink: 0;
+    }
+    .app-header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light-blue);
+    }
+    .app-header .sub { font-size: 0.78rem; color: var(--dim); margin-top: 2px; }
+
+    .btn {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: all 0.18s;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.28);
+      color: #fff;
+    }
+    .btn-ghost:hover { border-color: var(--blue); color: var(--light-blue); }
+
+    .btn-draw {
+      background: var(--orange);
+      color: #fff;
+      font-size: 1rem;
+      padding: 13px 28px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 8px;
+      width: 100%;
+    }
+    .btn-draw:hover:not(:disabled) {
+      background: #ff7030;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(255,92,0,0.45);
+    }
+    .btn-draw:disabled { opacity: 0.38; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .main-layout {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ── WHEEL PANEL ── */
+    .wheel-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      position: relative;
+    }
+    #wheel-canvas {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .wheel-hint {
+      position: absolute;
+      bottom: 16px;
+      font-size: 0.78rem;
+      color: var(--dim);
+    }
+
+    /* ── CONTROLS PANEL ── */
+    .controls-panel {
+      width: 300px;
+      flex-shrink: 0;
+      padding: 20px 18px;
+      border-left: 1px solid rgba(0,128,199,0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+    }
+
+    .stat-row { display: flex; gap: 10px; }
+    .stat-box {
+      flex: 1;
+      background: var(--mid);
+      border: 1px solid rgba(0,128,199,0.28);
+      border-radius: 9px;
+      padding: 13px 14px;
+    }
+    .stat-label { font-size: 0.68rem; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+    .stat-value { font-size: 2rem; font-weight: 700; color: var(--light-blue); line-height: 1; }
+    .stat-sub { font-size: 0.7rem; color: var(--dim); margin-top: 3px; }
+
+    .sec-label { font-size: 0.68rem; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
+
+    .data-btns { display: flex; flex-direction: column; gap: 7px; }
+    .status-msg { font-size: 0.74rem; color: var(--dim); text-align: center; margin-top: 4px; min-height: 16px; }
+    .status-msg.err { color: #ff7070; }
+    .status-msg.ok  { color: #6bffb8; }
+
+    .winner-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .winner-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,92,0,0.1);
+      border: 1px solid rgba(255,92,0,0.3);
+      border-radius: 7px;
+      padding: 9px 12px;
+      animation: slideIn 0.3s ease;
+    }
+    .winner-num  { font-size: 0.7rem; font-weight: 700; color: var(--orange); min-width: 18px; }
+    .winner-name { font-size: 0.88rem; font-weight: 600; }
+    .winner-co   { font-size: 0.74rem; color: var(--dim); }
+
+    @keyframes slideIn { from { opacity:0; transform:translateX(16px); } to { opacity:1; transform:none; } }
+
+    /* ── WINNER MODAL ── */
+    #winner-modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.82);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 200;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s;
+    }
+    #winner-modal.open { opacity: 1; pointer-events: all; }
+
+    .modal-card {
+      background: var(--mid);
+      border: 2px solid var(--orange);
+      border-radius: 18px;
+      padding: 44px 52px;
+      text-align: center;
+      max-width: 520px;
+      width: 90%;
+      box-shadow: 0 0 70px rgba(255,92,0,0.28);
+      animation: popIn 0.45s cubic-bezier(0.175,0.885,0.32,1.275);
+    }
+    @keyframes popIn { from { transform:scale(0.5); opacity:0; } to { transform:scale(1); opacity:1; } }
+
+    .modal-trophy { font-size: 3.5rem; margin-bottom: 14px; }
+    .modal-eyebrow { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; color: var(--orange); margin-bottom: 10px; }
+    .modal-name { font-size: 2.6rem; font-weight: 900; line-height: 1.1; margin-bottom: 6px; }
+    .modal-co { font-size: 1rem; color: var(--dim); margin-bottom: 28px; }
+    .modal-close { background: var(--blue); color: #fff; border: none; padding: 11px 28px; border-radius: 7px; font-family: 'Raleway',sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+
+    /* ── CONFETTI ── */
+    #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 199; }
+
+    /* ── DISPLAY VIEW ── */
+    #display-view {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .dv-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 44px;
+      border-bottom: 2px solid var(--blue);
+      flex-shrink: 0;
+    }
+    .dv-title h1 { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; }
+    .dv-title p { font-size: 0.9rem; color: var(--dim); margin-top: 4px; }
+    .dv-count { text-align: right; }
+    .dv-count .num { font-size: 3.8rem; font-weight: 900; color: var(--light-blue); line-height: 1; }
+    .dv-count .lbl { font-size: 0.78rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    .dv-body {
+      flex: 1;
+      display: flex;
+      gap: 28px;
+      padding: 28px 44px;
+      overflow: hidden;
+    }
+
+    .dv-entries { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .dv-entries-lbl { font-size: 0.7rem; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 10px; }
+    .dv-list { flex: 1; display: flex; flex-direction: column; gap: 7px; overflow: hidden; }
+
+    .dv-entry {
+      background: rgba(0,128,199,0.1);
+      border: 1px solid rgba(0,128,199,0.22);
+      border-radius: 7px;
+      padding: 11px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      animation: entryIn 0.4s ease;
+    }
+    .dv-entry.new-entry { background: rgba(255,92,0,0.12); border-color: rgba(255,92,0,0.38); }
+    @keyframes entryIn { from { opacity:0; transform:translateX(-16px); } to { opacity:1; transform:none; } }
+    .dv-entry-name { font-size: 0.96rem; font-weight: 600; }
+    .dv-entry-co { font-size: 0.8rem; color: var(--dim); }
+    .new-badge { margin-left: auto; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: rgba(255,92,0,0.18); padding: 2px 7px; border-radius: 4px; }
+
+    .dv-qr {
+      width: 240px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .qr-frame { background: #fff; padding: 14px; border-radius: 10px; }
+    .qr-frame img { width: 190px; height: 190px; display: block; }
+    .qr-lbl { font-size: 1.3rem; font-weight: 700; text-align: center; line-height: 1.3; }
+    .qr-sub { font-size: 0.82rem; color: var(--dim); text-align: center; }
+
+    .dv-refresh { position: fixed; bottom: 12px; right: 16px; font-size: 0.7rem; color: var(--dim); }
+
+    .draw-schedule { width: 100%; margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+    .draw-schedule-lbl { font-size: 0.65rem; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 4px; text-align: center; }
+    .draw-slot {
+      background: rgba(0,128,199,0.12);
+      border: 1px solid rgba(0,128,199,0.3);
+      border-radius: 6px;
+      padding: 7px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .draw-slot.done { opacity: 0.38; }
+    .draw-slot.next { background: rgba(255,92,0,0.15); border-color: rgba(255,92,0,0.45); }
+    .draw-slot-label { font-size: 0.72rem; font-weight: 700; color: var(--orange); }
+    .draw-slot.next .draw-slot-label { color: #FF5C00; }
+    .draw-slot.done .draw-slot-label { color: var(--dim); }
+    .draw-slot-time { font-size: 0.78rem; font-weight: 600; text-align: right; line-height: 1.3; }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     ADMIN VIEW
+     ============================================================ -->
+<div id="admin-view">
+  <header class="app-header">
+    <div>
+      <h1 id="app-title">Competition Draw</h1>
+      <div class="sub" id="app-sub">OPSI Systems</div>
+    </div>
+    <button class="btn btn-ghost" onclick="openDisplay()">Display Screen →</button>
+  </header>
+
+  <div class="main-layout">
+    <div class="wheel-panel">
+      <canvas id="wheel-canvas" width="500" height="500"></canvas>
+      <div class="wheel-hint" id="wheel-hint"></div>
+    </div>
+
+    <div class="controls-panel">
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-label">Entries</div>
+          <div class="stat-value" id="stat-total">—</div>
+          <div class="stat-sub">Total</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Eligible</div>
+          <div class="stat-value" id="stat-eligible">—</div>
+          <div class="stat-sub">Not won</div>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn btn-draw" id="draw-btn" onclick="startDraw()" disabled>Draw Winner</button>
+        <div class="status-msg" id="draw-msg"></div>
+      </div>
+
+      <div class="data-btns">
+        <div class="sec-label">Data</div>
+        <button class="btn btn-ghost" onclick="fetchSheets()" id="refresh-btn">⟳ Refresh from Google Sheets</button>
+        <label class="btn btn-ghost" style="text-align:center;cursor:pointer;">
+          ↑ Load CSV File
+          <input type="file" id="csv-input" accept=".csv" style="display:none" onchange="loadFile(event)">
+        </label>
+        <div class="status-msg" id="fetch-msg"></div>
+      </div>
+
+      <div>
+        <div class="sec-label">Previous Winners</div>
+        <ul class="winner-list" id="winner-list">
+          <li style="color:var(--dim);font-size:0.82rem;padding:6px 0">No draws yet.</li>
+        </ul>
+        <button class="btn btn-ghost" onclick="exportWinners()" style="width:100%;margin-top:8px;font-size:0.76rem;padding:6px">
+          ↓ Export winners as CSV
+        </button>
+        <button class="btn btn-ghost" onclick="clearWinners()" style="width:100%;margin-top:6px;font-size:0.76rem;padding:6px">
+          Clear winner history
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     WINNER MODAL
+     ============================================================ -->
+<div id="winner-modal">
+  <div class="modal-card">
+    <div class="modal-trophy">🏆</div>
+    <div class="modal-eyebrow">We have a winner!</div>
+    <div class="modal-name" id="modal-name">—</div>
+    <div class="modal-co" id="modal-co"></div>
+    <button class="modal-close" onclick="closeModal()">Continue</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     CONFETTI
+     ============================================================ -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ============================================================
+     DISPLAY VIEW  (?mode=display)
+     ============================================================ -->
+<div id="display-view">
+  <header class="dv-header">
+    <div class="dv-title">
+      <h1 id="dv-title">WIN A PRIZE!</h1>
+      <p id="dv-sub">Scan the QR code to enter — draw at the end of the day</p>
+    </div>
+    <div class="dv-count">
+      <div class="num" id="dv-count">0</div>
+      <div class="lbl">Entries</div>
+    </div>
+  </header>
+  <div class="dv-body">
+    <div class="dv-entries">
+      <div class="dv-entries-lbl">Entered so far</div>
+      <div class="dv-list" id="dv-list">
+        <div style="color:var(--dim);padding:16px 0;font-size:0.88rem">No entries yet — be the first!</div>
+      </div>
+    </div>
+    <div class="dv-qr">
+      <div class="qr-frame"><img id="dv-qr" src="" alt="QR Code"></div>
+      <div class="qr-lbl">Scan to Enter!</div>
+      <div class="qr-sub" id="dv-qr-sub">Complete the short form</div>
+      <div class="draw-schedule" id="draw-schedule"></div>
+    </div>
+  </div>
+  <div class="dv-refresh" id="dv-refresh"></div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIGURATION
+   Edit the values below before the event.
+   ============================================================
+
+   SETUP STEPS:
+   1. Create a Google Form with fields: Full Name, Company, Email
+   2. Open the linked Google Sheet that collects responses
+   3. In the Sheet: File → Share → Publish to web
+      → Choose your responses sheet → CSV → click Publish → copy URL
+   4. Paste the URL as sheetsPublishUrl below
+   5. Paste your Google Form URL as formUrl below (shown as QR code on display screen)
+   6. Adjust nameColumn / companyColumn / emailColumn if your form fields differ
+      (0 = Timestamp, 1 = first question, 2 = second question, etc.)
+
+   ============================================================ */
+const CONFIG = {
+  sheetsPublishUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSLhZ_KPV3Y8taoQ0UARuF0530DlvkU5APKKQ165bdl92QYNjPWj_1WNiljvUxx6T-_RgM5EEWIufkK/pub?gid=567949036&single=true&output=csv',   // <-- paste "Publish to web" CSV URL here
+  formUrl:          'https://forms.gle/YAjcYLopMmdJgAkJ9',   // <-- paste Google Form URL here (for QR code)
+
+  competitionTitle:    'WIN A PRIZE!',
+  competitionSubtitle: 'Scan the QR code to enter your details — draws at Stand S17',
+  orgName:             'OPSI Systems — SAPICS 2026',
+
+  drawTimes: [
+    { label: 'Draw 1', time: 'Monday 20 July — 10:50' },
+    { label: 'Draw 2', time: 'Monday 20 July — 13:45' },
+    { label: 'Draw 3', time: 'Tuesday 21 July — 15:30' },
+  ],
+
+  nameColumn:    1,   // column index in CSV (0 = Timestamp)
+  companyColumn: 2,
+  emailColumn:   3,
+
+  maxWheelNames:   26,    // max names to show on the wheel
+  refreshInterval: 30000, // display mode auto-refresh (ms)
+};
+
+/* ── STATE ─────────────────────────────────────────── */
+let allEntries    = [];
+let winners       = [];
+let wheelNames    = [];  // subset shown on wheel
+let pendingWinner = null;
+let spinning      = false;
+let angle         = 0;
+
+/* ── INIT ───────────────────────────────────────────── */
+function init() {
+  const saved = localStorage.getItem('opsi-draw-winners');
+  if (saved) { try { winners = JSON.parse(saved); } catch(e) {} }
+
+  // Load cached entries so the wheel is not empty if Sheets fetch fails
+  const savedEntries = localStorage.getItem('opsi-draw-entries');
+  if (savedEntries) {
+    try {
+      allEntries = JSON.parse(savedEntries);
+    } catch(e) {}
+  }
+
+  document.getElementById('app-title').textContent = CONFIG.competitionTitle;
+  document.getElementById('app-sub').textContent   = CONFIG.orgName;
+  document.getElementById('dv-title').textContent  = CONFIG.competitionTitle;
+  document.getElementById('dv-sub').textContent    = CONFIG.competitionSubtitle;
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('mode') === 'display') {
+    startDisplayMode();
+  } else {
+    if (allEntries.length) {
+      rebuildWheel();
+      setFetchMsg('Loaded ' + allEntries.length + ' cached entries. Click Refresh to update.', 'ok');
+    }
+    drawWheel(angle);
+    if (CONFIG.sheetsPublishUrl) {
+      fetchSheets();
+    } else {
+      setFetchMsg('Configure sheetsPublishUrl in the script, or load a CSV file to begin.', '');
+      setHint('No data loaded');
+    }
+    renderWinnerList();
+  }
+}
+
+/* ── DATA ───────────────────────────────────────────── */
+async function fetchSheets() {
+  if (!CONFIG.sheetsPublishUrl) {
+    setFetchMsg('No sheetsPublishUrl set in CONFIG.', 'err'); return;
+  }
+  const btn = document.getElementById('refresh-btn');
+  btn.disabled = true;
+  btn.textContent = '⟳ Refreshing…';
+  setFetchMsg('Fetching…', '');
+  try {
+    const url = CONFIG.sheetsPublishUrl + (CONFIG.sheetsPublishUrl.includes('?') ? '&' : '?') + '_cb=' + Date.now();
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    processCSV(await res.text());
+    setFetchMsg('Updated ' + new Date().toLocaleTimeString(), 'ok');
+  } catch(e) {
+    setFetchMsg('Fetch failed: ' + e.message + '. Try loading a CSV file instead.', 'err');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⟳ Refresh from Google Sheets';
+  }
+}
+
+function loadFile(ev) {
+  const file = ev.target.files[0];
+  if (!file) return;
+  const r = new FileReader();
+  r.onload = e => { processCSV(e.target.result); setFetchMsg('Loaded: ' + file.name, 'ok'); };
+  r.readAsText(file);
+  ev.target.value = '';
+}
+
+function processCSV(csv) {
+  const rows = parseCSV(csv);
+  if (rows.length < 2) { setFetchMsg('CSV is empty or has no data rows.', 'err'); return; }
+
+  const raw = rows.slice(1)
+    .filter(r => r.some(c => c.trim()))
+    .map(r => ({
+      name:    clean(r[CONFIG.nameColumn]    || r[1] || ''),
+      company: clean(r[CONFIG.companyColumn] || r[2] || ''),
+      email:   clean(r[CONFIG.emailColumn]   || r[3] || '').toLowerCase(),
+    }))
+    .filter(e => e.name);
+
+  // deduplicate by email (or name as fallback), last entry wins
+  const map = new Map();
+  for (const e of raw) map.set(e.email || e.name.toLowerCase(), e);
+  allEntries = [...map.values()];
+
+  // Persist so the wheel survives page reloads even if Sheets fetch fails
+  try { localStorage.setItem('opsi-draw-entries', JSON.stringify(allEntries)); } catch(e) {}
+
+  updateStats();
+  rebuildWheel();
+}
+
+function parseCSV(csv) {
+  const rows = [];
+  for (const line of csv.split(/\r?\n/)) {
+    if (!line.trim()) continue;
+    const cells = []; let cell = '', q = false;
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"') { if (q && line[i+1] === '"') { cell += '"'; i++; } else q = !q; }
+      else if (c === ',' && !q) { cells.push(cell); cell = ''; }
+      else cell += c;
+    }
+    cells.push(cell);
+    rows.push(cells);
+  }
+  return rows;
+}
+
+function clean(s) { return (s || '').trim().replace(/^"|"$/g, ''); }
+
+/* ── ELIGIBLE ENTRIES ───────────────────────────────── */
+function eligible() {
+  const wonKeys = new Set(winners.map(w => w.email || w.name.toLowerCase()));
+  return allEntries.filter(e => !wonKeys.has(e.email || e.name.toLowerCase()));
+}
+
+function updateStats() {
+  const el = eligible();
+  document.getElementById('stat-total').textContent    = allEntries.length;
+  document.getElementById('stat-eligible').textContent = el.length;
+  const btn = document.getElementById('draw-btn');
+  if (el.length > 0) {
+    btn.disabled = false;
+    setHint(allEntries.length > CONFIG.maxWheelNames
+      ? `Showing ${CONFIG.maxWheelNames} of ${el.length} eligible entries on the wheel`
+      : '');
+  } else if (allEntries.length > 0) {
+    btn.disabled = true; setHint('All entries have already won!');
+  } else {
+    btn.disabled = true; setHint('No entries loaded');
+  }
+}
+
+/* ── WHEEL ──────────────────────────────────────────── */
+const COLORS = ['#0080C7','#FF5C00','#19AFFF','#FF8C00','#0049a0','#E63946','#2EC4B6','#F4A261','#0069b0','#8338EC','#06D6A0','#FFB703'];
+
+function rebuildWheel() {
+  updateStats();
+  const el = eligible();
+  const n  = Math.min(el.length, CONFIG.maxWheelNames);
+  wheelNames = [...el].sort(() => Math.random() - 0.5).slice(0, n);
+  drawWheel(angle);
+}
+
+function drawWheel(a) {
+  const cv = document.getElementById('wheel-canvas');
+  const ctx = cv.getContext('2d');
+  const cx = cv.width / 2, cy = cv.height / 2, r = 220;
+  ctx.clearRect(0, 0, cv.width, cv.height);
+
+  if (!wheelNames.length) {
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2*Math.PI);
+    ctx.strokeStyle = 'rgba(0,128,199,0.25)'; ctx.lineWidth = 2;
+    ctx.setLineDash([10,8]); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(255,255,255,0.22)';
+    ctx.font = '600 16px Raleway,sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('No entries loaded', cx, cy + 6);
+    return;
+  }
+
+  const n = wheelNames.length;
+  const seg = (2 * Math.PI) / n;
+
+  // Segments
+  for (let i = 0; i < n; i++) {
+    const s = a + i * seg, e = s + seg;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, r, s, e); ctx.closePath();
+    ctx.fillStyle = COLORS[i % COLORS.length]; ctx.fill();
+    ctx.strokeStyle = '#001626'; ctx.lineWidth = 1.2; ctx.stroke();
+
+    if (seg > 0.08) {
+      const mid = s + seg / 2;
+      const name = wheelNames[i].name;
+      const label = name.length > 15 ? name.slice(0, 14) + '…' : name;
+      const fs = Math.max(9, Math.min(13, Math.floor(seg * 28)));
+      ctx.save();
+      ctx.translate(cx, cy); ctx.rotate(mid);
+      ctx.textAlign = 'right'; ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.font = `600 ${fs}px Raleway,sans-serif`;
+      ctx.fillText(label, r - 8, fs / 3);
+      ctx.restore();
+    }
+  }
+
+  // Outer ring
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2*Math.PI);
+  ctx.strokeStyle = 'rgba(0,128,199,0.55)'; ctx.lineWidth = 3; ctx.stroke();
+
+  // Hub
+  ctx.beginPath(); ctx.arc(cx, cy, 28, 0, 2*Math.PI);
+  ctx.fillStyle = '#001626'; ctx.fill();
+  ctx.strokeStyle = '#0080C7'; ctx.lineWidth = 3; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx, cy, 9, 0, 2*Math.PI);
+  ctx.fillStyle = '#0080C7'; ctx.fill();
+
+  // Pointer (right side, pointing left)
+  const px = cx + r + 16;
+  ctx.beginPath();
+  ctx.moveTo(px + 22, cy);
+  ctx.lineTo(px + 4, cy - 15);
+  ctx.lineTo(px + 4, cy + 15);
+  ctx.closePath();
+  ctx.fillStyle = '#FF5C00';
+  ctx.shadowColor = 'rgba(255,92,0,0.5)'; ctx.shadowBlur = 10;
+  ctx.fill(); ctx.shadowBlur = 0;
+}
+
+/* ── SPIN ───────────────────────────────────────────── */
+function startDraw() {
+  if (spinning) return;
+  const el = eligible();
+  if (!el.length) return;
+
+  // Pick winner before animation
+  pendingWinner = el[Math.floor(Math.random() * el.length)];
+
+  // Ensure winner is in wheelNames
+  const inWheel = wheelNames.some(e => key(e) === key(pendingWinner));
+  if (!inWheel) {
+    if (wheelNames.length < CONFIG.maxWheelNames) {
+      wheelNames.push(pendingWinner);
+    } else {
+      wheelNames[Math.floor(Math.random() * wheelNames.length)] = pendingWinner;
+    }
+    wheelNames = wheelNames.sort(() => Math.random() - 0.5);
+  }
+
+  const wi  = wheelNames.findIndex(e => key(e) === key(pendingWinner));
+  const n   = wheelNames.length;
+  const seg = (2 * Math.PI) / n;
+  const winnerCenter = (wi + 0.5) * seg;
+
+  // Pointer is at angle 0 (right side)
+  // We need: angle + totalRot + winnerCenter ≡ 0 (mod 2π)
+  // Choose enough full rotations
+  const base = -angle - winnerCenter;
+  const N    = Math.ceil((5 * 2 * Math.PI - base) / (2 * Math.PI));
+  const jitter = (Math.random() - 0.5) * seg * 0.5;
+  const totalRot = base + N * 2 * Math.PI + jitter;
+
+  spinning = true;
+  document.getElementById('draw-btn').disabled = true;
+  document.getElementById('draw-btn').textContent = 'Spinning…';
+
+  const startAngle = angle;
+  const t0 = performance.now();
+  const dur = 5600;
+
+  function easeOut(t) { return 1 - Math.pow(1 - t, 4); }
+
+  (function frame(now) {
+    const t = Math.min((now - t0) / dur, 1);
+    angle = startAngle + totalRot * easeOut(t);
+    drawWheel(angle);
+    if (t < 1) { requestAnimationFrame(frame); }
+    else {
+      angle = startAngle + totalRot;
+      drawWheel(angle);
+      spinning = false;
+      onDrawComplete();
+    }
+  })(t0);
+}
+
+function onDrawComplete() {
+  winners.push(pendingWinner);
+  saveWinners();
+  document.getElementById('modal-name').textContent = pendingWinner.name;
+  document.getElementById('modal-co').textContent   = pendingWinner.company || '';
+  document.getElementById('winner-modal').classList.add('open');
+  confetti();
+  updateStats();
+  renderWinnerList();
+  rebuildWheel();
+}
+
+function closeModal() {
+  document.getElementById('winner-modal').classList.remove('open');
+  const el = eligible();
+  document.getElementById('draw-btn').disabled = el.length === 0;
+  document.getElementById('draw-btn').textContent = 'Draw Winner';
+}
+
+function key(e) { return e.email || e.name.toLowerCase(); }
+
+/* ── WINNERS ────────────────────────────────────────── */
+function saveWinners() { localStorage.setItem('opsi-draw-winners', JSON.stringify(winners)); }
+
+function exportWinners() {
+  if (!winners.length) { alert('No winners to export yet.'); return; }
+  const rows = [['Draw', 'Name', 'Company', 'Email']];
+  winners.forEach((w, i) => rows.push([i + 1, w.name, w.company || '', w.email || '']));
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'sapics-2026-winners.csv';
+  a.click();
+}
+
+function clearWinners() {
+  if (!confirm('Clear all winner history? This cannot be undone.')) return;
+  winners = []; saveWinners(); renderWinnerList(); rebuildWheel();
+}
+
+function renderWinnerList() {
+  const ul = document.getElementById('winner-list');
+  if (!winners.length) {
+    ul.innerHTML = '<li style="color:var(--dim);font-size:0.82rem;padding:6px 0">No draws yet.</li>';
+    return;
+  }
+  ul.innerHTML = [...winners].reverse().map((w, i) => `
+    <li class="winner-item">
+      <span class="winner-num">${winners.length - i}</span>
+      <div>
+        <div class="winner-name">${esc(w.name)}</div>
+        ${w.company ? `<div class="winner-co">${esc(w.company)}</div>` : ''}
+      </div>
+    </li>`).join('');
+}
+
+/* ── CONFETTI ───────────────────────────────────────── */
+function confetti() {
+  const cv = document.getElementById('confetti-canvas');
+  cv.width = innerWidth; cv.height = innerHeight;
+  const ctx = cv.getContext('2d');
+  const palette = ['#0080C7','#19AFFF','#FF5C00','#FFD700','#fff','#ff7030'];
+  const pcs = Array.from({length: 160}, () => ({
+    x: Math.random() * cv.width, y: -10 - Math.random() * 180,
+    vx: (Math.random()-0.5)*4, vy: 2+Math.random()*4,
+    rot: Math.random()*Math.PI*2, rv: (Math.random()-0.5)*0.18,
+    w: 6+Math.random()*10, h: 4+Math.random()*6,
+    color: palette[Math.floor(Math.random()*palette.length)],
+    rect: Math.random()>0.4,
+  }));
+  const end = performance.now() + 3800;
+  (function draw(now) {
+    ctx.clearRect(0,0,cv.width,cv.height);
+    const fade = Math.min(1, (end-now)/3800*3);
+    pcs.forEach(p => {
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.rv; p.vy+=0.07;
+      ctx.save(); ctx.globalAlpha=fade; ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.fillStyle=p.color;
+      if(p.rect) ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      else { ctx.beginPath(); ctx.arc(0,0,p.w/2,0,Math.PI*2); ctx.fill(); }
+      ctx.restore();
+    });
+    if(now<end) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,cv.width,cv.height);
+  })(performance.now());
+}
+
+/* ── DISPLAY MODE ───────────────────────────────────── */
+let knownKeys = new Set();
+
+function startDisplayMode() {
+  document.getElementById('admin-view').style.display = 'none';
+  const dv = document.getElementById('display-view');
+  dv.style.display = 'flex';
+
+  if (CONFIG.formUrl) {
+    document.getElementById('dv-qr').src =
+      `https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=${encodeURIComponent(CONFIG.formUrl)}&bgcolor=ffffff&color=001626`;
+    document.getElementById('dv-qr-sub').textContent = 'Complete the short form to enter';
+  } else {
+    document.getElementById('dv-qr').src = '';
+    document.getElementById('dv-qr-sub').textContent = 'See a team member to enter';
+  }
+
+  renderDrawSchedule();
+
+  if (CONFIG.sheetsPublishUrl) {
+    loadDisplay();
+    setInterval(loadDisplay, CONFIG.refreshInterval);
+  }
+}
+
+function renderDrawSchedule() {
+  const el = document.getElementById('draw-schedule');
+  if (!CONFIG.drawTimes || !CONFIG.drawTimes.length) { el.style.display = 'none'; return; }
+  const wonCount = winners.length;
+  el.innerHTML = `<div class="draw-schedule-lbl">Live draws — Stand S17</div>` +
+    CONFIG.drawTimes.map((d, i) => {
+      const done = i < wonCount;
+      const next = i === wonCount;
+      return `<div class="draw-slot${done ? ' done' : next ? ' next' : ''}">
+        <span class="draw-slot-label">${done ? '✓' : next ? '▶' : '○'} ${d.label}</span>
+        <span class="draw-slot-time">${d.time}</span>
+      </div>`;
+    }).join('');
+}
+
+async function loadDisplay() {
+  if (!CONFIG.sheetsPublishUrl) return;
+  try {
+    const url = CONFIG.sheetsPublishUrl + (CONFIG.sheetsPublishUrl.includes('?') ? '&' : '?') + '_cb=' + Date.now();
+    const res  = await fetch(url);
+    const csv  = await res.text();
+    const rows = parseCSV(csv);
+    if (rows.length < 2) return;
+    const entries = rows.slice(1)
+      .filter(r => r.some(c => c.trim()))
+      .map(r => ({
+        name:    clean(r[CONFIG.nameColumn]    || r[1] || ''),
+        company: clean(r[CONFIG.companyColumn] || r[2] || ''),
+        email:   clean(r[CONFIG.emailColumn]   || r[3] || '').toLowerCase(),
+      }))
+      .filter(e => e.name);
+    renderDisplay(entries);
+    document.getElementById('dv-count').textContent = entries.length;
+    document.getElementById('dv-refresh').textContent = 'Last updated ' + new Date().toLocaleTimeString();
+  } catch(e) { console.warn('Display refresh error', e); }
+}
+
+function renderDisplay(entries) {
+  const list = document.getElementById('dv-list');
+  if (!entries.length) {
+    list.innerHTML = '<div style="color:var(--dim);padding:16px 0;font-size:0.88rem">No entries yet — be the first!</div>';
+    return;
+  }
+  const recent = entries.slice(-18).reverse();
+  list.innerHTML = recent.map(e => {
+    const k = e.email || e.name.toLowerCase();
+    const isNew = !knownKeys.has(k);
+    return `<div class="dv-entry${isNew?' new-entry':''}">
+      <div>
+        <div class="dv-entry-name">${esc(e.name)}</div>
+        ${e.company ? `<div class="dv-entry-co">${esc(e.company)}</div>` : ''}
+      </div>
+      ${isNew ? '<span class="new-badge">New</span>' : ''}
+    </div>`;
+  }).join('');
+  knownKeys = new Set(entries.map(e => e.email || e.name.toLowerCase()));
+}
+
+function openDisplay() {
+  const url = new URL(window.location.href);
+  url.searchParams.set('mode', 'display');
+  window.open(url.toString(), '_blank');
+}
+
+/* ── UTILS ──────────────────────────────────────────── */
+function setFetchMsg(msg, type) {
+  const el = document.getElementById('fetch-msg');
+  el.textContent = msg;
+  el.className = 'status-msg' + (type === 'err' ? ' err' : type === 'ok' ? ' ok' : '');
+}
+function setHint(msg) { document.getElementById('wheel-hint').textContent = msg; }
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function resizeCanvas() {
+  const cv = document.getElementById('wheel-canvas');
+  const p  = cv.parentElement;
+  const s  = Math.min(p.offsetWidth - 40, p.offsetHeight - 40, 500);
+  cv.style.width = s + 'px'; cv.style.height = s + 'px';
+}
+window.addEventListener('resize', () => { resizeCanvas(); drawWheel(angle); });
+
+window.addEventListener('load', () => { resizeCanvas(); init(); });
+</script>
+</body>
+</html>
