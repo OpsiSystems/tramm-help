@@ -752,14 +752,28 @@ function renderWinnerList() {
     ul.innerHTML = '<li style="color:var(--dim);font-size:0.82rem;padding:6px 0">No draws yet.</li>';
     return;
   }
-  ul.innerHTML = [...winners].reverse().map((w, i) => `
+  ul.innerHTML = [...winners].reverse().map((w, i) => {
+    const actualIndex = winners.length - 1 - i;
+    return `
     <li class="winner-item">
       <span class="winner-num">${winners.length - i}</span>
-      <div>
+      <div style="flex:1">
         <div class="winner-name">${esc(w.name)}</div>
         ${w.company ? `<div class="winner-co">${esc(w.company)}</div>` : ''}
       </div>
-    </li>`).join('');
+      <button onclick="removeWinner(${actualIndex})" title="Put back in draw" style="background:none;border:1px solid rgba(255,92,0,0.4);color:rgba(255,92,0,0.7);border-radius:4px;padding:2px 7px;cursor:pointer;font-size:0.72rem;flex-shrink:0;">↩</button>
+    </li>`;
+  }).join('');
+}
+
+function removeWinner(index) {
+  const name = winners[index] ? winners[index].name : '';
+  if (!confirm('Put ' + name + ' back in the draw pool?')) return;
+  winners.splice(index, 1);
+  saveWinners();
+  renderWinnerList();
+  rebuildWheel();
+  updateStats();
 }
 
 /* ── CONFETTI ───────────────────────────────────────── */
