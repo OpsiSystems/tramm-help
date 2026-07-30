@@ -2,6 +2,46 @@
 
 ---
 
+## 2026-07-30 (Thursday) — session in progress
+
+### TOMS Master Data Super User Guide (`toms-master-data-guide.html`)
+
+- **Meeting debrief (Kelvin Mungal, developer):** processed the 2026-07-30 TOMS Documentation meeting transcript + 20 live screenshots Kelvin shared during the call
+  - Confirmed DHL's system uses spec names throughout (Drop Points, POD Reasons, POD Categories, Locations, Principal Locations, Location Transactions) — all 7 "discrepancies" in the gap analysis were DHL customisations, not generic UI names
+  - Resolved all 4 "needs verification" items: Reject Reasons = skip; Principal Warehouse Transaction Reasons = document; Warehouse Calendar = document inside Warehouses module; System Configuration = document as a section within Principals module
+  - Confirmed 6 previously undocumented features to add: Hazardous Material Codes, Import Exclusion, Billing Master Data, Data Archive Settings, Outbound Msg Formats (within Principals), History Log = obsolete/skip
+- **App-style reskin:** switched primary accent from teal (#1B9E8B) to amber (#E09A3E) throughout the guide to match the TOMS application's amber active-state colour scheme. Sidebar background changed from surface grey to white. Note callout boxes kept in teal.
+- **Logos added:** OpsiCloud wordmark (CSS-styled spans, navy/teal/red) in topbar and cover; DHL logo embedded as base64 PNG in cover
+- **Fixed:** truncated DHL base64 string from previous context window replaced with full correct base64 from file
+- **Module 2 — Principals written in full:** header fields table, System Configuration section (Principal tab with all four groups: Orders, Integration, Invoicing, Alerting; Warehouse tab with sub-tabs; Products tab; Outbound Msg Formats tab), Update Calendar, add/remove warehouse steps, objectives and recap
+  - All field labels verified directly against `toms-principal.ts` and `principal-details.component.html` in the TOMS repo
+- Published to artifact: https://claude.ai/code/artifact/a30f5aee-e35e-41af-9969-c4037aed2b14
+- Copied to SharePoint: `TrainingDepartment - Training And Documentation Team Library\TOMS Documentation\toms-master-data-guide.html`
+- **Design direction change:** moving the TOMS Master Data Super User Guide to the Claude Design platform — current HTML/artifact UI is not heading in the right direction. Content written to date (Module 1: Warehouses, Module 2: Principals) remains valid and will carry over.
+
+---
+
+## 2026-07-26 (Sunday) — ~5 hours
+
+- Weekly Tramm documentation review follow-up with Arnelle and Nicole — worked through 5 outstanding meeting recordings (5 June, 19 June Part 1, 19 June Part 2, 3 July, 24 July 2026):
+  - Checked the 24 July recording's session ID directly against the file after a background analysis agent wrongly flagged it as a duplicate of 3 July — confirmed it's a separate, genuine meeting
+  - Pulled all the fixes discussed across the five meetings into one combined list, since several topics had been discussed more than once
+- Fixed the Data Manager pages on tramm-help to match:
+  - Trailers: fixed wrong claim that trailers are Horse-only (Rigid vehicles can tow too), expanded the External ID explanation, separated Physical Size from Vehicle Dimension Limits (not the same as the 3D Visualiser), fixed permit wording to say "checks validity" instead of "checks route and job eligibility", fixed Groups vs Partitions mix-up
+  - Vehicle Classes: added a new "Groups & Shared Resources" section explaining how the primary/subgroup sharing model works and the common mistake of ticking every group; fixed the Costing section (used by the solver, not Transact) and the Loading Rate wording (it's a sum of vehicle + site + product rates, not a fallback)
+  - Sites: added the missing "What is a Location?" section (inline vs reference location, when to use each, and a note for anyone moving from Plato); fixed the wrong "sites are locations" line
+  - Products: added a full "What is a Transport Unit?" section, fixed the Weight/Volume/Dimensions fields to reflect that Dimensions are configurable, added a note on Calculated Dimensions (Volumetric/Loading Metre/Chargeable Weight), and updated the page heading to "Product Groups, Products & Transport Units"
+  - Settings: fixed "weight" to "mass" as the actual system dimension ID (confirmed independently in three separate meetings), corrected the wrong claim that a "Default" routing class must exist, and clarified that Dimensions are optional depending on which features you use
+  - Getting Started: added a short Attributes & Attribute Rules explanation up front, and softened the setup sequence to a suggestion rather than a strict order
+  - Key Concepts: one terminology fix
+- Did a sitewide check for the same recurring mistakes (weight/mass wording, Groups/Partitions mix-up, permit wording) to catch anything outside the pages the meetings specifically covered
+- Fixed a legibility problem flagged by Nina on a screenshot: body text across all of the above pages was set too small (0.82–0.925rem); increased it to 1rem (16px) at the CSS level for paragraphs, field descriptions, step instructions, tips, callouts, and tables, across every page checked
+- Kept the SharePoint QA copy (GitHub Files\tramm-help) in sync with the git repo throughout
+- Found and fixed an unrelated old text corruption in this work log (a stray line fragment glued onto the wrong entry)
+- Committed and pushed all outstanding changes to GitHub (12 files) — this also picked up a few things that were already sitting uncommitted before today: the new master-routes.html page and updated card descriptions on the Data Manager index page
+
+---
+
 ## 2026-06-15 (Monday) — ~2 hours
 
 - Tramm Feature Video Sapics 2026 — continued planning and frame extraction:
