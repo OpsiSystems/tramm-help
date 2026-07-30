@@ -122,7 +122,7 @@
       margin-bottom: 1.25rem;
     }
     .section-intro {
-      font-size: 0.925rem;
+      font-size: 1rem;
       color: var(--slate-600);
       margin-bottom: 1.25rem;
     }
@@ -130,7 +130,7 @@
 
     /* ── BODY TEXT ── */
     .body-text {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--slate-700);
       margin-bottom: 1rem;
     }
@@ -151,7 +151,7 @@
       display: flex;
       gap: 0.85rem;
       align-items: flex-start;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--slate-700);
     }
     .steps-list li::before {
@@ -179,7 +179,7 @@
       border: 1px solid var(--blue-100);
       border-radius: 0.5rem;
       padding: 1rem 1.25rem;
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--slate-700);
       margin-bottom: 1.25rem;
     }
@@ -231,7 +231,7 @@
     }
     .concept-panel-body {
       padding: 0.85rem 1rem;
-      font-size: 0.84rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.55;
     }
@@ -257,7 +257,7 @@
       align-items: flex-start;
       padding: 0.85rem 1rem;
       border-radius: 0.5rem;
-      font-size: 0.875rem;
+      font-size: 1rem;
     }
     .tip-item svg {
       flex-shrink: 0;
@@ -268,10 +268,10 @@
     .tip-item strong {
       display: block;
       margin-bottom: 0.15rem;
-      font-size: 0.875rem;
+      font-size: 1rem;
     }
     .tip-item p {
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--slate-600);
     }
     .tip-positive {
@@ -293,7 +293,7 @@
       border: 1px solid var(--slate-200);
       border-radius: 0.5rem;
       padding: 1rem 1.25rem;
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--slate-700);
       margin: 1rem 0;
     }
@@ -313,7 +313,7 @@
       color: var(--slate-500);
       padding-top: 0.05rem;
     }
-    .logic-value { color: var(--slate-700); font-size: 0.875rem; }
+    .logic-value { color: var(--slate-700); font-size: 1rem; }
 
     /* ── FOOTER ── */
     footer {
@@ -379,7 +379,7 @@
       white-space: nowrap;
     }
     .field-matrix .fdesc {
-      font-size: 0.83rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.5;
     }
@@ -489,7 +489,7 @@
         Sites
       </div>
       <h1>Sites</h1>
-      <p class="subtitle">Site Classes and Sites — the locations in your logistics network, from depots and warehouses to crossdocks and delivery points.</p>
+      <p class="subtitle">Site Classes, Sites, and Locations — the places in your logistics network, from depots and warehouses to crossdocks and delivery points.</p>
     </div>
   </header>
 
@@ -504,6 +504,7 @@
         <hr class="nav-divider" />
         <li><a href="#what-is-a-site">What is a Site?</a></li>
         <li><a href="#site-fields">Site Fields</a></li>
+        <li><a href="#what-is-a-location">What is a Location?</a></li>
         <hr class="nav-divider" />
         <li><a href="#override-logic">Override Logic</a></li>
         <hr class="nav-divider" />
@@ -520,7 +521,7 @@
       <!-- INTRO -->
       <section>
         <p class="body-text">
-          Sites are the locations in your logistics network — depots, warehouses, crossdocks, and delivery points. Tramm uses a two-layer system: a <strong>Site Class</strong> acts as a template that defines shared defaults such as operating hours and dwell times, and individual <strong>Sites</strong> inherit those defaults while being able to override any value that differs for that specific location. This keeps your data consistent without forcing you to repeat the same settings on every site.
+          A Site is an administrative record for a place in your logistics network — a depot, warehouse, crossdock, or delivery point. It defines what can happen there (operating hours, restrictions, contact details) — not where it physically is; that's stored separately in a <strong>Location</strong> (see <a href="#what-is-a-location">What is a Location?</a> below). Tramm uses a layered system: a <strong>Site Class</strong> acts as a template that defines shared defaults such as operating hours and dwell times, and individual <strong>Sites</strong> inherit those defaults while being able to override any value that differs for that specific location. This keeps your data consistent without forcing you to repeat the same settings on every site.
         </p>
       </section>
 
@@ -657,6 +658,53 @@
         </p>
       </section>
 
+      <!-- WHAT IS A LOCATION -->
+      <section id="what-is-a-location">
+        <p class="section-label">What is a Location?</p>
+        <p class="section-intro">A Site is an administrative record — it defines what you can do at a place (its code, attributes, restrictions, contact details). Where that place actually <em>is</em> — the address, latitude, and longitude — is stored in a separate entity called a <strong>Location</strong>.</p>
+
+        <p class="body-text">Every Site has a Location, but you have two ways to set it up:</p>
+
+        <div class="concept-panels">
+          <div class="concept-panel panel-class">
+            <div class="concept-panel-header">Inline Location</div>
+            <div class="concept-panel-body">
+              A Location that belongs to this Site alone — you enter the address and GPS coordinates directly on the Site. This is the normal choice for a standalone site, such as a shop that isn't inside a larger complex.
+              <ul>
+                <li>Has its own entry and exit duration</li>
+                <li>Not shared with any other site</li>
+              </ul>
+            </div>
+          </div>
+          <div class="concept-panel panel-entity">
+            <div class="concept-panel-header">Reference Location</div>
+            <div class="concept-panel-body">
+              A standalone Location record that <strong>multiple Sites can point to</strong>. Use this when two or more sites genuinely share the same physical place — for example, two shops inside the same mall.
+              <ul>
+                <li>Entry and exit duration is charged only <strong>once</strong> for the whole location</li>
+                <li>Each site under it still adds its own turnaround time</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <p class="body-text" style="margin-top:1rem;">For example, a stop called "Rosebank" might contain two sites — "Site 1" and "Site 2" — that both reference the same Location. On the solver, this produces one entry duration and one exit duration for the whole stop, plus each site's own turnaround time in between. If those two sites instead had their own inline locations, each would be entered and exited separately.</p>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>There are three reasons to use a standalone Location record: (1) sharing one physical place between multiple sites, as above; (2) setting up loading bays and docks, which are configured at the Location level via the Loading Bay Manager; (3) marking a Location as a rest/break stop, which can then be assigned to a route via Restop Assignment so a route's rest stop happens at a specific place instead of wherever the routing engine picks arbitrarily.</span>
+        </div>
+
+        <div class="callout callout-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span><strong>Moving from Plato?</strong> Plato required a separate "map point" record for every single site. Tramm's inline Location removes that requirement — a normal site with its own address needs nothing extra. Only set up a standalone Location record when you actually want to share it between sites, or need loading bays or a rest stop.</span>
+        </div>
+      </section>
+
       <!-- SITE FIELDS -->
       <section id="site-fields">
         <p class="section-label">Site Fields</p>
@@ -696,7 +744,7 @@
             </tr>
             <tr class="row-required">
               <td><span class="fname">Location / Address</span></td>
-              <td><span class="fdesc">The physical address of the site. Used for route planning and displayed on maps.</span></td>
+              <td><span class="fdesc">The physical address of the site — either entered directly (an <strong>inline Location</strong>) or pulled from an existing shared Location record (a <strong>reference Location</strong>). See <a href="#what-is-a-location">What is a Location?</a> below for the difference. Used for route planning and displayed on maps.</span></td>
               <td class="col-tick"><span class="tick-req">✓</span></td>
               <td class="col-tick"></td>
               <td class="col-tick"></td>
@@ -822,7 +870,7 @@
 
         <ol class="steps-list">
           <li><div>Open <strong>Data Manager</strong> and select <strong>Site Classes</strong> from the navigation. Click <strong>Add</strong> in the toolbar.</div></li>
-          <li><div><strong>Basic Info</strong> tab: Enter the class <strong>Name</strong> — something that describes the type of site it represents, for example <em>Retail Delivery</em>, <em>Distribution Centre</em>, or <em>Crossdock</em>. The ID is auto-generated. Add an <strong>External ID</strong> and <strong>Description</strong> if needed. The <strong>Groups</strong> field is for data partitioning — assigns this record to a business unit or division as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</div></li>
+          <li><div><strong>Basic Info</strong> tab: Enter the class <strong>Name</strong> — something that describes the type of site it represents, for example <em>Retail Delivery</em>, <em>Distribution Centre</em>, or <em>Crossdock</em>. The ID is auto-generated. The <strong>External ID</strong> is generated automatically too, from a template configured in Settings. Add a <strong>Description</strong> if needed. The <strong>Groups</strong> field assigns this class to a Group for shared-resource organisation — see <a href="vehicle-classes.html#groups">Groups &amp; Shared Resources</a> for how this works. This is different from Settings → Partitions. Leave blank in a standard single-organisation setup.</div></li>
           <li><div><strong>Specification → Entry/Exit Duration</strong>: Set the default <strong>Entry Duration</strong> and <strong>Exit Duration</strong> in hours and minutes. These are the typical dwell times for arrival and departure at sites of this class — every site in the class will inherit these values unless overridden on the individual site.</div></li>
           <li><div><strong>Specification → Attributes</strong>: Add any shared attributes that all sites in this class should carry automatically. Leave blank if no shared attributes are needed at this stage.</div></li>
           <li><div><strong>Operating Hours</strong> tab: Set the default operating days and time windows for sites of this class.</div></li>
@@ -839,11 +887,11 @@
 
         <ol class="steps-list">
           <li><div>Open <strong>Data Manager</strong> and select <strong>Sites</strong> from the navigation. Click <strong>Add</strong> in the toolbar.</div></li>
-          <li><div><strong>Basic Info</strong> tab: Enter the site <strong>Name</strong> (required). The ID is auto-generated. The <strong>Groups</strong> field is for data partitioning — assigns this site to a business unit or division as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</div></li>
+          <li><div><strong>Basic Info</strong> tab: Enter the site <strong>Name</strong> (required). The ID is auto-generated. The <strong>Groups</strong> field assigns this site to a Group for shared-resource organisation — see <a href="vehicle-classes.html#groups">Groups &amp; Shared Resources</a> for how this works. Leave blank in a standard single-organisation setup.</div></li>
           <li><div><strong>Specification → Links</strong>: Select the <strong>Site Class</strong> (recommended). This sets the default operating hours, entry/exit durations, and attribute rules for the site. Optionally link a <strong>Client</strong> if this is a client-specific location.</div></li>
           <li><div><strong>Specification → Type</strong>: Select the site type if applicable — for example, <em>Depot</em>, <em>Customer</em>, or <em>Crossdock</em>. Types are configured in Entity Types.</div></li>
           <li><div><strong>Specification → Instructions</strong>: Add any operational notes — access codes, delivery instructions, or special requirements for drivers or planners.</div></li>
-          <li><div><strong>Specification → Location</strong>: The <strong>Auto Allocate To Region</strong> checkbox is on by default — leave it checked to have the system assign the site to a Region automatically. Use the <strong>Location Ref</strong> chooser to link to an existing Location record if one already exists in the system.</div></li>
+          <li><div><strong>Specification → Location</strong>: By default you enter the site's own address and GPS coordinates directly — this creates an <strong>inline Location</strong> just for this site. If this site shares its exact physical place with another site (for example, two shops in the same mall), use the <strong>Location Ref</strong> chooser instead to point both sites at the same shared Location record — see <a href="#what-is-a-location">What is a Location?</a> above. The <strong>Auto Allocate To Region</strong> checkbox is on by default — leave it checked to have the system assign the site to a Region automatically.</div></li>
           <li><div><strong>Specification → Region Allocation</strong>: If you are not using automatic region allocation, manually assign the site to one or more Regions here.</div></li>
           <li><div><strong>Specification → Linked Vehicle Classes</strong>: Link the Vehicle Classes permitted to service this site. Only vehicles in these classes will be considered for stops here during planning. Leave blank to allow all classes.</div></li>
           <li><div><strong>Specification → Durations</strong>: Override the <strong>Entry Duration</strong> or <strong>Exit Duration</strong> only if this specific site's dwell time differs from its Site Class default. Leave at zero to inherit from the class.</div></li>

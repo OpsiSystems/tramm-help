@@ -137,7 +137,7 @@
       margin-bottom: 1.25rem;
     }
     .section-intro {
-      font-size: 0.925rem;
+      font-size: 1rem;
       color: var(--slate-600);
       margin-bottom: 1.25rem;
     }
@@ -145,7 +145,7 @@
 
     /* ── BODY TEXT ── */
     .body-text {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--slate-700);
       line-height: 1.7;
       margin-bottom: 1rem;
@@ -159,7 +159,7 @@
       background: var(--blue-50); border: 1px solid var(--blue-100);
       border-radius: 0.5rem;
       padding: 1rem 1.25rem;
-      font-size: 0.875rem; color: var(--slate-700);
+      font-size: 1rem; color: var(--slate-700);
     }
     .callout svg { flex-shrink: 0; width: 1rem; height: 1rem; color: var(--blue-600); margin-top: 0.15rem; }
     .callout a { color: var(--blue-700); }
@@ -212,7 +212,7 @@
     .card-entity h4 { color: var(--blue-700); }
 
     /* ── INHERIT TABLE ── */
-    .inherit-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 1.25rem; }
+    .inherit-table { width: 100%; border-collapse: collapse; font-size: 1rem; margin-bottom: 1.25rem; }
     .inherit-table thead th {
       text-align: left;
       font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
@@ -224,8 +224,8 @@
     .inherit-table tbody tr:last-child { border-bottom: none; }
     .inherit-table tbody td { padding: 0.65rem 1rem; vertical-align: top; }
     .inherit-table .col-entity { font-weight: 600; color: var(--slate-900); }
-    .inherit-table .col-fixed { color: var(--slate-600); font-size: 0.825rem; }
-    .inherit-table .col-override { color: var(--slate-600); font-size: 0.825rem; }
+    .inherit-table .col-fixed { color: var(--slate-600); font-size: 1rem; }
+    .inherit-table .col-override { color: var(--slate-600); font-size: 1rem; }
     .tag-fixed {
       display: inline-block;
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
@@ -494,7 +494,7 @@
       width: 100%;
     }
     .pair-note {
-      font-size: 0.775rem;
+      font-size: 0.95rem;
       color: var(--slate-500);
       line-height: 1.45;
       margin-top: 0.3rem;
@@ -573,6 +573,7 @@
       <p class="side-nav-label">On this page</p>
       <ul>
         <li><a href="#classes-groups">Classes &amp; Groups</a></li>
+        <li><a href="#attributes">Attributes &amp; Attribute Rules</a></li>
         <li><a href="#visualiser">3D Visualiser</a></li>
         <li><a href="#sequence">Setup Sequence</a></li>
         <li><a href="#where-next">Where to Next</a></li>
@@ -616,14 +617,14 @@
             <div class="pair-class">Product Group</div>
             <div class="pair-arrow">&#8595; applies to</div>
             <div class="pair-entity">Product</div>
-            <p class="pair-note">Group defines handling rules &amp; restrictions. Product defines physical specs — weight, size &amp; load rate.</p>
+            <p class="pair-note">Group defines handling rules &amp; restrictions. Product defines physical specs — mass, size &amp; load rate.</p>
           </div>
 
         </div>
 
         <p class="section-label" style="margin-top:0.5rem;">Overrides — when an individual entity differs from its Class or Group</p>
         <p class="body-text">If a value is left blank (or set to zero for durations), the system automatically uses the Class or Group value as the default. You only need to fill in a value on the entity if it genuinely differs. This means you can set up 50 sites in a "Retail Delivery" class and only override the operating hours for the two sites that have unusual hours — the other 48 inherit the class default without any extra work.</p>
-        <p class="body-text">Note: for Products, the pattern works slightly differently. A Product Group provides shared rules (restrictions, variance tolerance) rather than values to inherit — the Product itself defines its own physical specifications. See the <a href="products.html">Product Groups &amp; Products guide</a> for details.</p>
+        <p class="body-text">Note: for Products, the pattern works slightly differently. A Product Group provides shared rules (restrictions, variance tolerance) rather than values to inherit — the Product itself defines its own physical specifications. See the <a href="products.html">Product Groups, Products &amp; Transport Units guide</a> for details.</p>
 
         <p class="body-text">The table below summarises what is fixed at Class level versus what can be overridden on individual entities.</p>
 
@@ -639,7 +640,7 @@
             <tr>
               <td class="col-entity">Vehicle</td>
               <td class="col-fixed">
-                <span class="tag-fixed">Inherited</span> Type, Capacity (weight / volume / units), Physical Size (length / width / height), Compartments, Costing
+                <span class="tag-fixed">Inherited</span> Type, Capacity (mass / volume / units), Physical Size (length / width / height), Compartments, Costing
               </td>
               <td class="col-override">
                 <span class="tag-override">Overridable</span> Operating Hours, Fuel Efficiency
@@ -660,7 +661,7 @@
                 <span class="tag-fixed">Inherited</span> Transport restrictions (vehicle / compartment requirements)
               </td>
               <td class="col-override">
-                <span class="tag-override">Overridable</span> Size (weight / volume / units), Loading Rate, Stackability
+                Size (mass / volume / units), Loading Rate, Stackability — set directly on the Product itself; there is no Group-level default being overridden here
               </td>
             </tr>
           </tbody>
@@ -674,17 +675,28 @@
         </div>
       </section>
 
+      <!-- ATTRIBUTES AND ATTRIBUTE RULES -->
+      <section id="attributes">
+        <p class="section-label">Attributes &amp; Attribute Rules — the Matching Concept</p>
+        <p class="body-text">Alongside Classes and Groups, one more concept is worth understanding before you start entering data: <strong>Attributes</strong> and <strong>Attribute Rules</strong>. These appear throughout Data Manager — on Vehicle Classes, Trailers, Sites, Site Classes, and Product Groups — and are used to match the right resources to the right jobs.</p>
+        <p class="body-text">An <strong>Attribute</strong> is a tag you attach to an entity — for example, tagging a vehicle as <code>frozen</code>. Most attributes work this way: as a simple tag that is either present or not present, not as a value to compare. An <strong>Attribute Rule</strong> is a rule elsewhere in the system that looks for that tag to decide whether a match is allowed — for example, a product's attribute rule might require a <code>frozen</code> vehicle. Matching tags include or exclude combinations depending on where the rule is set up.</p>
+        <div class="flow-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;margin-top:0.1rem;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>You don't need to set up Attributes and Attribute Rules before adding any data — but knowing they exist up front helps you recognise them when you reach the Attributes tab on each entity, rather than being surprised by an unfamiliar field.</span>
+        </div>
+      </section>
+
       <!-- 3D VISUALISER -->
       <section id="visualiser">
         <p class="section-label">3D Visualiser — When Dimensions Matter</p>
-        <p class="section-intro">If your organisation uses the 3D Visualiser in the Planner — which shows how cargo is loaded into a vehicle — you need to make sure dimensions are set up correctly. Physical dimensions (length, width, height) must be set on the <strong>Vehicle Class</strong>, not on individual vehicles. Product dimensions (size — weight, volume, units) must be set on the <strong>Product</strong> record. Without these values, the 3D Visualiser cannot render the load correctly.</p>
+        <p class="section-intro">If your organisation uses the 3D Visualiser in the Planner — which shows how cargo is loaded into a vehicle — you need to make sure dimensions are set up correctly. The visualiser uses <strong>Length, Width, and Height only — not mass</strong>. These must be set on the <strong>Vehicle Class</strong> Capacity (not on individual vehicles, and not on Physical Size) and on the <strong>Product</strong> record. Without these three dimensions, the 3D Visualiser cannot render the load correctly. Mass is used separately, for Stackability calculations.</p>
       </section>
 
       <!-- SETUP SEQUENCE -->
       <section id="sequence">
         <p class="section-label">Recommended Setup Sequence</p>
 
-        <p class="body-text">Follow this order when setting up Data Manager for the first time. Each step builds on the one before it.</p>
+        <p class="body-text">Follow this order when setting up Data Manager for the first time. Each step builds on the one before it — but this is a <strong>recommendation, not a strict requirement</strong>. The right order really depends on your operation (for example, if you use home sites, you may want Sites in place before Vehicles), and Data Manager lets you create a missing prerequisite record inline while filling in a dependent form, so it's rarely a problem if you tackle things out of order.</p>
 
         <div class="setup-flow">
           <div class="flow-step required">
@@ -699,7 +711,7 @@
             <a class="flow-step-inner" href="trailers.html">
               <div class="flow-step-num">2</div>
               <div class="flow-step-label">Trailers</div>
-              <div class="flow-step-desc">If using Horse vehicles</div>
+              <div class="flow-step-desc">If using Horse or Rigid vehicles that tow</div>
             </a>
           </div>
           <div class="flow-connector">›</div>
@@ -751,7 +763,7 @@
 
           <a class="next-card" href="trailers.html">
             <h4>Trailers</h4>
-            <p>Set up trailer records for Horse-type vehicles. Must be done before Vehicle Classes that reference them.</p>
+            <p>Set up trailer records for Horse or Rigid type vehicles that tow. Must be done before Vehicle Classes that reference them.</p>
           </a>
 
           <a class="next-card" href="vehicle-classes.html">
@@ -765,8 +777,8 @@
           </a>
 
           <a class="next-card" href="products.html">
-            <h4>Product Groups &amp; Products</h4>
-            <p>Define product categories and add goods with their sizes and loading rules.</p>
+            <h4>Product Groups, Products &amp; Transport Units</h4>
+            <p>Define product categories and add goods and transport units with their sizes and loading rules.</p>
           </a>
 
           <div class="next-card next-card-stub">

@@ -130,7 +130,7 @@
       margin-bottom: 1.25rem;
     }
     .section-intro {
-      font-size: 0.925rem;
+      font-size: 1rem;
       color: var(--slate-600);
       margin-bottom: 1.25rem;
       line-height: 1.65;
@@ -140,7 +140,7 @@
 
     /* ── BODY TEXT ── */
     .body-text {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--slate-700);
       line-height: 1.7;
       margin-bottom: 1rem;
@@ -186,7 +186,7 @@
       align-items: flex-start;
       border-radius: 0.5rem;
       padding: 1rem 1.25rem;
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--slate-700);
       margin-bottom: 1.25rem;
     }
@@ -250,13 +250,13 @@
       min-width: 0;
     }
     .step-title {
-      font-size: 0.88rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--slate-900);
       margin-bottom: 0.25rem;
     }
     .step-detail {
-      font-size: 0.845rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.55;
     }
@@ -274,7 +274,7 @@
       display: flex;
       gap: 0.75rem;
       align-items: flex-start;
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--slate-700);
       line-height: 1.55;
       padding: 0.8rem 1rem;
@@ -320,7 +320,7 @@
     }
     .concept-panel-body {
       padding: 0.85rem 1rem;
-      font-size: 0.84rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.55;
     }
@@ -350,7 +350,7 @@
     .av-example-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; margin-bottom: 0.6rem; }
     .av-field { font-size: 0.75rem; color: var(--slate-500); font-weight: 600; }
     .av-field::after { content: ':'; margin-right: 0.1rem; }
-    .av-example-note { font-size: 0.82rem; color: var(--slate-600); line-height: 1.55; }
+    .av-example-note { font-size: 1rem; color: var(--slate-600); line-height: 1.55; }
 
     /* ── FIELD MATRIX ── */
     .field-matrix {
@@ -395,7 +395,7 @@
       white-space: nowrap;
     }
     .field-matrix .fdesc {
-      font-size: 0.83rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.5;
     }
@@ -493,7 +493,7 @@
         Trailers
       </div>
       <h1>Trailers</h1>
-      <p class="subtitle">Passive transport assets pulled by Horse-type vehicles. Set up Trailers before creating the Vehicle Classes and Vehicles that reference them.</p>
+      <p class="subtitle">Passive transport assets pulled by Horse or Rigid type vehicles. Set up Trailers before creating the Vehicle Classes and Vehicles that reference them.</p>
     </div>
   </header>
 
@@ -520,8 +520,8 @@
 
       <!-- ── INTRO ── -->
       <section>
-        <p class="body-text">A Trailer is a passive transport asset — it has no engine of its own and must be pulled by a <strong>Horse</strong>-type vehicle. In Tramm, Trailers are set up as individual records in Data Manager, and then referenced on Vehicle Classes and individual Vehicles that typically use them.</p>
-        <p class="body-text">Not every operation uses Trailers. They are only needed if your fleet includes Horse-type vehicles (truck-tractors) that pull interchangeable trailers, and you want Tramm to track those trailers, manage their capacity, or pre-assign them to vehicles and trips.</p>
+        <p class="body-text">A Trailer is a passive transport asset — it has no engine of its own and must be pulled by a <strong>Horse</strong> or <strong>Rigid</strong> type vehicle. A Rigid vehicle can carry its own load and still tow a trailer, so trailers are not limited to Horse-type tractors. In Tramm, Trailers are set up as individual records in Data Manager, and then referenced on Vehicle Classes and individual Vehicles that typically use them.</p>
+        <p class="body-text">Not every operation uses Trailers. They are only needed if your fleet includes Horse or Rigid type vehicles that pull interchangeable trailers, and you want Tramm to track those trailers, manage their capacity, or pre-assign them to vehicles and trips.</p>
 
         <div class="concept-panels" style="margin-top:1.25rem;">
           <div class="concept-panel panel-class">
@@ -540,7 +540,7 @@
             <div class="concept-panel-body">
               Each Trailer record holds the properties specific to that trailer:
               <ul>
-                <li>Load capacity (weight, volume)</li>
+                <li>Load capacity (mass, volume)</li>
                 <li>Physical dimensions</li>
                 <li>Compartments (for multi-temp or segregated loads)</li>
                 <li>Costing structure</li>
@@ -562,9 +562,9 @@
       <!-- ── WHAT IS A TRAILER ── -->
       <section id="what-is-a-trailer">
         <p class="section-label">What is a Trailer?</p>
-        <p class="section-intro">In Tramm, a Trailer is a standalone master data record representing a physical trailer unit in your fleet. It is a passive asset — it cannot move on its own, and it is always used in conjunction with a Horse-type vehicle.</p>
+        <p class="section-intro">In Tramm, a Trailer is a standalone master data record representing a physical trailer unit in your fleet. It is a passive asset — it cannot move on its own, and it is always used in conjunction with a Horse or Rigid type vehicle.</p>
 
-        <p class="body-text">Horse-type vehicles (truck-tractors) can be paired with different trailers depending on the load. This flexibility is a key reason for managing trailers as separate records: the same tractor can pull a flatbed one day and a refrigerated trailer the next. By setting up each trailer as its own record, Tramm can track capacity and attributes at the trailer level — not just at the vehicle level.</p>
+        <p class="body-text">Horse-type vehicles (truck-tractors) and towing-capable Rigid vehicles can both be paired with different trailers depending on the load. This flexibility is a key reason for managing trailers as separate records: the same vehicle can pull a flatbed one day and a refrigerated trailer the next. By setting up each trailer as its own record, Tramm can track capacity and attributes at the trailer level — not just at the vehicle level.</p>
 
         <p class="body-text">When a trip is planned using a Horse vehicle, the trailer's capacity and attributes are factored in alongside the vehicle's. If the trailer has defined compartments, those compartments are available for load planning just as they would be on a rigid vehicle.</p>
 
@@ -572,7 +572,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
-          <p>Trailers are only relevant for <strong>Horse-type</strong> vehicle classes. Rigid vehicles have their own fixed body and do not pull separate trailers — do not set up Trailer records for Rigid-type fleets. See <a href="vehicle-classes.html">Vehicle Classes &amp; Vehicles</a> for an explanation of the Horse vs Rigid distinction.</p>
+          <p>Trailers are relevant for both <strong>Horse-type</strong> and <strong>Rigid-type</strong> vehicle classes. A Rigid vehicle carries its own load and can also tow a trailer — it is not limited to a fixed body. Only vehicles set up as <strong>None</strong> type have no trailer capability at all. See <a href="vehicle-classes.html">Vehicle Classes &amp; Vehicles</a> for an explanation of the None, Rigid, and Horse distinction.</p>
         </div>
       </section>
 
@@ -612,7 +612,7 @@
             <tr class="row-optional">
               <td><span class="fname">External ID</span></td>
               <td>
-                <span class="fdesc">A reference code from an external system — for example, a fleet management platform or asset register. Useful for matching records during import/export.</span>
+                <span class="fdesc">A Tramm-generated ID — not something copied in from another system. Its format is controlled by an External ID Template configured in Settings, built from blocks such as group name, short codes, a counter, or today's date. This lets the ID match the naming convention of whatever external system you integrate with, which is useful for import/export mapping and for lookups against client-facing trip or job numbers.</span>
               </td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
@@ -620,7 +620,7 @@
             <tr class="row-optional">
               <td><span class="fname">Groups</span></td>
               <td>
-                <span class="fdesc">Assigns this trailer to a business unit or division for data partitioning purposes, as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</span>
+                <span class="fdesc">Assigns this trailer to a Group for shared-resource organisation between planning teams or depots. This is not the same as Settings → Partitions, which is for genuinely separate, siloed data. See <a href="vehicle-classes.html#groups">Vehicle Classes &amp; Vehicles</a> for a full explanation of how Groups work. Leave blank in a standard single-organisation setup.</span>
               </td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
@@ -630,8 +630,8 @@
             <tr class="row-optional">
               <td><span class="fname">Capacity</span></td>
               <td>
-                <span class="fdesc">The load capacity of this trailer — weight (kg), volume (m³), and/or units. Used by the planning engine to determine how much can be loaded. Set this if the trailer's capacity should be tracked separately from the towing vehicle's capacity.</span>
-                <div class="fnote">Not required if this trailer's capacity is already accounted for in the Vehicle Class. Only used if Compartments are not defined — see <a href="#compartments">Compartments vs Capacity</a> below.</div>
+                <span class="fdesc">The load capacity of this trailer — configured using whichever Dimensions your organisation has set up (for example mass, volume, or units). Used by the planning engine to determine how much can be loaded. Set this if the trailer's capacity should be tracked separately from the towing vehicle's capacity.</span>
+                <div class="fnote">Not required if this trailer's capacity is already accounted for in the Vehicle Class. Only used if Compartments are not defined — see <a href="#compartments">Compartments vs Capacity</a> below. If your organisation uses the 3D load Visualiser, Length, Width, and Height must be included among the Dimensions used here — the visualiser uses dimensions only, not Mass. It reads from Capacity, not from Physical Size below.</div>
               </td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
@@ -639,7 +639,8 @@
             <tr class="row-optional">
               <td><span class="fname">Physical Size</span></td>
               <td>
-                <span class="fdesc">The external dimensions of the trailer: Length, Width, Height, and Mass. Required if you use the 3D Visualiser in the Planner — without these, the visualiser cannot represent the trailer correctly.</span>
+                <span class="fdesc">The trailer's own unloaded (tare) Length, Width, Height, and Mass — separate from the load Capacity above. Used only by <strong>Vehicle Dimension Limits</strong> (Settings → Planning Configuration), which sums the physical size of an entire vehicle-and-trailer combination and checks it against a configured legal limit (for example, a maximum combined length or gross combination mass). If the combination exceeds the limit, planning is blocked.</span>
+                <div class="fnote">Leave blank if your organisation does not use Vehicle Dimension Limits. This field does not feed the 3D Visualiser — see Capacity above for that.</div>
               </td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
@@ -658,7 +659,7 @@
             <tr class="row-optional">
               <td><span class="fname">Costing</span></td>
               <td>
-                <span class="fdesc">Cost structure for trips using this trailer — <strong>Fixed</strong> cost, cost per km (<strong>Distance</strong>), and cost per hour (<strong>Time</strong>). Used by the Transact Extension for financial calculations. Leave at 0 if trailer costing is handled at the vehicle level or is not tracked in Tramm.</span>
+                <span class="fdesc">Cost structure for trips using this trailer — <strong>Fixed</strong> cost, cost per km (<strong>Distance</strong>), and cost per hour (<strong>Time</strong>). These figures are used only by the route optimisation engine (Solver/Chora) to choose the cheapest vehicle-and-trailer combination when planning — they are not used by Transact, and do not need to reflect real-world running costs. Leave at 0 if trailer costing is not tracked in Tramm, or if it's already accounted for on the Vehicle Class.</span>
               </td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
@@ -679,7 +680,7 @@
             <tr class="row-optional">
               <td><span class="fname">Regulatory Permits</span></td>
               <td>
-                <span class="fdesc">Permits specific to this trailer — for example, a hazardous goods transport permit or an oversize load permit. The Planner uses these to check route and job eligibility.</span>
+                <span class="fdesc">Permits specific to this trailer — for example, a hazardous goods transport permit or an oversize load permit. The Planner uses these to check <strong>permit validity</strong> at the time of use, much like checking a licence hasn't expired. This is configurable: an expired permit can either raise a warning or fully exclude the trailer from planning, depending on how strict your setup is.</span>
               </td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
@@ -694,7 +695,7 @@
         <p class="section-label">Compartments vs Simple Capacity</p>
         <p class="section-intro">A trailer can be set up with either a simple total capacity, or with multiple named compartments each having their own capacity — but not both at the same time. Choose the approach that matches how this trailer is actually used.</p>
 
-        <p class="body-text"><strong>Use simple Capacity</strong> when the trailer carries a single type of load and there is no need to separate cargo into distinct sections. Set the total weight, volume, and/or unit capacity on the trailer record. The Planner treats the trailer as a single load space.</p>
+        <p class="body-text"><strong>Use simple Capacity</strong> when the trailer carries a single type of load and there is no need to separate cargo into distinct sections. Set the total mass, volume, and/or unit capacity on the trailer record. The Planner treats the trailer as a single load space.</p>
 
         <p class="body-text"><strong>Use Compartments</strong> when the trailer has physically or logically separate sections — for example, a multi-temperature trailer with a frozen compartment and a chilled compartment, or a tanker with multiple chambers. Each compartment has its own capacity, and can also have its own attributes and restrictions. When compartments are defined and enabled, the simple Capacity field on the trailer is cleared and ignored — the compartment capacities are used instead.</p>
 
@@ -762,7 +763,7 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <div class="step-title">Basic Info — enter the identity details</div>
-              <div class="step-detail">Enter a <strong>Name</strong> (required) — this is how the trailer will appear when assigning it to a Vehicle Class or Vehicle. Add an <strong>External ID</strong> if you need to match this record to an external asset register or fleet management system. Add a <strong>Description</strong> if it helps distinguish this trailer from others of the same type. The <strong>Groups</strong> field is for data partitioning — leave blank in a standard single-organisation setup.</div>
+              <div class="step-detail">Enter a <strong>Name</strong> (required) — this is how the trailer will appear when assigning it to a Vehicle Class or Vehicle. The <strong>External ID</strong> is generated automatically from the template set up in Settings — you don't type this in, but you can configure how it's built so it lines up with your external systems. Add a <strong>Description</strong> if it helps distinguish this trailer from others of the same type. The <strong>Groups</strong> field assigns this trailer to a Group for shared-resource organisation — see <a href="vehicle-classes.html#groups">Groups &amp; Shared Resources</a> for how this works. This is different from Settings → Partitions. Leave blank in a standard single-organisation setup.</div>
             </div>
           </li>
           <li>
@@ -790,21 +791,21 @@
             <div class="step-num">6</div>
             <div class="step-body">
               <div class="step-title">Specification → Capacity (if not using compartments)</div>
-              <div class="step-detail">Set the total load capacity for this trailer — weight (kg), volume (m³), and/or units, depending on what dimensions your operation plans against. Skip this step if you have set up compartments — compartment capacities are used instead.</div>
+              <div class="step-detail">Set the total load capacity for this trailer — mass (kg), volume (m³), and/or units, depending on what dimensions your operation plans against. Skip this step if you have set up compartments — compartment capacities are used instead.</div>
             </div>
           </li>
           <li>
             <div class="step-num">7</div>
             <div class="step-body">
               <div class="step-title">Specification → Physical Size</div>
-              <div class="step-detail">Set the trailer's external dimensions: <strong>Length</strong>, <strong>Width</strong>, <strong>Height</strong>, and <strong>Mass</strong>. Required if you use the 3D load visualiser in the Planner — without these, the visualiser cannot represent the trailer correctly.</div>
+              <div class="step-detail">Set the trailer's own unloaded (tare) <strong>Length</strong>, <strong>Width</strong>, <strong>Height</strong>, and <strong>Mass</strong>. Only needed if your organisation uses <strong>Vehicle Dimension Limits</strong> (Settings → Planning Configuration) to check the combined vehicle-and-trailer size or mass against a legal limit. Leave blank if you don't use this feature — it does not affect the 3D Visualiser.</div>
             </div>
           </li>
           <li>
             <div class="step-num">8</div>
             <div class="step-body">
               <div class="step-title">Specification → Regulatory Permits</div>
-              <div class="step-detail">Add any permits applicable to this trailer — for example, a hazardous goods permit or an oversize load permit. These are used by the Planner to check route and job eligibility when this trailer is assigned to a trip.</div>
+              <div class="step-detail">Add any permits applicable to this trailer — for example, a hazardous goods permit or an oversize load permit. The Planner checks these for validity (expiry) when this trailer is assigned to a trip — configurable to either warn or exclude the trailer if a permit has expired.</div>
             </div>
           </li>
           <li>
@@ -835,14 +836,14 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
             </svg>
-            <span><strong>Create all Trailer records before setting up Vehicle Classes or Vehicles.</strong> Both Vehicle Classes (for Horse-type vehicles) and individual Vehicles can reference default trailers. If you try to assign a trailer that doesn't exist yet, it won't be available in the selection list. Build your Trailer records first, then move on to Vehicle Classes.</span>
+            <span><strong>Create all Trailer records before setting up Vehicle Classes or Vehicles.</strong> Both Vehicle Classes (for Horse and Rigid type vehicles) and individual Vehicles can reference default trailers. If you try to assign a trailer that doesn't exist yet, it won't be available in the selection list. Build your Trailer records first, then move on to Vehicle Classes.</span>
           </li>
 
           <li class="tip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
             </svg>
-            <span><strong>Trailers are only needed for Horse-type vehicles.</strong> If your entire fleet is Rigid-type vehicles, you do not need to create any Trailer records. Rigid vehicles have a fixed body — they do not pull trailers. Only create Trailer records if your fleet includes truck-tractors (Horses) that pull interchangeable trailers.</span>
+            <span><strong>Trailers apply to both Horse and Rigid type vehicles.</strong> A Rigid vehicle can carry its own load and still tow a trailer, so don't assume Trailer records are only for Horse-type tractors. Only <strong>None</strong>-type vehicles (a fixed body with no trailer capability at all) never need Trailer records.</span>
           </li>
 
           <li class="tip">
@@ -856,7 +857,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            <span><strong>Double-counting capacity between the trailer and the Vehicle Class.</strong> If a Horse vehicle's total capacity (vehicle + trailer combined) is already set on the Vehicle Class, do not also add capacity to the Trailer record — the Planner will count it twice. Either set the combined capacity on the Vehicle Class and leave the Trailer capacity blank, or set them separately and let the Planner add them together. Decide on one approach and apply it consistently.</span>
+            <span><strong>Double-counting capacity between the trailer and the Vehicle Class.</strong> This mainly applies to Rigid vehicles, since a Rigid already has its own capacity and may also tow a trailer. If the combined vehicle + trailer capacity is already set on the Vehicle Class, do not also add capacity to the Trailer record — the Planner will count it twice. Either set the combined capacity on the Vehicle Class and leave the Trailer capacity blank, or set them separately and let the Planner add them together. Decide on one approach and apply it consistently.</span>
           </li>
 
           <li class="mistake">
@@ -870,7 +871,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            <span><strong>Not setting physical dimensions when the 3D Visualiser is enabled.</strong> If your Tramm environment uses the 3D load visualiser, trailers need Length, Width, and Height set to render correctly in the Planner. If these are missing, the visualiser cannot display the trailer, which makes it harder to visually verify loads.</span>
+            <span><strong>Not including Length, Width, and Height in this trailer's Capacity when the 3D Visualiser is enabled.</strong> The visualiser reads these from Capacity, not from Physical Size, and uses dimensions only — not Mass. If they're missing, the visualiser cannot display the trailer, which makes it harder to visually verify loads.</span>
           </li>
 
         </ul>

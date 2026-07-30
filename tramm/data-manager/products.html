@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Groups &amp; Products — Data Manager — OPSI Docs</title>
+  <title>Product Groups, Products &amp; Transport Units — Data Manager — OPSI Docs</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -129,7 +129,7 @@
       margin-bottom: 1.25rem;
     }
     .section-intro {
-      font-size: 0.925rem;
+      font-size: 1rem;
       color: var(--slate-600);
       margin-bottom: 1.25rem;
       line-height: 1.65;
@@ -139,7 +139,7 @@
 
     /* ── BODY TEXT ── */
     .body-text {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--slate-700);
       line-height: 1.7;
       margin-bottom: 1rem;
@@ -190,7 +190,7 @@
       align-items: flex-start;
       border-radius: 0.5rem;
       padding: 1rem 1.25rem;
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--slate-700);
       margin-bottom: 1.25rem;
     }
@@ -254,13 +254,13 @@
       min-width: 0;
     }
     .step-title {
-      font-size: 0.88rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--slate-900);
       margin-bottom: 0.25rem;
     }
     .step-detail {
-      font-size: 0.845rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.55;
     }
@@ -278,7 +278,7 @@
       display: flex;
       gap: 0.75rem;
       align-items: flex-start;
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--slate-700);
       line-height: 1.55;
       padding: 0.8rem 1rem;
@@ -324,7 +324,7 @@
     }
     .concept-panel-body {
       padding: 0.85rem 1rem;
-      font-size: 0.84rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.55;
     }
@@ -381,7 +381,7 @@
       white-space: nowrap;
     }
     .field-matrix .fdesc {
-      font-size: 0.83rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.5;
     }
@@ -482,8 +482,8 @@
         <span>&rsaquo;</span>
         Products
       </div>
-      <h1>Product Groups &amp; Products</h1>
-      <p class="subtitle">Product Groups categorise goods and set shared rules. Products define the physical specs — size, weight, and loading behaviour.</p>
+      <h1>Product Groups, Products &amp; Transport Units</h1>
+      <p class="subtitle">Product Groups categorise goods and set shared rules. Products and Transport Units define the physical specs — size, mass, and loading behaviour.</p>
     </div>
   </header>
 
@@ -498,6 +498,7 @@
         <hr class="nav-divider" />
         <li><a href="#product-concept">What is a Product?</a></li>
         <li><a href="#product-fields">Product Fields</a></li>
+        <li><a href="#transport-unit-concept">What is a Transport Unit?</a></li>
         <hr class="nav-divider" />
         <li><a href="#adding-product-group">Adding a Product Group</a></li>
         <li><a href="#adding-product">Adding a Product</a></li>
@@ -511,7 +512,7 @@
 
       <!-- ── INTRO ── -->
       <section>
-        <p class="body-text">Tramm uses two related entities for managing goods: <strong>Product Groups</strong> and <strong>Products</strong>. A Product Group is a classification that sets shared rules for a category of goods — which vehicles can carry them, which sites can handle them, and how much quantity variance is acceptable. A Product is the specific item record, holding the physical facts about a single product: its dimensions, weight, and how fast it loads and unloads.</p>
+        <p class="body-text">Tramm uses three related entities for managing goods: <strong>Product Groups</strong>, <strong>Products</strong>, and <strong>Transport Units</strong>. A Product Group is a classification that sets shared rules for a category of goods — which vehicles can carry them, which sites can handle them, and how much quantity variance is acceptable. A Product is the specific item record, holding the physical facts about a single product: its dimensions, mass, and how fast it loads and unloads. A Transport Unit is a physical packaging or handling unit (a rolltainer, a pallet) that behaves almost exactly like a Product but can also be packed with other Products — see <a href="#transport-unit-concept">What is a Transport Unit?</a> below.</p>
         <p class="body-text">Unlike the Vehicle and Site class patterns, a Product can belong to more than one Product Group simultaneously — so a product can inherit rules from multiple categories at once.</p>
 
         <div class="concept-panels" style="margin-top:1.25rem;">
@@ -532,8 +533,7 @@
             <div class="concept-panel-body">
               Defines the physical facts for a specific item.
               <ul>
-                <li>Weight and volume per unit</li>
-                <li>Physical dimensions (L &times; W &times; H)</li>
+                <li>Size — configurable Dimensions (mass, volume, L &times; W &times; H, etc.)</li>
                 <li>Loading and offloading rate</li>
                 <li>Stackability rules and limits</li>
               </ul>
@@ -547,7 +547,7 @@
         <p class="section-label">What is a Product Group?</p>
         <p class="section-intro">A Product Group is a classification label for a category of goods. It holds the shared rules that apply to every product in the group — restrictions, attributes, and variance tolerance — so you do not have to duplicate those rules on every individual product.</p>
 
-        <p class="body-text">Think of a Product Group like a <strong>goods specification category</strong> — a classification that defines the shared handling rules for a type of goods. It sets the attribute rules, vehicle and site restrictions, and acceptable quantity variance for all products in the group. Products then provide their own physical specification: dimensions, weight, loading speed, and stacking behaviour.</p>
+        <p class="body-text">Think of a Product Group like a <strong>goods specification category</strong> — a classification that defines the shared handling rules for a type of goods. It sets the attribute rules, vehicle and site restrictions, and acceptable quantity variance for all products in the group. Products then provide their own physical specification: dimensions, mass, loading speed, and stacking behaviour.</p>
         <p class="body-text">Unlike Vehicle Classes and Site Classes, a Product can belong to <strong>more than one Product Group</strong> simultaneously. A refrigerated item that also carries hazard classification can belong to both a "Frozen Goods" group and a "Hazardous Materials" group at the same time — inheriting the rules and restrictions of both.</p>
       </section>
 
@@ -592,7 +592,7 @@
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Variance Tolerance</span></td>
-              <td><span class="fdesc">How much quantity variance is acceptable for products in this group. Set a <strong>Kind</strong> (Value or Percentage), an <strong>Under</strong> amount, and an <strong>Over</strong> amount. Useful for bulk or catch-weight goods where exact quantities can vary.</span><div class="fnote">Kind: None disables tolerance checking. Kind: Value sets an absolute threshold. Kind: Percentage sets a relative threshold.</div></td>
+              <td><span class="fdesc">How much quantity variance is acceptable for products in this group. Set a <strong>Kind</strong> (Value or Percentage), an <strong>Under</strong> amount, and an <strong>Over</strong> amount. Useful for bulk or catch-weight goods where exact quantities can vary.</span><div class="fnote">Kind: None disables tolerance checking. Kind: Value sets an absolute threshold. Kind: Percentage sets a relative threshold. <strong>Example:</strong> with a Value tolerance of 1 unit (under), loading 10 units but offloading 8 blocks commit and requires a variance reason; offloading 9 (within tolerance) commits without one. This only applies when capturing actuals at delivery — not during planning.</div></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
             </tr>
@@ -603,7 +603,7 @@
       <!-- ── WHAT IS A PRODUCT ── -->
       <section id="product-concept">
         <p class="section-label">What is a Product?</p>
-        <p class="section-intro">A Product is the physical goods specification — the record that holds the exact dimensions, weight, and loading behaviour of a specific item in your catalogue.</p>
+        <p class="section-intro">A Product is the physical goods specification — the record that holds the exact dimensions, mass, and loading behaviour of a specific item in your catalogue.</p>
 
         <p class="body-text">Think of a Product as a <strong>product datasheet</strong> — the physical specification for a specific goods item. Where a Product Group sets the rules (what can carry it, what variance is allowed), the Product holds the physical facts: how big it is, how heavy, how fast it loads, and whether anything can be stacked on top of it.</p>
 
@@ -611,7 +611,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
-          <p><strong>3D Visualiser requires physical dimensions.</strong> If you use the 3D Visualiser in the Planner, you must set the physical dimensions (Length, Width, Height) and weight on each Product. Without dimensions, the 3D Visualiser cannot represent the product visually.</p>
+          <p><strong>3D Visualiser requires physical dimensions.</strong> If you use the 3D Visualiser in the Planner, you must set the physical dimensions (Length, Width, Height) on each Product — the visualiser uses dimensions only, not mass. Without dimensions, the 3D Visualiser cannot represent the product visually. Mass is used separately, for Stackability calculations (see below).</p>
         </div>
 
         <p class="body-text">Unlike Vehicle Classes and Site Classes, a Product can belong to more than one Product Group. A single product that is both refrigerated and hazardous can belong to both the "Frozen Goods" and "Hazardous Materials" groups — inheriting restrictions and attributes from both simultaneously.</p>
@@ -655,42 +655,56 @@
               <td class="col-tick"></td>
             </tr>
             <tr class="row-recommended">
-              <td><span class="fname">Size — Weight</span></td>
-              <td><span class="fdesc">The weight of one unit of this product. Used by the Planner to check vehicle capacity against the total weight of a load.</span></td>
-              <td class="col-tick"></td>
-              <td class="col-tick"><span class="tick-rec">✓</span></td>
-              <td class="col-tick"></td>
-            </tr>
-            <tr class="row-optional">
-              <td><span class="fname">Size — Volume</span></td>
-              <td><span class="fdesc">The volume of one unit. Used for capacity planning alongside weight — if the vehicle class has a volume limit, the Planner will check product volumes against it.</span></td>
-              <td class="col-tick"></td>
-              <td class="col-tick"></td>
-              <td class="col-tick"><span class="tick-opt">✓</span></td>
-            </tr>
-            <tr class="row-recommended">
-              <td><span class="fname">Size — Dimensions (L &times; W &times; H)</span></td>
-              <td><span class="fdesc">Physical dimensions of one unit: Length, Width, and Height. Required for the 3D Visualiser in the Planner to represent this product visually in a load plan.</span><div class="fnote">If you use the 3D Visualiser, all three dimensions must be set — without them, the product will not appear in the visual load plan.</div></td>
+              <td><span class="fname">Size (Dimensions)</span></td>
+              <td><span class="fdesc">The physical size of one unit of this product, entered against whichever Dimensions your organisation has configured in Settings (for example mass, volume, length, width, height, or pallets — size is not fixed to weight and volume). Used by the Planner to check vehicle capacity against the total size of a load.</span><div class="fnote">If you use the 3D Visualiser, Length, Width, and Height must be set — the visualiser uses these dimensions only, not mass. If you use Stackability, Mass must also be set.</div></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-rec">✓</span></td>
               <td class="col-tick"></td>
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Loading Rate</span></td>
-              <td><span class="fdesc">How long it takes to load and offload this product, expressed in seconds per unit — <strong>LoadingSecondsPerUnit</strong> and <strong>OffloadingSecondsPerUnit</strong>. Used to calculate stop durations in the Planner.</span><div class="fnote">If not set, the vehicle class or site loading rate applies as the fallback.</div></td>
+              <td><span class="fdesc">How long it takes to load and offload this product, expressed in seconds per unit — <strong>LoadingSecondsPerUnit</strong> and <strong>OffloadingSecondsPerUnit</strong>. Used to calculate stop durations in the Planner.</span><div class="fnote">This is not a fallback — the product, vehicle class, and site loading rates (wherever each is set) are all added together to produce the total stop duration.</div></td>
               <td class="col-tick"></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Stackability</span></td>
-              <td><span class="fdesc">Controls whether other products can be stacked on top of this product. Set <strong>IsDisabled</strong> to prevent stacking entirely, or define maximum surface loads per orientation — <strong>Upright</strong>, <strong>LengthWise</strong>, and <strong>WidthWise</strong> — each with an optional AllowRotation flag and a MaxLoad weight limit. Used by the 3D Visualiser.</span></td>
+              <td><span class="fdesc">Controls whether other products can be stacked on top of this product. Set <strong>IsDisabled</strong> to prevent stacking entirely, or define maximum surface loads per orientation — <strong>Upright</strong>, <strong>LengthWise</strong>, and <strong>WidthWise</strong> — each with an optional AllowRotation flag and a MaxLoad mass limit. Used by the 3D Visualiser.</span></td>
               <td class="col-tick"></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
             </tr>
           </tbody>
         </table>
+
+        <div class="callout callout-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p><strong>Calculated Dimensions (specialised feature).</strong> Some environments also show auto-calculated fields — Volumetric Weight and Loading Metre Weight — which convert a bulky-but-light product's volume or loading metres into an equivalent mass, and a Chargeable Weight, which is the highest of these against the product's actual mass. These are calculated once a product is placed on an order (not set here) and are used for billing/costing purposes only — not for planning. This is a niche feature, not standard for most operations.</p>
+        </div>
+      </section>
+
+      <!-- ── WHAT IS A TRANSPORT UNIT ── -->
+      <section id="transport-unit-concept">
+        <p class="section-label">What is a Transport Unit?</p>
+        <p class="section-intro">A Transport Unit is a physical packaging or handling unit — a rolltainer, a hanging garment rail, a pallet — that takes up the <strong>same amount of space on a vehicle no matter how full it is</strong>. A rolltainer with a single item on it occupies the same truck space as a full one. This is different from a plain Product, whose footprint scales with the quantity loaded.</p>
+
+        <p class="body-text">A Transport Unit can be packed with subline items, which are normally Products (nesting a transport unit inside another transport unit is technically possible but rarely used in practice). Outside of that, a Transport Unit is set up almost exactly like a Product — the same Size (Dimensions), Loading Rate, and Stackability fields apply.</p>
+
+        <p class="body-text">There are really only two differences between a Transport Unit and a Product:</p>
+        <ul style="padding-left:1.2rem; margin-bottom:1rem; font-size:1rem; color:var(--slate-700); line-height:1.7;">
+          <li>A Transport Unit can be packed with subline Products; a plain Product cannot.</li>
+          <li>A Transport Unit has a <strong>Capacity</strong> field describing how much can be packed inside it.</li>
+        </ul>
+
+        <div class="callout callout-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span><strong>Capacity is not enforced.</strong> A Transport Unit's Capacity field is informational only — packing more into it than the stated capacity does not block planning, and may at most show a warning. Do not rely on it as a hard limit.</span>
+        </div>
       </section>
 
       <!-- ── ADDING A PRODUCT GROUP ── -->
@@ -710,7 +724,7 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <p class="step-title">Basic Info — enter a name</p>
-              <p class="step-detail">Enter the group <strong>Name</strong> (required) — something that clearly describes the category, for example <strong>Frozen Goods</strong>, <strong>Bulk Liquids</strong>, or <strong>Hazardous Materials</strong>. The ID is auto-generated. Add an <strong>External ID</strong> and <strong>Description</strong> if needed. The <strong>Groups</strong> field is for data partitioning — assigns this record to a business unit or division as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</p>
+              <p class="step-detail">Enter the group <strong>Name</strong> (required) — something that clearly describes the category, for example <strong>Frozen Goods</strong>, <strong>Bulk Liquids</strong>, or <strong>Hazardous Materials</strong>. The ID is auto-generated. The <strong>External ID</strong> is generated automatically too, from a template configured in Settings. Add a <strong>Description</strong> if needed. The <strong>Groups</strong> field assigns this class to a Group for shared-resource organisation — see <a href="vehicle-classes.html#groups">Groups &amp; Shared Resources</a> for how this works. This is different from Settings → Partitions. Leave blank in a standard single-organisation setup.</p>
             </div>
           </li>
           <li>
@@ -754,7 +768,7 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <p class="step-title">Basic Info — enter the product name</p>
-              <p class="step-detail">Enter the product <strong>Name</strong> (required). The ID is auto-generated. Add a <strong>Description</strong> if needed. The <strong>Groups</strong> field is for data partitioning — assigns this record to a business unit or division as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</p>
+              <p class="step-detail">Enter the product <strong>Name</strong> (required). The ID is auto-generated. Add a <strong>Description</strong> if needed. The <strong>Groups</strong> field assigns this product to a Group for shared-resource organisation — see <a href="vehicle-classes.html#groups">Groups &amp; Shared Resources</a> for how this works. Leave blank in a standard single-organisation setup.</p>
             </div>
           </li>
           <li>
@@ -768,14 +782,14 @@
             <div class="step-num">4</div>
             <div class="step-body">
               <p class="step-title">Specification → Size — add dimension values</p>
-              <p class="step-detail">Click the <strong>+</strong> button to add dimension rows. For each row, select the <strong>Dimension</strong> from the dropdown (the available dimensions match those configured in Settings — for example, weight, length, width, height), choose the <strong>Value Type</strong>, and enter the <strong>Value</strong>. Add one row per dimension you need to track for this product. Weight is the most important for capacity planning; length, width, and height are required for the 3D Visualiser.</p>
+              <p class="step-detail">Click the <strong>+</strong> button to add dimension rows. For each row, select the <strong>Dimension</strong> from the dropdown (the available dimensions match those configured in Settings — for example, mass, length, width, height), choose the <strong>Value Type</strong>, and enter the <strong>Value</strong>. Add one row per dimension you need to track for this product. Mass is the most important for capacity planning; length, width, and height are required for the 3D Visualiser (dimensions only — the visualiser does not use mass).</p>
             </div>
           </li>
           <li>
             <div class="step-num">5</div>
             <div class="step-body">
               <p class="step-title">Specification → Loading Rate — set loading and offloading times</p>
-              <p class="step-detail">Select the <strong>Dimension Name</strong> from the dropdown — this identifies which unit dimension is the basis for loading time calculations (for example, the weight dimension). Enter the <strong>Loading seconds per unit</strong> and <strong>Off-loading seconds per unit</strong>. Leave at zero if loading time for this product does not differ from your other products.</p>
+              <p class="step-detail">Select the <strong>Dimension Name</strong> from the dropdown — this identifies which unit dimension is the basis for loading time calculations (for example, the mass dimension). Enter the <strong>Loading seconds per unit</strong> and <strong>Off-loading seconds per unit</strong>. Leave at zero if loading time for this product does not differ from your other products.</p>
             </div>
           </li>
           <li>

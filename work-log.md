@@ -2,6 +2,58 @@
 
 ---
 
+## 2026-06-15 (Monday) — ~2 hours
+
+- Tramm Feature Video Sapics 2026 — continued planning and frame extraction:
+  - Confirmed all FV 2026 durations: Line Items 2:31, Options by Domain 2:40, Stop Learning Times 2:05, Trip Debrief Button 1:44, WA Groups Getting Started 5:00, WA Module Features 6:44
+  - Clarified project scope from Dan's Teams brief: comprehensive Tramm overview (not a feature announcement compilation), with emphasis on Chora — same style as 2025 video
+  - Established that Product Team release videos are not the right source material; 2025 video screenshots are the basis for the rebuild
+  - Clarified Claude's role: writes all text content; Nina builds in Canva; Claude cannot navigate UI or take screenshots
+  - Extracted 617 frames from 2025 Sapics video at 1 frame per 2 seconds into Downloads\Sapics2025_Frames_Full\
+  - Deduplicated using 16×16 thumbnail pixel comparison: 294 unique frames kept, 323 near-duplicates moved to duplicates subfolder
+  - Next session: Wednesday 17 June (public holiday Tuesday 16 June)
+
+---
+
+## 2026-06-11 (Thursday) — ~5 hours
+
+- Tramm Feature Video Sapics 2026 — full planning session:
+  - Installed ffmpeg via winget for video frame extraction
+  - Extracted 14 key frames from 2025 Sapics video to map content structure (Transport Planning, Master Route Builder, Tramm Mobile ePOD, FleetVision Trip View/Yard Management/Alerts/Tempo Dashboard, Tramm Dashboards)
+  - Confirmed 2026 format with Dan: silent, looping booth display — same style as 2025
+  - Analysed 59 VTT transcript files in Documents\Claude\SAPICS\Video transcripts; identified 43 unique videos after removing ~16 duplicates
+  - Clarified WA Module video changes with Jandre: Alerts, Automation, Groups removed (red); Getting Started and Interactions kept (green); replaced by 3 new 2026 videos (WhatsApp Groups Getting Started, WhatsApp Module Features, Alert Options)
+  - Confirmed FV 2026 folder contains 13 videos including 10 scripts Nina and Claude worked on together
+  - Confirmed Mobile 2026: Tramm Mobile Release June 2026 = 10:14
+  - Confirmed FV 2026 partial durations: AI Assistant 1:52, Alert Options 4:29, Preferred Delivery Window 2:11, Stop Comments 2:26, Trip Progress Dashboard 2:26, Upload Allowed Stops 2:42
+  - Identified Chora (route optimisation engine) as key Sapics focus — David produced a silent 3:26 video, on Vimeo showcase vimeo.com/showcase/12243559, embedded on chorafeatures.html
+  - Confirmed Tramm 2025 videos to be included with heavy Chora focus
+  - Saved Chora to memory; updated Sapics project memory with full inventory to date
+  - Outstanding for Monday: 6 FV 2026 durations, Tramm 2025 video selection, Jan 2026 Release Enhancements review, production format decision
+
+---
+
+## 2026-06-10 (Wednesday) — ~2 hours
+
+- Vimeo metadata for 4 release/feature videos:
+  - Tramm Mobile v33.10 release video — description, tags, and chapters (19 slides)
+  - FleetVision: WhatsApp Groups Getting Started — description, tags, and chapters
+  - FleetVision: WhatsApp Module Features — description, tags, and chapters
+  - FleetVision: Alert Options — description, tags, and chapters
+
+---
+
+## 2026-06-09 (Tuesday) — ~4 hours
+
+- Tramm Mobile v33.10 release notes video — editing in Canva (video imported from PowerPoint):
+  - Diagnosed and fixed Slide 1 (colour bar) and Slide 2 (white screen, distorted box backgrounds) — root cause was PowerPoint import rendering artifacts; fix was exporting both slides as PNG from PowerPoint and replacing slide content in Canva
+  - Fixed audio track timing issues across multiple slides using Canva's element timeline
+  - Added card entrance animations to Slides 16, 17, and 18 — grouped elements per card, set each group to appear in sync with narrator mentioning that item
+  - Identified content discrepancies in Slides 16 & 17 (script count vs slide content) — flagged to Tim
+  - Regenerated corrected audio using Canva's built-in AI Text to Speech feature after Tim's script corrections
+
+---
+
 ## 2026-06-07 (Saturday)
 
 - Weekly Tramm Documentation meeting with Arnelle and Nicole — reviewed vehicle-classes.html:

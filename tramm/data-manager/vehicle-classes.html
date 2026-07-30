@@ -129,7 +129,7 @@
       margin-bottom: 1.25rem;
     }
     .section-intro {
-      font-size: 0.925rem;
+      font-size: 1rem;
       color: var(--slate-600);
       margin-bottom: 1.25rem;
       line-height: 1.65;
@@ -139,7 +139,7 @@
 
     /* ── BODY TEXT ── */
     .body-text {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--slate-700);
       line-height: 1.7;
       margin-bottom: 1rem;
@@ -190,7 +190,7 @@
       align-items: flex-start;
       border-radius: 0.5rem;
       padding: 1rem 1.25rem;
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--slate-700);
       margin-bottom: 1.25rem;
     }
@@ -254,13 +254,13 @@
       min-width: 0;
     }
     .step-title {
-      font-size: 0.88rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--slate-900);
       margin-bottom: 0.25rem;
     }
     .step-detail {
-      font-size: 0.845rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.55;
     }
@@ -278,7 +278,7 @@
       display: flex;
       gap: 0.75rem;
       align-items: flex-start;
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--slate-700);
       line-height: 1.55;
       padding: 0.8rem 1rem;
@@ -324,7 +324,7 @@
     }
     .concept-panel-body {
       padding: 0.85rem 1rem;
-      font-size: 0.84rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.55;
     }
@@ -353,7 +353,7 @@
     .av-example-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; margin-bottom: 0.6rem; }
     .av-field { font-size: 0.75rem; color: var(--slate-500); font-weight: 600; }
     .av-field::after { content: ':'; margin-right: 0.1rem; }
-    .av-example-note { font-size: 0.82rem; color: var(--slate-600); line-height: 1.55; }
+    .av-example-note { font-size: 1rem; color: var(--slate-600); line-height: 1.55; }
 
     /* ── FIELD MATRIX ── */
     .field-matrix {
@@ -398,7 +398,7 @@
       white-space: nowrap;
     }
     .field-matrix .fdesc {
-      font-size: 0.83rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.5;
     }
@@ -623,6 +623,7 @@
       <ul>
         <li><a href="#vehicle-class-concept">What is a Vehicle Class?</a></li>
         <li><a href="#vehicle-class-fields">Vehicle Class Fields</a></li>
+        <li><a href="#groups">Groups &amp; Shared Resources</a></li>
         <hr class="nav-divider" />
         <li><a href="#vehicles">What is a Vehicle?</a></li>
         <li><a href="#vehicle-fields">Vehicle Fields</a></li>
@@ -648,7 +649,7 @@
             <div class="concept-panel-body">
               Defines shared properties for a group of vehicles.
               <ul>
-                <li>Capacity (weight, volume, units)</li>
+                <li>Capacity (mass, volume, units)</li>
                 <li>Physical dimensions</li>
                 <li>Costing structure</li>
                 <li>Routing class</li>
@@ -856,6 +857,41 @@
 
       </section>
 
+      <!-- ── GROUPS & SHARED RESOURCES ── -->
+      <section id="groups">
+        <p class="section-label">Groups &amp; Shared Resources</p>
+        <p class="section-intro">The <strong>Groups</strong> field on a Vehicle Class (and on most other Data Manager entities) is not a security or data-isolation feature — it is a way to <strong>share resources</strong> between planning teams, depots, or regions without duplicating master data.</p>
+
+        <p class="body-text">Groups are arranged in a hierarchy: a higher-level ("primary") group, and one or more subgroups underneath it. For example, a business with planners in Durban, Joburg, and Cape Town might set up:</p>
+
+        <div class="vtype-wrap" style="margin-top:1rem;">
+          <p class="vtype-label-head">Example group hierarchy</p>
+          <ul style="list-style:none; font-size:0.86rem; color:var(--slate-700); line-height:2.1;">
+            <li><span class="badge" style="background:var(--blue-50);color:var(--blue-700);border:1px solid var(--blue-100);">Primary</span> — the top-level group. Anything allocated here is shared with every subgroup below it.</li>
+            <li style="padding-left:1.5rem;"><span class="badge badge-optional">Primary &rsaquo; Durban</span> — sees Primary resources, plus anything allocated only to Durban</li>
+            <li style="padding-left:1.5rem;"><span class="badge badge-optional">Primary &rsaquo; Joburg</span> — sees Primary resources, plus anything allocated only to Joburg</li>
+            <li style="padding-left:1.5rem;"><span class="badge badge-optional">Primary &rsaquo; Cape Town</span> — sees Primary resources, plus anything allocated only to Cape Town</li>
+          </ul>
+          <p class="vtype-note">A 30-ton vehicle class shared by every depot should be allocated to <strong>Primary</strong> only — not to every subgroup individually. It will automatically be usable from Durban, Joburg, and Cape Town. A vehicle that only Joburg owns should be allocated to <strong>Primary &rsaquo; Joburg</strong> only — Durban and Cape Town will not see it.</p>
+        </div>
+
+        <p class="body-text" style="margin-top:1rem;">The rule: anything allocated to a <strong>higher</strong> group is shared with everything below it. Anything allocated only to a <strong>lower</strong> subgroup stays scoped to that subgroup — it is not shared upward or sideways to other subgroups.</p>
+
+        <div class="callout callout-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <p><strong>Common mistake: ticking every group.</strong> Some users select every subgroup on a record, trying to make it "shared for everyone." This is unnecessary and creates ongoing maintenance work — every time a new subgroup is added, you have to go back and manually add it to every existing record. Assign only the <strong>highest group that should have access</strong>; sharing cascades down automatically.</p>
+        </div>
+
+        <div class="callout callout-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p><strong>Groups are not the same as Partitions.</strong> Groups are a filtering/organisational tool for sharing resources within your organisation — not a security boundary. <strong>Partitions</strong> (Settings → Partitions) are for genuinely separate, siloed data — for example, a business operating in two countries that must ensure staff in one country can never see the other country's vehicles, sites, or trips at all. Partitions never share data with each other; Groups share freely within a single partition.</p>
+        </div>
+      </section>
+
       <!-- ── WHAT IS A VEHICLE ── -->
       <section id="vehicles">
         <p class="section-label">What is a Vehicle?</p>
@@ -926,7 +962,7 @@
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Regulatory Permits</span></td>
-              <td><span class="fdesc">Vehicle-specific operating permits (e.g. hazardous goods, oversize load). Used by the planning engine for route and job matching.</span></td>
+              <td><span class="fdesc">Vehicle-specific operating permits (e.g. hazardous goods, oversize load). The Planner checks these for validity (expiry) when this vehicle is used — configurable to either warn or exclude the vehicle if a permit has expired.</span></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
               <td class="col-tick"></td>
@@ -991,7 +1027,7 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <div class="step-title">Basic Info — enter the identity details</div>
-              <div class="step-detail">Enter a <strong>Name</strong> (required). The ID is auto-generated — leave it. The <strong>External ID</strong> is also auto-generated by the system and cannot be set or edited manually. Add a <strong>Description</strong> if it helps distinguish this class from others. The <strong>Groups</strong> field is for data partitioning — it assigns this record to a specific business unit or division, as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</div>
+              <div class="step-detail">Enter a <strong>Name</strong> (required). The ID is auto-generated — leave it. The <strong>External ID</strong> is also generated automatically, from a template configured in Settings — you don't type this in, but the template can be configured (e.g. group name plus a counter) so the ID matches whatever external system you integrate with. Add a <strong>Description</strong> if it helps distinguish this class from others. The <strong>Groups</strong> field assigns this class to a Group for shared-resource organisation — see <a href="#groups">Groups &amp; Shared Resources</a> below for how this works. Leave blank in a standard single-organisation setup.</div>
             </div>
           </li>
           <li>
@@ -1054,7 +1090,7 @@
             <div class="step-num">11</div>
             <div class="step-body">
               <div class="step-title">Specification → Loading Rate</div>
-              <div class="step-detail">Set the default loading time for vehicles of this class. The value is in <strong>seconds per unit of the capacity dimension</strong> — for example, if your capacity dimension is mass, a value of 5 means 5 seconds per kg; if your dimension is pallets, it means 5 seconds per pallet. Used by the Planner to estimate stop duration (also called TAT — turnaround time) when no product-specific or site-specific loading rate is configured. The site or product loading rate takes priority if set.</div>
+              <div class="step-detail">Set the default loading time for vehicles of this class. The value is in <strong>seconds per unit of the capacity dimension</strong> — for example, if your capacity dimension is mass, a value of 5 means 5 seconds per kg; if your dimension is pallets, it means 5 seconds per pallet. This is not a fallback — the vehicle class, site, and product loading rates (wherever each is set) are all <strong>added together</strong> to produce the total stop duration (also called TAT — turnaround time).</div>
             </div>
           </li>
           <li>
@@ -1086,7 +1122,7 @@
                       <span class="av">none</span><span class="av">isSet</span><span class="av">isNotSet</span><span class="av">equals</span><span class="av">notEquals</span><span class="av">greaterThan</span><span class="av">lessThan</span><span class="av">greaterThanOrEqual</span><span class="av">lessThanOrEqual</span><span class="av">in</span><span class="av">notIn</span>
                     </div>
                   </li>
-                  <li><strong>Value</strong> — the value to compare against. Leave blank when using <span class="av">isSet</span> or <span class="av">isNotSet</span>.</li>
+                  <li><strong>Value</strong> — the value to compare against. Leave blank when using <span class="av">isSet</span> or <span class="av">isNotSet</span>. In most real-world setups, attributes work as simple tags — present or not present — so <span class="av">isSet</span>/<span class="av">isNotSet</span> covers the large majority of rules. The numeric comparison operators exist for rarer cases, such as matching on a minimum vehicle length.</li>
                 </ul>
                 <div class="av-example">
                   <div class="av-example-label">Example rule</div>
@@ -1138,7 +1174,7 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <div class="step-title">Basic Info — enter the identity details</div>
-              <div class="step-detail">Enter the vehicle <strong>Name</strong> (typically the registration number or fleet number). Add an <strong>External ID</strong> if you need to match this record to a fleet management system. Add a <strong>Description</strong> if helpful. The <strong>Groups</strong> field is for data partitioning — assigns this vehicle to a business unit or division as configured in Settings → Partitions. Leave blank in a standard single-organisation setup.</div>
+              <div class="step-detail">Enter the vehicle <strong>Name</strong> (typically the registration number or fleet number). The <strong>External ID</strong> is generated automatically from the template set up in Settings — you don't type this in manually. Add a <strong>Description</strong> if helpful. The <strong>Groups</strong> field assigns this vehicle to a Group for shared-resource organisation — see <a href="vehicle-classes.html#groups">Groups &amp; Shared Resources</a> for how this works. Leave blank in a standard single-organisation setup.</div>
             </div>
           </li>
           <li>
@@ -1166,7 +1202,7 @@
             <div class="step-num">6</div>
             <div class="step-body">
               <div class="step-title">Specification → Regulatory Permits</div>
-              <div class="step-detail">Add any permits specific to this vehicle — for example, a hazardous goods transport permit or an oversize load permit. The Planner uses these to check route and job eligibility for this vehicle.</div>
+              <div class="step-detail">Add any permits specific to this vehicle — for example, a hazardous goods transport permit or an oversize load permit. The Planner checks these for validity (expiry) when this vehicle is used — configurable to either warn or exclude the vehicle if a permit has expired.</div>
             </div>
           </li>
           <li>

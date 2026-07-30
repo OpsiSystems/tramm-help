@@ -129,7 +129,7 @@
       margin-bottom: 1.25rem;
     }
     .section-intro {
-      font-size: 0.925rem;
+      font-size: 1rem;
       color: var(--slate-600);
       margin-bottom: 1.25rem;
       line-height: 1.65;
@@ -139,7 +139,7 @@
 
     /* ── BODY TEXT ── */
     .body-text {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--slate-700);
       line-height: 1.7;
       margin-bottom: 1rem;
@@ -163,7 +163,7 @@
       align-items: flex-start;
       border-radius: 0.5rem;
       padding: 1rem 1.25rem;
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--slate-700);
       margin-bottom: 1.25rem;
     }
@@ -227,13 +227,13 @@
       min-width: 0;
     }
     .step-title {
-      font-size: 0.88rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--slate-900);
       margin-bottom: 0.25rem;
     }
     .step-detail {
-      font-size: 0.845rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.55;
     }
@@ -283,7 +283,7 @@
       white-space: nowrap;
     }
     .ref-table .col-desc {
-      font-size: 0.83rem;
+      font-size: 1rem;
       color: var(--slate-600);
       line-height: 1.5;
     }
@@ -420,7 +420,7 @@
       <!-- ── WHY SETTINGS FIRST ── -->
       <section id="why-first">
         <p class="section-label">Why Settings First</p>
-        <p class="body-text">Before you add vehicles, sites, or products in Data Manager, Settings needs to have the building blocks in place. Two things in particular must be set up first: Dimensions (which define how weight, volume, and size are measured in your system) and Routing Classes (which define the routing profiles used when the Planner calculates routes). Without these, vehicle classes and the planning engine cannot function correctly.</p>
+        <p class="body-text">Before you add vehicles, sites, or products in Data Manager, Settings needs to have the building blocks in place. Two things in particular must be set up first: Dimensions (which define how mass, volume, and size are measured in your system) and Routing Classes (which define the routing profiles used when the Planner calculates routes). Without these, vehicle classes and the planning engine cannot function correctly.</p>
         <p class="body-text">Most settings in Tramm are organisation-wide — configured once and shared across all users. A few preferences are per-user, meaning each user can set their own preference without affecting others.</p>
       </section>
 
@@ -428,6 +428,10 @@
       <section id="dimensions">
         <p class="section-label">Dimensions</p>
         <p class="section-intro">Dimensions define the units of measurement used throughout Tramm for capacity and size. They are configured in <strong>Settings &rarr; Definitions &rarr; Dimensions</strong>. Every capacity figure on a Vehicle Class, every size figure on a Product, and every load calculation in the Planner references a Dimension.</p>
+
+        <p class="body-text">Dimensions are fully configurable — there is no fixed set you must have. You only need to set up the ones your operation actually uses: Length, Width, and Height are only needed if you use the 3D Load Visualiser; Mass is only needed if you use Compartment Planning, Stackability, or Vehicle Dimension Limits. If you plan purely on volume or on a unit count like pallets, you don't need the others at all.</p>
+
+        <p class="body-text">Dimensions also aren't limited to the ones below — you can define your own for whatever your operation needs to track. For example, a custom <strong>dangerous goods points</strong> dimension can be set per product and summed per trip to enforce a legal hazmat limit, or a custom <strong>value</strong> dimension can be set per product and summed to cap the total insured cargo value on a vehicle or trip.</p>
 
         <table class="ref-table">
           <thead>
@@ -440,10 +444,10 @@
           </thead>
           <tbody>
             <tr>
-              <td><span class="col-mono">weight</span></td>
-              <td><span class="col-desc">The mass of goods</span></td>
+              <td><span class="col-mono">mass</span></td>
+              <td><span class="col-desc">The mass of goods (note: the ID is <strong>mass</strong>, not "weight")</span></td>
               <td><span class="col-desc">kg</span></td>
-              <td><span class="col-desc">Vehicle capacity, Product size, Load calculations</span></td>
+              <td><span class="col-desc">Vehicle capacity, Product size, Compartment planning, Stackability, Vehicle Dimension Limits</span></td>
             </tr>
             <tr>
               <td><span class="col-mono">volume</span></td>
@@ -482,7 +486,14 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
           </svg>
-          <p>Do not rename the standard dimension IDs (<strong>weight</strong>, <strong>length</strong>, <strong>width</strong>, <strong>height</strong>, <strong>units</strong>). The Planner and 3D Visualiser reference them by these exact IDs. You can change the display name and unit, but not the ID.</p>
+          <p>Do not rename the dimension IDs that specific features look for (<strong>mass</strong>, <strong>length</strong>, <strong>width</strong>, <strong>height</strong>, <strong>volume</strong>, <strong>units</strong>) — but only set up the ones you actually need. The 3D Visualiser references <strong>length</strong>, <strong>width</strong>, and <strong>height</strong> by these exact IDs; Compartment Planning, Stackability, and Vehicle Dimension Limits reference <strong>mass</strong>. If you don't use a given feature, you don't need that dimension at all. You can change the display name and unit, but not the ID.</p>
+        </div>
+
+        <div class="callout callout-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <p><strong>Dimension Factors (specialised).</strong> Some environments also configure Dimension Factors — for example, a factor that converts volume into an equivalent Volumetric Weight, or one that converts loading metres into a Loading Metre Weight. These feed the Calculated Dimensions used for billing/costing on the Products page (see <a href="products.html#product-fields">Product Fields</a>) — they are not used for planning, and most operations don't need them.</p>
         </div>
 
         <p class="content-h2">Checking your Dimensions</p>
@@ -497,14 +508,14 @@
             <div class="step-num">2</div>
             <div class="step-body">
               <div class="step-title">Confirm the standard dimensions are present</div>
-              <div class="step-detail">Check that <strong>weight</strong>, <strong>volume</strong> (or equivalent), <strong>units</strong>, <strong>length</strong>, <strong>width</strong>, and <strong>height</strong> are all listed.</div>
+              <div class="step-detail">Check that whichever dimensions your operation actually uses are listed — for example <strong>mass</strong>, <strong>volume</strong>, <strong>units</strong>, <strong>length</strong>, <strong>width</strong>, and <strong>height</strong>. You only need the ones tied to features you use (see above).</div>
             </div>
           </li>
           <li>
             <div class="step-num">3</div>
             <div class="step-body">
               <div class="step-title">Check that units match your operation</div>
-              <div class="step-detail">For example: kg for weight, m&sup3; for volume. If your operation uses different units, update the unit label on each dimension — not the ID.</div>
+              <div class="step-detail">For example: kg for mass, m&sup3; for volume. If your operation uses different units, update the unit label on each dimension — not the ID.</div>
             </div>
           </li>
           <li>
@@ -518,7 +529,7 @@
             <div class="step-num">5</div>
             <div class="step-body">
               <div class="step-title">Do not change the IDs of existing standard dimensions</div>
-              <div class="step-detail">Renaming an ID (e.g. changing <strong>weight</strong> to something else) will break references in the Planner and 3D Visualiser.</div>
+              <div class="step-detail">Renaming an ID (e.g. changing <strong>mass</strong> to something else) will break references in the Planner and 3D Visualiser.</div>
             </div>
           </li>
         </ol>
@@ -586,7 +597,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
-          <p>Tramm always falls back to a routing class named <strong>Default</strong> if no routing class is assigned to a Vehicle Class. Make sure a Default routing class exists — it is used by any vehicle class that does not have a specific routing class set.</p>
+          <p>There isn't a dedicated "Default" routing class to configure. If a Vehicle Class has no Routing Class assigned, the Planner simply sends default parameter values to the HERE Maps routing API. You don't need to create a fallback routing class — only set one up for vehicle classes that genuinely need specialised routing (heavy or oversized vehicles, hazmat carriers, or vehicles with specific road restrictions). Standard vehicles are fine without one.</p>
         </div>
 
         <p class="content-h2">Adding a Routing Class</p>

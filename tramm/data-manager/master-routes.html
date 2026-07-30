@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Master Routes — Data Manager — OPSI Docs</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-50:  #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-300: #93c5fd;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-900: #1e3a8a;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-50:  #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+      --amber-700: #b45309;
+      --purple-50:  #faf5ff;
+      --purple-100: #f3e8ff;
+      --purple-600: #9333ea;
+      --purple-700: #7e22ce;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      color: #fff;
+      padding: 2rem 2rem 2.25rem;
+    }
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .breadcrumb a { color: #fff; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 0.4rem; opacity: 0.5; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .site-header .subtitle { font-size: 0.95rem; opacity: 0.85; max-width: 65ch; }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── LEFT NAV ── */
+    .side-nav { position: sticky; top: 2rem; }
+    .side-nav-label {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--slate-400); margin-bottom: 0.6rem;
+    }
+    .side-nav ul { list-style: none; }
+    .side-nav > ul > li { margin-bottom: 0.1rem; }
+    .side-nav a {
+      display: block; font-size: 0.8rem; color: var(--slate-600); text-decoration: none;
+      padding: 0.3rem 0.6rem; border-radius: 0.3rem; transition: background 0.15s, color 0.15s;
+      border-left: 2px solid transparent;
+    }
+    .side-nav a:hover { background: var(--slate-100); color: var(--slate-900); }
+    .side-nav .nav-divider { border: none; border-top: 1px solid var(--slate-200); margin: 0.6rem 0; }
+
+    /* ── CONTENT ── */
+    .page-content { display: flex; flex-direction: column; gap: 2.75rem; min-width: 0; }
+
+    .section-label {
+      font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--slate-800); border-left: 4px solid var(--blue-600); padding-left: 0.75rem;
+      margin-top: 2.5rem; margin-bottom: 1.25rem;
+    }
+    .section-intro { font-size: 0.925rem; color: var(--slate-600); margin-bottom: 1.25rem; line-height: 1.65; }
+    .section-intro a, .body-text a, .callout a { color: var(--blue-700); }
+    .section-intro a:hover, .body-text a:hover, .callout a:hover { text-decoration: underline; }
+
+    .body-text { font-size: 0.9rem; color: var(--slate-700); line-height: 1.7; margin-bottom: 1rem; }
+    .content-h3 { font-size: 1rem; font-weight: 700; color: var(--slate-900); margin: 1.5rem 0 0.6rem; }
+    .content-h3:first-child { margin-top: 0; }
+
+    .badge {
+      display: inline-block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; padding: 0.15rem 0.45rem; border-radius: 0.25rem; white-space: nowrap;
+    }
+    .badge-required { background: var(--blue-50); color: var(--blue-700); border: 1px solid var(--blue-100); }
+    .badge-optional { background: var(--slate-100); color: var(--slate-500); border: 1px solid var(--slate-200); }
+    .badge-new { background: var(--purple-50); color: var(--purple-700); border: 1px solid var(--purple-100); }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      display: flex; gap: 0.75rem; align-items: flex-start; border-radius: 0.5rem;
+      padding: 1rem 1.25rem; font-size: 0.875rem; color: var(--slate-700); margin-bottom: 1.25rem;
+    }
+    .callout svg { flex-shrink: 0; width: 1rem; height: 1rem; margin-top: 0.15rem; }
+    .callout p { line-height: 1.55; }
+    .callout p + p { margin-top: 0.5rem; }
+    .callout-blue  { background: var(--blue-50);  border: 1px solid var(--blue-100); }
+    .callout-blue svg { color: var(--blue-600); }
+    .callout-green { background: var(--green-50); border: 1px solid var(--green-100); }
+    .callout-green svg { color: var(--green-700); }
+    .callout-amber { background: var(--amber-50); border: 1px solid var(--amber-100); }
+    .callout-amber svg { color: var(--amber-600); }
+
+    /* ── TASK STEPS ── */
+    .task-steps { list-style: none; counter-reset: step-counter; display: flex; flex-direction: column; gap: 0; }
+    .task-steps li { counter-increment: step-counter; display: flex; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--slate-100); }
+    .task-steps li:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0; width: 1.6rem; height: 1.6rem; background: var(--blue-700); color: #fff;
+      border-radius: 50%; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center;
+      justify-content: center; margin-top: 0.15rem;
+    }
+    .step-body { flex: 1; min-width: 0; }
+    .step-title { font-size: 0.88rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.25rem; }
+    .step-detail { font-size: 0.845rem; color: var(--slate-600); line-height: 1.55; }
+    .step-detail strong { color: var(--slate-800); }
+
+    /* ── TIPS LIST ── */
+    .tips-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .tips-list li { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.875rem; color: var(--slate-700); line-height: 1.55; padding: 0.8rem 1rem; border-radius: 0.45rem; }
+    .tips-list li.tip { background: var(--green-50); border: 1px solid var(--green-100); }
+    .tips-list li.mistake { background: var(--amber-50); border: 1px solid var(--amber-100); }
+    .tips-list li svg { flex-shrink: 0; width: 1rem; height: 1rem; margin-top: 0.15rem; }
+    .tips-list li.tip svg { color: var(--green-700); }
+    .tips-list li.mistake svg { color: var(--amber-600); }
+    .tips-list li strong { color: var(--slate-900); }
+
+    /* ── FIELD MATRIX ── */
+    .field-matrix { width: 100%; border-collapse: collapse; font-size: 0.855rem; margin-bottom: 1.5rem; }
+    .field-matrix thead th { text-align: left; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-400); padding: 0 0.75rem 0.5rem; border-bottom: 2px solid var(--slate-200); }
+    .field-matrix tbody tr { border-bottom: 1px solid var(--slate-100); }
+    .field-matrix tbody tr:last-child { border-bottom: none; }
+    .field-matrix tbody tr:hover { background: var(--slate-50); }
+    .field-matrix td { padding: 0.6rem 0.75rem; vertical-align: top; }
+    .field-matrix .fname { font-weight: 700; color: var(--slate-900); font-size: 0.875rem; white-space: nowrap; }
+    .field-matrix .fdesc { font-size: 0.83rem; color: var(--slate-600); line-height: 1.5; }
+    .field-matrix .fnote { font-size: 0.75rem; color: var(--slate-400); margin-top: 0.2rem; font-style: italic; }
+    .field-matrix .row-required { border-left: 3px solid var(--blue-600); }
+    .field-matrix .row-optional { border-left: 3px solid var(--slate-300); }
+
+    /* ── ROUTE KIND CARDS ── */
+    .kind-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; margin-bottom: 1rem; }
+    .kind-card { border: 1px solid var(--slate-200); border-radius: 0.55rem; padding: 1rem 1.1rem; }
+    .kind-card h4 { font-size: 0.85rem; font-weight: 700; color: var(--blue-900); margin-bottom: 0.4rem; }
+    .kind-card p { font-size: 0.82rem; color: var(--slate-600); line-height: 1.55; margin-bottom: 0.4rem; }
+    .kind-card .kind-example { font-size: 0.78rem; color: var(--slate-500); font-style: italic; }
+
+    /* ── DECISION TABLE (IF / THEN) ── */
+    .decision-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 1.25rem; border: 1px solid var(--slate-200); border-radius: 0.5rem; overflow: hidden; }
+    .decision-table thead tr { background: var(--blue-900); }
+    .decision-table thead th { text-align: left; padding: 0.6rem 1rem; color: #fff; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+    .decision-table thead th:first-child { width: 42%; }
+    .decision-table tbody tr { border-top: 1px solid var(--slate-100); }
+    .decision-table tbody tr:nth-child(even) { background: var(--slate-50); }
+    .decision-table td { padding: 0.65rem 1rem; vertical-align: top; color: var(--slate-700); }
+    .decision-table td:first-child { font-weight: 600; color: var(--slate-800); border-right: 1px solid var(--slate-100); }
+    .decision-table .dt-if::before { content: "IF "; font-weight: 700; color: var(--blue-700); }
+    .decision-table .dt-then::before { content: "THEN "; font-weight: 700; color: var(--slate-500); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--slate-900); color: var(--slate-400); text-align: center; padding: 1.5rem 2rem; font-size: 0.8rem; }
+
+    @media (max-width: 800px) {
+      .page-layout { grid-template-columns: 1fr; gap: 0; }
+      .side-nav { position: static; border-bottom: 1px solid var(--slate-200); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+      .site-header h1 { font-size: 1.4rem; }
+      .kind-grid { grid-template-columns: 1fr; }
+      .field-matrix thead { display: none; }
+      .field-matrix td { display: block; padding: 0.4rem 0.75rem; }
+      .field-matrix tr { display: block; border-bottom: 1px solid var(--slate-200); padding: 0.5rem 0; }
+      .decision-table thead { display: none; }
+      .decision-table td { display: block; padding: 0.35rem 1rem; }
+      .decision-table td:first-child { border-right: none; border-bottom: 1px dashed var(--slate-200); }
+    }
+
+    /* ── BOTTOM NAV ── */
+    .page-nav-bottom { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: space-between; border-top: 1px solid var(--slate-200); padding-top: 1.75rem; margin-top: 1rem; font-size: 0.85rem; }
+    .page-nav-bottom a { color: var(--blue-700); text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; }
+    .page-nav-bottom a:hover { text-decoration: underline; }
+    .page-nav-bottom .nav-right { display: flex; gap: 1.25rem; }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; background: var(--blue-700); color: #fff; border: none;
+      border-radius: 0.5rem; padding: 0.55rem 0.9rem; font-size: 0.82rem; font-family: inherit; font-weight: 600;
+      cursor: pointer; box-shadow: 0 4px 12px rgba(30,58,138,0.25); opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--blue-900); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="breadcrumb">
+        <a href="../../index.html">OPSI Docs</a>
+        <span>&rsaquo;</span>
+        <a href="../index.html">Tramm</a>
+        <span>&rsaquo;</span>
+        <a href="index.html">Data Manager</a>
+        <span>&rsaquo;</span>
+        Master Routes
+      </div>
+      <h1>Master Routes</h1>
+      <p class="subtitle">Reusable route templates that speed up trip planning. Set a route up once in Master Route Builder, then build trips from it every day instead of planning from scratch.</p>
+    </div>
+  </header>
+
+  <div class="page-layout">
+
+    <nav class="side-nav">
+      <p class="side-nav-label">On this page</p>
+      <ul>
+        <li><a href="#what-is-a-master-route">What is a Master Route?</a></li>
+        <li><a href="#route-kinds">Route Kinds</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#builder-layout">Builder Layout</a></li>
+        <li><a href="#creating">Creating a Master Route</a></li>
+        <li><a href="#editing">Editing a Master Route</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#using-in-planning">Using in Planning</a></li>
+        <li><a href="#route-sets">Master Route Sets &amp; Scheduling</a></li>
+        <hr class="nav-divider" />
+        <li><a href="#troubleshooting">Troubleshooting</a></li>
+        <li><a href="#best-practice">Best Practice</a></li>
+      </ul>
+    </nav>
+
+    <main class="page-content">
+
+      <!-- ── WHAT IS A MASTER ROUTE ── -->
+      <section id="what-is-a-master-route">
+        <p class="section-label">What is a Master Route?</p>
+        <p class="section-intro">A Master Route is a saved, reusable sequence of stops that a trip can be built from. Instead of planning a recurring route from scratch every day, you set it up once and reuse it — which makes planning faster and more consistent.</p>
+
+        <p class="body-text">Master Routes are built and maintained in their own app, <strong>Master Route Builder</strong> — a separate app from the Planner, with its own permission. Trips built later stay linked back to the Master Route they came from, so you can always see which template a trip was based on.</p>
+
+        <div class="kind-grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="kind-card">
+            <h4>Legs</h4>
+            <p>The individual stops that make up a route, in order. If every leg has both an arrival and departure time set, Tramm treats those times as fixed and won't recalculate them. If any leg is missing a time, Tramm ignores the fixed times altogether and works out travel times for the whole trip the normal way instead.</p>
+          </div>
+          <div class="kind-card">
+            <h4>Master Route Sets</h4>
+            <p>A named group of Master Routes, used to manage several routes together and, optionally, to generate trips from them automatically on a schedule. See <a href="#route-sets">Master Route Sets &amp; Scheduling</a>.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p>Master Routes work well for regular, predictable movements — a daily delivery run, a depot loop, a fixed cross-border corridor. They're the wrong tool for one-off or constantly-changing routes — for those, build the trip manually instead.</p>
+        </div>
+      </section>
+
+      <!-- ── ROUTE KINDS ── -->
+      <section id="route-kinds">
+        <p class="section-label">Route Kinds</p>
+        <p class="section-intro">Every Master Route has a <strong>Kind</strong>, and the Kind you choose genuinely changes how the route behaves — it's not just a label. There are four:</p>
+
+        <div class="kind-grid">
+          <div class="kind-card">
+            <h4>Standard</h4>
+            <p>Built around jobs. When a trip is built from a Standard route, job stops are added into the route's sequence, and any stop that ends up with no job attached is dropped.</p>
+            <p class="kind-example">Example: a daily delivery route where the same customers are usually visited in the same order, but the exact stop list depends on which jobs came in.</p>
+          </div>
+          <div class="kind-card">
+            <h4>Stop-Only</h4>
+            <p>Operational stops with no jobs attached at all — jobs are never added to a Stop-Only route. The stop list stays exactly as configured.</p>
+            <p class="kind-example">Example: a vehicle inspection loop, or a depot run that doesn't deliver or collect anything.</p>
+          </div>
+          <div class="kind-card">
+            <h4>Tour</h4>
+            <p>Has a fixed start site and end site, with one or more tour stops in between. When applied to a trip, the tour's stops are inserted between two existing stops that match its start and end sites — the sequence isn't freely rearranged.</p>
+            <p class="kind-example">Example: a cross-border run with mandatory customs and rest stops in a fixed order.</p>
+          </div>
+          <div class="kind-card">
+            <h4>Ad Hoc Tour</h4>
+            <p>Also has a fixed start and end site, and — like Tour — doesn't get an automatic "return to home" stop added, since the end site is already part of the route. Unlike Tour, it isn't picked up by the automatic tour-splicing action in Planner.</p>
+            <p class="kind-example">Note: this Kind exists in Tramm but isn't widely documented yet — check with your implementation team on the intended use case for your environment before relying on it.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p><strong>Automated scheduling (see Master Route Sets &amp; Scheduling below) only works with Stop-Only routes.</strong> Standard, Tour, and Ad Hoc Tour routes can still be applied manually in Planner, but they are not picked up by scheduled, automatic trip generation.</p>
+        </div>
+      </section>
+
+      <!-- ── BUILDER LAYOUT ── -->
+      <section id="builder-layout">
+        <p class="section-label">Master Route Builder Layout</p>
+        <p class="section-intro">Master Route Builder is where you configure both Master Routes and Master Route Sets. The app is divided into a few working areas:</p>
+
+        <table class="field-matrix">
+          <thead><tr><th style="width:26%">Area</th><th>What's there</th></tr></thead>
+          <tbody>
+            <tr class="row-optional"><td><span class="fname">Planning data panel</span></td><td class="fdesc">Orders, Jobs, Vehicles, and Sites — the raw material you'll plan with.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Routes panel</span></td><td class="fdesc">Your Master Routes, Master Route Sets, and Trips.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Map</span></td><td class="fdesc">Shows the route you're working on.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Stop/job detail panel</span></td><td class="fdesc">The stops and jobs for whichever route or trip is selected.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── CREATING A MASTER ROUTE ── -->
+      <section id="creating">
+        <p class="section-label">Creating a Master Route</p>
+        <p class="section-intro">A Master Route needs a few things in place before it's useful. Here's what to check first, then how to build one.</p>
+
+        <div class="content-h3">Before you start</div>
+        <table class="field-matrix">
+          <thead><tr><th style="width:26%">Needed</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="row-required"><td><span class="fname">Sites</span> <span class="badge badge-required">Required</span></td><td class="fdesc">Every stop (leg) on the route must point to a Site that already exists in Data Manager.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Vehicle Classes / Vehicles</span> <span class="badge badge-optional">Optional</span></td><td class="fdesc">Only needed if you plan to restrict the route to specific vehicle classes or specific vehicles. By default, any vehicle can be used.</td></tr>
+          </tbody>
+        </table>
+        <div class="callout callout-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p>Lanes, Products, Transporters, and Operators are <strong>not</strong> prerequisites for a Master Route — the route itself has no relationship to any of them.</p>
+        </div>
+
+        <div class="content-h3">The form's four tabs</div>
+        <table class="field-matrix">
+          <thead><tr><th style="width:22%">Tab</th><th>What you do there</th></tr></thead>
+          <tbody>
+            <tr class="row-optional"><td><span class="fname">Basic Info</span></td><td class="fdesc">Unique ID, Name, External ID, Description, and which Groups have access.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Specification</span></td><td class="fdesc">Route Kind, planning options, timing, vehicle restrictions, and scheduling behaviour — see below.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Attribute Rules</span></td><td class="fdesc">Optional rules restricting which vehicles or other entities this route can be used with. Leave empty for no restrictions.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Legs</span></td><td class="fdesc">The ordered list of stops. Add a customer from the dropdown for each leg, in the order the route should visit them.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="content-h3">Specification tab, field by field</div>
+        <table class="field-matrix">
+          <thead><tr><th style="width:22%">Field</th><th>What it controls</th></tr></thead>
+          <tbody>
+            <tr class="row-optional"><td><span class="fname">Route Kind</span></td><td class="fdesc">See <a href="#route-kinds">Route Kinds</a> above.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Planning Options</span></td><td><span class="fdesc">Choose whether the trip ends at the <strong>loading site</strong> or the <strong>vehicle's home site</strong>.</span><div class="fnote">Hidden entirely for Tour and Ad Hoc Tour routes, since their end site is already fixed by the route's legs.</div></td></tr>
+            <tr class="row-optional"><td><span class="fname">Times</span></td><td><span class="fdesc">Optionally apply the trip's own start and/or end time to the route.</span><div class="fnote">Also hidden for Tour and Ad Hoc Tour routes.</div></td></tr>
+            <tr class="row-optional"><td><span class="fname">Vehicle Options</span></td><td><span class="fdesc">Any available vehicle (default), only certain vehicle classes, or only certain named vehicles.</span><div class="fnote">Also hidden for Tour and Ad Hoc Tour routes.</div></td></tr>
+            <tr class="row-optional"><td><span class="fname">Schedule</span> <span class="badge badge-new">Often missed</span></td><td class="fdesc">An optional Calendar Schedule for the route, plus an "ignore job windows" toggle. This is where you'd link a route to a recurring calendar pattern if it needs one.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <p>A route needs at least one leg before it can be saved and used — the Legs tab is enforced as required.</p>
+        </div>
+      </section>
+
+      <!-- ── EDITING ── -->
+      <section id="editing">
+        <p class="section-label">Editing a Master Route</p>
+        <p class="section-intro">You'll typically come back and edit a route when something operational changes — not because of a formal approval process, since there isn't one.</p>
+
+        <div class="content-h3">Common reasons to edit</div>
+        <ul style="padding-left:1.2rem; font-size:0.9rem; color:var(--slate-700); line-height:1.7; margin-bottom:1.25rem;">
+          <li>A customer is added or removed</li>
+          <li>A site's operating hours or requirements change</li>
+          <li>Stops were configured in the wrong order</li>
+          <li>The required vehicle class changes</li>
+        </ul>
+
+        <table class="decision-table">
+          <thead><tr><th>If…</th><th>Then…</th></tr></thead>
+          <tbody>
+            <tr><td class="dt-if">A route is edited</td><td class="dt-then">The change affects future trips only — trips already built from this route are not changed.</td></tr>
+            <tr><td class="dt-if">A route is saved</td><td class="dt-then">It's available immediately in Planner — there is no separate publish or approval step.</td></tr>
+            <tr><td class="dt-if">A route is used in a Master Route Set</td><td class="dt-then">The change affects future automated trip generation from that set (see <a href="#route-sets">Master Route Sets &amp; Scheduling</a>).</td></tr>
+            <tr><td class="dt-if">A non-admin tries to edit a route</td><td class="dt-then">Editing may be restricted, depending on their role.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── USING IN PLANNING ── -->
+      <section id="using-in-planning">
+        <p class="section-label">Using Master Routes in Planning</p>
+        <p class="section-intro">Applying a Master Route to a trip gives the planner a head start — the stop sequence comes pre-filled, and they can review it before committing.</p>
+
+        <ol class="task-steps">
+          <li><div class="step-num">1</div><div class="step-body"><div class="step-title">Open the Planner</div></div></li>
+          <li><div class="step-num">2</div><div class="step-body"><div class="step-title">Start a new trip, or select a job that needs routing</div></div></li>
+          <li><div class="step-num">3</div><div class="step-body"><div class="step-title">Select "Build Trip from Master Route"</div></div></li>
+          <li><div class="step-num">4</div><div class="step-body"><div class="step-title">Choose the Master Route from the list</div><div class="step-detail">Its stop sequence is imported into the trip.</div></div></li>
+          <li><div class="step-num">5</div><div class="step-body"><div class="step-title">Review, then commit</div><div class="step-detail">Check the imported stops before saving — you can still adjust the trip afterwards unless your organisation restricts this.</div></div></li>
+        </ol>
+
+        <div class="content-h3">How each Route Kind behaves once applied</div>
+        <table class="decision-table">
+          <thead><tr><th>Route Kind</th><th>What happens in the trip</th></tr></thead>
+          <tbody>
+            <tr><td class="dt-if">Standard</td><td class="dt-then">Job stops are added in; the planner can still adjust the stop sequence.</td></tr>
+            <tr><td class="dt-if">Stop-Only</td><td class="dt-then">Only the operational stops appear — no jobs are attached.</td></tr>
+            <tr><td class="dt-if">Tour</td><td class="dt-then">Its stops are spliced in between a matching start/end pair already in the trip — the sequence isn't freely rearranged.</td></tr>
+            <tr><td class="dt-if">Ad Hoc Tour</td><td class="dt-then">Fixed start/end, but not picked up by the automatic tour-splicing action — check with your implementation team on how this should be applied in your environment.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p>A trip built from a Master Route is a snapshot, not a live link. If you edit the Master Route afterwards, trips already built from it stay exactly as they were.</p>
+        </div>
+      </section>
+
+      <!-- ── ROUTE SETS ── -->
+      <section id="route-sets">
+        <p class="section-label">Master Route Sets &amp; Scheduling</p>
+        <p class="section-intro">A Master Route Set is a named group of Master Routes. On its own, it's just a way to organise related routes together — but it can also drive automatic trip generation.</p>
+
+        <div class="content-h3">The Set's four tabs</div>
+        <table class="field-matrix">
+          <thead><tr><th style="width:22%">Tab</th><th>What you do there</th></tr></thead>
+          <tbody>
+            <tr class="row-optional"><td><span class="fname">Basic Info</span></td><td class="fdesc">Name, ID, Description, and Group access.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Master Routes</span></td><td class="fdesc">Which routes belong to this set.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Schedules</span></td><td class="fdesc">When (and whether) trips should be generated from this set automatically — only applies if automatic generation is configured. A schedule is a start time plus a recurring calendar pattern, not a simple day-of-week toggle.</td></tr>
+            <tr class="row-optional"><td><span class="fname">Custom Fields</span></td><td class="fdesc">Any organisation-specific fields your implementation has added — this tab appears on every Tramm form, not just Master Route Sets.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="content-h3">Automatic trip generation</div>
+        <p class="body-text">Tramm can generate trips from a Master Route Set automatically, on a schedule, without anyone doing it manually. This is a scheduled background task — some teams refer to it informally as "the Worker," but that's a descriptive nickname used in training material, not the literal name of a button or menu item, and it's a different thing from any other background component in Tramm that might share that name.</p>
+
+        <table class="decision-table">
+          <thead><tr><th>If…</th><th>Then…</th></tr></thead>
+          <tbody>
+            <tr><td class="dt-if">The scheduled time arrives</td><td class="dt-then">The task loads the assigned Route Set and reads the current state of each Master Route in it.</td></tr>
+            <tr><td class="dt-if">A route in the set only just changed</td><td class="dt-then">The change is picked up automatically — the set always reads the route's current state, not a stored copy.</td></tr>
+            <tr><td class="dt-if">A route in the set is not Stop-Only</td><td class="dt-then">It is skipped — automatic generation only works for Stop-Only routes.</td></tr>
+            <tr><td class="dt-if">You need trips generated right now</td><td class="dt-then">Use the manual "Build Trips From Selected Set" action instead of waiting for the schedule.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p><strong>Automated trip generation does not optimise, reorder, or "fix" a route.</strong> It builds trips exactly as the Master Route and Route Set are configured — and it never creates new Master Routes on its own. Nothing changes until the schedule next runs, or someone triggers it manually.</p>
+        </div>
+      </section>
+
+      <!-- ── TROUBLESHOOTING ── -->
+      <section id="troubleshooting">
+        <p class="section-label">Troubleshooting</p>
+        <p class="section-intro">Common issues and where to look first.</p>
+
+        <table class="decision-table">
+          <thead><tr><th>If…</th><th>Then check…</th></tr></thead>
+          <tbody>
+            <tr><td class="dt-if">The route won't save</td><td class="dt-then">All mandatory fields are complete, and the route has at least one leg.</td></tr>
+            <tr><td class="dt-if">The route isn't showing up in Planner</td><td class="dt-then">The Groups on the route match the user's access, and any filters applied in Planner.</td></tr>
+            <tr><td class="dt-if">Stops are in the wrong order</td><td class="dt-then">The sequence on the Legs tab in Master Route Builder — fix it there, not in an already-built trip.</td></tr>
+            <tr><td class="dt-if">A route change isn't showing up in automated trips</td><td class="dt-then">Whether the route is Stop-Only, whether it's in a Route Set, and whether the schedule (or a manual trigger) has actually run since you made the change.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── BEST PRACTICE ── -->
+      <section id="best-practice">
+        <p class="section-label">Best Practice</p>
+        <p class="section-intro">A few habits that keep Master Routes reliable as your operation grows.</p>
+
+        <ul class="tips-list">
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Name routes consistently.</strong> Include the region or depot and the direction of travel, so planners can find the right route without opening it.</span>
+          </li>
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Check sites are active and service times are realistic</strong> before relying on a route day to day.</span>
+          </li>
+          <li class="tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Limit editing rights to a small group.</strong> A route in active use affects every trip built from it going forward.</span>
+          </li>
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span><strong>Don't use a Master Route for non-standard or constantly-changing work.</strong> If the stop sequence changes regularly or the job needs a flexible approach, build the trip manually instead.</span>
+          </li>
+        </ul>
+      </section>
+
+      <nav class="page-nav-bottom">
+        <a href="index.html">&larr; Back to Data Manager</a>
+        <div class="nav-right">
+          <a href="../../index.html">OPSI Docs home</a>
+        </div>
+      </nav>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>OPSI Docs &mdash; for support, contact your Tramm implementation team.</p>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&uarr; Top</button>
+
+  <script>
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+  </script>
+</body>
+</html>
