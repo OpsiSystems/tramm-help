@@ -784,12 +784,12 @@
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-ovr">✓</span></td>
             </tr>
-            <tr class="row-override">
+            <tr class="row-optional">
               <td><span class="fname">Loading Rate</span></td>
-              <td><span class="fdesc">Site-specific loading/unloading speed. Overrides any class or product-level loading rate when set.</span></td>
+              <td><span class="fdesc">Site-specific loading/unloading speed. Added to the Vehicle Class and Product loading rates — not a replacement — to produce the total stop duration. The only thing that replaces the calculated total instead of adding to it is a duration set explicitly on the Job itself.</span></td>
               <td class="col-tick"></td>
+              <td class="col-tick"><span class="tick-opt">✓</span></td>
               <td class="col-tick"></td>
-              <td class="col-tick"><span class="tick-ovr">✓</span></td>
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Regions</span></td>
@@ -895,7 +895,7 @@
           <li><div><strong>Specification → Region Allocation</strong>: If you are not using automatic region allocation, manually assign the site to one or more Regions here.</div></li>
           <li><div><strong>Specification → Linked Vehicle Classes</strong>: Link the Vehicle Classes permitted to service this site. Only vehicles in these classes will be considered for stops here during planning. Leave blank to allow all classes.</div></li>
           <li><div><strong>Specification → Durations</strong>: Override the <strong>Entry Duration</strong> or <strong>Exit Duration</strong> only if this specific site's dwell time differs from its Site Class default. Leave at zero to inherit from the class.</div></li>
-          <li><div><strong>Specification → Loading Rate</strong>: Override the loading rate if this site handles goods at a different rate from the class or product default.</div></li>
+          <li><div><strong>Specification → Loading Rate</strong>: Set a loading rate here if this site has its own handling speed. It is not a fallback or override — this figure is added to the Vehicle Class and Product loading rates to produce the total stop duration. Leave at zero if this site doesn't need its own rate.</div></li>
           <li><div><strong>Specification → Attributes</strong>: Add any site-specific attributes not already inherited from the Site Class.</div></li>
           <li><div><strong>Operating Hours</strong> tab: Override the operating hours only if this site's hours differ from its Site Class. Leave blank to inherit from the class.</div></li>
           <li><div><strong>Contact Info</strong> tab: Add the site contact details — contact name, type, and details.</div></li>

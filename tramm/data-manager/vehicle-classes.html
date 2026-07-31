@@ -1090,7 +1090,7 @@
             <div class="step-num">11</div>
             <div class="step-body">
               <div class="step-title">Specification → Loading Rate</div>
-              <div class="step-detail">Set the default loading time for vehicles of this class. The value is in <strong>seconds per unit of the capacity dimension</strong> — for example, if your capacity dimension is mass, a value of 5 means 5 seconds per kg; if your dimension is pallets, it means 5 seconds per pallet. This is not a fallback — the vehicle class, site, and product loading rates (wherever each is set) are all <strong>added together</strong> to produce the total stop duration (also called TAT — turnaround time).</div>
+              <div class="step-detail">Set the default loading time for vehicles of this class. The value is in <strong>seconds per unit of the capacity dimension</strong> — for example, if your capacity dimension is mass, a value of 5 means 5 seconds per kg; if your dimension is pallets, it means 5 seconds per pallet. This is not a fallback — the vehicle class, site, and product loading rates (wherever each is set) are all <strong>added together</strong> to produce the total stop duration (also called TAT — turnaround time). The one exception: if a duration is set explicitly on the Job itself, that value replaces the calculated total entirely, instead of adding to it.</div>
             </div>
           </li>
           <li>
@@ -1262,6 +1262,13 @@
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
             <span><strong>Setting Length, Width, and Height in Physical Size instead of the Capacity section when using the 3D Load Builder.</strong> The 3D Load Builder uses the L/W/H values from the <strong>Capacity</strong> tab, not from Physical Size. If those Capacity dimensions are missing, the visual will not display. These are set on the Vehicle Class — individual vehicles do not have their own size fields.</span>
+          </li>
+
+          <li class="mistake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span><strong>Setting the same loading rate figure on the vehicle class, site, and product.</strong> Because all three add together, entering the same value in more than one place multiplies the effective loading time rather than confirming it — for example, 5 seconds/kg set on all three doesn't mean 5 seconds/kg, it means 15 seconds/kg. Only set a rate at the level(s) where it genuinely needs to apply.</span>
           </li>
 
           <li class="mistake">

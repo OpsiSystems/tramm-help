@@ -663,7 +663,7 @@
             </tr>
             <tr class="row-optional">
               <td><span class="fname">Loading Rate</span></td>
-              <td><span class="fdesc">How long it takes to load and offload this product, expressed in seconds per unit — <strong>LoadingSecondsPerUnit</strong> and <strong>OffloadingSecondsPerUnit</strong>. Used to calculate stop durations in the Planner.</span><div class="fnote">This is not a fallback — the product, vehicle class, and site loading rates (wherever each is set) are all added together to produce the total stop duration.</div></td>
+              <td><span class="fdesc">How long it takes to load and offload this product, expressed in seconds per unit — <strong>LoadingSecondsPerUnit</strong> and <strong>OffloadingSecondsPerUnit</strong>. Used to calculate stop durations in the Planner.</span><div class="fnote">This is not a fallback — the product, vehicle class, and site loading rates (wherever each is set) are all added together to produce the total stop duration. The one exception: a duration set explicitly on the Job itself replaces the calculated total entirely, instead of adding to it.</div></td>
               <td class="col-tick"></td>
               <td class="col-tick"></td>
               <td class="col-tick"><span class="tick-opt">✓</span></td>
